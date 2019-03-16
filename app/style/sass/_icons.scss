@@ -1,472 +1,560 @@
 /*--------------------------------
 
-tik8 Web Font
+chilivery Web Font
 Generated using nucleoapp.com
 
 -------------------------------- */
 @font-face {
-  font-family: 'tik8';
-  src: url('../fonts/icons/tik8.eot');
-  src: url('../fonts/icons/tik8.eot') format('embedded-opentype'), url('../fonts/icons/tik8.woff2') format('woff2'), url('../fonts/icons/tik8.woff') format('woff'), url('../fonts/icons/tik8.ttf') format('truetype'), url('../fonts/icons/tik8.svg') format('svg');
+  font-family: 'chilivery';
+  src: url('../fonts/icons/chilivery.eot');
+  src: url('../fonts/icons/chilivery.eot') format('embedded-opentype'),
+    url('../fonts/icons/chilivery.woff') format('woff'),
+     url('../fonts/icons/chilivery.ttf') format('truetype'),
+      url('../fonts/icons/chilivery.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-/*------------------------
-	base class definition
--------------------------*/
-.icon {
-  display: inline-block;
-  font: normal normal normal 1em/1 'tik8';
+
+[class^="chilivery-"], [class*=" chilivery-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'chilivery' !important;
   speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
   text-transform: none;
-  /* Better Font Rendering */
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/*------------------------
-  change icon size
--------------------------*/
-/* relative units */
-.icon-sm {
-  font-size: 0.8em;
+
+.chilivery-motochili:before {
+  content: "\144";
 }
-.icon-lg {
-  font-size: 1.2em;
+.chilivery-filter-2:before {
+  content: "\145";
 }
-/* absolute units */
-.icon-16 {
+.chilivery-organization-code:before {
+  content: "\c7";
+}
+.chilivery-setting:before {
+  content: "\ca";
+}
+.chilivery-vip-medal:before {
+  content: "\cb";
+}
+.chilivery-restaurant-seafood:before {
+  content: "\cc";
+}
+.chilivery-restaurant-persian:before {
+  content: "\cd";
+}
+.chilivery-restaurant-kitchen:before {
+  content: "\ce";
+}
+.chilivery-restaurant-italian:before {
+  content: "\cf";
+}
+.chilivery-restaurant-homemade:before {
+  content: "\d0";
+}
+.chilivery-restaurant-fastfood:before {
+  content: "\d1";
+}
+.chilivery-restaurant-cafe:before {
+  content: "\d2";
+}
+.chilivery-restaurant-breakfast:before {
+  content: "\d3";
+}
+.chilivery-restaurant-vegeterian1:before {
+  content: "\d4";
+}
+.chilivery-sort:before {
+  content: "\d5";
+}
+.chilivery-organization:before {
+  content: "\171";
+}
+.chilivery-chilivery-logo2:before {
+  content: "\1b3";
+}
+.chilivery-faq:before {
+  content: "\26f";
+}
+.chilivery-my-address:before {
+  content: "\270";
+}
+.chilivery-faq2:before {
+  content: "\22";
+}
+.chilivery-my-address2:before {
+  content: "\35b";
+}
+.chilivery-arrow-2:before {
+  content: "\ba";
+}
+.chilivery-gender:before {
+  content: "\20a7";
+}
+.chilivery-birthday:before {
+  content: "\20a8";
+}
+.chilivery-crisp:before {
+  content: "\20a9";
+}
+.chilivery-chef-answer:before {
+  content: "\201b";
+}
+.chilivery-restaurant-suggested:before {
+  content: "\62";
+}
+.chilivery-warning-2:before {
+  content: "\bb";
+}
+.chilivery-economic:before {
+  content: "\a6";
+}
+.chilivery-economic_level1:before {
+  content: "\a7";
+}
+.chilivery-economic_level2:before {
+  content: "\a8";
+}
+.chilivery-economic_level3:before {
+  content: "\a9";
+}
+.chilivery-arrow:before {
+  content: "\aa";
+}
+.chilivery-description:before {
+  content: "\ab";
+}
+.chilivery-parking:before {
+  content: "\ac";
+}
+.chilivery-website:before {
+  content: "\ae";
+}
+.chilivery-delivery-zone:before {
+  content: "\af";
+}
+.chilivery-contract:before {
+  content: "\b0";
+}
+.chilivery-tax:before {
+  content: "\b1";
+}
+.chilivery-share-android:before {
+  content: "\b2";
+}
+.chilivery-forward-android:before {
+  content: "\b3";
+}
+.chilivery-back-android:before {
+  content: "\b4";
+}
+.chilivery-notification:before {
+  content: "\b5";
+}
+.chilivery-menu:before {
+  content: "\b6";
+}
+.chilivery-clock:before {
+  content: "\b7";
+}
+.chilivery-sheba:before {
+  content: "\b8";
+}
+.chilivery-credit-card:before {
+  content: "\b9";
+}
+.chilivery-star-square:before {
+  content: "\a5";
+}
+.chilivery-location-chilivery:before {
+  content: "\a4";
+}
+.chilivery-mailbox:before {
+  content: "\a3";
+}
+.chilivery-policy:before {
+  content: "\a2";
+}
+.chilivery-rules:before {
+  content: "\a1";
+}
+.chilivery-add-rate:before {
+  content: "\2c";
+}
+.chilivery-job-opportunity:before {
+  content: "\70";
+}
+.chilivery-add-restaurant:before {
+  content: "\7c";
+}
+.chilivery-online-pay-help:before {
+  content: "\2b";
+}
+.chilivery-how-to-buy:before {
+  content: "\3a";
+}
+.chilivery-phone:before {
+  content: "\21";
+}
+.chilivery-about:before {
+  content: "\3f";
+}
+.chilivery-reorder:before {
+  content: "\3e";
+}
+.chilivery-order-details:before {
+  content: "\3c";
+}
+.chilivery-delivery-time:before {
+  content: "\4d";
+}
+.chilivery-radiobutton_empty:before {
+  content: "\42";
+}
+.chilivery-radiobutton_full:before {
+  content: "\56";
+}
+.chilivery-checkbox_empty:before {
+  content: "\43";
+}
+.chilivery-checkbox_full:before {
+  content: "\58";
+}
+.chilivery-zoom:before {
+  content: "\e902";
+}
+.chilivery-search:before {
+  content: "\5a";
+}
+.chilivery-dot:before {
+  content: "\4c";
+}
+.chilivery-Receiption:before {
+  content: "\4b";
+}
+.chilivery-delete:before {
+  content: "\46";
+}
+.chilivery-edit-number:before {
+  content: "\47";
+}
+.chilivery-time:before {
+  content: "\60";
+}
+.chilivery-calendar:before {
+  content: "\31";
+}
+.chilivery-tracking-code:before {
+  content: "\32";
+}
+.chilivery-sms:before {
+  content: "\33";
+}
+.chilivery-telegram:before {
+  content: "\34";
+}
+.chilivery-email-2:before {
+  content: "\35";
+}
+.chilivery-exit:before {
+  content: "\36";
+}
+.chilivery-campaign:before {
+  content: "\37";
+}
+.chilivery-referral:before {
+  content: "\38";
+}
+.chilivery-fav-restaurant:before {
+  content: "\39";
+}
+.chilivery-fav-food:before {
+  content: "\30";
+}
+.chilivery-my-transaction:before {
+  content: "\2d";
+}
+.chilivery-my-order:before {
+  content: "\3d";
+}
+.chilivery-edit:before {
+  content: "\71";
+}
+.chilivery-photo:before {
+  content: "\77";
+}
+.chilivery-speech:before {
+  content: "\65";
+}
+.chilivery-delivery:before {
+  content: "\72";
+}
+.chilivery-wallet-2:before {
+  content: "\74";
+}
+.chilivery-wallet:before {
+  content: "\79";
+}
+.chilivery-share:before {
+  content: "\75";
+}
+.chilivery-alert:before {
+  content: "\69";
+}
+.chilivery-smiley-bad:before {
+  content: "\6f";
+}
+.chilivery-smiley-average:before {
+  content: "\e901";
+}
+.chilivery-smiley-good2:before {
+  content: "\5b";
+}
+.chilivery-star:before {
+  content: "\5d";
+}
+.chilivery-check-2:before {
+  content: "\61";
+}
+.chilivery-check:before {
+  content: "\73";
+}
+.chilivery-filter-restaurant-type:before {
+  content: "\64";
+}
+.chilivery-filter-food-type:before {
+  content: "\66";
+}
+.chilivery-sort-suggested:before {
+  content: "\67";
+}
+.chilivery-filter-open:before {
+  content: "\68";
+}
+.chilivery-sort-rate:before {
+  content: "\6a";
+}
+.chilivery-sort-new:before {
+  content: "\6b";
+}
+.chilivery-sort-economy:before {
+  content: "\3b";
+}
+.chilivery-sort-discount:before {
+  content: "\27";
+}
+.chilivery-add:before {
+  content: "\5c";
+}
+.chilivery-remove:before {
+  content: "\7a";
+}
+.chilivery-close:before {
+  content: "\78";
+}
+.chilivery-restaurant-chili:before {
+  content: "\63";
+}
+.chilivery-restaurant-new:before {
+  content: "\76";
+}
+.chilivery-restaurant-vegeterian:before {
+  content: "\2e";
+}
+.chilivery-fav-empty:before {
+  content: "\2f";
+}
+.chilivery-fav-full:before {
+  content: "\7e";
+}
+.chilivery-filter:before {
+  content: "\40";
+}
+.chilivery-group-pins:before {
+  content: "\23";
+}
+.chilivery-location-restaurant:before {
+  content: "\24";
+}
+.chilivery-location-user:before {
+  content: "\25";
+}
+.chilivery-location:before {
+  content: "\5e";
+}
+.chilivery-compass-2:before {
+  content: "\26";
+}
+.chilivery-compass:before {
+  content: "\2a";
+}
+.chilivery-gift:before {
+  content: "\28";
+}
+.chilivery-forget-pass-3:before {
+  content: "\48";
+}
+.chilivery-forget-pass-1:before {
+  content: "\29";
+}
+.chilivery-forget-pass-2:before {
+  content: "\5f";
+}
+.chilivery-email:before {
+  content: "\4a";
+}
+.chilivery-mobile:before {
+  content: "\51";
+}
+.chilivery-arrow-top:before {
+  content: "\57";
+}
+.chilivery-arrow-left:before {
+  content: "\45";
+}
+.chilivery-arrow-bottom:before {
+  content: "\52";
+}
+.chilivery-arrow-right:before {
+  content: "\4e";
+}
+.chilivery-back:before {
+  content: "\54";
+}
+.chilivery-more:before {
+  content: "\59";
+}
+.chilivery-basket:before {
+  content: "\55";
+}
+.chilivery-home:before {
+  content: "\49";
+}
+.chilivery-restaurant-2:before {
+  content: "\4f";
+}
+.chilivery-restaurant:before {
+  content: "\50";
+}
+.chilivery-chilivery-logo:before {
+  content: "\7b";
+}
+.chilivery-yahoo:before {
+  content: "\7d";
+}
+.chilivery-google-plus:before {
+  content: "\41";
+}
+.chilivery-pass:before {
+  content: "\53";
+}
+.chilivery-user:before {
+  content: "\44";
+}
+
+.glyph {
+  font-size: 16px;
+  width: 50px;
+  padding-bottom: 1em;
+  margin-right: 0;
+  margin-bottom: 1em;
+  float: left;
+  overflow: hidden;
+}
+.liga {
+  width: 80%;
+  width: calc(100% - 2.5em);
+}
+.talign-right {
+  text-align: right;
+}
+.talign-center {
+  text-align: center;
+}
+.bgc1 {
+  background: #f1f1f1;
+}
+.fgc1 {
+  color: #999;
+}
+.fgc0 {
+  color: #000;
+}
+.mvm {
+  margin-top: .75em;
+  margin-bottom: .75em;
+}
+.mtn {
+  margin-top: 0;
+}
+.mtl, .mal {
+  margin-top: 1.5em;
+}
+.mbl, .mal {
+  margin-bottom: 1.5em;
+}
+.mal, .mhl {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+}
+.mhmm {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.mls {
+  margin-left: .25em;
+  font-size: 17px;
+  display: none;
+}
+.ptl {
+  padding-top: 1.5em;
+}
+.pbs, .pvs {
+  padding-bottom: .25em;
+}
+.pvs, .pts {
+  padding-top: .25em;
+}
+.unit {
+  float: left;
+}
+.unitRight {
+  float: right;
+}
+.size1of2 {
+  width: 50%;
+}
+.size1of1 {
+  width: 100%;
+}
+.hidden-true {
+  display: none;
+}
+.textbox0 {
+  width: 3em;
+  background: #f1f1f1;
+  padding: .25em .5em;
+  line-height: 1.5;
+  height: 1.5em;
+}
+#testDrive {
+  display: block;
+  padding-top: 24px;
+  line-height: 1.5;
+}
+.fs0 {
   font-size: 16px;
 }
-.icon-32 {
+.fs1 {
   font-size: 32px;
 }
-/*----------------------------------
-  add a square/circle background
------------------------------------*/
-.icon-bg-square,
-.icon-bg-circle {
-  padding: 0.35em;
-  background-color: #eee;
-}
-.icon-bg-circle {
-  border-radius: 50%;
-}
-/*------------------------------------
-  use icons as list item markers
--------------------------------------*/
-.icon-ul {
-  padding-left: 0;
-  list-style-type: none;
-}
-.icon-ul > li {
-  display: flex;
-  align-items: flex-start;
-  line-height: 1.4;
-}
-.icon-ul > li > .icon {
-  margin-right: 0.4em;
-  line-height: inherit;
-}
-/*------------------------
-  spinning icons
--------------------------*/
-.icon-is-spinning {
-  -webkit-animation: icon-spin 2s infinite linear;
-  -moz-animation: icon-spin 2s infinite linear;
-  animation: icon-spin 2s infinite linear;
-}
-@-webkit-keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-@-moz-keyframes icon-spin {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-@keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-/*------------------------
-  rotated/flipped icons
--------------------------*/
-.icon-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-.icon-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-.icon-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-  -webkit-transform: rotate(270deg);
-  -moz-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
-  -o-transform: rotate(270deg);
-  transform: rotate(270deg);
-}
-.icon-flip-y {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
-  -webkit-transform: scale(-1, 1);
-  -moz-transform: scale(-1, 1);
-  -ms-transform: scale(-1, 1);
-  -o-transform: scale(-1, 1);
-  transform: scale(-1, 1);
-}
-.icon-flip-x {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  -webkit-transform: scale(1, -1);
-  -moz-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
-  -o-transform: scale(1, -1);
-  transform: scale(1, -1);
-}
-/*------------------------
-	icons
--------------------------*/
 
-.icon-telegram::before {
-  content: "\ea02";
-}
-
-.icon-cutlery::before {
-  content: "\ea03";
-}
-
-.icon-parking::before {
-  content: "\ea04";
-}
-
-.icon-zoom-out::before {
-  content: "\ea05";
-}
-
-.icon-zoom-in::before {
-  content: "\ea06";
-}
-
-.icon-zoom::before {
-  content: "\ea07";
-}
-
-.icon-wifi::before {
-  content: "\ea08";
-}
-
-.icon-wallet-43::before {
-  content: "\ea09";
-}
-
-.icon-time-clock::before {
-  content: "\ea0a";
-}
-
-.icon-event-ticket::before {
-  content: "\ea0b";
-}
-
-.icon-arrow-left::before {
-  content: "\ea0c";
-}
-
-.icon-data-download::before {
-  content: "\ea0d";
-}
-
-.icon-single-01::before {
-  content: "\ea0e";
-}
-
-.icon-e-remove::before {
-  content: "\ea0f";
-}
-
-.icon-network-connection::before {
-  content: "\ea10";
-}
-
-.icon-security::before {
-  content: "\ea11";
-}
-
-.icon-scale::before {
-  content: "\ea12";
-}
-
-.icon-refresh::before {
-  content: "\ea13";
-}
-
-.icon-receipt-list-43::before {
-  content: "\ea14";
-}
-
-.icon-print::before {
-  content: "\ea15";
-}
-
-.icon-setup-preferences::before {
-  content: "\ea16";
-}
-
-.icon-pin-3::before {
-  content: "\ea17";
-}
-
-.icon-phone::before {
-  content: "\ea18";
-}
-
-.icon-p-check::before {
-  content: "\ea19";
-}
-
-.icon-move-06::before {
-  content: "\ea1a";
-}
-
-.icon-mouse-10::before {
-  content: "\ea1b";
-}
-
-.icon-up-arrow::before {
-  content: "\ea1c";
-}
-
-.icon-right-arrow::before {
-  content: "\ea1d";
-}
-
-.icon-left-arrow::before {
-  content: "\ea1e";
-}
-
-.icon-down-arrow::before {
-  content: "\ea1f";
-}
-
-.icon-menu-2::before {
-  content: "\ea20";
-}
-
-.icon-menu-8::before {
-  content: "\ea21";
-}
-
-.icon-logout::before {
-  content: "\ea22";
-}
-
-.icon-log-in::before {
-  content: "\ea23";
-}
-
-.icon-lock::before {
-  content: "\ea24";
-}
-
-.icon-thumb-up::before {
-  content: "\ea25";
-}
-
-.icon-thumb-down::before {
-  content: "\ea26";
-}
-
-.icon-headphones-mic::before {
-  content: "\ea27";
-}
-
-.icon-headphones-2::before {
-  content: "\ea28";
-}
-
-.icon-handshake::before {
-  content: "\ea29";
-}
-
-.icon-hand-card::before {
-  content: "\ea2a";
-}
-
-.icon-present::before {
-  content: "\ea2b";
-}
-
-.icon-fullscreen-double-75::before {
-  content: "\ea2c";
-}
-
-.icon-star-1::before {
-  content: "\ea2d";
-}
-
-.icon-disabled::before {
-  content: "\ea2e";
-}
-
-.icon-credit-card::before {
-  content: "\ea2f";
-}
-
-.icon-coffee::before {
-  content: "\ea30";
-}
-
-.icon-frame-c-arrow-up::before {
-  content: "\ea31";
-}
-
-.icon-frame-c-caret-right::before {
-  content: "\ea32";
-}
-
-.icon-c-remove::before {
-  content: "\ea33";
-}
-
-.icon-frame-c-arrow-down::before {
-  content: "\ea34";
-}
-
-.icon-circle-08::before {
-  content: "\ea35";
-}
-
-.icon-cheque-3::before {
-  content: "\ea36";
-}
-
-.icon-c-check::before {
-  content: "\ea37";
-}
-
-.icon-f-comment::before {
-  content: "\ea38";
-}
-
-.icon-chair::before {
-  content: "\ea39";
-}
-
-.icon-calendar-date-2::before {
-  content: "\ea3a";
-}
-
-.icon-alarm::before {
-  content: "\ea3b";
-}
-
-.icon-c-question::before {
-  content: "\ea3c";
-}
-
-.icon-c-warning::before {
-  content: "\ea3d";
-}
-
-.icon-add-29::before {
-  content: "\ea3e";
-}
-
-.icon-a-check::before {
-  content: "\ea3f";
-}
-
-.icon-video-66::before {
-  content: "\ea40";
-}
-
-.icon-mic::before {
-  content: "\ea41";
-}
-
-.icon-man::before {
-  content: "\ea42";
-}
-
-.icon-logo-twitter::before {
-  content: "\ea43";
-}
-
-.icon-logo-linkedin::before {
-  content: "\ea44";
-}
-
-.icon-logo-instagram::before {
-  content: "\ea45";
-}
-
-.icon-laugh-17::before {
-  content: "\ea46";
-}
-
-.icon-hat-3::before {
-  content: "\ea47";
-}
-
-.icon-star-2::before {
-  content: "\ea48";
-}
-
-.icon-b-preview::before {
-  content: "\ea49";
-}
-
-.icon-preview::before {
-  content: "\ea4a";
-}
-
-.icon-f-remove::before {
-  content: "\ea4b";
-}
-
-.icon-f-check::before {
-  content: "\ea4c";
-}
-
-.icon-theater::before {
-  content: "\ea4d";
-}
-
-.icon-aparat::before {
-  content: "\ea4e";
-}
-
-.icon-logo-fb-simple::before {
-  content: "\ea4f";
-}
-
-.icon-progress::before {
-  content: "\ea50";
-}
