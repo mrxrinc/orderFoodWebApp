@@ -33,6 +33,14 @@ const AnimateField = props => {
         {classes.label}{' '}
         {!!classes.required && <span className="required-start">*</span>}
       </label>
+      {!!classes.icon && (
+        <i
+          className={`chilivery-icon ${classes.icon}`}
+          style={{
+            color: classes.iconColor ? classes.iconColor : '#929292',
+          }}
+        />
+      )}
     </div>
   );
 };
