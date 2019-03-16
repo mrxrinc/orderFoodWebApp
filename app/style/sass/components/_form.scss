@@ -5,10 +5,16 @@
   position: relative;
   margin-bottom: 18px;
   label{
-    font-size: 13px;
     color:$color-primary;
     padding-right:13px;
+    margin-bottom: 0;
   }
+}
+.form-control{
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 .form-control:focus{
   box-shadow: none;
@@ -30,11 +36,12 @@
 }
 .panigale-form-validation{
   color:$color-danger;
-  font-size: 11px;
+  font-size: 25px;
   padding-right: 12px;
   padding-top: 2px;
   position: absolute;
-  bottom: -20px;
+  bottom: -40px;
+  left: 10px;
 }
 .panigale-form-flex{
   display: flex;
@@ -42,11 +49,15 @@
 }
 
 .panigale-animate-field {
+  margin-bottom: 40px;
   display: flex;
   flex-flow: column-reverse;
+  position: relative;
+  padding-right: 56px;
   label, input {
     transition: all 0.2s;
     touch-action: manipulation;
+    font-size: 25px;
   }
   label > span.required-start{
     color: $color-danger;
@@ -62,7 +73,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     transform-origin: left bottom;
-    transform: translate3d(0, 165%, 0);
+    transform: translate3d(0, 90%, 0);
   }
 
   ::-webkit-input-placeholder,::placeholder {
@@ -220,7 +231,7 @@ input[type="radio"]:checked+.radio-face:after{
   right: 6px;
 }
 input[type="checkbox"].styled:checked+label:after, input[type="radio"].styled:checked+label:after {
-  font-family: 'tik8';
+  font-family: 'chilivery';
   content: "\EA4C";
   font-size: 10px;
   // top: -2px;
