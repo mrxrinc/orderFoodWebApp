@@ -15,8 +15,10 @@
   border-top: 0;
   border-left: 0;
   border-right: 0;
+  background-color: transparent;
 }
 .form-control:focus{
+  background-color: transparent;
   box-shadow: none;
 }
 
@@ -25,7 +27,7 @@
     border-color:$color-danger !important;
   }
 }
-.panigale-form-shabe{
+.chili-form-shabe{
   position: absolute;
   left: 25px;
   direction: ltr;
@@ -34,7 +36,7 @@
     padding-left: 35px;
   }
 }
-.panigale-form-validation{
+.chili-form-validation{
   color:$color-danger;
   font-size: 25px;
   padding-right: 12px;
@@ -43,12 +45,12 @@
   bottom: -40px;
   left: 10px;
 }
-.panigale-form-flex{
+.chili-form-flex{
   display: flex;
   align-items: center;
 }
 
-.panigale-animate-field {
+.chili-animate-field {
   margin-bottom: 40px;
   display: flex;
   flex-flow: column-reverse;
@@ -88,7 +90,7 @@
     transform: translate(0, 0) scale(1);
     cursor: pointer;
   }
-  .panigale-password__show{
+  .chili-password__show{
     position: absolute;
     top: 40px;
     left: 25px;
@@ -241,8 +243,16 @@ input[type="checkbox"].styled:checked+label:after, input[type="radio"].styled:ch
   color: #fff;
 }
 
-.panigale-login-form{
+.chili-login-form{
   .btn{
     margin-right: auto;
+  }
+}
+.chilivery{
+  &-icon{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 40px;
   }
 }
