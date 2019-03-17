@@ -5,7 +5,8 @@
  */
 
 import React from 'react';
-import { AnimateField, AnimateFieldPassword, AnimateFieldSheba } from '../../components/ChiliForm';
+import { AnimateField } from '../../components/ChiliForm';
+import ChiliButton from '../../components/ChiliButton';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Kit extends React.Component {
@@ -13,7 +14,6 @@ export class Kit extends React.Component {
     super(props);
     this.state = {
       loginUserName: '',
-      loginPass: '',
     };
   }
 
@@ -22,12 +22,18 @@ export class Kit extends React.Component {
   };
 
   render() {
-    const classes = this.props;
+    const buttonElement = {
+      title: `مشاهده لیست رستوران ها`,
+      small: `small`,
+      big: `big`,
+      success: `success`,
+    };
+    // const classes = this.props;
     const { loginUserName } = this.state;
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">   
+          <div className="col-lg-12">
             <div className="clearfix mhl ptl">
               <h1 className="mvm mtn fgc1">Grid Size: Unknown</h1>
               <div className="glyph fs1">
@@ -1333,13 +1339,13 @@ export class Kit extends React.Component {
               iconColor="blue"
               validation={['شماره موبایل اشتباه است.']}
             />
-
-
-
-
-
-
-
+            <hr />
+            <h1>Buttons:</h1>
+            <ChiliButton
+              title={buttonElement.title}
+              size={buttonElement.small}
+              type={buttonElement.success}
+            />
           </div>
         </div>
       </div>
