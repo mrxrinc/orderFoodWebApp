@@ -9,9 +9,35 @@
 .blue { color: $color-info };
 .bgBlue { background-color: $color-info };
 
+.primary { color: $color-primary };
+.primaryBg { background-color: $color-primary };
+.secondary { color: $color-secondary };
+.secondaryBg { background-color: $color-secondary };
+.success { color: $color-success };
+.successBg { background-color: $color-success };
+.info { color: $color-info };
+.infoBg { background-color: $color-info };
+.danger { color: $color-danger };
+.dangerBg { background-color: $color-danger };
+.warning { color: $color-secondary };
+.warningBg { background-color: $color-secondary };
+.disable { color: $color-disable };
+.disableBg { background-color: $color-disable };
+.light { color: $color-light };
+.lightBg { background-color: $color-light };
+
 .debug { background-color: #f9d7e1 };
 .d { background-color: #C8CA2633 };
 .f { background-color: #ff00aa33 };
+
+.reset {
+  box-sizing: border-box; 
+  margin:0; 
+  padding: 0;
+  border: none; 
+  list-style: none;
+	text-decoration: none;
+}
 
 .wFull { width: 100% };
 .hFull { height: 100% };
