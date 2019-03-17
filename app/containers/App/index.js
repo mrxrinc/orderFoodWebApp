@@ -14,6 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import RestaurantsList from 'containers/RestaurantsList/Loadable';
 import Kit from 'containers/Kit';
+import Checkout from 'containers/Checkout';
 
 import GlobalStyle from '../../global-styles';
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/kit" component={Kit} />
         <Route exact path="/restaurants-list" component={RestaurantsList} />
+        <Route exact path="/checkout" component={Checkout} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
