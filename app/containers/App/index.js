@@ -15,6 +15,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import RestaurantsList from 'containers/RestaurantsList/Loadable';
 import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
+import ChiliFooter from '../../components/ChiliFooter/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -29,6 +30,7 @@ export default function App() {
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
+      <ChiliFooter />
     </div>
   );
 }

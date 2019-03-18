@@ -1,0 +1,9 @@
+@import '../../style/sass/variable';
+
+.increment-decrease {
+  display: inline-block;
+  button {
+    display: inline-block;
+    border: 1px solid $color-border-2;
+  }
+}

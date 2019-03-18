@@ -21,7 +21,6 @@ export class Checkout extends React.PureComponent {
         <CheckoutCardItem />
         <CheckoutCardItem />
         <CheckoutCardItem />
-        <CheckoutCardItem />
       </div>
     );
   }
