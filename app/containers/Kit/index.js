@@ -5,12 +5,11 @@
  */
 
 import React from 'react';
-<<<<<<< HEAD
-import { AnimateField } from '../../components/ChiliForm';
+
 import ChiliButton from '../../components/ChiliButton';
-=======
+
 import { AnimateField, AnimateFieldSheba } from '../../components/ChiliForm';
->>>>>>> b121326c8a002b365cddd207c3aa6b95f228a358
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class Kit extends React.Component {
@@ -18,15 +17,12 @@ export class Kit extends React.Component {
     super(props);
     this.state = {
       loginUserName: '',
-<<<<<<< HEAD
-=======
       signUpGender: 'male',
       signUpPhone: '09358537536',
       signUpUserEmail: 'm.rastegar991@gmail.com',
       signUpSheba: '',
       signUpCity: '',
       loginPass: '',
->>>>>>> b121326c8a002b365cddd207c3aa6b95f228a358
     };
   }
 
@@ -35,7 +31,6 @@ export class Kit extends React.Component {
   };
 
   render() {
-<<<<<<< HEAD
     const buttonElement = {
       title: `مشاهده لیست رستوران ها`,
       small: `small`,
@@ -43,8 +38,6 @@ export class Kit extends React.Component {
       success: `success`,
     };
     // const classes = this.props;
-    const { loginUserName } = this.state;
-=======
     // const classes = this.props;
     const {
       loginUserName,
@@ -55,7 +48,6 @@ export class Kit extends React.Component {
       signUpCity,
       loginPass,
     } = this.state;
->>>>>>> b121326c8a002b365cddd207c3aa6b95f228a358
     return (
       <div className="container">
         <div className="row">
@@ -1365,7 +1357,6 @@ export class Kit extends React.Component {
               iconColor="blue"
               validation={['شماره موبایل اشتباه است.']}
             />
-<<<<<<< HEAD
             <hr />
             <h1>Buttons:</h1>
             <ChiliButton
@@ -1373,7 +1364,6 @@ export class Kit extends React.Component {
               size={buttonElement.small}
               type={buttonElement.success}
             />
-=======
             <AnimateField
               className="col-12"
               name="loginPass"
@@ -1503,7 +1493,6 @@ export class Kit extends React.Component {
                 ثبت
               </button>
             </div>
->>>>>>> b121326c8a002b365cddd207c3aa6b95f228a358
           </div>
         </div>
       </div>

@@ -21,6 +21,18 @@ export class Checkout extends React.PureComponent {
         <CheckoutCardItem />
         <CheckoutCardItem />
         <CheckoutCardItem />
+        <div className="food-delivery">
+          <div className="food-delivery__rbox">
+            <span>تحویل غذا</span>
+            <span>(هزینه ارسال:0 تومان)</span>
+          </div>
+          <div className="food-delivery__lbox">
+            <div className="tab-box">
+              <a href="#!">ارسال به من</a>
+              <a href="#!" className="active">در محل رستوران</a>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
