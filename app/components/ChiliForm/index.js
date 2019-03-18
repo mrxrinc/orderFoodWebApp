@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-access-state-in-setstate */
 /**
  *
  * ChiliForm
@@ -10,12 +13,12 @@ const AnimateField = props => {
   const classes = props;
   return (
     <div
-      className={`panigale-animate-field form-group ${
+      className={`chili-animate-field form-group ${
         classes.className ? classes.className : ''
       }${!classes.validation ? '' : ' panigale__border_red'}`}
     >
       {classes.validation && (
-        <div className="panigale-form-validation">{classes.validation[0]}</div>
+        <div className="chili-form-validation">{classes.validation[0]}</div>
       )}
       <input
         className="form-control"
@@ -49,14 +52,14 @@ const AnimateFieldSheba = props => {
   const classes = props;
   return (
     <div
-      className={`panigale-animate-field form-group ${
+      className={`chili-animate-field form-group ${
         classes.className ? classes.className : ''
       }${!classes.validation ? '' : ' panigale__border_red'}`}
     >
       {classes.validation && (
-        <div className="panigale-form-validation">{classes.validation[0]}</div>
+        <div className="chili-form-validation">{classes.validation[0]}</div>
       )}
-      <span className="panigale-form-shabe">IR-</span>
+      <span className="chili-form-shabe">IR-</span>
       <input
         className="form-control"
         type={classes.type}
@@ -117,6 +120,9 @@ class AnimateFieldPassword extends React.Component {
   showHide(e) {
     e.preventDefault();
     e.stopPropagation();
+    // this.state.type === 'input'
+    //   ? () => this.setState({ type: 'ppassword' })
+    //   : () => this.setState({ type: 'input' });
     this.setState({
       type: this.state.type === 'input' ? 'password' : 'input',
     });
@@ -126,14 +132,12 @@ class AnimateFieldPassword extends React.Component {
     const classes = this.props;
     return (
       <div
-        className={`panigale-animate-field form-group ${
+        className={`chili-animate-field form-group ${
           classes.className ? classes.className : ''
         }${!classes.validation ? '' : ' panigale__border_red'}`}
       >
         {classes.validation && (
-          <div className="panigale-form-validation">
-            {classes.validation[0]}
-          </div>
+          <div className="chili-form-validation">{classes.validation[0]}</div>
         )}
         <input
           className="form-control"
@@ -149,7 +153,7 @@ class AnimateFieldPassword extends React.Component {
           {classes.label}{' '}
           {!!classes.required && <span className="required-start">*</span>}
         </label>
-        <span className="panigale-password__show" onClick={this.showHide}>
+        <span className="chili-password__show" onClick={this.showHide}>
           {this.state.type === 'input' ? 'مخفی' : 'نمایش'}
         </span>
       </div>
