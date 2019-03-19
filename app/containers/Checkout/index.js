@@ -17,14 +17,16 @@ export class Checkout extends React.PureComponent {
   render() {
     return (
       <div className="checkout">
-        <CheckoutCardItem />
-        <CheckoutCardItem />
-        <CheckoutCardItem />
-        <CheckoutCardItem />
+        <div className="checkout__card-item">
+          <CheckoutCardItem />
+          <CheckoutCardItem />
+          <CheckoutCardItem />
+          <CheckoutCardItem />
+        </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
-            <span>تحویل غذا</span>
-            <span>(هزینه ارسال:0 تومان)</span>
+            <span>تحویل غذا </span>
+            <span className="cost-sending">(هزینه ارسال: 0 تومان)</span>
           </div>
           <div className="food-delivery__lbox">
             <div className="tab-box">
@@ -32,6 +34,7 @@ export class Checkout extends React.PureComponent {
               <a href="#!" className="active">در محل رستوران</a>
             </div>
           </div>
+          <div className="clearfix"></div>
         </div>
       </div>
     );
