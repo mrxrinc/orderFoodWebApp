@@ -20,15 +20,11 @@ import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/kit" component={Kit} />
-        <Route exact path="/restaurants-list" component={RestaurantsList} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-      <ChiliFooter />
-    </div>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/kit" component={Kit} />
+      <Route exact path="/restaurants-list" component={RestaurantsList} />
+      <Route component={NotFoundPage} />
+    </Switch>
   );
 }
