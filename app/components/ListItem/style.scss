@@ -18,6 +18,8 @@
     .right {
       width: 100px;
       height: inherit;
+      display: flex;
+      flex-basis: 100px;
       flex-shrink: 0;
 
       .imageBox {
@@ -31,9 +33,31 @@
     .left {
       width: 100%;
       height: inherit;
+      padding: 15px 10px 15px 5px;
 
       li {
         color: $color-text-icon;
+        display: flex;
+        align-items: center;
+        &:after {
+          content: "";
+          display: block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          margin: 0 8px 0 8px;
+          background-color: $color-secondary;
+        }
+        &:last-child:after {
+          display: none;
+        }
+      }
+
+      .economy {
+        span {
+          font-size: 35px;
+        
+        }
       }
     }
   }
