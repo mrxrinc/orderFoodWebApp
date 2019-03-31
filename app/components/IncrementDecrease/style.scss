@@ -1,0 +1,37 @@
+@import '../../style/sass/variable';
+
+.increment-decrease {
+  float: left;
+  button {
+    //display: inline-block;
+    float: left;
+    border: 1px solid $color-border-2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  &__count {
+    //width: ;
+    float: left;
+    color: $grey-9;
+    font-weight: bold;
+  }
+  &__add {
+    margin-right: 15px;
+    span {
+      color: $color-success;
+      font-weight: bold;
+      vertical-align: middle;
+      font-size: 12px;
+    }
+  }
+  &__remove {
+    margin-left: 15px;
+    span {
+      color: $color-danger;
+      font-weight: bold;
+      vertical-align: middle;
+      font-size: 12px;
+      }
+  }
+}

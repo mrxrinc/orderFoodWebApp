@@ -1,0 +1,49 @@
+@import '../../style/sass/variable';
+
+.checkout-carditem {
+  -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  width:100%;
+  height: 86px;
+  background-color: #fff;
+  border-radius: 10px;
+  float: right;
+  margin-bottom: 10px;
+  &__rbox{
+    width: 100px;
+    background-size: cover;
+    border-radius: 0 10px 10px 0;
+    height: 100%;
+    float: right;
+      img {
+      width: 100%;
+      border-radius: 0 10px 10px 0;
+    }
+  }
+  &__lbox{
+    padding-right: 110px;
+    width: 100%;
+    padding-left: 5px;
+    .counter {
+      padding-left: 5px;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-size: 14px;
+      margin-top: 10px;
+      color: $grey-9;
+    }
+    .number {
+      display: block;
+      color: $grey-7;
+      font-size: 13px;
+    }
+    .price{
+      display: inline-block;
+      color: $grey-9;
+      font-size: 14px;
+    }
+
+  }
+}
