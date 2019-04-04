@@ -1,5 +1,20 @@
 @import '../../style/sass/variable';
 
-h1{
-  color: $color-primary;
+.home {
+  background-image: url("../../images/home-bg.jpg");
+  background-size: cover;
+  background-position: bottom;
+  bottom: 60px;
+
+  .head {
+    height: 150px;
+    background-image: url("../../images/pattern.png");
+
+    .wave {
+      height: 16px;
+      background-repeat: repeat-x;
+      background-position: bottom left;
+      background-image: url("../../images/wave.png");
+    }
+  }
 }
