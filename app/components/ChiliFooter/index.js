@@ -13,7 +13,7 @@ class ChiliFooter extends React.Component {
   render() {
     return (
       <footer className="chili-footer">
-        <Login modal />
+        {/* <Login modal /> */}
         <div className="container">
           <div className="row chili-footer__list">
             <div className="chili-footer__list-item col">
