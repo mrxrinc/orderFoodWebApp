@@ -48,4 +48,28 @@
       }
     }
   }
+  .address {
+    padding: 15px 10px 0;
+    h4 {
+      font-size: 13px;
+      color: $grey-7;
+      font-weight: 400;
+    }
+    p {
+      font-size: 12px;
+    }
+  }
+  .description {
+    padding: 0 20px;
+    label {
+      color: $grey-7;
+      font-size: 14px;
+      max-width: 100% !important;
+      transform: translate3d(0, 170%, 0) !important;
+    }
+    i {
+      color: #A19F2E !important;
+      font-size: 30px;
+    }
+  }
 }
