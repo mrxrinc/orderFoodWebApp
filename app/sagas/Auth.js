@@ -62,11 +62,9 @@ export function* UserLogin() {
 }
 
 // worker saga: makes the api call when watcher saga sees the action
-function* userLogin({
-  payload
-}) {
+function* userLogin({ payload }) {
   try {
-    yield put(enableLoading({loginLoading: true}));
+    yield put(enableLoading({ loginLoading: true }));
     const signInUser = yield loginPost(payload.user);
     if (signInUser.status === 'success') {
       // alert(signInUser.message)
@@ -77,10 +75,10 @@ function* userLogin({
       if(response.status === "success"){
         yield put(getUserBalance(response.data));
       }
-      yield put(disableLoading({loginLoading: false}));
+      yield put(disableLoading({ loginLoading: false }));
 
       yield put(showModal({
-        loginModal: false
+          loginModal: false,
       }));
       yield put(addToast({
         text: signInUser.message,

@@ -2,7 +2,8 @@ import {API_URL_ROOT} from '../global';
 
 
 //Account
-export const login_post= () => API_URL_ROOT+'/account/api/user/login';
+// export const login_post= () => API_URL_ROOT+'/user/login';
+export const login_post= () => 'https://chilivery.net/mobile-api/v2/user/login';
 export const signUp_post= () => API_URL_ROOT+'/account/api/user/register';
 export const verify_post= () => API_URL_ROOT+'/account/api/user/verify';
 export const verifyPass_post= () => API_URL_ROOT+'/account/api/user/checkExistToken';
