@@ -41,7 +41,7 @@ export default class HomePage extends React.PureComponent {
             />
           </div>
 
-          <div className="searchBtn topM40 wFull hP20">
+          <div className="searchBtn topM40 wFull hP20 center">
             <ChiliButton type="green" title="مشاهده رستوران ها" size="big" />
           </div>
 
