@@ -6,6 +6,9 @@
  */
 
 import React from 'react';
+
+import ChiliButton from '../../components/ChiliButton';
+
 import { AnimateField, AnimateFieldSheba } from '../../components/ChiliForm';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -28,6 +31,13 @@ export class Kit extends React.Component {
   };
 
   render() {
+    const buttonElement = {
+      title: `مشاهده لیست رستوران ها`,
+      small: `small`,
+      big: `big`,
+      success: `success`,
+    };
+    // const classes = this.props;
     // const classes = this.props;
     const {
       loginUserName,
@@ -1346,6 +1356,13 @@ export class Kit extends React.Component {
               icon="chilivery-user"
               iconColor="blue"
               validation={['شماره موبایل اشتباه است.']}
+            />
+            <hr />
+            <h1>Buttons:</h1>
+            <ChiliButton
+              title={buttonElement.title}
+              size={buttonElement.small}
+              type={buttonElement.success}
             />
             <AnimateField
               className="col-12"
