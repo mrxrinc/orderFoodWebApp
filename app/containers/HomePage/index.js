@@ -45,6 +45,16 @@ export default class HomePage extends React.PureComponent {
             <ChiliButton type="green" title="مشاهده رستوران ها" size="big" />
           </div>
 
+          <div className="wFull hP20 vM30 center">
+            <div className="fullLine" />
+            <span className="or gray absolute hP10 lightBg">یا</span>
+          </div>
+
+          <div className="wFull topM30 column center">
+            <div className="chilivery-compass" />
+            <p className="primary text14 bold topM10">رستوران های اطراف من</p>
+          </div>
+
         </div>
       </div>
     );

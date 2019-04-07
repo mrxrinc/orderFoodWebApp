@@ -4,10 +4,10 @@
   background-image: url("../../images/home-bg.jpg");
   background-size: cover;
   background-position: bottom;
-  bottom: 60px;
+  // bottom: 60px;
 
   .head {
-    height: 150px;
+    height: 90px;
     background-image: url("../../images/pattern.png");
 
     .wave {
@@ -42,7 +42,9 @@
         }
       }
     }
-    .searchBtn {
+    .chilivery-compass {
+      color:#BC0024;
+      font-size: 60px;
     }
   }
 }
