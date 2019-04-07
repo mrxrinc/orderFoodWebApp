@@ -1,0 +1,62 @@
+@import '../../style/sass/_variable.scss';
+.giftCode {
+  &__container {
+    margin: 15px auto;
+    display: inline-block;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    background-color: #fff;
+    width: 100%;
+    position: relative;
+    input {
+      font-size: .875rem;
+      padding: 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+    &-btn {
+      position: absolute;
+      left: 5px;
+      top: 6px;
+      button {
+        margin: 0 0 0 3px;
+        font-size: .8125rem;
+        color: #fff;
+        padding: 7px 20px;
+        background-color: #b45cc3;
+        border-radius: 20px;
+        border: none;
+      }
+    }
+    &-icon {
+      position: relative;
+      padding: 10px 15px;
+      border-left: 1px dashed #dcdcdc;
+      display: inline-block;
+      &-cut {
+        background: #f5f5f5;
+        width: 15px;
+        height: 13.1px;
+        position: absolute;
+        left: -8px;
+        z-index: 5;
+        &--1 {
+          top: -7px;
+          border-bottom: 1px solid #dcdcdc;
+          border-radius: 80%
+        }
+        &--2 {
+          bottom: -7px;
+          border-top: 1px solid #dcdcdc;
+          border-radius: 80%;
+        }
+      }
+      span {
+        font-size: 1.4rem;
+        color: #b35bc3;
+        vertical-align: middle;
+      }
+    }
+  }
+}

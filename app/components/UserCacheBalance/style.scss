@@ -1,0 +1,31 @@
+@import '../../style/sass/_variable.scss';
+.UserCacheBalance {
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  display: table;
+  width: 100%;
+  &-checkbox {
+    border-left: 1px solid #EEEEEE;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 10px 0 8px;
+    text-align: center;
+  }
+  &__details {
+    display: table-cell;
+    padding: 10px;
+    span {
+      color: #929292;
+      font-size: 12px;
+    }
+    p {
+      margin: 0;
+      padding: 4px 0 2px;
+      color: #434343;
+      font-weight: bold;
+    }
+  }
+}
