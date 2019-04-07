@@ -1,0 +1,126 @@
+@import '../../style/sass/variable';
+
+.listItem {
+  background: $color-white;
+  width: 100%;
+  min-height: 150px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0px 3px 10px #00000022;
+  font-family: $font-family-iransans;
+  overflow: hidden;
+
+  .head {
+    height: 110px;
+    display: flex;
+    flex-direction: row;
+
+    .right {
+      width: 110px;
+      height: inherit;
+      display: flex;
+      flex-basis: 110px;
+      flex-shrink: 0;
+
+      .imageBox {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        border: 0.5px solid #ccc;
+      }
+
+      .discount {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        box-shadow: 0 3px 10px #ff000055;
+      }
+    }
+
+    .left {
+      width: 100%;
+      height: inherit;
+      padding: 15px 10px 15px 5px;
+
+      li {
+        color: $color-text-icon;
+        display: flex;
+        align-items: center;
+        &:after {
+          content: "";
+          display: block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          margin: 0 8px 0 8px;
+          background-color: $color-secondary;
+        }
+        &:last-child:after {
+          display: none;
+        }
+      }
+
+      .economy {
+        padding: 5px 0;
+        div {
+          &:first-child {
+            span {
+              font-size: 30px;
+              &:after {
+                content: "";
+                display: block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                margin: 0 0 0 8px;
+                background-color: $color-secondary;
+              }
+              &:last-child {
+                font-size: 22px;
+              }
+              &:last-child:after {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .suggested {
+          span {
+            height: 23px;
+            line-height: 21px;
+            border-radius: 25px 10px 25px 25px;
+            background-color: $color-secondary;
+          }
+        }
+      }
+
+      .favorite {
+        width: 40px;
+        height: 40px;
+        padding-left: 10px;
+        span {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+
+  .addressRate {
+    height: 35px;
+    font-weight: 100;
+
+    .reviews {
+      width: 150px;
+    }
+  }
+
+  .delivery {
+    height: 40px;
+
+    .moto {
+      width: 160px;
+    }
+  }
+
+}

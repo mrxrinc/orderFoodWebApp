@@ -1,5 +1,50 @@
 @import '../../style/sass/variable';
 
-h1{
-  color: $color-primary;
+.home {
+  background-image: url("../../images/home-bg.jpg");
+  background-size: cover;
+  background-position: bottom;
+  // bottom: 60px;
+
+  .head {
+    height: 90px;
+    background-image: url("../../images/pattern.png");
+
+    .wave {
+      height: 16px;
+      background-repeat: repeat-x;
+      background-position: bottom left;
+      background-image: url("../../images/wave.png");
+    }
+    .logo {
+      width: 50%;
+      margin-bottom: -10px;
+    }
+  }
+
+  .content {
+    .locationBtn {
+      width: 85%;
+      height: 40px;
+      border-radius: 20px;
+      border: 1px solid $color-border-input;
+    }
+    .city {
+      border-left: 1px solid $color-border-input;
+    }
+    .searchInput {
+      height: 50px;
+      .input {
+        input { font-size: 15px; }
+        label {
+          font-size: 15px;
+          color: $color-border-input;
+        }
+      }
+    }
+    .chilivery-compass {
+      color:#BC0024;
+      font-size: 60px;
+    }
+  }
 }

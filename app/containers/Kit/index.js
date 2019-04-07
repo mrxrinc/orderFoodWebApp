@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /**
  *
  * Kit
@@ -9,7 +10,6 @@ import React from 'react';
 import ChiliButton from '../../components/ChiliButton';
 
 import { AnimateField, AnimateFieldSheba } from '../../components/ChiliForm';
-
 
 /* eslint-disable react/prefer-stateless-function */
 export class Kit extends React.Component {

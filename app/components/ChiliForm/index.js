@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-access-state-in-setstate */
 /**
  *
  * ChiliForm
@@ -117,6 +120,9 @@ class AnimateFieldPassword extends React.Component {
   showHide(e) {
     e.preventDefault();
     e.stopPropagation();
+    // this.state.type === 'input'
+    //   ? () => this.setState({ type: 'ppassword' })
+    //   : () => this.setState({ type: 'input' });
     this.setState({
       type: this.state.type === 'input' ? 'password' : 'input',
     });

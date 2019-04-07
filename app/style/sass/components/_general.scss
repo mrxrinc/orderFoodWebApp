@@ -1,6 +1,17 @@
 body{
   font-family: $font-family-iransans;
+  padding: 0px;
+  margin: 0px;
+}
+ul {
+  padding: 0px;
+  margin: 0px;
 }
 #app{
   padding-bottom: 100px;
+}
+.fullLine {
+  width: 100%;
+  height: 1px;
+  background-color: $color-disable;
 }
