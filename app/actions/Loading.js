@@ -12,4 +12,3 @@ export const enableLoading = loading => ({
   type: ENABLE_LOADING,
   payload: loading,
 });
-
