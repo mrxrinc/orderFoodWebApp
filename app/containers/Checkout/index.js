@@ -12,6 +12,7 @@ import './style.scss';
 
 import CheckoutCardItem from '../../components/CheckoutCardItem';
 import { AnimateField } from '../../components/ChiliForm';
+import GiftCode from '../../components/GiftCode';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -66,6 +67,7 @@ export class Checkout extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
+        <GiftCode />
       </div>
     );
   }
