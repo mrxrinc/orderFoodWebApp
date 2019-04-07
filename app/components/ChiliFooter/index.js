@@ -6,13 +6,14 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Login from '../ChiliModal/components/Login';
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
 class ChiliFooter extends React.Component {
   render() {
     return (
       <footer className="chili-footer">
+        {/* <Login modal /> */}
         <div className="container">
           <div className="row chili-footer__list">
             <div className="chili-footer__list-item col">
