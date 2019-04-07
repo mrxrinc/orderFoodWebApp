@@ -1,20 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectCheckout from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import './style.scss';
 
 import CheckoutCardItem from '../../components/CheckoutCardItem';
+import { AnimateField } from '../../components/ChiliForm';
+import GiftCode from '../../components/GiftCode';
+import UserCacheBalance from '../../components/UserCacheBalance';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: '',
+    };
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   render() {
+    const {description} = this.state;
     return (
       <div className="checkout">
         <div className="checkout__card-item">
@@ -36,31 +42,28 @@ export class Checkout extends React.PureComponent {
           </div>
           <div className="clearfix"></div>
         </div>
+        <div className="address">
+          <h4>آدرس های ذخیره شده</h4>
+          <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
+        </div>
+        <div className="description">
+          <AnimateField
+            placeholder=" "
+            icon="chilivery-speech"
+            name="signUpPhone"
+            type="text"
+            onClick=""
+            label="توضیحات و موارد بیشتر در مورد این سفارش"
+            value={description}
+            onChange={this.onChange}
+            onKeyPress={this.handleKeyPressUpdate}
+          />
+        </div>
+        <GiftCode />
+        <UserCacheBalance />
       </div>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  checkout: makeSelectCheckout(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({ key: 'checkout', reducer });
-const withSaga = injectSaga({ key: 'checkout', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Checkout);
+export default Checkout;
