@@ -12,7 +12,7 @@ export const websiteUrl = (relativePath = '') => {
 
 export const globalHeader = () => {
     if (localStorage.authToken) {
-        return {
+        return {            
             'Authorization': 'Bearer ' + localStorage.getItem('authToken')
         };
     } else {
