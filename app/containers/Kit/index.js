@@ -133,6 +133,52 @@ export class Kit extends React.Component {
               <label> جنسیت </label>
             </div>
 
+            <div className="row banks-row">
+              <div className="col-xl-4 col-lg-4 col-sm-4 col-xs-6">
+                <label className="radio-wrapper">
+                  <div className="label-parent">
+                    <input
+                      type="radio"
+                      className="radio-input"
+                      name="gateway"
+                      value="6"
+                    />
+                    <div className="radio-face" />
+                  </div>
+                  <span className="clearfix">
+                    سامان
+                    <img
+                      src="https://payment.iiventures.com/public/img/gateways/newSaman.png"
+                      className="pull-left"
+                      alt="tik8"
+                    />
+                  </span>
+                </label>
+              </div>
+
+              <div className="col-xl-4 col-lg-4 col-sm-4 col-xs-6">
+                <label className="radio-wrapper">
+                  <div className="label-parent">
+                    <input
+                      type="radio"
+                      className="radio-input"
+                      name="gateway"
+                      value="7"
+                    />
+                    <div className="radio-face" />
+                  </div>
+                  <span className="clearfix">
+                    پارسیان
+                    <img
+                      src="https://payment.iiventures.com/public/img/gateways/newParsian.png"
+                      className="pull-left"
+                      alt="tik8"
+                    />
+                  </span>
+                </label>
+              </div>
+            </div>
+
             <AnimateField
               className="col-sm-6"
               placeholder="وارد نمایید"
