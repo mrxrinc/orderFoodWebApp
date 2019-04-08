@@ -14,7 +14,7 @@ class ChiliModal extends Component {
       <Modal
         isOpen={classes.modal}
         toggle={classes.toggle}
-        className={`chili-modal__vertical ${classes.className}`}
+        className={`chili-modal ${classes.className} ${classes.alert?"chili-modal_alert":""}`}
       >
         <div className="panigale__header-notification">
           {/* <PanigaleNotification/> */}

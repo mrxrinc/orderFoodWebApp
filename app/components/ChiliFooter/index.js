@@ -7,16 +7,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Login from '../ChiliModal/components/Login';
+import { connect } from 'react-redux';
+import { showModal } from '../../actions/Modals';
+
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
 class ChiliFooter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.showModal({
+      loginModal: false,
+      forGotModal: false,
+      resetPassModal: false,
+      successChangePassModal: false,
+      trackingModal: false,
+      isVerifyModal: false,
+      verifyModal: false,
+    });
+  }
+
   render() {
     return (
       <footer className="chili-footer">
-        {/* <Login modal /> */}
+        <Login />
         <div className="container">
           <div className="row chili-footer__list">
-          
             <div className="col">
               <div className="chili-footer__list-item">
                 <div className="chili-footer__list-icon">
@@ -73,4 +92,17 @@ class ChiliFooter extends React.Component {
   }
 }
 
-export default ChiliFooter;
+
+
+const mapStateToProps = state => ({
+  modals: {
+      loginModal: state.Modals.loginModal,
+  },
+});
+const mapDispatchToProps = dispatch => ({
+  showModal: (showStatus) => {
+      dispatch(showModal(showStatus))
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChiliFooter);
