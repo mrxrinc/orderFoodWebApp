@@ -7,9 +7,10 @@
 
 import React from 'react';
 
+import { Button } from 'reactstrap';
 import ChiliButton from '../../components/ChiliButton';
 
-import { AnimateField, AnimateFieldSheba } from '../../components/ChiliForm';
+import { AnimateField, AnimateFieldSheba,CheckBox } from '../../components/ChiliForm';
 import Icon from './icon';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -55,7 +56,24 @@ export class Kit extends React.Component {
           <div className="col-lg-12">
             <Icon />
           </div>
+          <hr />
           <div className="col-lg-12">
+            <h1>Buttons:</h1>
+            <Button color="primary">primary</Button>{' '}
+            <Button color="secondary">secondary</Button>{' '}
+            <Button color="success">success</Button>{' '}
+            <Button color="info">info</Button>{' '}
+            <Button color="warning">warning</Button>{' '}
+            <Button color="danger">danger</Button>{' '}
+            <Button color="warning btn-big">warning</Button>{' '}
+            <Button className="btn-big" color="danger">
+              danger
+            </Button>{' '}
+            <Button className="btn-white">danger</Button>{' '}
+            <Button className="btn-white btn-big">danger</Button>{' '}
+            <Button color="link">link</Button>
+          </div>
+          <div className="col-lg-12 mt-5">
             <h1>فرم ها</h1>
             <AnimateField
               className="col-12"
@@ -69,13 +87,6 @@ export class Kit extends React.Component {
               icon="chilivery-user"
               iconColor="blue"
               validation={['شماره موبایل اشتباه است.']}
-            />
-            <hr />
-            <h1>Buttons:</h1>
-            <ChiliButton
-              title={buttonElement.title}
-              size={buttonElement.small}
-              type={buttonElement.success}
             />
             <AnimateField
               className="col-12"
@@ -94,6 +105,27 @@ export class Kit extends React.Component {
               // }
               required
             />
+
+            <div>
+              <span className="panigale-modal__rules">
+                <CheckBox
+                  className="required-chechbox checked"
+                  type="checkbox"
+                  name="signUpRule"
+                  onChange={this.onChange}
+                  defaultValue={1}
+                  defaultChecked="checked"
+                  // inputClassName="styled"
+                  labelClassName="page-payment__rule"
+                  label={[
+                    <a key="1" to={'/rules/'} target="_blank">
+                      قوانین تیکت
+                    </a>,
+                    <span key="2"> را می پذیرم.</span>,
+                  ]}
+                />
+              </span>
+            </div>
 
             <div className="chili-animate-field form-group col-sm-6">
               <div>
