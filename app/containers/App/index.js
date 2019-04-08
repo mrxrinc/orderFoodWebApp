@@ -17,6 +17,7 @@ import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
 import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
+import AfterPayment from 'containers/AfterPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -31,6 +32,7 @@ export default function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/authentication" component={Authentication} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/after-payment" component={AfterPayment} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

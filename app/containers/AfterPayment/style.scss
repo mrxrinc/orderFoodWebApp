@@ -1,0 +1,50 @@
+@import '../../style/sass/variable';
+
+.afterpayment {
+  &__header {
+    &-img {
+      width: 56px;
+      height: 56px;
+      background-size: cover;
+      border-radius: 6px;
+      float: right;
+    }
+    span {
+      color: $grey-6;
+      font-size: 11px;
+      margin: 10px 0 7px;
+      display: inline-block;
+    }
+    p {
+      color: $grey-9;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+  &__details {
+    &__box {
+      padding: 5px 10px;
+      border-left: 1px solid $grey-4;
+      &:last-child {
+        border-left: none;
+      }
+      &-icon {
+        color: $grey-4;
+        font-size: 24px;
+        text-align: center;
+      }
+      &-title {
+        font-size: 12px;
+        text-align: center;
+        display: block;
+        margin-bottom: 5px;
+      }
+      &-body {
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
