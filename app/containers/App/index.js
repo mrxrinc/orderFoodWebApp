@@ -19,7 +19,7 @@ import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
 import AfterPayment from 'containers/AfterPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
-// import PageMoreMenu from '../PageMoreMenu';
+import PageMoreMenu from '../PageMoreMenu';
 
 import GlobalStyle from '../../global-styles';
 
@@ -34,7 +34,7 @@ export default function App() {
         <Route exact path="/authentication" component={Authentication} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/after-payment" component={AfterPayment} />
-        {/* <Route exact path="/more-menu" component={PageMoreMenu} /> */}
+        <Route exact path="/more-menu" component={PageMoreMenu} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
