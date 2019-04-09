@@ -22,7 +22,9 @@
 .danger { color: $color-danger };
 .dangerBg { background-color: $color-danger };
 .warning { color: $color-secondary };
-.warningBg { background-color: $color-secondary };
+.warningBg { background-color: $color-secondary }
+.yellow { color: $color-yellow };
+.yellowBg { background-color: $color-yellow };
 .disable { color: $color-disable };
 .disableBg { background-color: $color-disable };
 .light { color: $color-light };
@@ -87,6 +89,7 @@
 .underLine { text-decoration: underline };
 .rightText { text-align: right };
 .leftText { text-align: left };
+.centerText { text-align: center };
 .rtl { direction: rtl }; 
 .ltr { direction: ltr };
 .flex { display: flex };
@@ -195,6 +198,7 @@
 .leftM20 { margin-left: 20px };
 .leftM30 { margin-left: 30px };
 .leftM40 { margin-left: 40px };
+.topP2 { padding-top: 2px };
 .topP3 { padding-top: 3px };
 .topP5 { padding-top: 5px };
 .topP10 { padding-top: 10px };
@@ -236,6 +240,7 @@
 
 .vM3 { margin-top: 3px; margin-bottom: 3px };
 .vM5 { margin-top: 5px; margin-bottom: 5px };
+.vM7 { margin-top: 7px; margin-bottom: 7px };
 .vM10 { margin-top: 10px; margin-bottom: 10px };
 .vM20 { margin-top: 20px; margin-bottom: 20px };
 .vM30 { margin-top: 30px; margin-bottom: 30px };
@@ -253,6 +258,7 @@
 
 .vP3 { padding-top: 3px; padding-bottom: 3px };
 .vP5 { padding-top: 5px; padding-bottom: 5px };
+.vP7 { padding-top: 7px; padding-bottom: 7px };
 .vP10 { padding-top: 10px; padding-bottom: 10px };
 .vP20 { padding-top: 20px; padding-bottom: 20px };
 .vP30 { padding-top: 30px; padding-bottom: 30px };
