@@ -20,7 +20,7 @@ class ChiliFooter extends React.Component {
 
   componentDidMount() {
     this.props.showModal({
-      loginModal: true,
+      loginModal: false,
       forGotModal: false,
       resetPassModal: false,
       successChangePassModal: false,
@@ -33,7 +33,7 @@ class ChiliFooter extends React.Component {
   render() {
     return (
       <footer className="chili-footer">
-        <Login />
+        <Login headerAlign="center" />
         <div className="container">
           <div className="row chili-footer__list">
             <div className="col">

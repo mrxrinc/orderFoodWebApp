@@ -22,6 +22,7 @@ class Login extends Component {
       <ChiliModal
         toggle={this.toggleLogin}
         modal={classes.modals.loginModal}
+        headerAlign={classes.headerAlign}
         // alert
         headerAlign="right"
         icon="icon icon-log-in"
