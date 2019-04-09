@@ -63,6 +63,7 @@ class Login extends Component {
                 رمز عبور را فراموش کردم
               </span>
               <Button className="btn-secondary">ورود</Button>
+              <button class="btn btn-success">success</button>
             </div>
             <span className="panigale-modal__switch-form-text mt-4">
               عضو نیستم (عضویت)
