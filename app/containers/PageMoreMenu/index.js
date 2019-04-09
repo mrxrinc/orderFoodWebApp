@@ -6,18 +6,6 @@ import {
   AccordionItemBody,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-// << img...
-import pizza from './img/pizza.png';
-import placeholder from './img/placeholder.png';
-import contract from './img/contract.png';
-import handshake from './img/handshake.png';
-import badge from './img/badge.png';
-import electricitytherapy from './img/electricitytherapy.png';
-import agreement from './img/agreement.png';
-import closet from './img/closet.png';
-import headset from './img/headset.png';
-import gateway from './img/gateway.png';
-import info from './img/info.png';
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 export default class PageMoreMenu extends React.PureComponent {
