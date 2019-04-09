@@ -18,6 +18,7 @@ import Checkout from 'containers/Checkout';
 import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
+import PageAboutMotochili from '../../components/PageAboutMotochili';
 
 import GlobalStyle from '../../global-styles';
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/authentication" component={Authentication} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
