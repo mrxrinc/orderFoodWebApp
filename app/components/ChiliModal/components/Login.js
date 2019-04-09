@@ -1,77 +1,48 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { connect } from 'react-redux';
+import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
-import { AnimateField } from '../../ChiliForm';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loginUserName: '',
-      loginPass: '',
-    };
+    this.state = {};
   }
+
+  toggleLogin = () => {
+    this.props.showModal({
+      loginModal: false,
+    });
+  };
 
   render() {
     const classes = this.props;
-    const { loginUserName, loginPass } = this.state;
     return (
       <ChiliModal
-        // toggle={this.toggleLogin}
-        modal
-        // handleSubmit={this.loginSubmit}
+        toggle={this.toggleLogin}
+        modal={classes.modals.loginModal}
+        // alert
         icon="icon icon-log-in"
         title="ورود به حساب کاربری"
-        className="panigale-login-form"
+        className="chili-modal__alert"
       >
-        <div className="row">
-          <AnimateField
-            className="col-12"
-            placeholder="وارد نمایید"
-            name="loginUserName"
-            type="text"
-            onClick=""
-            label="شماره همراه / آدرس ایمیل"
-            value={loginUserName}
-            // onChange={this.onChange}
-            // onKeyPress={this.handleKeyPress}
-            // validation={
-            //   typeof classes.validation.identifier === "undefined" ?
-            //     false : classes.validation.identifier
-            // }
-            required
-          />
-          <AnimateField
-            className="col-12"
-            name="loginPass"
-            type="password"
-            onClick=""
-            placeholder="وارد نمایید"
-            label="رمز عبور"
-            value={loginPass}
-            // onChange={this.onChange}
-            // onKeyPress={this.handleKeyPress}
-            // validation={
-            //   typeof classes.validation.password === "undefined" ?
-            //     false : classes.validation.password
-            // }
-            required
-          />
-          <div className="col-12">
-            <div className="panigale-modal__submit-box form-group mt-4">
-              <span className="panigale-modal__forgotpass">
-                رمز عبور را فراموش کردم
-              </span>
-              <Button className="btn-secondary">ورود</Button>
-            </div>
-            <span className="panigale-modal__switch-form-text mt-4">
-              عضو نیستم (عضویت)
-            </span>
-          </div>
-        </div>
+        salam
       </ChiliModal>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  modals: {
+    loginModal: state.Modals.loginModal,
+  },
+});
+const mapDispatchToProps = dispatch => ({
+  showModal: showStatus => {
+    dispatch(showModal(showStatus));
+  },
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

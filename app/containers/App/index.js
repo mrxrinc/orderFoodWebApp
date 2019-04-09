@@ -17,6 +17,7 @@ import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
 import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
+import AfterPayment from 'containers/AfterPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
 import PageMoreMenu from '../PageMoreMenu';
 
@@ -32,7 +33,11 @@ export default function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/authentication" component={Authentication} />
         <Route exact path="/login" component={Login} />
+<<<<<<< HEAD
         <Route exact path="/more-menu" component={PageMoreMenu} />
+=======
+        <Route exact path="/after-payment" component={AfterPayment} />
+>>>>>>> 4bdeb120e41519e6361746cefa252b01029c5771
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

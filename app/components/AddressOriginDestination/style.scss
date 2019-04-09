@@ -1,0 +1,45 @@
+@import '../../style/sass/variable';
+
+.address {
+  &__box {
+    padding: 10px 0;
+    &-border {
+      border-bottom: 1px solid $grey-4;
+    }
+    &-origin {
+      h4 {
+        color: $orange-7;
+      }
+    }
+    &-destination {
+      h4 {
+        color: $color-tag;
+      }
+    }
+    &__header {
+      padding-bottom: 5px;
+      img {
+        width: 36px;
+      }
+      h4 {
+        font-weight: normal;
+        font-size: 14px;
+        display: inline-block;
+      }
+    }
+    label {
+      color: #FFFFFF;
+      background-color: $color-tag;
+      border-radius: 25px;
+      padding: 2px 14px;
+      margin-left: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    p {
+      color: $grey-9;
+      font-size: 14px;
+      display: inline;
+    }
+  }
+}

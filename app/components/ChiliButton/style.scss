@@ -1,6 +1,7 @@
 @import '../../style/sass/variable';
 @import '../../style/sass/mixin/transition';
 
+
 %button-shared {
   font-family: IRANSans;  
   font-weight: 300;
@@ -10,19 +11,19 @@
 
 .smallButton {
   @extend %button-shared;
-  border-radius: 22.5px;
-  padding: 12px 80px;
+  border-radius: $border-radius;
+  padding: 12px 80px !important;
 }
 
 .bigButton {
   @extend %button-shared;
-  border-radius: 22.5px;
-  padding: 28px 104px;  
+  border-radius: $border-radius;
+  padding: 28px 104px !important;  
 }
 
 .greenButton {
-  background: $color-success;
-  border-color: $color-success;
+  background: $color-success !important;
+  border-color: $color-success !important;
 
   &:hover,
   &:focus,
