@@ -33,8 +33,8 @@ export default function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/authentication" component={Authentication} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/more-menu" component={PageMoreMenu} />
         <Route exact path="/after-payment" component={AfterPayment} />
+        <Route exact path="/more-menu" component={PageMoreMenu} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
