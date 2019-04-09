@@ -91,6 +91,7 @@
 .ltr { direction: ltr };
 .flex { display: flex };
 .rRow { flex-direction: row };
+.rRowReverse { flex-direction: row-reverse };
 .center { display: flex; justify-content: center; align-items: center };
 .vCenter { display: flex; justify-content: center };
 .hCenter { display: flex; align-items: center };
@@ -154,6 +155,7 @@
 .padd20 { padding: 20px };
 .padd30 { padding: 30px };
 .padd40 { padding: 40px };
+.margin0 { margin: 0px };
 .margin2 { margin: 2px };
 .margin3 { margin: 3px };
 .margin5 { margin: 5px };

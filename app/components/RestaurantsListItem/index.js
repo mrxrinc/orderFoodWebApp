@@ -11,7 +11,7 @@ const RestaurantsListItem = () => (
           <span className="text12 topM3 leftM3">%</span>
         </span>
       </div>
-      <div className="left padd5 relative">
+      <div className="left relative">
         <h2 className="font bold largeText primary">باگت جردن</h2>
 
         <ul className="flex">
