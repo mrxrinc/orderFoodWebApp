@@ -21,10 +21,10 @@ class Login extends Component {
       <ChiliModal
         toggle={this.toggleLogin}
         modal={classes.modals.loginModal}
+        headerAlign={classes.headerAlign}
         // alert
-        icon="icon icon-log-in"
-        title="ورود به حساب کاربری"
-        className="chili-modal__alert"
+        title="تعیین موقعیت"
+        className=""
       >
         salam
       </ChiliModal>
