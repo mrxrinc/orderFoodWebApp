@@ -1,0 +1,74 @@
+@import '../../style/sass/variable';
+
+.afterpayment-carditem {
+  -webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+  width:100%;
+  height: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  float: right;
+  margin-bottom: 10px;
+  padding: 10px;
+  &__rbox{
+    width: 80px;
+    height: 60px;
+    background-size: cover;
+    border-radius: 10px;
+    float: right;
+      img {
+      width: 100%;
+      border-radius: 0 10px 10px 0;
+    }
+  }
+  &__lbox{
+    padding-right: 95px;
+    width: 100%;
+    padding-left: 5px;
+    .counter {
+      padding-left: 5px;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-size: 14px;
+      color: $grey-9;
+      margin-top: 5px;
+    }
+    ul {
+      list-style: none;
+      li {
+        padding-right: 15px;
+        line-height: 21px;
+        position: relative;
+        font-size: 13px;
+        color: $grey-9;
+        &:before{
+          position: absolute;
+          right: 0;
+          top: 3px;
+          content: "\2022";
+          color: $orange-7;
+          font-weight: bold;
+          display: inline-block;
+          font-size: 25px;
+        }
+      }
+    }
+    .number {
+      display: block;
+      color: $grey-7;
+      font-size: 13px;
+      float: right;
+      margin-top: 15px;
+    }
+    .price{
+      display: inline-block;
+      color: $grey-9;
+      font-size: 14px;
+      float: left;
+      margin-top: 15px;
+    }
+
+  }
+}

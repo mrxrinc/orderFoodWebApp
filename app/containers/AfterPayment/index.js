@@ -2,10 +2,13 @@ import React from 'react';
 import './style.scss';
 import ResturantImage from '../../images/test/restaurantProfile.jpg';
 import AddressOriginDestination from '../../components/AddressOriginDestination';
+import { Button } from 'reactstrap';
+import AfterPaymentCardItem from '../../components/AfterPaymentCardItem';
 
 const ResturantImagesUrl = {
   backgroundImage: `url(${ResturantImage})`,
 };
+
 
 export class AfterPayment extends React.PureComponent {
   render() {
@@ -24,7 +27,9 @@ export class AfterPayment extends React.PureComponent {
             </div>
           </div>
         </div>
-        <button>پیگیری لحظه به لحظه این سفارش</button>
+        <div className="text-center bottomM20">
+          <Button color="success">پیگیری لحظه به لحظه این سفارش</Button>
+        </div>
         <div className="afterpayment__details">
           <div className="d-flex mb-3">
             <div className="flex-fill afterpayment__details__box">
@@ -57,8 +62,50 @@ export class AfterPayment extends React.PureComponent {
             </div>
           </div>
         </div>
-        <div className="p-2">
+        <div className="p-3">
           <AddressOriginDestination />
+        </div>
+        <div className="p-3">
+          <AfterPaymentCardItem />
+        </div>
+        <div className="clearfix"></div>
+        <div className="afterpayment__factor p-3">
+          <ul>
+            <li>
+              <span>مجموعه سفارش</span>
+              <span className="pull-left">۱۲۷/۰۰۰ تومان</span>
+            </li>
+            <li>
+              <span>بسته بندی</span>
+              <span className="pull-left">۰ تومان</span>
+            </li>
+            <li>
+              <span>مالیات</span>
+              <span className="pull-left">۰ تومان</span>
+            </li>
+            <li>
+              <span>هزینه ارسال</span>
+              <span className="pull-left">۰ تومان</span>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <span className="total">مجموعه سفارش</span>
+              <span className="pull-left total">۱۲۷/۰۰۰ تومان</span>
+            </li>
+            <li>
+              <span className="discount-code">کد تخفیف
+                <span className="discount-code"> (chilivery100)</span>
+              </span>
+              <span className="pull-left discount-code">۵/۰۰۰ تومان-</span>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <span className="bold total">قابل پرداخت</span>
+              <span className="pull-left bold total">۱۲۲/۰۰۰ تومان</span>
+            </li>
+          </ul>
         </div>
       </div>
     );
