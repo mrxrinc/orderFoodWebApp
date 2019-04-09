@@ -9,6 +9,7 @@ import { getUser } from '../../actions/Auth';
 import { setCookie } from '../../utils/cookies';
 import { AnimateField } from '../../components/ChiliForm';
 import ChiliButton from '../../components/ChiliButton';
+import './style.scss';
 
 class Login extends Component {
   onHandleLogin = event => {
@@ -117,7 +118,7 @@ class Login extends Component {
         <form onSubmit={this.onHandleLogin}>
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="username"
             type="text"
             onClick=""
@@ -126,16 +127,20 @@ class Login extends Component {
           />
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="password"
             type="text"
             onClick=""
             label="رمزعبور"
             icon="chilivery-pass"
           />
-          <p> رمز عبور خود را فراموش کرده اید؟</p>
+          <div className="text-center mt-4">
+            <span className="forgotPassword"> رمز عبور خود را فراموش کرده اید؟</span>
+          </div>
+
           <div className="topM40 wFull hP20 center">
-            <ChiliButton type="green" title="ورود" />
+            {/* <ChiliButton type="green" title="ورود" /> */}
+            <button className="btn btn-big btn-success">ورود</button>
           </div>
         </form>
       </div>

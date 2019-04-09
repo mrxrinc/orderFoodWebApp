@@ -1286,7 +1286,7 @@ export class Icon extends React.Component {
           <div className="clearfix bshadow0 pbs">
             <span className="chilivery-pass"> </span>
           </div>
-
+ff
           <div className="fs0 bshadow0 clearfix hidden-true">
             <span className="unit pvs fgc1">liga: </span>
           </div>
