@@ -1,0 +1,139 @@
+@import '../../style/sass/variable';
+
+.motochili {
+  line-height: 1.8;
+  font-size: 14px;
+  background-color: #efefef;
+  p{
+	  margin-bottom: 0;
+  }
+
+  .motochili-containt {
+    padding-left: 0;
+    padding-right: 0;
+
+    .motochili-explain {
+      // .motochili-explain__title{
+      border-bottom: 1px solid #808080;
+      padding: 13px 15px 5px;
+
+      //}
+      .motochili-explain__title1 {
+        padding-top: 24px;
+        padding-right: 20px;
+        padding-left: 14px;
+        padding-bottom: 20px;
+
+        .motochili__title1 {
+          color: #434343;
+        }
+      }
+
+      .motochili-explain__box1 {
+        box-shadow: 0 5px 13px 0 rgba(0, 0, 0, .2);
+        //box-shadow: 0 0 NaNpx NaNpx rgba(0,0,0,0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+        margin-right: 15px;
+        background-color: #fff;
+
+        .icon {
+          font-size: 38px;
+          margin-right: 14px;
+        }
+
+        .motochili__box1 {
+          flex: 1;
+          padding: 12px 14px 12px 14px;
+          margin-bottom: 0;
+        }
+      }
+
+      .motochili-explain__box2 {
+        padding-top: 44px;
+
+        .motochili__title2 {
+          color: #434343;
+          font-size: 18px;
+          font-weight: bold;
+          padding-right: 20px;
+          padding-bottom: 10px;
+        }
+
+        .motochili__box2 {
+          background-color: #fff;
+          box-shadow: 0 5px 14px 0 rgba(0, 0, 0, .2);
+          border-radius: 10px;
+          margin-left: 15px;
+          margin-right: 15px;
+          //padding: 12px 12px 0;
+          display: flex;
+          align-items: center;
+          direction: ltr;
+
+          //box-shadow: 0 0 NaNpx NaNpx rgba(0,0,0,0.1);
+          img {
+            height: 72px;
+            width: 72px;
+            border: 1px solid #80808069;
+            border-radius: 50%;
+            padding: 5px;
+            margin-left: 13px;
+            margin-top: 13px;
+            margin-bottom: 12px;
+          }
+
+          .motochili__textbox2 {
+            flex: 1;
+            padding: 12px 14px 16px 28px;
+            font-size: 14px;
+            color: #434343;
+            font-weight: 150;
+          }
+        }
+      }
+
+      .motochili-explain__list {
+        padding-top: 40px;
+
+        .motochili__list {
+          .motochili__item {
+            display: flex;
+            align-items: center;
+            padding-bottom: 32px;
+
+            .item1 {
+              padding-right: 26px;
+              padding-bottom: 20px;
+
+              img {
+                width: 40px;
+                height: 40px;
+              }
+            }
+
+            .item2 {
+              flex: 1 1;
+              padding-right: 12px;
+              padding-left: 30px;
+
+              h6 {
+                color: #434343;
+                font-size: 18px;
+                font-weight: bold;
+              }
+
+              p {
+                font-size: 14px;
+                color: #434343;
+                font-weight: 150;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

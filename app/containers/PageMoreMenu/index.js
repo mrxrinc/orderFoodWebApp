@@ -7,6 +7,7 @@ import {
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import './style.scss';
+// import moduleName from 'module';
 // eslint-disable-next-line react/prefer-stateless-function
 export default class PageMoreMenu extends React.PureComponent {
   render() {
