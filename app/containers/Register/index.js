@@ -3,18 +3,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnimateField } from '../../components/ChiliForm';
+import './style.scss';
 import ChiliButton from '../../components/ChiliButton';
 
 class Register extends Component {
-
   render() {
-
     return (
       <div>
         <form onSubmit={this.onHandleLogin}>
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="username"
             type="text"
             onClick=""
@@ -23,7 +22,7 @@ class Register extends Component {
           />
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="mobileNumber"
             type="text"
             onClick=""
@@ -32,7 +31,7 @@ class Register extends Component {
           />
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="email"
             type="text"
             onClick=""
@@ -41,16 +40,27 @@ class Register extends Component {
           />
           <AnimateField
             className="col-12"
-            placeholder="وارد نمایید"
+            placeholder=" "
             name="password"
             type="text"
             onClick=""
             label="رمزعبور"
             icon="chilivery-pass"
           />
-          <p>با کلیک بر روی دکمه ثبت نام شما قوانین چیلیوری را ‍پذیرفته اید</p>
+          <div className="text-center mt-4">
+            <span className="ruleAndCondition">
+              با کلیک بر روی دکمه ثبت نام شما
+              <span className="ruleAndCondition__link">
+                {'\u00A0'}
+                قوانین چیلیوری
+                {'\u00A0'}
+              </span>
+              را پذیرفته اید
+            </span>
+          </div>
           <div className="topM40 wFull hP20 center">
-            <ChiliButton type="green" title="ثبت نام" />
+            <button className="btn btn-big btn-success">ثبت نام</button>
+            {/* <ChiliButton type="green" title="ثبت نام" /> */}
           </div>
         </form>
       </div>
