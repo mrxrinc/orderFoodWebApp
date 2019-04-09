@@ -1,6 +1,12 @@
 import React from 'react';
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
+// import moduleName from '../../images/icons/';
+import map from './map.png';
+import motoSpeed from '../../images/icons/motochili_speed.png';
+import motoPrice from '../../images/icons/motochili_price.png';
+import motoDelivery from '../../images/icons/motochili_delivery.png';
+import motoSupport from '../../images/icons/motochili_support.png';
 export default class PageAboutMotochili extends React.PureComponent {
   render() {
     return (
@@ -13,13 +19,13 @@ export default class PageAboutMotochili extends React.PureComponent {
               </p>
             </div>
             <div className="motochili-explain__box1">
-              <i className="icon chilivery-motochili"/>
+              <i className="icon chilivery-motochili" />
               <p className="motochili__box1"> فروشندگانی که با این علامت مشخص شده اند سفارش‌تان را از طریق موتوچیلی ارسال می نمایند.</p>
             </div>
             <div className="motochili-explain__box2">
               <h5 className="motochili__title2">مزایای استفاده از موتوچیلی چیست؟</h5>
               <div className="motochili__box2">
-                <img src={process} alt="process" />
+                <img src={map} alt="process" />
                 <p className="motochili__textbox2"> (پیگیری سفارش (به زودی <br />
                   مشاهده مراحل سفارش و نام و محل دقیق پیک به صورت آنلاین بر روی نقشه
                 </p>
@@ -29,7 +35,7 @@ export default class PageAboutMotochili extends React.PureComponent {
               <div className="motochili__list">
                 <div className="motochili__item">
                   <div className="item1">
-                    {/* <img src={hourglass} alt="hourglass" /> */}
+                    <img src={motoSpeed} alt="chilivery" />
                   </div>
                   <div className="item2">
                     <h6>دریافت سریع سفارش</h6>
@@ -38,7 +44,7 @@ export default class PageAboutMotochili extends React.PureComponent {
                 </div>
                 <div className="motochili__item">
                   <div className="item1">
-                    {/* <img src={tag} alt="tag" /> */}
+                    <img src={motoPrice} alt="tag" />
                   </div>
                   <div className="item2">
                     <h6>کاهش هزینه ارسال</h6>
@@ -47,7 +53,7 @@ export default class PageAboutMotochili extends React.PureComponent {
                 </div>
                 <div className="motochili__item">
                   <div className="item1">
-                    {/* <img src={box} alt="box" /> */}
+                    <img src={motoDelivery} alt="box" />
                   </div>
                   <div className="item2">
                     <h6>حمل و نقل تخصصی غذا</h6>
@@ -56,7 +62,7 @@ export default class PageAboutMotochili extends React.PureComponent {
                 </div>
                 <div className="motochili__item">
                   <div className="item1">
-                    {/* <img src={customersupport} alt="customersupport" /> */}
+                    <img src={motoSupport} alt="customersupport" />
                   </div>
                   <div className="item2">
                     <h6>پشتیبانی چیلیوری</h6>

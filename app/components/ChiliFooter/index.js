@@ -20,7 +20,7 @@ class ChiliFooter extends React.Component {
 
   componentDidMount() {
     this.props.showModal({
-      loginModal: false,
+      loginModal: true,
       forGotModal: false,
       resetPassModal: false,
       successChangePassModal: false,

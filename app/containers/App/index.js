@@ -19,7 +19,7 @@ import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
 import AfterPayment from 'containers/AfterPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
-import PageAboutMotochili from '../../components/PageAboutMotochili';
+import PageAboutMotochili from '../PageAboutMotochili';
 import PageMoreMenu from '../PageMoreMenu';
 
 import GlobalStyle from '../../global-styles';

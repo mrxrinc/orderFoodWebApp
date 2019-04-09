@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
+import PageAboutMotochili from '../../../containers/PageAboutMotochili';
 
 class Login extends Component {
   constructor(props) {
@@ -22,11 +23,12 @@ class Login extends Component {
         toggle={this.toggleLogin}
         modal={classes.modals.loginModal}
         // alert
+        headerAlign="right"
         icon="icon icon-log-in"
-        title="ورود به حساب کاربری"
+        title="سرویس موتوچیلی"
         className="chili-modal__alert"
       >
-        salam
+        <PageAboutMotochili/>
       </ChiliModal>
     );
   }
