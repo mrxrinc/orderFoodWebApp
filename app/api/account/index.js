@@ -3,7 +3,7 @@ import deRequest from '../../utils/deRequest';
 import axios from 'axios';
 
 export const loginPost = (params) => { //params: { identifier, password }
-  return deRequest(account.login_post(), "POST", params, false );
+  return deRequest(account.login_post(), 'POST', params, false);
 }
 
 export const signUpPost = (params) => { //params: { fullname, phone_number, email, password }

@@ -1,7 +1,7 @@
 import { API_ROOT_URL,API_ASSETS_URL,API_USER_URL } from './service-info';
 
 //HEADERS
-export const API_GENERAL_HEADERS = {"Accept": "application/json"};
+export const API_GENERAL_HEADERS = {"Content-Type": "application/json"};
 
 // API URL
 export const API_IMG_URL = API_ASSETS_URL;
