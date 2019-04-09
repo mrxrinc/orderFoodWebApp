@@ -1,0 +1,66 @@
+@import '../../style/sass/variable';
+@import '../../style/sass/mixin/flexbox';
+@import '../../style/sass/mixin/box-shadow';
+
+$rainbow-list : #C30029 17%,
+#009855 17% 34%,
+#A19E3E 34% 51%,
+#FF9A50 51% 68%,
+#F95743 68% 85%,
+#FF0021 85%;
+
+$border-radius : 20px;
+
+.authentication {
+  height: 77%;
+  margin: 0 auto;
+  background: $color-white;
+  width: 92%;
+  @include flexbox();
+  @include flex-direction(column);
+  @include box-shadow(0, 0, 2px, 2px, rgba(0, 0, 0, 0.05));
+  border-radius: $border-radius;
+
+  &__shadow1 {
+      width: 77%;
+      background: $color-black;
+      opacity: 0.1;
+      height: 23px;
+      border-radius: $border-radius $border-radius 0 0;
+      margin: 97px auto 0;
+      position: relative;
+  }
+
+  &__shadow2 {
+      width: 82%;
+      opacity: 0.15;
+      height: 13px;
+      position: relative;
+      background: $color-black;
+      margin: 0 auto;
+  }  
+  .rainbow {
+    height: 18px;
+    background: linear-gradient(to right, $rainbow-list);
+    border-radius: $border-radius $border-radius 0 0;
+  }
+
+  .header {
+    @include flexbox();
+    @include flex-direction(row);
+    height: 92px;
+    align-items: center;
+    justify-content: space-around;
+
+    &__box {
+        
+        &:focus,
+        &:active {       
+            border-top: none;     
+            border-bottom:  5px solid #E81D46;
+        }        
+        
+        
+    }
+  }
+}
