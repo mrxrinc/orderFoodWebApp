@@ -47,4 +47,29 @@
       }
     }
   }
+  &__factor {
+    ul {
+      border-top: 2px solid $grey-7;
+      li {
+        border-bottom: 1px solid $grey-7;
+        padding: 15px 0;
+        list-style: none;
+        font-size: 13px;
+        color: $grey-8;
+        &:last-child {
+          border-bottom: none;
+        }
+        .total {
+          font-size: 14px;
+          color: $grey-9;
+        }
+        .discount-code {
+          color: $purple-5;
+          span {
+            color: $grey-7;
+          }
+        }
+      }
+    }
+  }
 }
