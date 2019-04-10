@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantHeader from '../../components/RestaurantHeader/index';
+import RestaurantFoodGroup from '../../components/RestaurantFoodGroup/index';
 import RestaurantFoodCard from '../../components/RestaurantFoodCard/index';
 
 import './style.scss';
@@ -10,10 +11,13 @@ export default class RestaurantPage extends React.Component {
       <div className="wrapper rtl">
         <RestaurantHeader />
 
-        <div className="stickyMenu wFull grayBg" />
+        <div className="stickyMenu wFull" />
 
         <div className="hP10 vM10">
-          <RestaurantFoodCard />
+          <RestaurantFoodGroup>
+            
+            <RestaurantFoodCard />
+          </RestaurantFoodGroup>
         </div>
       </div>
     );

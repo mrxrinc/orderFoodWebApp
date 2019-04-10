@@ -50,8 +50,16 @@ const RestaurantHeader = () => (
         </span>
       </div>
 
-      <ul className="">
-        <li></li>
+      <ul className="tabs reset flex overhide text14 primary">
+        <li className="center gray6Bg white">
+          <span>منوی رستوران</span>
+        </li>
+        <li className="center">
+          <span>نظر مشتریان</span>
+        </li>
+        <li className="center">
+          <span>اطلاعات رستوران</span>
+        </li>
       </ul>
     </div>
   </div>
