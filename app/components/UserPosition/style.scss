@@ -2,12 +2,52 @@
 
 
 .location__user-position{
-  .nav-link{
-    display: block;
-    border: 0;
-    padding: 0;
-    width: 100%;
-    
+  .nav-tabs{
+    .nav-item{
+      padding: 0;
+      .nav-link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        height: 50px;
+        &.active{
+          background-color: transparent;
+          border-bottom: 2px solid $color-danger;
+        }
+      }
+    }
+  }
+  &-search{
+    &-input{
+      padding: 10px 15px;
+      position: relative;
+      border-bottom: 1px solid $color-border-2;
+
+      &:before{
+        font-family: "chilivery";
+        content: "Z";
+        color: $color-text-icon;
+        position: absolute;
+        right: 30px;
+        top: 18px;
+        font-size: 18px;
+        margin-left: auto;
+      }
+      input{
+        background-color: $grey-11;
+        display: flex;
+        width: 100%;
+        height: 40px;
+        padding:0 45px 0 10px;
+        border-radius: 25px;
+        color: $color-text-icon;
+        outline: 0;
+      }
+    }
   }
   .radio-wrapper {
     padding: 1px 15px 1px !important;

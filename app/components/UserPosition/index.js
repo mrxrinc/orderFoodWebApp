@@ -1,6 +1,9 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import classnames from 'classnames';
+import SearchInput, { createFilter } from 'react-search-input'
+
+const KEYS_TO_FILTERS = ['name']
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -9,8 +12,14 @@ class UserPosition extends React.Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.searchUpdated = this.searchUpdated.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
+
     this.state = {
       activeTab: '1',
+      searchTerm: '',
+      cityId:'',
       cityList: [
         { name: 'تهران', id: '1' },
         { name: 'مشهد', id: '2' },
@@ -28,14 +37,33 @@ class UserPosition extends React.Component {
       });
     }
   }
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
+  }
+
+  handleChange(event) {
+    this.setState({
+      cityId: event.target.value
+    },() => { 
+      setTimeout(() => {    
+        this.toggle('2')
+      }, 200);
+    }
+    );
+  }
 
   componentDidMount() {
 
   }
 
   render() {
+    const { cityList } = this.state;
+    const filteredCity = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className="location__user-position">
+
+
+
         <Nav tabs>
 
           <NavItem className="col center">
@@ -43,7 +71,7 @@ class UserPosition extends React.Component {
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
             >
-              Tab1
+              شهر
             </NavLink>
           </NavItem>
 
@@ -52,16 +80,16 @@ class UserPosition extends React.Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              Moar Tabs
+              محله
             </NavLink>
           </NavItem>
 
           <NavItem className="col center">
             <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}
+              className={classnames({ active: this.state.activeTab === '3' })}
+              onClick={() => { this.toggle('3'); }}
             >
-              Moar Tabs
+              مکان دقیق
             </NavLink>
           </NavItem>
 
@@ -69,30 +97,50 @@ class UserPosition extends React.Component {
 
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-            <div className="banks-row">
-              {this.state.cityList.map(city => (
-                <div key={city.id} className="center">
+
+            <div className="location__user-position-search">
+              <SearchInput
+                className="location__user-position-search-input center"
+                onChange={this.searchUpdated}
+                placeholder="جستجو ..."
+              />
+              {filteredCity.length == 0 ?
+                <div className="center">
                   <label className="radio-wrapper bottomM center">
-                    <div className="label-parent">
-                      <input
-                        type="radio"
-                        className="radio-input"
-                        name="city"
-                        // checked={this.props.cityId === city.id}
-                        // onChange={this.changecity}
-                        value={city.id}
-                      />
-                      <div className="radio-face" />
-                    </div>
-                    <span>
-                      {city.name}
-                    </span>
+                    <span>موردی یافت نشد</span>
                   </label>
-                </div>
-              ))}
+                </div> :
+                filteredCity.map(city => {
+                  return (
+                    <div key={city.id} className="center">
+                      <label className="radio-wrapper bottomM center">
+                        <div className="label-parent">
+                          <input
+                            type="radio"
+                            className="radio-input"
+                            // name="cityId"
+                            checked={this.state.cityId === city.id}
+                            onChange={this.handleChange}
+                            value={city.id}
+                          />
+                          <div className="radio-face" />
+                        </div>
+                        <span>
+                          {city.name}
+                        </span>
+                      </label>
+                    </div>
+                  )
+                })
+              }
+
             </div>
+
           </TabPane>
           <TabPane tabId="2">
+
+          </TabPane>
+          <TabPane tabId="3">
 
           </TabPane>
         </TabContent>
