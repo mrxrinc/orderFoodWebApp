@@ -4,7 +4,7 @@ import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
 import PageAboutMotochili from '../../../containers/PageAboutMotochili';
 
-class Login extends Component {
+class MotoChili extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,7 +12,7 @@ class Login extends Component {
 
   toggleLogin = () => {
     this.props.showModal({
-      loginModal: false,
+      motochiliModal: false,
     });
   };
 
@@ -21,8 +21,10 @@ class Login extends Component {
     return (
       <ChiliModal
         toggle={this.toggleLogin}
-        modal={classes.modals.loginModal}
+        modal={classes.modals.motochiliModal}
         headerAlign={classes.headerAlign}
+        headerColor={classes.headerColor}
+        bodyColor={classes.bodyColor}
         // alert
         headerAlign="right"
         icon="icon icon-log-in"
@@ -37,7 +39,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   modals: {
-    loginModal: state.Modals.loginModal,
+    motochiliModal: state.Modals.motochiliModal,
   },
 });
 const mapDispatchToProps = dispatch => ({
@@ -48,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Login);
+)(MotoChili);

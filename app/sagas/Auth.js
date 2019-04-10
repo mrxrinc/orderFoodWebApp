@@ -66,7 +66,7 @@ function* userLogin({ payload }) {
 
       yield put(
         showModal({
-          loginModal: false,
+          motochiliModal: false,
         }),
       );
       yield put(
@@ -96,7 +96,7 @@ function* userLogin({ payload }) {
         // yield put(getUserIsVerifyInfo(signInUser.data));
         yield put(
           showModal({
-            loginModal: false,
+            motochiliModal: false,
             isVerifyModal: true,
           }),
         );
@@ -121,7 +121,7 @@ function* userLogin({ payload }) {
       );
     } else {
       // yield put(showModal({
-      //   loginModal: false
+      //   motochiliModal: false
       // }));
       yield put(
         addToast({
