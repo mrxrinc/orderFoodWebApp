@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { closeModal } from '../../actions/Modals';
 // import PanigaleNotification from 'components/PanigaleNotification';
 
 class ChiliModal extends Component {
@@ -17,21 +18,23 @@ class ChiliModal extends Component {
         toggle={classes.toggle}
         className={`chili-modal ${classes.className} ${
           classes.alert ? 'chili-modal_alert' : ''
-        }`}
+          }`}
       >
         <div className="panigale__header-notification">
           {/* <PanigaleNotification/> */}
         </div>
-        <ModalHeader
-          className={
-            classes.headerAlign === 'left' ? 'modal-header_left':
-            classes.headerAlign === 'right' ? 'modal-header_right':'modal-header_center'
-          }
-        >
-          {classes.title}
-          <i className="icon chilivery-close" onClick={classes.toggle} />
-        </ModalHeader>
-        <ModalBody className="card_dark">{classes.children}</ModalBody>
+        {!!classes.title &&
+          <ModalHeader
+            className={
+              classes.headerAlign === 'left' ? 'modal-header_left' :
+                classes.headerAlign === 'right' ? 'modal-header_right' : 'modal-header_center'
+            }
+            style={{ backgroundColor: classes.headerColor }}
+          >
+            {classes.title}
+            <i className="icon chilivery-close" onClick={classes.toggle} />
+          </ModalHeader>}
+        <ModalBody style={{ backgroundColor: classes.bodyColor }}>{classes.children}</ModalBody>
       </Modal>
     );
   }
