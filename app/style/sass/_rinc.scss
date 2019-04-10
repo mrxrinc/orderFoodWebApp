@@ -95,6 +95,7 @@
 .flex { display: flex };
 .rRow { flex-direction: row };
 .rRowReverse { flex-direction: row-reverse };
+.rCol { flex-direction: column };
 .center { display: flex; justify-content: center; align-items: center };
 .vCenter { display: flex; justify-content: center };
 .hCenter { display: flex; align-items: center };
@@ -221,6 +222,7 @@
 .topM80 { margin-top: 80px };
 .topM90 { margin-top: 90px };
 .topM100 { margin-top: 100px };
+.bottomP { padding-bottom: 0 };
 .bottomP3 { padding-bottom: 3px };
 .bottomP5 { padding-bottom: 5px };
 .bottomP10 { padding-bottom: 10px };
@@ -229,6 +231,7 @@
 .bottomP30 { padding-bottom: 30px };
 .bottomP40 { padding-bottom: 40px };
 .bottomP50 { padding-bottom: 50px };
+.bottomM { margin-bottom: 0 };
 .bottomM3 { margin-bottom: 3px };
 .bottomM5 { margin-bottom: 5px };
 .bottomM10 { margin-bottom: 10px };
