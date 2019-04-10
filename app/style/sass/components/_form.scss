@@ -228,7 +228,7 @@
 
 .checkbox-success input[type="checkbox"]:checked+label:before,
 input[type="radio"]:checked+.radio-face{
-  background-color: $color-danger;
+  background-color: $color-warning;
   // border-color: $color-border-2;
   border: none;
 }

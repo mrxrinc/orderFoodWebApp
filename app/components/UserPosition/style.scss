@@ -1,0 +1,30 @@
+@import '../../style/sass/_variable.scss';
+
+
+.location__user-position{
+  .nav-link{
+    display: block;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    
+  }
+  .radio-wrapper {
+    padding: 1px 15px 1px !important;
+    border-top:0;
+    border-left:0;
+    border-right:0;
+    border-radius: 0;
+    height: 50px;
+    background-color: transparent;
+    span{
+      font-size: 14px;
+    }
+    .radio-face{
+      right: auto;
+      left: 15px;
+      top: 15px;
+    }
+  }
+
+}
