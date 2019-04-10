@@ -1,7 +1,7 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 import logo from '../../images/logo-home.png';
 import { AnimateField } from '../../components/ChiliForm';
-import ChiliButton from '../../components/ChiliButton';
 
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
@@ -42,7 +42,9 @@ export default class HomePage extends React.PureComponent {
           </div>
 
           <div className="searchBtn topM40 wFull hP20 center">
-            <ChiliButton type="green" title="مشاهده رستوران ها" size="big" />
+            <Button color="success">
+              مشاهده رستوران ها
+            </Button>
           </div>
 
           <div className="wFull hP20 vM30 center">
@@ -54,7 +56,6 @@ export default class HomePage extends React.PureComponent {
             <div className="chilivery-compass" />
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
-
         </div>
       </div>
     );
