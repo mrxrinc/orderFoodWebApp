@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
-
 import UserPosition from '../../UserPosition';
-// import UserPosition from '../../UserPosition';
 
 class UserPositionChili extends Component {
   constructor(props) {
@@ -24,13 +22,10 @@ class UserPositionChili extends Component {
       <ChiliModal
         toggle={this.toggleLogin}
         modal={classes.modals.UserPositionModal}
-        headerColor={classes.headerColor}
-        // alert
         headerAlign="center"
         title="تعیین موقعیت"
       >
-        {/* <UserPosition/> */}
-        {/* dads */}
+        <UserPosition/>
       </ChiliModal>
     );
   }

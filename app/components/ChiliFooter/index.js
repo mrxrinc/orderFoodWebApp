@@ -35,7 +35,7 @@ class ChiliFooter extends React.Component {
     return (
       <footer className="chili-footer">
         <UserPositionChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
-        {/* <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/> */}
+        <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <div className="container">
           <div className="row chili-footer__list">
             <div className="col">
