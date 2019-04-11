@@ -7,6 +7,7 @@ import { AnimateField } from '../../components/ChiliForm';
 import GiftCode from '../../components/GiftCode';
 import UserCacheBalance from '../../components/UserCacheBalance';
 import MyAddress from '../../components/MyAddress';
+import StickyPrice from '../../components/StickyPrice';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -64,6 +65,7 @@ export class Checkout extends React.PureComponent {
         <MyAddress />
         <GiftCode />
         <UserCacheBalance />
+        <StickyPrice />
       </div>
     );
   }
