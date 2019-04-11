@@ -2,6 +2,30 @@
 
 
 .location__user-position{
+  &-wrapper{
+    & > div:first-child{
+      .center{
+        border-top: 1px solid $color-border-2;
+      }
+    }
+  }
+  &-title{
+    color: $grey-6;
+  }
+  &-all-resaurant{
+    bottom: 30px;
+    margin: 0 auto;
+    left: 15px;
+    right: 15px;
+    max-width: 450px;
+  }
+  &-counter{
+    border-radius: 50%;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: $color-tag;
+  }
   .nav-tabs{
     .nav-item{
       padding: 0;
@@ -21,7 +45,29 @@
       }
     }
   }
+  .tab-pane{
+    height: calc(80vh - 50px);
+    position: relative;
+    &:last-child{
+      background: url(../../images/map.png) no-repeat center center;
+      background-size: cover;
+    }
+  }
   &-search{
+    &-wrapper{
+      span{
+        display: inline-block !important;
+        width: auto !important;
+      }
+    }
+    &-tag{
+      &.btn{
+        background-color: $color-tag;
+        padding: 0 10px !important;
+        display: flex !important;
+        height: 30px;
+      }
+    }
     &-input{
       padding: 10px 15px;
       position: relative;
