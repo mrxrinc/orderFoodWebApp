@@ -84,6 +84,7 @@
 .text20 { font-size: 20px };
 .text22 { font-size: 22px };
 .text25 { font-size: 25px };
+.text28 { font-size: 28px };
 .text30 { font-size: 30px };
 .overLine { text-decoration: line-through };
 .underLine { text-decoration: underline };
@@ -109,6 +110,7 @@
 .leftItems { align-items: flex-start };
 .line { height: 1; background-color: #adb9c7 };
 .overhide { overflow: hidden };
+.scroll { overflow: scroll};
 .rotate90 { transform: { rotate: 90deg } };
 .flipX { transform: { scaleX: -1 } };
 .round3 { border-radius: 3px };

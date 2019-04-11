@@ -42,9 +42,7 @@ export default class HomePage extends React.PureComponent {
           </div>
 
           <div className="searchBtn topM40 wFull hP20 center">
-            <Button color="success">
-              مشاهده رستوران ها
-            </Button>
+            <Button color="success">مشاهده رستوران ها</Button>
           </div>
 
           <div className="wFull hP20 vM30 center">

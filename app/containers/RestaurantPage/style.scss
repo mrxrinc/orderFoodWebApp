@@ -14,3 +14,38 @@
     background-color: #e3e3e7;
   }
 }
+
+.modal-restaurant__detail {
+  &-body {
+    height: calc(80vh - 90px);
+  }
+  &-head {
+    height: 220px;
+
+    ul {
+      height: 50px;
+      li {
+        width: 50px;
+      }
+    }
+  }
+  &-content {
+    h3 {
+      line-height: 27px;
+    }
+
+    .reviews {
+      width: 130px;
+      float: left;
+
+      div {
+        height: 22px;
+      }
+    }
+  }
+
+  &-footer {
+    height: 90px;
+    border-top: 1px solid $grey-4;
+  }
+}

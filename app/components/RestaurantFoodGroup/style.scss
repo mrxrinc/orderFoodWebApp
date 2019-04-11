@@ -1,85 +1,8 @@
 @import '../../style/sass/variable';
 
-.foodCard {
-  background: $color-white;
-  width: 100%;
-  min-height: 150px;
-  border-radius: 15px;
-  margin-bottom: 12px;
-  box-shadow: 0px 3px 10px #00000022;
-  font-family: $font-family-iransans;
-  overflow: hidden;
-
+.foodGroup {
   .head {
-    height: 110px;
-    display: flex;
-    flex-direction: row;
-
-    .rightHand {
-      width: 120px;
-      height: inherit;
-      display: flex;
-      flex-basis: 140px;
-      flex-shrink: 0;
-
-      .imageBox {
-        width: 100%;
-        height: 100%;
-      }
-
-      .discount {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        right: 5px;
-        top: 5px;
-        box-shadow: 0 3px 10px #ff000055;
-      }
-
-      .zoom {
-        width: 25px;
-        height: 25px;
-        border-radius: 5px;
-        background-color: #00000022;
-        bottom: 5px;
-        left: 5px;
-      }
-    }
-
-    .leftHand {
-      width: 100%;
-      height: inherit;
-      padding: 10px 10px 15px 5px;
-      border-bottom: 1px solid $color-border-2;
-
-      .description {
-        font-size: 11px;
-        max-height: 35px;
-      }
-
-      .favorite {
-        width: 40px;
-        height: 40px;
-        padding-left: 10px;
-        span {
-          font-size: 22px;
-        }
-      }
-      .reviews {
-        width: 90px;
-        float: left;
-
-        div {
-          height: 22px;
-        }
-      }
-    }
-  }
-
-  .footer {
     height: 40px;
-    
-    
+    border-bottom: 1px solid $color-disable;
   }
-
 }

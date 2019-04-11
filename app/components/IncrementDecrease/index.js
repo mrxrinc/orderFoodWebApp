@@ -21,9 +21,13 @@ class IncrementDecrease extends React.PureComponent {
 
   render() {
     return (
-      <div className={`increment-decrease ${this.props.className}`}>
+      <div
+        className={`increment-decrease hCenter rRowReverse spaceBetween ${
+          this.props.className
+        }`}
+      >
         <button
-          className="increment-decrease__add"
+          className="increment-decrease__add center"
           type="button"
           onClick={this.IncrementItem}
         >
@@ -31,11 +35,18 @@ class IncrementDecrease extends React.PureComponent {
         </button>
 
         <span className="increment-decrease__count">
-          {this.state.show ? <h2>{this.state.clicks}</h2> : ''}
+          {this.state.show && (
+            <h2
+              className="reset centerText hM5"
+              style={{ fontSize: `${this.props.fontSize}px` }}
+            >
+              {this.state.clicks}
+            </h2>
+          )}
         </span>
 
         <button
-          className="increment-decrease__remove"
+          className="increment-decrease__remove center"
           type="button"
           onClick={this.DecreaseItem}
         >

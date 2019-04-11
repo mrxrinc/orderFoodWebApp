@@ -2,8 +2,8 @@ import React from 'react';
 import './style.scss';
 import Stepper from '../IncrementDecrease';
 
-const RestaurantFoodCard = () => (
-  <div className="foodCard">
+const RestaurantFoodCard = props => (
+  <div className="foodCard" onClick={props.onClick}>
     <div className="head center">
       <div className="rightHand center relative">
         <div className="imageBox gray4Bg" />
@@ -55,7 +55,7 @@ const RestaurantFoodCard = () => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper className="topM20" />
+        <Stepper />
       </div>
     </div>
   </div>
