@@ -60,16 +60,18 @@
     }
   }
   .description {
-    padding: 0 20px;
+    padding: 0 10px;
+    margin-top: 20px;
+    border-top: 1px solid #b9b9b9;
     label {
       color: $grey-7;
-      font-size: 14px;
-      max-width: 100% !important;
-      transform: translate3d(0, 170%, 0) !important;
+      font-size: 13px;
+      //max-width: 100% !important;
+      //transform: translate3d(0, 170%, 0) !important;
     }
     i {
-      color: #A19F2E !important;
-      font-size: 30px;
+      color: $orange-6 !important;
+      font-size: 20px;
     }
   }
 }
