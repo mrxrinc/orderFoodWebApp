@@ -21,23 +21,25 @@ class IncrementDecrease extends React.PureComponent {
 
   render() {
     return (
-      <div className="increment-decrease">
+      <div className={`increment-decrease ${this.props.className}`}>
         <button
           className="increment-decrease__add"
           type="button"
           onClick={this.IncrementItem}
         >
-          <span className="chilivery-add"> </span>
+          <span className="chilivery-add" />
         </button>
+
         <span className="increment-decrease__count">
           {this.state.show ? <h2>{this.state.clicks}</h2> : ''}
         </span>
+
         <button
           className="increment-decrease__remove"
           type="button"
           onClick={this.DecreaseItem}
         >
-          <span className="chilivery-remove"> </span>
+          <span className="chilivery-remove" />
         </button>
       </div>
     );
