@@ -48,6 +48,7 @@ export class Checkout extends React.PureComponent {
         <div className="address">
           <h4>آدرس های ذخیره شده</h4>
           <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
+          <MyAddress />
         </div>
         <div className="description">
           <AnimateField
@@ -62,7 +63,7 @@ export class Checkout extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <MyAddress />
+
         <GiftCode />
         <UserCacheBalance />
         <StickyPrice />

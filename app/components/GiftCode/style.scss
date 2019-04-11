@@ -17,8 +17,8 @@
     }
     &-btn {
       position: absolute;
-      left: 5px;
-      top: 6px;
+      left: 4px;
+      top: 3px;
       button {
         margin: 0 0 0 3px;
         font-size: .8125rem;
@@ -27,6 +27,7 @@
         background-color: #b45cc3;
         border-radius: 20px;
         border: none;
+        height: 39px;
       }
     }
     &-icon {
