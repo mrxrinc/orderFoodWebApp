@@ -91,10 +91,10 @@ export class Kit extends React.Component {
 
     let ChiliOwlDemo = [1,2,3,4,5,6]
     let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
-      <div 
+      <div
         key={i}
         className="item"
-          style={{ 
+          style={{
           width:"200px",
           backgroundColor:"#4DC7A0",
           padding:"1rem"

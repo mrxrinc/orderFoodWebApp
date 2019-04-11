@@ -28,6 +28,7 @@ class Register extends Component {
             onClick=""
             label="موبایل"
             icon="chilivery-mobile"
+            validation={['شماره موبایل اشتباه است.']}
           />
           <AnimateField
             className="col-12"
@@ -37,6 +38,7 @@ class Register extends Component {
             onClick=""
             label="ایمیل"
             icon="chilivery-email"
+            validation={['ایمیل اشتباه است.']}
           />
           <AnimateField
             className="col-12"
