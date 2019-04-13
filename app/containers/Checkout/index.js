@@ -22,7 +22,7 @@ export class Checkout extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div className="checkout hFull">
         <RestaurantHeaderCheckout cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
