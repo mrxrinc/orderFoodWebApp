@@ -16,6 +16,7 @@ import RestaurantsList from 'containers/RestaurantsList/Loadable';
 import RestaurantPage from 'containers/RestaurantPage/Loadable';
 import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
+import Cart from 'containers/Cart';
 import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
 import AfterPayment from 'containers/AfterPayment';
@@ -36,6 +37,7 @@ export default function App() {
           <Route exact path="/restaurants-list" component={RestaurantsList} />
           <Route exact path="/restaurant-page" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/more-menu" component={PageMoreMenu} />

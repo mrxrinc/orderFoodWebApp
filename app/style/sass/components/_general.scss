@@ -12,7 +12,7 @@ ul {
 }
 .main-container{
   height: calc(100vh - 60px);
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 .fullLine {
   width: 100%;
@@ -23,4 +23,10 @@ a{
   &:active,&:hover{
     text-decoration: none;
   }
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
 }

@@ -2,76 +2,9 @@
 
 .checkout {
   background-color: #f5f5f5;
-  //padding: 10px;
-  &__card-item {
-    padding: 10px;
-  }
-  .food-delivery {
-    clear: both;
-    border-top: 1px solid $color-border-input;
-    border-bottom: 1px solid $color-border-input;
-    padding: 10px 10px;
-    &__rbox {
-      float: right;
-      padding-top: 9px;
-      span {
-        font-size: 13px;
-        color: $grey-7;
-        &.cost-sending {
-          color: $grey-9;
-          font-weight: bold;
-        }
-      }
-    }
-    &__lbox {
-      float: left;
-      .tab-box {
-        background-color: $grey-4;
-        border-radius: 20px;
-        padding: 6px 7px;
-        a {
-          color: $grey-7;
-          font-weight: bold;
-          font-size: 12px;
-          padding: 5px 10px;
-          margin-bottom: 5px;
-          line-height: 28px;
-          &.active {
-            background-color: #ffffff;
-            border-radius: 20px;
-            -webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
-            -moz-box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
-            box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
-            color: $grey-9;
-          }
-        }
-      }
-    }
-  }
-  .address {
-    padding: 15px 10px 0;
-    h4 {
-      font-size: 13px;
-      color: $grey-7;
-      font-weight: 400;
-    }
-    p {
-      font-size: 12px;
-    }
-  }
-  .description {
-    padding: 0 10px;
-    margin-top: 20px;
-    border-top: 1px solid #b9b9b9;
-    label {
-      color: $grey-7;
-      font-size: 13px;
-      //max-width: 100% !important;
-      //transform: translate3d(0, 170%, 0) !important;
-    }
-    i {
-      color: $orange-6 !important;
-      font-size: 20px;
-    }
+  &-cacheTitle {
+    color: $grey-7;
+    font-size: 13px;
+    margin-top: 30px;
   }
 }
