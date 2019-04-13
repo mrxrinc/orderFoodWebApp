@@ -1,0 +1,116 @@
+@import '../../style/sass/_variable.scss';
+
+
+.location__user-position{
+  &-wrapper{
+    & > div:first-child{
+      .center{
+        border-top: 1px solid $color-border-2;
+      }
+    }
+  }
+  &-title{
+    color: $grey-6;
+  }
+  &-all-resaurant{
+    bottom: 30px;
+    margin: 0 auto;
+    left: 15px;
+    right: 15px;
+    max-width: 450px;
+  }
+  &-counter{
+    border-radius: 50%;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: $color-tag;
+  }
+  .nav-tabs{
+    .nav-item{
+      padding: 0;
+      .nav-link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        height: 50px;
+        &.active{
+          background-color: transparent;
+          border-bottom: 2px solid $color-danger;
+        }
+      }
+    }
+  }
+  .tab-pane{
+    height: calc(80vh - 50px);
+    position: relative;
+    &:last-child{
+      background: url(../../images/map.png) no-repeat center center;
+      background-size: cover;
+    }
+  }
+  &-search{
+    &-wrapper{
+      span{
+        display: inline-block !important;
+        width: auto !important;
+      }
+    }
+    &-tag{
+      &.btn{
+        background-color: $color-tag;
+        padding: 0 10px !important;
+        display: flex !important;
+        height: 30px;
+      }
+    }
+    &-input{
+      padding: 10px 15px;
+      position: relative;
+      border-bottom: 1px solid $color-border-2;
+
+      &:before{
+        font-family: "chilivery";
+        content: "Z";
+        color: $color-text-icon;
+        position: absolute;
+        right: 30px;
+        top: 18px;
+        font-size: 18px;
+        margin-left: auto;
+      }
+      input{
+        background-color: $grey-11;
+        display: flex;
+        width: 100%;
+        height: 40px;
+        padding:0 45px 0 10px;
+        border-radius: 25px;
+        color: $color-text-icon;
+        outline: 0;
+      }
+    }
+  }
+  .radio-wrapper {
+    padding: 1px 15px 1px !important;
+    border-top:0;
+    border-left:0;
+    border-right:0;
+    border-radius: 0;
+    height: 50px;
+    background-color: transparent;
+    span{
+      font-size: 14px;
+    }
+    .radio-face{
+      right: auto;
+      left: 15px;
+      top: 15px;
+    }
+  }
+
+}

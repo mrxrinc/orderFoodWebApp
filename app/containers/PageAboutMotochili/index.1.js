@@ -2,7 +2,6 @@ import React from 'react';
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 // import moduleName from '../../images/icons/';
-
 import map from './map.png';
 import motoSpeed from '../../images/icons/motochili_speed.png';
 import motoPrice from '../../images/icons/motochili_price.png';

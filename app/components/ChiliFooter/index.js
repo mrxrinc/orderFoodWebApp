@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import UserPositionChili from '../ChiliModal/components/UserPositionChili';
 import MotoChili from '../ChiliModal/components/MotoChili';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
@@ -21,7 +22,7 @@ class ChiliFooter extends React.Component {
   componentDidMount() {
     this.props.showModal({
       motochiliModal: false,
-      forGotModal: false,
+      UserPositionModal: false,
       resetPassModal: false,
       successChangePassModal: false,
       trackingModal: false,
@@ -33,6 +34,7 @@ class ChiliFooter extends React.Component {
   render() {
     return (
       <footer className="chili-footer">
+        <UserPositionChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <div className="container">
           <div className="row chili-footer__list">
