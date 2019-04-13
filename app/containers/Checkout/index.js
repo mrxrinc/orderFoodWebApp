@@ -7,7 +7,9 @@ import { AnimateField } from '../../components/ChiliForm';
 import GiftCode from '../../components/GiftCode';
 import UserCacheBalance from '../../components/UserCacheBalance';
 import MyAddress from '../../components/MyAddress';
+import { Container, Row, Col } from 'reactstrap';
 import StickyPrice from '../../components/StickyPrice';
+import RestaurantHeader from '../../components/RestaurantHeader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -25,48 +27,61 @@ export class Checkout extends React.PureComponent {
   render() {
     const {description} = this.state;
     return (
-      <div className="checkout">
-        <div className="checkout__card-item">
-          <CheckoutCardItem />
-          <CheckoutCardItem />
-          <CheckoutCardItem />
-          <CheckoutCardItem />
-        </div>
-        <div className="food-delivery">
-          <div className="food-delivery__rbox">
-            <span>تحویل غذا </span>
-            <span className="cost-sending">(هزینه ارسال: 0 تومان)</span>
-          </div>
-          <div className="food-delivery__lbox">
-            <div className="tab-box">
-              <a href="#!">ارسال به من</a>
-              <a href="#!" className="active">در محل رستوران</a>
-            </div>
-          </div>
-          <div className="clearfix"></div>
-        </div>
-        <div className="address">
-          <h4>آدرس های ذخیره شده</h4>
-          <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
-          <MyAddress />
-        </div>
-        <div className="description">
-          <AnimateField
-            placeholder=" "
-            icon="chilivery-speech"
-            name="signUpPhone"
-            type="text"
-            onClick=""
-            label="توضیحات و موارد بیشتر در مورد این سفارش"
-            value={description}
-            onChange={this.onChange}
-            onKeyPress={this.handleKeyPressUpdate}
-          />
+      <div>
+        <RestaurantHeader cover/>
+      <Container className="checkout">
+        <div className="padd5">
+          <GiftCode />
+          <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
+          <UserCacheBalance />
+          <Row className="banks-row">
+            <Col xs="6">
+              <label className="radio-wrapper">
+                <div className="label-parent">
+                  <input
+                    type="radio"
+                    className="radio-input"
+                    name="gateway"
+                    value="6"
+                  />
+                  <div className="radio-face" />
+                </div>
+                <span className="clearfix">
+                    سامان
+                    <img
+                      src="https://payment.iiventures.com/public/img/gateways/newSaman.png"
+                      className="pull-left"
+                      alt="tik8"
+                    />
+                  </span>
+              </label>
+            </Col>
+            <Col xs="6">
+              <label className="radio-wrapper">
+                <div className="label-parent">
+                  <input
+                    type="radio"
+                    className="radio-input"
+                    name="gateway"
+                    value="7"
+                  />
+                  <div className="radio-face" />
+                </div>
+                <span className="clearfix">
+                    پارسیان
+                    <img
+                      src="https://payment.iiventures.com/public/img/gateways/newParsian.png"
+                      className="pull-left"
+                      alt="tik8"
+                    />
+                  </span>
+              </label>
+            </Col>
+          </Row>
         </div>
 
-        <GiftCode />
-        <UserCacheBalance />
-        <StickyPrice />
+      </Container>
+      <StickyPrice />
       </div>
     );
   }
