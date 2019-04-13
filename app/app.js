@@ -38,7 +38,7 @@ const render = messages => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ConnectedRouter history={history}>
-          <div>
+          <div className="container-fluid p-0">
             <ErrorHandler history={history}>
               <App />
             </ErrorHandler>
