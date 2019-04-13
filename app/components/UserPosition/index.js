@@ -1,7 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { showModal } from '../../actions/Modals';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
+import {history} from '../../store';
+
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
@@ -20,7 +25,7 @@ class UserPosition extends React.Component {
 
 
     this.state = {
-      activeTab: '3',
+      activeTab: '1',
       searchTerm: '',
       searchDistrict: '',
       cityId: '',
@@ -76,6 +81,13 @@ class UserPosition extends React.Component {
       });
     }
   }
+  UserPositionModal = (e) => {
+    e.preventDefault();
+    this.props.showModal({
+      UserPositionModal: false,
+    });
+    history.push('/restaurants-list')
+  };
   searchUpdated(term) {
     this.setState({ searchTerm: term })
   }
@@ -211,8 +223,8 @@ class UserPosition extends React.Component {
             <div className="location__user-position-mydis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP10 bottomP10">
                 <span className="location__user-position-title flex center">
-                  <i className="icon chilivery-my-address text30" />
-                  <span className="text22 rightM10">آدرس های من</span>
+                  <i className="icon chilivery-my-address text22" />
+                  <span className="text16 rightM5">آدرس های من</span>
                 </span>
               </div>
 
@@ -260,8 +272,8 @@ class UserPosition extends React.Component {
               <div className="location__user-position-otherdis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP40 bottomP10">
               <span className="location__user-position-title flex center">
-                <i className="icon chilivery-group-pins text30" />
-                <span className="text22 rightM10">سایر محله‌ها</span>
+                <i className="icon chilivery-group-pins text22" />
+                <span className="text16 rightM5">سایر محله‌ها</span>
               </span>
               <Button color="success" className="rightMauto flex">همه رستوران‌های شهر تهران</Button>
             </div>
@@ -294,10 +306,10 @@ class UserPosition extends React.Component {
             </div>
           </TabPane>
           <TabPane tabId="3">
-            <a href="" className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
+            <span onClick={this.UserPositionModal} className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
                 <span>مشاهده رستوران ها</span>
                 <span className="location__user-position-counter flex center rightM10">17</span>
-            </a>
+            </span>
           </TabPane>
         </TabContent>
 
@@ -305,5 +317,13 @@ class UserPosition extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
 
-export default UserPosition;
+});
+const mapDispatchToProps = dispatch => ({
+  showModal: (showStatus) => {
+      dispatch(showModal(showStatus))
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPosition);

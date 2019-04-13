@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import './style.scss';
 
 const RestaurantsListItem = props => (
-  <div className="listItem">
+  <Link to="/restaurant-page" className="listItem dblock">
     <div className="head center">
       <div className="right center relative">
         <div
@@ -70,7 +72,7 @@ const RestaurantsListItem = props => (
         <span>تومان</span>
       </div>
     </div>
-  </div>
+  </Link>
 );
 
 export default RestaurantsListItem;
