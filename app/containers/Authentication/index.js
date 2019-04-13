@@ -28,7 +28,7 @@ export default class Authentication extends React.Component {
 
   render() {
     return (
-      <div className="whFull absolute authBg ">
+      <div className=" authBg ">
         <div className="authentication__page">
           <div className="authentication__shadow1" />
           <div className="authentication__shadow2" />
@@ -36,7 +36,7 @@ export default class Authentication extends React.Component {
             <div className="rainbow" />
             <div className="header">
               <button
-                className="header__box header__rbox"
+                className={`header__box  header__login-${this.state.isLogin} header__rbox `}
                 onClick={this.emailVisibie.bind(this)}
               >
                 ورود به حساب کاربری
