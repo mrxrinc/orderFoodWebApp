@@ -92,7 +92,7 @@ class RestaurantPage extends React.Component {
               <div className="center vM30 relative">
                 <div className="fullLine" />
 
-                <div className="reviews absolute flex hP20">
+                <div className="reviews absolute flex hP20 lightBg">
                   <div className="flex i2 center gray">
                     <span className="text14 leftM3 topM3">87</span>
                     <span className="chilivery-user text12" />

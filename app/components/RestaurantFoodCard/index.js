@@ -3,8 +3,8 @@ import './style.scss';
 import Stepper from '../IncrementDecrease';
 
 const RestaurantFoodCard = props => (
-  <div className="foodCard" onClick={props.onClick}>
-    <div className="head center">
+  <div className="foodCard">
+    <div className="head center" onClick={props.onClick}>
       <div className="rightHand center relative">
         <div
           className="imageBox cover gray4Bg"
