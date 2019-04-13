@@ -1,15 +1,11 @@
 import React from 'react';
 import './style.scss';
-import { Button } from 'reactstrap';
-
 import CheckoutCardItem from '../../components/CheckoutCardItem';
 import { AnimateField } from '../../components/ChiliForm';
-import GiftCode from '../../components/GiftCode';
-import UserCacheBalance from '../../components/UserCacheBalance';
 import MyAddress from '../../components/MyAddress';
 import StickyPrice from '../../components/StickyPrice';
+import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
 
-/* eslint-disable react/prefer-stateless-function */
 export class cart extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -26,6 +22,7 @@ export class cart extends React.PureComponent {
     const {description} = this.state;
     return (
       <div className="cart bottomP50">
+        <RestaurantHeaderCheckout/>
         <div className="cart__card-item">
           <CheckoutCardItem />
           <CheckoutCardItem />

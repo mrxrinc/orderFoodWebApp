@@ -37,3 +37,8 @@
     border-radius: 40px;
   }
 }
+button {
+  &:active,&:focus {
+    outline: none;
+  }
+}

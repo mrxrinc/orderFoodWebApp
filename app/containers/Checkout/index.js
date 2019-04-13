@@ -9,7 +9,7 @@ import UserCacheBalance from '../../components/UserCacheBalance';
 import MyAddress from '../../components/MyAddress';
 import { Container, Row, Col } from 'reactstrap';
 import StickyPrice from '../../components/StickyPrice';
-import RestaurantHeader from '../../components/RestaurantHeader';
+import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -25,10 +25,9 @@ export class Checkout extends React.PureComponent {
   };
 
   render() {
-    const {description} = this.state;
     return (
       <div>
-        <RestaurantHeader cover/>
+        <RestaurantHeaderCheckout/>
       <Container className="checkout">
         <div className="padd5">
           <GiftCode />
