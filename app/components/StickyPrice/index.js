@@ -1,4 +1,5 @@
 import React from 'react';
+import { history } from '../../store';
 import { Collapse, Button, CardBody, Card } from 'reactstrap';
 import './style.scss';
 import toggleUp from "../../images/closed.png"
@@ -16,6 +17,9 @@ class StickyPrice extends React.PureComponent {
     this.setState(state => ({ collapse: !state.collapse }));
   }
 
+  pushLink = () =>{
+    history.push("/checkout")
+  }
   render() {
     return (
       <div className="StickyPrice">
@@ -58,7 +62,7 @@ class StickyPrice extends React.PureComponent {
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
-            <button type="button">تایید سفارش
+            <button onClick={this.pushLink} type="button">تایید سفارش
               <span className="chilivery-arrow-left"> </span>
             </button>
           </div>

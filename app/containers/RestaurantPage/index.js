@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { showModal } from '../../actions/Modals';
+import {history} from '../../store';
 import foodImg from '../../images/foodImg.jpg';
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/cover.jpg';
@@ -22,15 +23,19 @@ class RestaurantPage extends React.Component {
     };
   }
 
-  toggleModal = () => {
+  toggleModal = (e) => {
+    e.preventDefault();
     this.setState(
       { RestaurantPageModal: !this.state.RestaurantPageModal },
       () => {
         this.props.showModal({
           RestaurantPageModal: this.state.RestaurantPageModal,
         });
+        if(this.state.RestaurantPageModal === false){
+          history.push("/cart");
+        }
       },
-    );
+      );
   };
 
   render() {
@@ -148,7 +153,7 @@ class RestaurantPage extends React.Component {
             </div>
 
             <div className="i2 center">
-              <Button color="success w80">تایید</Button>
+              <Button color="success w80" onClick={this.toggleModal}>تایید</Button>
             </div>
           </div>
         </Modal>
