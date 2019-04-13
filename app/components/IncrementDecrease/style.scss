@@ -18,19 +18,27 @@
     }
   }
   &__add {
+    &:active,&:focus {
+      outline: none;
+    }
     span {
       color: $color-success;
       font-weight: bold;
       vertical-align: middle;
       font-size: 12px;
+      padding-top: 1px;
     }
   }
   &__remove {
+    &:active,&:focus {
+      outline: none;
+    }
     span {
       color: $color-danger;
       font-weight: bold;
       vertical-align: middle;
       font-size: 12px;
+      padding-top: 3px;
     }
   }
 }
