@@ -10,8 +10,17 @@ ul {
 #app{
   padding-bottom: 60px;
 }
+.main-container{
+  height: calc(100vh - 60px);
+  overflow-y: auto; 
+}
 .fullLine {
   width: 100%;
   height: 1px;
   background-color: $color-disable;
+}
+a{
+  &:active,&:hover{
+    text-decoration: none;
+  }
 }

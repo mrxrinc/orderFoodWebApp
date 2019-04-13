@@ -27,23 +27,25 @@ import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/kit" component={Kit} />
-        <Route exact path="/restaurants-list" component={RestaurantsList} />
-        <Route exact path="/restaurant-page" component={RestaurantPage} />
-        <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/authentication" component={Authentication} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/more-menu" component={PageMoreMenu} />
-        <Route exact path="/after-payment" component={AfterPayment} />
-        <Route exact path="/more-menu" component={PageMoreMenu} />
-        <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
-        <Route component={NotFoundPage} />
-      </Switch>
+    <React.Fragment>
+      <main className="main-container">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/kit" component={Kit} />
+          <Route exact path="/restaurants-list" component={RestaurantsList} />
+          <Route exact path="/restaurant-page" component={RestaurantPage} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/authentication" component={Authentication} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/more-menu" component={PageMoreMenu} />
+          <Route exact path="/after-payment" component={AfterPayment} />
+          <Route exact path="/more-menu" component={PageMoreMenu} />
+          <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </main>
       <GlobalStyle />
       <ChiliFooter />
-    </div>
+    </React.Fragment>
   );
 }
