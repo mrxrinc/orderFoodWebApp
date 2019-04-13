@@ -72,7 +72,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onHandleLogin}>
+        <form onSubmit={this.onHandleLogin} className="loginForm">
           <AnimateField
             className="col-12"
             placeholder=" "
@@ -92,16 +92,19 @@ class Login extends Component {
             icon="chilivery-pass"
           />
           <div className="text-center mt-4">
-            <span className="forgotPassword">
-              {' '}
-              رمز عبور خود را فراموش کرده اید؟
-            </span>
+            <Link to="/forgot-password">
+              <span className="forgotPassword">
+                {' '}
+                رمز عبور خود را فراموش کرده اید؟
+              </span>
+            </Link>
           </div>
 
           <div className="topM40 wFull hP20 center">
-            <button className="btn btn-big btn-success">ورود</button>
+            <button className="btn btn-auth btn-success">ورود</button>
           </div>
         </form>
+        {/* <ChiliSocial /> */}
       </div>
     );
   }

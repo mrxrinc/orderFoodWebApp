@@ -3,7 +3,6 @@
 @import '../../style/sass/mixin/boxshadow';
 @import '../../style/sass/mixin/lineargradient';
 
-
 $border-radius : 20px;
 
 .authBg {
@@ -53,6 +52,7 @@ $border-radius : 20px;
     height: 92px;
     align-items: center;
     justify-content: space-around;
+    border-bottom: 1px solid #B9B9B9;
 
     &__box {
       padding-bottom: 10px;
@@ -64,6 +64,5 @@ $border-radius : 20px;
         outline: none;
       }
     }
-  }
-
+  }  
 }
