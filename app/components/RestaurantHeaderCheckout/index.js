@@ -8,7 +8,7 @@ const RestaurantHeaderCheckout = props => (
       className="cover gray4Bg relative"
       style={{ backgroundImage: `url(${props.cover})` }}
     >
-      <div className="curvature absolute bottom bgWhite" />
+      <div className="curvature absolute bottom gray2Bg" />
       <div className="wFull absolute bottom center">
         <div
           className="avatar round10 gray5Bg relative centerBg contain"
