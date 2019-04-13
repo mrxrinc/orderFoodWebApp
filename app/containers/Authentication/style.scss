@@ -49,7 +49,7 @@ $border-radius : 20px;
 
   .rainbow {
     height: 18px;
-    background: linear-gradient(to right, $rainbow-list);
+    @include gradient(to right, $rainbow-list);
     border-radius: $border-radius $border-radius 0 0;
   }
 
