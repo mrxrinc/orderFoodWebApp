@@ -22,6 +22,7 @@ import AfterPayment from 'containers/AfterPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
 import PageAboutMotochili from '../PageAboutMotochili';
 import PageMoreMenu from '../PageMoreMenu';
+import ForgotPassword from '../ForgotPassword';
 
 import GlobalStyle from '../../global-styles';
 
@@ -41,6 +42,8 @@ export default function App() {
           <Route exact path="/after-payment" component={AfterPayment} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+
           <Route component={NotFoundPage} />
         </Switch>
       </main>

@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnimateField } from '../../components/ChiliForm';
 import './style.scss';
-import ChiliButton from '../../components/ChiliButton';
+import ChiliSocial from '../../components/ChiliSocial';
 
 class Register extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onHandleLogin}>
+        <form onSubmit={this.onHandleLogin} className="loginForm">
           <AnimateField
             className="col-12"
             placeholder=" "
@@ -61,8 +61,7 @@ class Register extends Component {
             </span>
           </div>
           <div className="topM40 wFull hP20 center">
-            <button className="btn btn-big btn-success">ثبت نام</button>
-            {/* <ChiliButton type="green" title="ثبت نام" /> */}
+            <button className="btn btn-auth btn-success">ثبت نام</button>
           </div>
         </form>
       </div>

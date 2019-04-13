@@ -8,6 +8,7 @@
 import React from 'react';
 
 import { Button } from 'reactstrap';
+import $ from 'jquery';
 import ChiliButton from '../../components/ChiliButton';
 
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../components/ChiliForm';
@@ -15,9 +16,9 @@ import Icon from './icon';
 
 
 //fow OWL.Carousel
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel';
-import $ from 'jquery';
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class Kit extends React.Component {
