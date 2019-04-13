@@ -8,10 +8,17 @@
 import React from 'react';
 
 import { Button } from 'reactstrap';
+import $ from 'jquery';
 import ChiliButton from '../../components/ChiliButton';
 
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../components/ChiliForm';
 import Icon from './icon';
+
+
+//fow OWL.Carousel
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class Kit extends React.Component {
@@ -32,6 +39,37 @@ export class Kit extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  componentDidMount(){
+    //fow OWL.Carousel
+    $(document).ready(function () {
+      $('#demo').owlCarousel({
+        rtl: true,
+        loop: false,
+        margin: 15,
+        nav: false,
+        dots: false,
+        autoWidth: true,
+        responsive: {
+            0: {
+                items: 3,
+            },
+            768: {
+                items: 3,
+            },
+            992: {
+                items: 4,
+            },
+            1200: {
+                items: 5,
+            },
+            1440: {
+                items: 6,
+            },
+        },
+      });
+    });
+  }
+
   render() {
     const buttonElement = {
       title: `مشاهده لیست رستوران ها`,
@@ -50,6 +88,22 @@ export class Kit extends React.Component {
       signUpCity,
       loginPass,
     } = this.state;
+
+
+    let ChiliOwlDemo = [1,2,3,4,5,6]
+    let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
+      <div 
+        key={i}
+        className="item"
+          style={{ 
+          width:"200px",
+          backgroundColor:"#4DC7A0",
+          padding:"1rem"
+        }}
+      >
+        <h4>{posterItem}</h4>
+      </div>
+    );
     return (
       <div className="container">
         <div className="row">
@@ -57,6 +111,13 @@ export class Kit extends React.Component {
             <Icon />
           </div>
           <hr />
+          <div className="col-lg-12">
+          <div className="ltr-plugin">
+            <div id="demo" className="owl-carousel owl-theme">
+              {ChiliOwlDemoItems}
+            </div>
+          </div>
+          </div>
           <div className="col-lg-12">
             <h1>Buttons:</h1>
             <Button color="primary">primary</Button>{' '}

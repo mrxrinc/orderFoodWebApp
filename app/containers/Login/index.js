@@ -8,6 +8,7 @@ import axios from 'axios';
 import { getUser } from '../../actions/Auth';
 import { setCookie } from '../../utils/cookies';
 import { AnimateField } from '../../components/ChiliForm';
+import ChiliSocial from '../../components/ChiliSocial';
 import './style.scss';
 
 class Login extends Component {
@@ -72,7 +73,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onHandleLogin}>
+        <form onSubmit={this.onHandleLogin} className="loginForm">
           <AnimateField
             className="col-12"
             placeholder=" "
@@ -99,9 +100,10 @@ class Login extends Component {
           </div>
 
           <div className="topM40 wFull hP20 center">
-            <button className="btn btn-big btn-success">ورود</button>
+            <button className="btn btn-auth btn-success">ورود</button>
           </div>
         </form>
+        {/* <ChiliSocial /> */}
       </div>
     );
   }

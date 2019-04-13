@@ -1,0 +1,58 @@
+@import '../../style/sass/variable';
+
+.chili-more-menu{
+    a.accordion__title{
+        &:hover{
+            text-decoration: none;
+        }
+    }
+    .accordion{
+        &__title{
+            display: flex;
+            text-align: right;
+            border-bottom: 1px solid $grey-12;
+            position: relative;
+            &:after{
+                font-family: chilivery;
+                content: 'R';
+                position: absolute;
+                left: 20px;
+                color: $color-border-input;
+            }
+            
+            &.accordion_hide:after{
+                font-family: chilivery;
+                content: 'E';
+                position: absolute;
+                left: 20px;
+                color: $color-border-input;
+            }
+            
+            .icon{
+                font-size: 24px;
+            }
+            &:hover{
+                background-color: transparent;
+            }
+        }
+        &__ul{
+            list-style: none;
+        }
+        &__body{
+            padding: 0;
+        }
+        &__list{
+            border-bottom: 1px solid #d6d6d6;
+            padding: 18px 36px 18px;
+            display: flex;
+            align-content: center;
+            .icon{
+                font-size: 24px;
+            }
+            &-text{
+                padding-right: 15px;
+                font-size: 14px;
+            }
+        }
+    }
+}
