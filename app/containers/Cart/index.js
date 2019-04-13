@@ -5,6 +5,9 @@ import { AnimateField } from '../../components/ChiliForm';
 import MyAddress from '../../components/MyAddress';
 import StickyPrice from '../../components/StickyPrice';
 import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
+import logo from '../../images/restaurant-logo.jpg';
+import cover from '../../images/pattern.png';
+
 
 export class cart extends React.PureComponent {
   constructor(props) {
@@ -22,7 +25,7 @@ export class cart extends React.PureComponent {
     const {description} = this.state;
     return (
       <div className="cart bottomP50">
-        <RestaurantHeaderCheckout/>
+        <RestaurantHeaderCheckout cover={cover} logo={logo} />
         <div className="cart__card-item">
           <CheckoutCardItem />
           <CheckoutCardItem />
