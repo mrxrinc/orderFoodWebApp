@@ -8,7 +8,6 @@ import axios from 'axios';
 import { getUser } from '../../actions/Auth';
 import { setCookie } from '../../utils/cookies';
 import { AnimateField } from '../../components/ChiliForm';
-import ChiliSocial from '../../components/ChiliSocial';
 import './style.scss';
 
 class Login extends Component {
@@ -93,10 +92,12 @@ class Login extends Component {
             icon="chilivery-pass"
           />
           <div className="text-center mt-4">
-            <span className="forgotPassword">
-              {' '}
-              رمز عبور خود را فراموش کرده اید؟
-            </span>
+            <Link to="/forgot-password">
+              <span className="forgotPassword">
+                {' '}
+                رمز عبور خود را فراموش کرده اید؟
+              </span>
+            </Link>
           </div>
 
           <div className="topM40 wFull hP20 center">

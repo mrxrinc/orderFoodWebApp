@@ -12,21 +12,8 @@ class ChiliRainbow extends React.Component {
           <div className="authentication__shadow2" />
           <div className="authentication">
             <div className="rainbow" />
-            <div className="header">
-              <button
-                className="header__box header__rbox"
-                // onClick={this.emailVisibie.bind(this)}
-              >
-                ورود به حساب کاربری
-              </button>
-              <button
-                className="header__box header__lbox"
-                // onClick={this.registerVisible.bind(this)}
-              >
-                ثبت نام در چیلیوری
-              </button>
-            </div>
-            { this.props.children }
+            <div className="header"><b>{this.props.title}</b></div>
+            {this.props.children}
           </div>
         </div>
       </div>

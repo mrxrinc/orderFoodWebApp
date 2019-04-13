@@ -1,0 +1,28 @@
+@import '../../style/sass/variable';
+@import '../../style/sass/mixin/flexbox';
+
+$icon-size : 120px;
+.forgot {
+    @include flexbox();
+    @include flex-direction(row);    
+    align-items: center;
+    justify-content: space-around;
+    
+    &__imgWrapper {
+        margin-top: 40px;    
+        &-img {
+            height: $icon-size;
+            width: $icon-size;
+        }
+    }
+    &__content {
+        margin-top: 10px;    
+    }
+
+    &__btn {
+        margin: 40px ;
+    }
+    & .btn {
+        min-width: 40%;
+    }
+}
