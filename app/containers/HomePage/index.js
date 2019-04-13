@@ -34,7 +34,7 @@ export default class HomePage extends React.PureComponent {
           <div className="searchInput topM30 wFull hP20">
             <AnimateField
               className="input"
-              icon="chilivery-filter-food-type text30"
+              icon="chilivery-filter-food-type text25"
               label="جستجوی رستوران یا غذا..."
               placeholder="نام غذا یا رستوران..."
               name="homeSearch"
