@@ -32,7 +32,7 @@ class RestaurantPage extends React.Component {
           RestaurantPageModal: this.state.RestaurantPageModal,
         });
         if(this.state.RestaurantPageModal === false){
-          history.push("/checkout");
+          history.push("/cart");
         }
       },
       );

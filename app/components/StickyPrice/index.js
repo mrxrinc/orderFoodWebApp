@@ -18,7 +18,7 @@ class StickyPrice extends React.PureComponent {
   }
 
   pushLink = () =>{
-    history.push("/after-payment")
+    history.push("/checkout")
   }
   render() {
     return (
