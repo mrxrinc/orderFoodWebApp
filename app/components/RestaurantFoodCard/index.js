@@ -6,7 +6,10 @@ const RestaurantFoodCard = props => (
   <div className="foodCard" onClick={props.onClick}>
     <div className="head center">
       <div className="rightHand center relative">
-        <div className="imageBox gray4Bg" />
+        <div
+          className="imageBox cover gray4Bg"
+          style={{ backgroundImage: `url(${props.foodImg})` }}
+        />
 
         <span className="discount flex center absolute bgRed white centerText">
           <span className="text14">30</span>
@@ -55,7 +58,7 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper />
+        <Stepper fontSize="18"/>
       </div>
     </div>
   </div>

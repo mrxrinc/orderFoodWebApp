@@ -13,7 +13,7 @@ class Login extends Component {
 
   toggleLogin = () => {
     this.props.showModal({
-      motochiliModal: false,
+      alertExp: false,
     });
   };
 
@@ -21,7 +21,7 @@ class Login extends Component {
     const classes = this.props;
     return (
       <ChiliModal
-        modal={classes.modals.motochiliModal}
+        modal={classes.modals.alertExp}
         alert
       >
         <AlertBody alertTitle="سفارش شما" toggle={this.toggleLogin}>
@@ -34,7 +34,7 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   modals: {
-    motochiliModal: state.Modals.motochiliModal,
+    alertExp: state.Modals.alertExp,
   },
 });
 const mapDispatchToProps = dispatch => ({

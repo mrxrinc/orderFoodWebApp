@@ -8,6 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UserPositionChili from '../ChiliModal/components/UserPositionChili';
 import MotoChili from '../ChiliModal/components/MotoChili';
+import AlertExp from '../ChiliModal/components/AlertExample';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
 
@@ -23,7 +24,7 @@ class ChiliFooter extends React.Component {
     this.props.showModal({
       motochiliModal: false,
       UserPositionModal: false,
-      resetPassModal: false,
+      alertExp: false,
       successChangePassModal: false,
       trackingModal: false,
       isVerifyModal: false,
@@ -31,29 +32,36 @@ class ChiliFooter extends React.Component {
     });
   }
 
+  alertExpToggle = () => {
+    this.props.showModal({
+      alertExp: true,
+    });
+  };
+
   render() {
     return (
       <footer className="chili-footer">
         <UserPositionChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
-        <div className="container">
+        <AlertExp/>
+        <div className="container-fluid">
           <div className="row chili-footer__list">
             <div className="col">
-              <div className="chili-footer__list-item">
+              <Link to="/" className="chili-footer__list-item">
                 <div className="chili-footer__list-icon">
                   <i className="icon chilivery-yahoo" />
                 </div>
                 <div className="chili-footer__list-title">خانه</div>
-              </div>
+              </Link>
             </div>
 
             <div className="col">
-              <div className="chili-footer__list-item">
+              <Link to="/restaurants-list" className="chili-footer__list-item">
                 <div className="chili-footer__list-icon">
                   <i className="icon chilivery-filter-restaurant-type" />
                 </div>
                 <div className="chili-footer__list-title">رستوران</div>
-              </div>
+              </Link>
             </div>
 
             <div className="col">
@@ -69,7 +77,7 @@ class ChiliFooter extends React.Component {
             </div>
 
             <div className="col">
-              <div className="chili-footer__list-item">
+              <div className="chili-footer__list-item" onClick={this.alertExpToggle}>
                 <div className="chili-footer__list-icon">
                   <i className="icon chilivery-user" />
                 </div>
@@ -78,12 +86,12 @@ class ChiliFooter extends React.Component {
             </div>
 
             <div className="col">
-              <div className="chili-footer__list-item">
+              <Link to="/more-menu" className="chili-footer__list-item">
                 <div className="chili-footer__list-icon">
                   <i className="icon chilivery-more" />
                 </div>
                 <div className="chili-footer__list-title">بیشتر</div>
-              </div>
+              </Link>
             </div>
 
 
@@ -97,9 +105,7 @@ class ChiliFooter extends React.Component {
 
 
 const mapStateToProps = state => ({
-  modals: {
-      motochiliModal: state.Modals.motochiliModal,
-  },
+
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
