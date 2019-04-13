@@ -1,8 +1,5 @@
 import React from 'react';
 import './style.scss';
-import logo from '../../images/restaurant-logo.jpg';
-import cover from '../../images/pattern.png';
-
 import GiftCode from '../../components/GiftCode';
 import UserCacheBalance from '../../components/UserCacheBalance';
 import { Container, Row, Col } from 'reactstrap';
