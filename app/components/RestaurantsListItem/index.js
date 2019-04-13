@@ -1,11 +1,14 @@
 import React from 'react';
 import './style.scss';
 
-const RestaurantsListItem = () => (
+const RestaurantsListItem = props => (
   <div className="listItem">
     <div className="head center">
       <div className="right center relative">
-        <div className="imageBox bg" />
+        <div
+          className="imageBox centerBg contain"
+          style={{ backgroundImage: `url(${props.logo})` }}
+        />
         <span className="discount flex center absolute top left bgRed white centerText">
           <span className="text14">30</span>
           <span className="text12 topM3 leftM3">%</span>
