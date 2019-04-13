@@ -1,12 +1,10 @@
 import React from 'react';
 import './style.scss';
-import { Button } from 'reactstrap';
+import logo from '../../images/restaurant-logo.jpg';
+import cover from '../../images/pattern.png';
 
-import CheckoutCardItem from '../../components/CheckoutCardItem';
-import { AnimateField } from '../../components/ChiliForm';
 import GiftCode from '../../components/GiftCode';
 import UserCacheBalance from '../../components/UserCacheBalance';
-import MyAddress from '../../components/MyAddress';
 import { Container, Row, Col } from 'reactstrap';
 import StickyPrice from '../../components/StickyPrice';
 import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
@@ -27,7 +25,7 @@ export class Checkout extends React.PureComponent {
   render() {
     return (
       <div>
-        <RestaurantHeaderCheckout/>
+        <RestaurantHeaderCheckout cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
           <GiftCode />
