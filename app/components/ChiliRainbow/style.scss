@@ -25,16 +25,15 @@ $border-radius : 20px;
     width: 77%;
     background: $color-black;
     opacity: 0.1;
-    height: 23px;
-    border-radius: $border-radius $border-radius 0 0;
-    margin: 97px auto 0;
+    height: 12px;
+    border-radius: $border-radius $border-radius 0 0;    
     position: relative;
   }
 
   &__shadow2 {
     width: 82%;
     opacity: 0.15;
-    height: 13px;
+    height: 7px;
     position: relative;
     background: $color-black;
     margin: 0 auto;
@@ -47,22 +46,25 @@ $border-radius : 20px;
   }
 
   .header {
-    @include flexbox();
-    @include flex-direction(row);
-    height: 92px;
-    align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid #B9B9B9;
+    &__simple {
+      @include flexbox();
+      @include flex-direction(row);
+      height: 92px;
+      align-items: center;
+      justify-content: space-around;
+      border-bottom: 1px solid #B9B9B9;
 
-    &__box {
-      padding-bottom: 10px;
+      &__box {
+        padding-bottom: 10px;
 
-      &:focus,
-      &:active {
-        border-top: none;
-        border-bottom: 5px solid #E81D46;
-        outline: none;
+        &:focus,
+        &:active {
+          border-top: none;
+          border-bottom: 5px solid #E81D46;
+          outline: none;
+        }
       }
+
     }
-  }  
+  }
 }

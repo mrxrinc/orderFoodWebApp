@@ -12,7 +12,7 @@ class ChiliRainbow extends React.Component {
           <div className="authentication__shadow2" />
           <div className="authentication">
             <div className="rainbow" />
-            <div className="header"><b>{this.props.title}</b></div>
+            <div className="header__simple"><b>{this.props.title}</b></div>
             {this.props.children}
           </div>
         </div>

@@ -5,6 +5,7 @@
 $border-radius : 20px;
 .social {
     color: $color-white;
+    position: relative;
     @include flexbox();
     @include flex-direction(row);
     height: 88px; 

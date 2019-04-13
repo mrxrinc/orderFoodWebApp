@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnimateField } from '../../components/ChiliForm';
 import './style.scss';
-import ChiliSocial from '../../components/ChiliSocial';
 
 class Register extends Component {
   render() {
@@ -50,7 +49,7 @@ class Register extends Component {
             icon="chilivery-pass"
           />
           <div className="text-center mt-4">
-            <span className="ruleAndCondition">
+            <span className="ruleAndCondition midText">
               با کلیک بر روی دکمه ثبت نام شما
               <span className="ruleAndCondition__link">
                 {'\u00A0'}

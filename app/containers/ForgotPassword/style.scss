@@ -1,7 +1,7 @@
 @import '../../style/sass/variable';
 @import '../../style/sass/mixin/flexbox';
 
-$icon-size : 120px;
+$icon-size : 70px;
 .forgot {
     @include flexbox();
     @include flex-direction(row);    
@@ -24,5 +24,9 @@ $icon-size : 120px;
     }
     & .btn {
         min-width: 40%;
+    }
+
+    &__form{
+        margin:20px;
     }
 }
