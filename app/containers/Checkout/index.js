@@ -10,7 +10,8 @@ import MyAddress from '../../components/MyAddress';
 import { Container, Row, Col } from 'reactstrap';
 import StickyPrice from '../../components/StickyPrice';
 import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
-
+import logo from '../../images/restaurant-logo.jpg';
+import cover from '../../images/cover.jpg';
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
   constructor(props) {
@@ -27,7 +28,7 @@ export class Checkout extends React.PureComponent {
   render() {
     return (
       <div>
-        <RestaurantHeaderCheckout/>
+        <RestaurantHeaderCheckout cover={cover} logo={logo}/>
       <Container className="checkout">
         <div className="padd5">
           <GiftCode />
