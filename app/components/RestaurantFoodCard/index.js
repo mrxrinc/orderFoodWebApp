@@ -55,7 +55,7 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper />
+        <Stepper fontSize="18"/>
       </div>
     </div>
   </div>

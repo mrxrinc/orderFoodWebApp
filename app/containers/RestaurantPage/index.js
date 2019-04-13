@@ -20,12 +20,14 @@ class RestaurantPage extends React.Component {
   }
 
   toggleModal = () => {
-    console.log('salam')
-    this.setState({RestaurantPageModal:!this.state.RestaurantPageModal},()=>{
-      this.props.showModal({
-        RestaurantPageModal: this.state.RestaurantPageModal,
-      })
-    })
+    this.setState(
+      { RestaurantPageModal: !this.state.RestaurantPageModal },
+      () => {
+        this.props.showModal({
+          RestaurantPageModal: this.state.RestaurantPageModal,
+        });
+      },
+    );
   };
 
   render() {
