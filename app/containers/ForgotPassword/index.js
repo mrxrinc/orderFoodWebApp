@@ -16,13 +16,13 @@ export default class Authentication extends React.Component {
             alt="chilivery"
           />
         </div>
-        <h5 className="forgot forgot__content">
+        <h4 className="forgot forgot__content bigText">
           رمز عبور خود را فراموش کرده‌اید؟
-        </h5>
-        <p className="forgot forgot__content">
+        </h4>
+        <p className="forgot forgot__content midText text-center">
           جهت بازیابی رمز عبور ، ایمیل یا شماره موبایل خود را وارد نمایید:
         </p>
-        <form onSubmit={this.onHandleLogin} className="loginForm">
+        <form onSubmit={this.onHandleLogin} className="forgot__form">
           <AnimateField
             className="col-12"
             placeholder=" "
