@@ -2,10 +2,23 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import logo from '../../images/logo-home.png';
 import { AnimateField } from '../../components/ChiliForm';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { showModal } from '../../actions/Modals';
+
+
 
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
-export default class HomePage extends React.PureComponent {
+
+
+class HomePage extends React.PureComponent {
+
+  UserPositionModal = () => {
+    this.props.showModal({
+      UserPositionModal: true,
+    });
+  };
   render() {
     return (
       <div className="home whFull absolute">
@@ -18,7 +31,10 @@ export default class HomePage extends React.PureComponent {
 
         <div className="content">
           <div className="wFull vP10 center topM30">
-            <div className="locationBtn flex reset overhide">
+            <div 
+              className="locationBtn flex reset overhide"
+              onClick={this.UserPositionModal}
+            >
               <div className="i3 city flex spaceBetween hP10 hCenter primary disableBg">
                 <span className="text14 bold rightM5">تهران</span>
                 <span className="chilivery-arrow-bottom gray text12" />
@@ -51,7 +67,7 @@ export default class HomePage extends React.PureComponent {
           </div>
 
           <div className="wFull topM30 column center">
-            <div className="chilivery-compass" />
+            <Link to="/restaurants-list" className="chilivery-compass" />
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
         </div>
@@ -59,3 +75,13 @@ export default class HomePage extends React.PureComponent {
     );
   }
 }
+
+const mapStateToProps = state => ({
+
+});
+const mapDispatchToProps = dispatch => ({
+  showModal: (showStatus) => {
+      dispatch(showModal(showStatus))
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
