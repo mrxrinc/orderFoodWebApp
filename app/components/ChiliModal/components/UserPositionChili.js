@@ -25,7 +25,7 @@ class UserPositionChili extends Component {
         headerAlign="center"
         title="تعیین موقعیت"
       >
-        <UserPosition/>
+        <UserPosition data={classes.data}/>
       </ChiliModal>
     );
   }

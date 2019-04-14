@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserPositionChili from '../ChiliModal/components/UserPositionChili';
 import MotoChili from '../ChiliModal/components/MotoChili';
 import AlertExp from '../ChiliModal/components/AlertExample';
 import { connect } from 'react-redux';
@@ -41,7 +40,6 @@ class ChiliFooter extends React.Component {
   render() {
     return (
       <footer className="chili-footer">
-        <UserPositionChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
         <AlertExp/>
         <div className="container-fluid">

@@ -7,6 +7,8 @@ import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
 import {history} from '../../store';
 
+import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
+
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
@@ -29,20 +31,8 @@ class UserPosition extends React.Component {
       searchTerm: '',
       searchDistrict: '',
       cityId: '',
-      disId: '',
-      cityList: [
-        {
-          name: 'تهران',
-          id: '1',
-        },
-        {
-          name: 'مشهد',
-          id: '2',
-        },
-        { name: 'کرج', id: '3' },
-        { name: 'شیراز', id: '4' },
-        { name: 'اصفهان', id: '5' },
-      ],
+      disSlug: '',
+      cityList:this.props.data,
       districtList: [
         {
           name: 'وزرا',
@@ -97,24 +87,39 @@ class UserPosition extends React.Component {
 
   handleChange(event) {
     this.setState({
-      cityId: event.target.value
+      cityId: parseInt(event.target.value)
     }, () => {
-      setTimeout(() => {
-        this.toggle('2')
-      }, 200);
+      console.log('=============cityId==================');
+      console.log(parseInt(this.state.cityId));
+      console.log('====================================');
+      getRegionByCity(this.state.cityId).then(
+        response => {
+          this.setState({
+            districtListOther: response.result
+          },()=>{
+            console.log('============districtListOther===============');
+            console.log(this.state.districtListOther);
+            console.log('====================================');
+            this.toggle('2');
+          })
+        }
+      )
     }
     );
   }
 
   handleChangeDis(event) {
     this.setState({
-      disId: event.target.value
+      disSlug: event.target.value
     }, () => {
-      setTimeout(() => {
-        this.toggle('3')
-      }, 200);
-    }
-    );
+      getRegionBySlug(this.state.disSlug).then(
+        response => {
+          console.log('====================================');
+          console.log(response);
+          console.log('====================================');
+        }
+      )
+    });
   }
 
   componentDidMount() {
@@ -124,7 +129,7 @@ class UserPosition extends React.Component {
   render() {
     const { cityList, districtList ,districtListOther } = this.state;
     const filteredCity = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-    const filteredDistrict = districtList.filter(createFilter(this.state.searchDistrict, KEYS_TO_FILTERS_DIS))
+    const filteredDistrict = districtListOther.filter(createFilter(this.state.searchDistrict, KEYS_TO_FILTERS_DIS))
     return (
       <div className="location__user-position">
 
@@ -229,13 +234,7 @@ class UserPosition extends React.Component {
               </div>
 
               <div className="location__user-position-wrapper">
-                {filteredDistrict.length == 0 ?
-                  <div className="center">
-                    <label className="radio-wrapper bottomM center">
-                      <span>موردی یافت نشد</span>
-                    </label>
-                  </div> :
-                  filteredDistrict.map(city => {
+                {districtList.map(city => {
                     return (
                       <div key={city.id} className="center">
                         <label className="radio-wrapper bottomM center">
@@ -244,7 +243,7 @@ class UserPosition extends React.Component {
                               type="radio"
                               className="radio-input"
                               // name="cityId"
-                              checked={this.state.disId === city.id}
+                              checked={this.state.disSlug == city.slug}
                               onChange={this.handleChangeDis}
                               value={city.id}
                             />
@@ -275,10 +274,16 @@ class UserPosition extends React.Component {
                 <i className="icon chilivery-group-pins text22" />
                 <span className="text16 rightM5">سایر محله‌ها</span>
               </span>
-              <Button color="success" className="rightMauto flex">همه رستوران‌های شهر تهران</Button>
+              <Link to="" color="success" className="btn btn-success rightMauto flex">همه رستوران‌های شهر تهران</Link>
             </div>
             <div className="location__user-position-wrapper">
-                {districtListOther.map(city => 
+                {filteredDistrict.length == 0 ?
+                  <div className="center">
+                    <label className="radio-wrapper bottomM center">
+                      <span>موردی یافت نشد</span>
+                    </label>
+                  </div> :
+                  filteredDistrict.map(city => 
 
                       <div key={city.id} className="center">
                         <label className="radio-wrapper bottomM center">
@@ -287,9 +292,9 @@ class UserPosition extends React.Component {
                               type="radio"
                               className="radio-input"
                               // name="cityId"
-                              checked={this.state.disId === city.id}
+                              checked={this.state.disSlug === city.slug}
                               onChange={this.handleChangeDis}
-                              value={city.id}
+                              value={city.slug}
                             />
                             <div className="radio-face" />
                           </div>
