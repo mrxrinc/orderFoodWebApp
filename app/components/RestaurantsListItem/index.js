@@ -17,7 +17,7 @@ const RestaurantsListItem = props => (
         </span>
       </div>
       <div className="left relative">
-        <h2 className="font bold largeText primary">باگت جردن</h2>
+        <h2 className="font bold largeText primary">{props.data.name}</h2>
 
         <ul className="flex">
           <li className="text12">ایتالیایی</li>
@@ -65,10 +65,10 @@ const RestaurantsListItem = props => (
     <div className="delivery flex rRow primary">
       <div className="moto flex hCenter rightP10 overhide">
         <span className="chilivery-motochili text25" />
-        <span className="text14 bold rightM10">موتوچیلی</span>
+        <span className="text14 bold rightM10">{props.data.deliveryName}</span>
       </div>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <span className="leftM5">1500</span>
+        <span className="leftM5">{props.data.deliveryPrice}</span>
         <span>تومان</span>
       </div>
     </div>
