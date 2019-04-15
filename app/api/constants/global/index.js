@@ -11,14 +11,13 @@ export const websiteUrl = (relativePath = '') => {
 
 export const globalHeader = () => {
   console.log("!!!!!",localStorage);
-  if (localStorage.authToken) {
-    return {            
-      'Authorization': `Bearer ${  localStorage.getItem('authToken')}`,
-    };
-  } 
+  // if (localStorage.authToken) {
+  //   return {
+  //     Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+  //   };
+  // }
   return {
     token: 'A8A8FFD0-FF3E-4A20-847C-28CA5CE8A652',
     'Content-Type': 'application/json',
   };
-    
 };
