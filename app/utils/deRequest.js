@@ -8,7 +8,7 @@ const deRequest = (url, method = 'GET', params = {},handleError=true) => {
     return new Promise((resolve, reject) => {
         let axiosConfig = {
             url: url,
-            timeout: 30000,
+            // timeout: 30000,
             headers: globalHeader(), // global authentication headers, required for all requests...
             method: method.toUpperCase(), // HTTP method
         };
@@ -19,7 +19,6 @@ const deRequest = (url, method = 'GET', params = {},handleError=true) => {
         } else {
             axiosConfig['data'] = params;
         }
-
         axios(axiosConfig).then(res => {
             resolve(res.data);
         }).catch(error => {
