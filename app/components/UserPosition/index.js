@@ -6,9 +6,10 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
 import {history} from '../../store';
+import ChiliMap from '../../components/ChiliMap';
+
 
 import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
-
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
@@ -30,9 +31,12 @@ class UserPosition extends React.Component {
       activeTab: '1',
       searchTerm: '',
       searchDistrict: '',
-      cityId: '',
+      restaurantListCount:0,
+      cityId: '' || 2,
       disSlug: '',
       cityList:this.props.data,
+      mapCenter: {},
+      map:false,
       districtList: [
         {
           name: 'وزرا',
@@ -70,7 +74,8 @@ class UserPosition extends React.Component {
         activeTab: tab
       });
     }
-  }
+  };
+
   UserPositionModal = (e) => {
     e.preventDefault();
     this.props.showModal({
@@ -78,9 +83,11 @@ class UserPosition extends React.Component {
     });
     history.push('/restaurants-list')
   };
+
   searchUpdated(term) {
     this.setState({ searchTerm: term })
   }
+
   searchUpdatedDis(term) {
     this.setState({ searchDistrict: term })
   }
@@ -89,34 +96,33 @@ class UserPosition extends React.Component {
     this.setState({
       cityId: parseInt(event.target.value)
     }, () => {
-      console.log('=============cityId==================');
-      console.log(parseInt(this.state.cityId));
-      console.log('====================================');
       getRegionByCity(this.state.cityId).then(
         response => {
           this.setState({
             districtListOther: response.result
           },()=>{
-            console.log('============districtListOther===============');
-            console.log(this.state.districtListOther);
-            console.log('====================================');
             this.toggle('2');
           })
         }
-      )
+        )
+      }
+      );
     }
-    );
-  }
-
-  handleChangeDis(event) {
-    this.setState({
-      disSlug: event.target.value
-    }, () => {
-      getRegionBySlug(this.state.disSlug).then(
-        response => {
-          console.log('====================================');
-          console.log(response);
-          console.log('====================================');
+    
+    handleChangeDis(event) {
+      this.setState({
+        disSlug: event.target.value
+      }, () => {
+        getRegionBySlug(this.state.disSlug).then(
+          response => {
+            this.setState({
+              mapCenter:response.result.mapCenter
+            },()=>{
+              this.toggle('3');
+              this.setState({
+                map:true
+              })
+            })
         }
       )
     });
@@ -124,6 +130,21 @@ class UserPosition extends React.Component {
 
   componentDidMount() {
 
+        const getLocation = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
+
+        const showPosition = (position) => {
+            this.setState({
+              mapCenter: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }
+            })
+        }
+        getLocation();
   }
 
   render() {
@@ -132,8 +153,6 @@ class UserPosition extends React.Component {
     const filteredDistrict = districtListOther.filter(createFilter(this.state.searchDistrict, KEYS_TO_FILTERS_DIS))
     return (
       <div className="location__user-position">
-
-
 
         <Nav tabs>
 
@@ -311,10 +330,16 @@ class UserPosition extends React.Component {
             </div>
           </TabPane>
           <TabPane tabId="3">
-            <span onClick={this.UserPositionModal} className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
-                <span>مشاهده رستوران ها</span>
-                <span className="location__user-position-counter flex center rightM10">17</span>
-            </span>
+          
+              <ChiliMap 
+                cityId={this.state.cityId}
+                mapCenter={
+                  { 
+                    lat: this.state.mapCenter.lat || 35.704334,
+                    lng: this.state.mapCenter.lon || 51.393625
+                  }
+                }
+              />
           </TabPane>
         </TabContent>
 

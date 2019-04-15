@@ -8,7 +8,6 @@ import { showModal } from '../../actions/Modals';
 import { getCityList } from '../../api/application/region';
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 
-import ChiliMap from '../../components/ChiliMap';
 
 
 import './style.scss';
@@ -43,7 +42,6 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className="home whFull absolute">
-      <ChiliMap/>
         <div className="head wFull cover relative">
           <div className="wave absolute bottom wFull contain" />
           <div className="absolute bottom wFull center">
@@ -100,6 +98,7 @@ class HomePage extends React.Component {
           bodyColor="#f5f5f5"
           data={this.state.cityList}
         />
+
       </div>
     );
   }
