@@ -10,6 +10,7 @@ import MotoChili from '../ChiliModal/components/MotoChili';
 import AlertExp from '../ChiliModal/components/AlertExample';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
+import {getAppInit} from '../../api/global';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -29,6 +30,16 @@ class ChiliFooter extends React.Component {
       isVerifyModal: false,
       verifyModal: false,
     });
+
+    getAppInit().then(
+      response => {
+        console.log(response.result.session.token)
+        localStorage.setItem("token",response.result.session.token)
+      }
+    )
+
+
+
   }
 
   alertExpToggle = () => {

@@ -9,15 +9,12 @@ export const websiteUrl = (relativePath = '') => {
   return APP_BASE_CANONICAL_URL + relativePath;
 };
 
+
+export const get_app_init = () => `${API_URL_ROOT}/general/appInit`
+
 export const globalHeader = () => {
-  console.log("!!!!!",localStorage);
-  // if (localStorage.authToken) {
-  //   return {
-  //     Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-  //   };
-  // }
   return {
-    token: 'A8A8FFD0-FF3E-4A20-847C-28CA5CE8A652',
+    token: localStorage.getItem('token')?localStorage.getItem('token'):null,
     'Content-Type': 'application/json',
   };
 };
