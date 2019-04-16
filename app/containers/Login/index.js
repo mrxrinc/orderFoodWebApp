@@ -1,4 +1,4 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disabtle react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
