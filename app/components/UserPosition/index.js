@@ -92,6 +92,13 @@ class UserPosition extends React.Component {
     this.setState({ searchDistrict: term })
   }
 
+  onChangeClick = () => {
+    if(this.state.cityId === 2){
+      this.toggle('2');
+    }
+  }
+
+
   handleChange(event) {
     console.log('====================================');
     console.log("salam");
@@ -209,6 +216,7 @@ class UserPosition extends React.Component {
                             className="radio-input"
                             checked={this.state.cityId === city.id}
                             onChange={this.handleChange}
+                            onClick={this.onChangeClick}
                             value={city.id}
                           />
                           <div className="radio-face" />
@@ -242,7 +250,7 @@ class UserPosition extends React.Component {
                 placeholder="جستجو ..."
               />
             </div>
-            <div className="location__user-position-mydis">
+            {/* <div className="location__user-position-mydis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP10 bottomP10">
                 <span className="location__user-position-title flex center">
                   <i className="icon chilivery-my-address text22" />
@@ -283,7 +291,7 @@ class UserPosition extends React.Component {
                 }
               </div>
 
-            </div>
+            </div> */}
 
             <div className="location__user-position-otherdis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP40 bottomP10">

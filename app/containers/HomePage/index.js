@@ -26,10 +26,6 @@ class HomePage extends React.Component {
       response => {
         this.setState({
           cityList: response.result
-        },()=>{
-          console.log('====================================');
-          console.log(this.state.cityList);
-          console.log('====================================');
         })
       }
     )
