@@ -2,14 +2,14 @@ import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "../constants/Notification
 
 let id = 0;
 const defaultOptions = {
-  color: "#6796e6"
+  color: '#6796e6',
 };
 
-const createToast = (options) => {
+const createToast = options => {
   return {
     ...defaultOptions,
     ...options,
-    id: id++
+    id: id++,
   }
 };
 

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 import logo from '../../images/logo-home.png';
 import { AnimateField } from '../../components/ChiliForm';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
+import { getCityList } from '../../api/application/region';
+import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 
 
 
@@ -12,8 +14,22 @@ import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 
 
-class HomePage extends React.PureComponent {
-
+class HomePage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      cityList:[],
+    }
+  }
+  componentDidMount(){
+    getCityList().then(
+      response => {
+        this.setState({
+          cityList: response.result
+        })
+      }
+    )
+  }
   UserPositionModal = () => {
     this.props.showModal({
       UserPositionModal: true,
@@ -71,6 +87,14 @@ class HomePage extends React.PureComponent {
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
         </div>
+
+        <UserPositionChili
+          headerAlign="center"
+          headerColor="#eaeaea"
+          bodyColor="#f5f5f5"
+          data={this.state.cityList}
+        />
+
       </div>
     );
   }

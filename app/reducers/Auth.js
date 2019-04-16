@@ -10,8 +10,8 @@ import {
 } from '../constants/actionAuthTypes';
 
 const user = (state = {}, action) => {
-    switch (action.type) {
-
+    console.log("@@@@@@",action.type);
+    switch (action.type) {        
         case SIGNIN_USER_INFO:
             return Object.assign({}, state, action.payload);
 

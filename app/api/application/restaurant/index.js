@@ -5,6 +5,4 @@ export const restaurantSearch = (cityId,point,tag) => {
   return deRequest(app.restaurant_search(cityId,point,tag), "GET");
 }
 
-export const restaurantPage = id => {
-  return deRequest(app.restaurant_search(id), 'GET');
-}
+export const restaurantPage = id => deRequest(app.restaurant_search(id), 'GET');
