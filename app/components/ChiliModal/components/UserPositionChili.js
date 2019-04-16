@@ -7,7 +7,9 @@ import UserPosition from '../../UserPosition';
 class UserPositionChili extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mapCenter:{}
+    };
   }
 
   toggleLogin = () => {
@@ -15,7 +17,24 @@ class UserPositionChili extends Component {
       UserPositionModal: false,
     });
   };
+  componentDidMount() {
 
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+
+    const showPosition = (position) => {
+        this.setState({
+          mapCenter: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            }
+        })
+    }
+    getLocation();
+  }
   render() {
     const classes = this.props;
     return (
@@ -25,7 +44,10 @@ class UserPositionChili extends Component {
         headerAlign="center"
         title="تعیین موقعیت"
       >
-        <UserPosition data={classes.data}/>
+        <UserPosition 
+          data={classes.data}
+          mapCenter={this.state.mapCenter}
+        />
       </ChiliModal>
     );
   }
