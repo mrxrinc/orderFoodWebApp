@@ -12,18 +12,21 @@ import './style.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 class ChiliSocial extends React.Component {
+  googleLogin() {
+    console.log(1111);
+  }
   render() {
     return (
       <div className="social">
         <div className="social__orBtn">یا</div>
-        <div className="social__google">
+        <button className="social__google" onClick={this.googleLogin}>
           <span className="chilivery-google-plus social__icons d-inline-block"> </span>
           <span className="d-inline-block">ورود با گوگل</span>
-        </div>
-        <div className="social__yahoo">
+        </button>
+        <button className="social__yahoo">
           <span className="chilivery-chilivery-logo social__icons d-inline-block"> </span>
           <span className="d-inline-block ">ورود با یاهو</span>
-        </div>
+        </button>
       </div>
     );
   }

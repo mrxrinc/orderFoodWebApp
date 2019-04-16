@@ -53,25 +53,17 @@ function* userLogin({ payload }) {
   try {
     yield put(enableLoading({ loginLoading: true }));
     const signInUser = yield loginPost(payload.user);
-    if (signInUser.status === 'success') {
-      // alert(signInUser.message)
-      localStorage.setItem('authToken', signInUser.data.token);
+    console.log("signinUssser", signInUser)
+    if (signInUser.status) {
+      /* localStorage.setItem('authToken', signInUser.result.session.token);*/
+      console.log(localStorage);
       // yield put(showAuthMessage('signOutUser.message'));
-      yield put(getUserInfo(signInUser.data));
-      const response = yield balanceGet();
-      if (response.status === 'success') {
-        yield put(getUserBalance(response.data));
-      }
+      yield put(getUserInfo(signInUser.result.session.user));
+      yield put(getUserBalance(signInUser.result.session.user.cacheBalance));
       yield put(disableLoading({ loginLoading: false }));
-
-      yield put(
-        showModal({
-          motochiliModal: false,
-        }),
-      );
       yield put(
         addToast({
-          text: signInUser.message,
+          text: signInUser.message_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -82,28 +74,20 @@ function* userLogin({ payload }) {
         }),
       );
     } else {
+      console.log(191919191);
       yield put(disableLoading({ loginLoading: false }));
-
-      if (signInUser.data) {
+      if (signInUser) {
         yield put(
           addToast({
-            text: signInUser.message,
+            text: signInUser.message_fa,
             color: 'danger',
             delay: 2000,
-          }),
-        );
-        yield put(getUserInfo(signInUser.data));
-        // yield put(getUserIsVerifyInfo(signInUser.data));
-        yield put(
-          showModal({
-            motochiliModal: false,
-            isVerifyModal: true,
           }),
         );
       } else {
         yield put(
           addToast({
-            text: signInUser.message,
+            text: "امکان لاگین وجود ندارد",
             color: 'danger',
             delay: 2000,
           }),
@@ -111,6 +95,7 @@ function* userLogin({ payload }) {
       }
     }
   } catch (error) {
+    console.log("error on derReq", error)
     yield put(disableLoading({ loginLoading: false }));
 
     if (error.status === 422) {
