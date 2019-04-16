@@ -5,8 +5,11 @@ import { showModal } from '../../actions/Modals';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
-import {history} from '../../store';
+import { history } from '../../store';
+import ChiliMap from '../../components/ChiliMap';
 
+
+import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
@@ -28,21 +31,12 @@ class UserPosition extends React.Component {
       activeTab: '1',
       searchTerm: '',
       searchDistrict: '',
-      cityId: '',
-      disId: '',
-      cityList: [
-        {
-          name: 'تهران',
-          id: '1',
-        },
-        {
-          name: 'مشهد',
-          id: '2',
-        },
-        { name: 'کرج', id: '3' },
-        { name: 'شیراز', id: '4' },
-        { name: 'اصفهان', id: '5' },
-      ],
+      restaurantListCount: 0,
+      cityId: 2,
+      disSlug: '',
+      cityList: this.props.data,
+      mapCenter: this.props.mapCenter,
+      map: true,
       districtList: [
         {
           name: 'وزرا',
@@ -80,7 +74,8 @@ class UserPosition extends React.Component {
         activeTab: tab
       });
     }
-  }
+  };
+
   UserPositionModal = (e) => {
     e.preventDefault();
     this.props.showModal({
@@ -88,47 +83,82 @@ class UserPosition extends React.Component {
     });
     history.push('/restaurants-list')
   };
+
   searchUpdated(term) {
     this.setState({ searchTerm: term })
   }
+
   searchUpdatedDis(term) {
     this.setState({ searchDistrict: term })
   }
 
+  onChangeClick = () => {
+    if(this.state.cityId === 2){
+      this.toggle('2');
+    }
+  }
+
+
   handleChange(event) {
+    console.log('====================================');
+    console.log("salam");
+    console.log('====================================');
     this.setState({
-      cityId: event.target.value
+      cityId: parseInt(event.target.value)
     }, () => {
-      setTimeout(() => {
-        this.toggle('2')
-      }, 200);
+      getRegionByCity(this.state.cityId).then(
+        response => {
+          this.setState({
+            districtListOther: response.result
+          }, () => {
+            this.toggle('2');
+          })
+        }
+      )
     }
     );
   }
 
   handleChangeDis(event) {
+
     this.setState({
-      disId: event.target.value
+      disSlug: event.target.value
     }, () => {
-      setTimeout(() => {
-        this.toggle('3')
-      }, 200);
-    }
-    );
+      getRegionBySlug(this.state.disSlug).then(
+        response => {
+          this.setState({
+            map: false,
+            mapCenter: {
+              lat: response.result.mapCenter.lat,
+              lng: response.result.mapCenter.lon
+            },
+          }, () => {
+            this.toggle('3');
+            this.setState({
+              map: true
+            })
+          })
+        }
+      )
+    });
   }
 
-  componentDidMount() {
-
+  componentDidMount(){
+    getRegionByCity(this.state.cityId).then(
+      response => {
+        this.setState({
+          districtListOther: response.result
+        })
+      }
+    )
   }
 
   render() {
-    const { cityList, districtList ,districtListOther } = this.state;
+    const { cityList, districtList, districtListOther } = this.state;
     const filteredCity = cityList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-    const filteredDistrict = districtList.filter(createFilter(this.state.searchDistrict, KEYS_TO_FILTERS_DIS))
+    const filteredDistrict = districtListOther.filter(createFilter(this.state.searchDistrict, KEYS_TO_FILTERS_DIS))
     return (
       <div className="location__user-position">
-
-
 
         <Nav tabs>
 
@@ -184,9 +214,9 @@ class UserPosition extends React.Component {
                           <input
                             type="radio"
                             className="radio-input"
-                            // name="cityId"
                             checked={this.state.cityId === city.id}
                             onChange={this.handleChange}
+                            onClick={this.onChangeClick}
                             value={city.id}
                           />
                           <div className="radio-face" />
@@ -220,7 +250,7 @@ class UserPosition extends React.Component {
                 placeholder="جستجو ..."
               />
             </div>
-            <div className="location__user-position-mydis">
+            {/* <div className="location__user-position-mydis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP10 bottomP10">
                 <span className="location__user-position-title flex center">
                   <i className="icon chilivery-my-address text22" />
@@ -229,87 +259,90 @@ class UserPosition extends React.Component {
               </div>
 
               <div className="location__user-position-wrapper">
+                {districtList.map(city => {
+                  return (
+                    <div key={city.id} className="center">
+                      <label className="radio-wrapper bottomM center">
+                        <div className="label-parent">
+                          <input
+                            type="radio"
+                            className="radio-input"
+                            // name="cityId"
+                            checked={this.state.disSlug == city.slug}
+                            onChange={this.handleChangeDis}
+                            value={city.id}
+                          />
+                          <div className="radio-face" />
+                        </div>
+                        <span className="location__user-position-search-wrapper">
+                          {!!city.tag &&
+                            <span className="location__user-position-search-tag btn leftM10 white">
+                              {city.tag}
+                            </span>
+                          }
+                          <span className="location__user-position-search-name">
+                            {city.name}
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  )
+                })
+                }
+              </div>
+
+            </div> */}
+
+            <div className="location__user-position-otherdis">
+              <div className="location__user-position-wrapper flex rightP15 leftP15 topP40 bottomP10">
+                <span className="location__user-position-title flex center">
+                  <i className="icon chilivery-group-pins text22" />
+                  <span className="text16 rightM5">سایر محله‌ها</span>
+                </span>
+                <Link to="" color="success" className="btn btn-success rightMauto flex">همه رستوران‌های شهر تهران</Link>
+              </div>
+              <div className="location__user-position-wrapper">
                 {filteredDistrict.length == 0 ?
                   <div className="center">
                     <label className="radio-wrapper bottomM center">
                       <span>موردی یافت نشد</span>
                     </label>
                   </div> :
-                  filteredDistrict.map(city => {
-                    return (
-                      <div key={city.id} className="center">
-                        <label className="radio-wrapper bottomM center">
-                          <div className="label-parent">
-                            <input
-                              type="radio"
-                              className="radio-input"
-                              // name="cityId"
-                              checked={this.state.disId === city.id}
-                              onChange={this.handleChangeDis}
-                              value={city.id}
-                            />
-                            <div className="radio-face" />
-                          </div>
-                          <span className="location__user-position-search-wrapper">
-                            {!!city.tag &&
-                              <span className="location__user-position-search-tag btn leftM10 white">
-                                {city.tag}
-                              </span>
-                            }
-                            <span className="location__user-position-search-name">
-                              {city.name}
-                            </span>
+                  filteredDistrict.map(city =>
+
+                    <div key={city.id} className="center">
+                      <label className="radio-wrapper bottomM center">
+                        <div className="label-parent">
+                          <input
+                            type="radio"
+                            className="radio-input"
+                            // name="cityId"
+                            checked={this.state.disSlug === city.slug}
+                            onChange={this.handleChangeDis}
+                            value={city.slug}
+                          />
+                          <div className="radio-face" />
+                        </div>
+                        <span className="location__user-position-search-wrapper">
+                          <span className="location__user-position-search-name">
+                            {city.name}
                           </span>
-                        </label>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-
-            </div>
-
-              <div className="location__user-position-otherdis">
-              <div className="location__user-position-wrapper flex rightP15 leftP15 topP40 bottomP10">
-              <span className="location__user-position-title flex center">
-                <i className="icon chilivery-group-pins text22" />
-                <span className="text16 rightM5">سایر محله‌ها</span>
-              </span>
-              <Button color="success" className="rightMauto flex">همه رستوران‌های شهر تهران</Button>
-            </div>
-            <div className="location__user-position-wrapper">
-                {districtListOther.map(city => 
-
-                      <div key={city.id} className="center">
-                        <label className="radio-wrapper bottomM center">
-                          <div className="label-parent">
-                            <input
-                              type="radio"
-                              className="radio-input"
-                              // name="cityId"
-                              checked={this.state.disId === city.id}
-                              onChange={this.handleChangeDis}
-                              value={city.id}
-                            />
-                            <div className="radio-face" />
-                          </div>
-                          <span className="location__user-position-search-wrapper">
-                            <span className="location__user-position-search-name">
-                              {city.name}
-                            </span>
-                          </span>
-                        </label>
-                      </div>
+                        </span>
+                      </label>
+                    </div>
                   )
                 }
               </div>
             </div>
           </TabPane>
           <TabPane tabId="3">
-            <span onClick={this.UserPositionModal} className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
-                <span>مشاهده رستوران ها</span>
-                <span className="location__user-position-counter flex center rightM10">17</span>
-            </span>
+
+            {this.state.map &&
+              <ChiliMap
+                cityId={this.state.cityId}
+                mapCenter={this.state.mapCenter}
+              />
+            }
           </TabPane>
         </TabContent>
 
@@ -322,7 +355,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
-      dispatch(showModal(showStatus))
+    dispatch(showModal(showStatus))
   },
 });
 

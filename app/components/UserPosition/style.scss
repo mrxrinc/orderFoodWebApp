@@ -17,7 +17,7 @@
     margin: 0 auto;
     left: 15px;
     right: 15px;
-    max-width: 450px;
+    max-width: calc(100% - 120px);
   }
   &-counter{
     border-radius: 50%;
