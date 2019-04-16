@@ -7,17 +7,29 @@ import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
 export default class Authentication extends React.Component {
   render() {
-    const Completionist = () => <span>You are good to go!</span>;
-
     // Renderer callback with condition
     const renderer = ({ hours, minutes, seconds, completed }) => {
       if (completed) {
-        return <Completionist />;
+        return (
+          <div>
+            <p>
+              <b>۰۰:۰۰</b>
+            </p>
+            <button type="button" className="btn-white btn">ارسال مجدد کد</button>
+          </div>
+        );
       }
       return (
-        <span>
-          {hours}:{minutes}:{seconds}
-        </span>
+        <div>
+          <p>
+            <b>
+              {minutes}:{seconds}
+            </b>
+          </p>
+          <button type="submit" className="btn btn-success">
+            ارسال
+          </button>
+        </div>
       );
     };
     return (
@@ -47,13 +59,10 @@ export default class Authentication extends React.Component {
             </p>
             <p>
               <b>
-                <Countdown date={Date.now() + 120000} renderer={renderer} />
+                <Countdown date={Date.now() + 12000} renderer={renderer} />
               </b>
             </p>
 
-            <button type="submit" className="btn btn-success">
-              ارسال
-            </button>
             <Row className="activationCode__edit__wrapper">
               <span className="midText text-center activationCode__edit my-4">
                 ویرایش شماره موبایل
