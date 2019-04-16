@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
@@ -7,11 +9,14 @@ import foodImg from '../../images/foodImg.jpg';
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/cover.jpg';
 
-import RestaurantHeader from '../../components/RestaurantHeader/index';
-import RestaurantFoodGroup from '../../components/RestaurantFoodGroup/index';
-import RestaurantFoodCard from '../../components/RestaurantFoodCard/index';
-import Modal from '../../components/ChiliModal/index';
+import RestaurantHeader from '../../components/RestaurantHeader';
+import RestaurantFoodGroup from '../../components/RestaurantFoodGroup';
+import RestaurantFoodCard from '../../components/RestaurantFoodCard';
+import RestaurantSideDishGroup from '../../components/RestaurantSideDishGroup';
+import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
+import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/IncrementDecrease';
+import { restaurantSearch } from '../../api/application/restaurant';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -20,10 +25,26 @@ class RestaurantPage extends React.Component {
     super(props);
     this.state = {
       RestaurantPageModal: false,
+      restaurantList: [],
+      cityId: '2',
+      point: '35.737226079112496,51.41403033862298',
+      tag: '756',
     };
   }
 
-  toggleModal = (e) => {
+  componentDidMount() {
+    restaurantSearch(this.state.cityId, this.state.point, this.state.tag).then(
+      response => {
+        const restaurantList = response.result.data;
+        this.setState({ restaurantList });
+        console.log('=============Restaurant Page data=================');
+        console.log(this.state.restaurantList);
+        console.log('====================================');
+      },
+    );
+  }
+
+  toggleModal = e => {
     e.preventDefault();
     this.setState(
       { RestaurantPageModal: !this.state.RestaurantPageModal },
@@ -31,11 +52,11 @@ class RestaurantPage extends React.Component {
         this.props.showModal({
           RestaurantPageModal: this.state.RestaurantPageModal,
         });
-        if(this.state.RestaurantPageModal === false){
-          history.push("/cart");
+        if (!this.state.RestaurantPageModal) {
+          history.push('/cart');
         }
       },
-      );
+    );
   };
 
   render() {
@@ -135,6 +156,79 @@ class RestaurantPage extends React.Component {
                 </div>
               </div>
             </div>
+
+            <div className="modal-restaurant__detail-sideDishes topM30">
+              <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)"> 
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+              </RestaurantSideDishGroup>
+
+              <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)"> 
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+              </RestaurantSideDishGroup>
+
+              <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)"> 
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+                <RestaurantSideDishRow
+                  labelClassName="gray7"
+                  type="radio"
+                  label="کوچک"
+                />
+              </RestaurantSideDishGroup>
+
+            </div>
+
           </div>
 
           <div className="modal-restaurant__detail-footer wFull flex bgWhite">

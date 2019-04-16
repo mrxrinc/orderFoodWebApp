@@ -84,7 +84,7 @@ const CheckBox = props => {
   const classes = props;
   return (
     <div
-      className={`checkbox checkbox-success checkbox-toggle ${
+      className={`checkbox checkbox-success checkbox-toggle topP5 ${
         classes.className ? classes.className : ''
       }`}
     >

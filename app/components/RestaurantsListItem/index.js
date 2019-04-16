@@ -2,6 +2,54 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './style.scss';
+const data = {
+  commentCount: 585,
+  deliveryBy: 1,
+  deliveryIcon: 'https://chilivery.net/app/image/restaurant_delivery.png',
+  deliveryName: 'پیک رستوران',
+  deliveryPrice: 8000,
+  financialLevel: {
+    id: 34,
+    name: ' متوسط',
+    parentId: 10,
+    foreignKey: 1627,
+    financeLevel: 2,
+  },
+  foodTypes: [
+    {id: 696, name: "پیش غذا", iconSlug: "salad", parentId: 2, foreignKey: 1627},
+    {id: 697, name: "نوشیدنی", iconSlug: "juice", parentId: 2, foreignKey: 1627},
+    {id: 730, name: "دسر", iconSlug: "milkshake", parentId: 2, foreignKey: 1627},
+    {id: 698, name: "سالاد", iconSlug: "salad", parentId: 2, foreignKey: 1627},
+    {id: 722, name: "افزودنی های انتخابی", iconSlug: "add", parentId: 2, foreignKey: 1627},
+    {id: 749, name: "نوشیدنی سرد", iconSlug: "juice", parentId: 2, foreignKey: 1627},
+  ],
+  id: 1627,
+  isNew: 0,
+  isOpen: true,
+  isRecommended: 0,
+  name: "فرش باکس",
+  neighborhood: {
+    citySlug: "tehran", 
+    cityName: "تهران", 
+    name: "درب-دوم", 
+    id: 280, 
+    cityId: 2, 
+    slug: "darb-dovom",
+    status: 1
+  },
+  nextActivationTime: {time: 22, unit: "h"},
+  point: "35.783050862408665,51.43747463822365",
+  profile: "https://media.chilivery.net/img/restaurantLogo/988ae6af6f4067543abd5d2d2667ae26/restaurantProfile-فرشباکس-49100.png",
+  rateAverage: 4.2,
+  restaurantType: [{
+    foreignKey: 1627,
+    id: 756,
+    name: "سالاد بار",
+    parentId: 4
+  }],
+  salePercentage: 0,
+  slug: "freshbox",
+};
 
 const RestaurantsListItem = props => (
   <Link to="/restaurant-page" className="listItem dblock">
