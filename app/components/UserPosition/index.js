@@ -7,6 +7,8 @@ import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
 import { history } from '../../store';
 import ChiliMap from '../../components/ChiliMap';
+import { addNeighborhood } from '../../actions/UserPosition';
+
 
 
 import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
@@ -32,10 +34,14 @@ class UserPosition extends React.Component {
       searchTerm: '',
       searchDistrict: '',
       restaurantListCount: 0,
-      cityId: 2,
-      disSlug: '',
+      cityId: (this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.cityId:2,
+      disSlug: (this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.slug: '',
       cityList: this.props.data,
-      mapCenter: this.props.mapCenter,
+      mapCenter: (this.props.mapPosition.neighborhood != null)?
+        {
+          lat:this.props.mapPosition.neighborhood.mapCenter.lat,
+          lng:this.props.mapPosition.neighborhood.mapCenter.lon,
+        }:this.props.mapCenter,
       map: true,
       districtList: [
         {
@@ -100,12 +106,14 @@ class UserPosition extends React.Component {
 
 
   handleChange(event) {
-    console.log('====================================');
-    console.log("salam");
-    console.log('====================================');
     this.setState({
       cityId: parseInt(event.target.value)
     }, () => {
+      this.props.addNeighborhood({
+        neighborhood:{
+          cityId:this.state.cityId
+        }
+      })
       getRegionByCity(this.state.cityId).then(
         response => {
           this.setState({
@@ -351,11 +359,16 @@ class UserPosition extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-
+  mapPosition:{
+    neighborhood: state.UserPosition.neighborhood,
+  }
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
     dispatch(showModal(showStatus))
+  },
+  addNeighborhood: showStatus => {
+    dispatch(addNeighborhood(showStatus));
   },
 });
 
