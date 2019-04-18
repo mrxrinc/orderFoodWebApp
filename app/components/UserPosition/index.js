@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
 import { history } from '../../store';
 import ChiliMap from '../../components/ChiliMap';
-import { addNeighborhood, addNeighborhoodProfile } from '../../actions/UserPosition';
+import { addNeighborhood } from '../../actions/UserPosition';
 
 
 
@@ -15,6 +15,11 @@ import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
+
+const typeMap = {
+  profile : 'neighborhoodProfile',
+  home : 'neighborhood'
+}
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -103,22 +108,29 @@ class UserPosition extends React.Component {
 
 
   handleChange(event) {
+
     this.setState({
       cityId: parseInt(event.target.value)
     }, () => {
-      if(this.props.type === "profile"){
-        this.props.addNeighborhoodProfile({
-          neighborhoodProfile:{
-            cityId:this.state.cityId
-          }
-        })
-      }else{
-        this.props.addNeighborhood({
-          neighborhood:{
-            cityId:this.state.cityId
-          }
-        })
+      let typeMapItem = typeMap[this.props.type];
+      let obj = {};
+      obj[typeMapItem] = {
+        cityId:this.state.cityId
       }
+      this.props.addNeighborhood(obj);
+      // if(this.props.type === "profile"){
+      //   this.props.addNeighborhoodProfile({
+      //     neighborhoodProfile:{
+      //       cityId:this.state.cityId
+      //     }
+      //   })
+      // }else{
+      //   this.props.addNeighborhood({
+      //     neighborhood:{
+      //       cityId:this.state.cityId
+      //     }
+      //   })
+      // }
 
 
       getRegionByCity(this.state.cityId).then(
@@ -204,13 +216,14 @@ class UserPosition extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.mapPosition.neighborhoodProfile.slug != this.props.mapPosition.neighborhoodProfile.slug){
+    let typeMapItem = typeMap[this.props.type];
+    if(prevProps.mapPosition[typeMapItem] && prevProps.mapPosition[typeMapItem].slug != this.props.mapPosition[typeMapItem].slug){
       this.setState({
-        disSlug:this.props.mapPosition.neighborhoodProfile.slug
+        disSlug:this.props.mapPosition[typeMapItem].slug
       },()=>{
         console.log('====================================');
-        console.log(prevProps.mapPosition.neighborhoodProfile.slug);
-        console.log(this.props.mapPosition.neighborhoodProfile.slug);
+        console.log(prevProps.mapPosition[typeMapItem].slug);
+        console.log(this.props.mapPosition[typeMapItem].slug);
         console.log(this.state.disSlug);
         console.log('====================================');
       })
@@ -431,9 +444,7 @@ const mapDispatchToProps = dispatch => ({
   addNeighborhood: showStatus => {
     dispatch(addNeighborhood(showStatus));
   },
-  addNeighborhoodProfile: showStatus => {
-    dispatch(addNeighborhoodProfile(showStatus));
-  },
+ 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPosition);

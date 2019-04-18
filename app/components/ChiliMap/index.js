@@ -7,9 +7,12 @@ import {
 } from "react-google-maps";
 import { connect } from 'react-redux';
 import { getNeighborhood } from '../../api/application/region';
-import { addNeighborhood, addNeighborhoodProfile } from '../../actions/UserPosition';
+import { addNeighborhood } from '../../actions/UserPosition';
 import { restaurantSearch } from '../../api/application/restaurant';
-
+const typeMap = {
+    profile : 'neighborhoodProfile',
+    home : 'neighborhood'
+}
 export class MapContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -27,19 +30,11 @@ export class MapContainer extends React.Component {
         ).then(
             response => {
                 let neighborhood = response.result.neighbourhood;
+                const typeMapItem = typeMap[this.props.type]
+                let obj = {};
                 this.setState({ neighborhood: neighborhood },()=>{
-
-                    
-                    if(this.props.type === "profile"){
-                        this.props.addNeighborhoodProfile({
-                            neighborhoodProfile:this.state.neighborhood
-                        })
-                    }else{
-                        this.props.addNeighborhood({
-                            neighborhood:this.state.neighborhood
-                        })
-                    }
-
+                    obj[typeMapItem] = this.state.neighborhood;
+                    this.props.addNeighborhood(obj)
                 });
             }
         );
@@ -113,9 +108,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     addNeighborhood: showStatus => {
         dispatch(addNeighborhood(showStatus));
-    },
-    addNeighborhoodProfile: showStatus => {
-        dispatch(addNeighborhoodProfile(showStatus));
     },
 });
 
