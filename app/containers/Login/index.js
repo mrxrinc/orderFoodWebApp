@@ -1,7 +1,7 @@
 /* eslint-disabtle react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getUser } from '../../actions/Auth';
