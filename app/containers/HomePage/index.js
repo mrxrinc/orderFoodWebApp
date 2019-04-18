@@ -93,6 +93,7 @@ class HomePage extends React.Component {
           headerColor="#eaeaea"
           bodyColor="#f5f5f5"
           data={this.state.cityList}
+          type="profile"
         />
 
       </div>

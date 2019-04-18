@@ -7,7 +7,7 @@ import {
 } from "react-google-maps";
 import { connect } from 'react-redux';
 import { getNeighborhood } from '../../api/application/region';
-import { addNeighborhood } from '../../actions/UserPosition';
+import { addNeighborhood, addNeighborhoodProfile } from '../../actions/UserPosition';
 import { restaurantSearch } from '../../api/application/restaurant';
 
 export class MapContainer extends React.Component {
@@ -28,9 +28,18 @@ export class MapContainer extends React.Component {
             response => {
                 let neighborhood = response.result.neighbourhood;
                 this.setState({ neighborhood: neighborhood },()=>{
-                    this.props.addNeighborhood({
-                        neighborhood:this.state.neighborhood
-                    })
+
+                    
+                    if(this.props.type === "profile"){
+                        this.props.addNeighborhoodProfile({
+                            neighborhoodProfile:this.state.neighborhood
+                        })
+                    }else{
+                        this.props.addNeighborhood({
+                            neighborhood:this.state.neighborhood
+                        })
+                    }
+
                 });
             }
         );
@@ -98,14 +107,15 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modals: {
-        motochiliModal: state.Modals.motochiliModal,
-    },
+
 });
 
 const mapDispatchToProps = dispatch => ({
     addNeighborhood: showStatus => {
         dispatch(addNeighborhood(showStatus));
+    },
+    addNeighborhoodProfile: showStatus => {
+        dispatch(addNeighborhoodProfile(showStatus));
     },
 });
 

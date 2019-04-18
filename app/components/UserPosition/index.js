@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import SearchInput, { createFilter } from 'react-search-input'
 import { history } from '../../store';
 import ChiliMap from '../../components/ChiliMap';
-import { addNeighborhood } from '../../actions/UserPosition';
+import { addNeighborhood, addNeighborhoodProfile } from '../../actions/UserPosition';
 
 
 
@@ -34,15 +34,12 @@ class UserPosition extends React.Component {
       searchTerm: '',
       searchDistrict: '',
       restaurantListCount: 0,
-      cityId: (this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.cityId:2,
-      disSlug: (this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.slug: '',
+      cityId: 2,
+      disSlug: '',
       cityList: this.props.data,
-      mapCenter: (this.props.mapPosition.neighborhood != null)?
-        {
-          lat:this.props.mapPosition.neighborhood.mapCenter.lat,
-          lng:this.props.mapPosition.neighborhood.mapCenter.lon,
-        }:this.props.mapCenter,
+      mapCenter: this.props.mapCenter,
       map: true,
+
       districtList: [
         {
           name: 'وزرا',
@@ -109,11 +106,21 @@ class UserPosition extends React.Component {
     this.setState({
       cityId: parseInt(event.target.value)
     }, () => {
-      this.props.addNeighborhood({
-        neighborhood:{
-          cityId:this.state.cityId
-        }
-      })
+      if(this.props.type === "profile"){
+        this.props.addNeighborhoodProfile({
+          neighborhoodProfile:{
+            cityId:this.state.cityId
+          }
+        })
+      }else{
+        this.props.addNeighborhood({
+          neighborhood:{
+            cityId:this.state.cityId
+          }
+        })
+      }
+
+
       getRegionByCity(this.state.cityId).then(
         response => {
           this.setState({
@@ -149,9 +156,9 @@ class UserPosition extends React.Component {
         }
       )
     });
-  }
+  };
 
-  componentDidMount(){
+  fetchRegionByCity = ()=>{
     getRegionByCity(this.state.cityId).then(
       response => {
         this.setState({
@@ -159,7 +166,59 @@ class UserPosition extends React.Component {
         })
       }
     )
+    console.log('============this.state==============');
+    console.log(this.state);
+    console.log('====================================');
   }
+
+  componentDidMount(){
+
+    if(this.props.type != "profile"){
+      console.log('====================================');
+      console.log("!profile");
+      console.log('====================================');
+      this.setState({
+        cityId:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.cityId:2,
+        disSlug:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.slug:'mostafa',
+        mapCenter: (this.props.mapPosition.neighborhood != null) ? {
+                      lat:this.props.mapPosition.neighborhood.mapCenter.lat,
+                      lng:this.props.mapPosition.neighborhood.mapCenter.lon,
+                    }:this.props.mapCenter,
+      },this.fetchRegionByCity())
+    }else{
+      console.log('====================================');
+      console.log("profile");
+      console.log('====================================');
+      this.setState({
+        cityId:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.cityId:2,
+        disSlug:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.slug:'mostafa',
+        mapCenter: (this.props.mapPosition.neighborhoodProfile != null) ? {
+                      lat:this.props.mapPosition.neighborhoodProfile.mapCenter.lat,
+                      lng:this.props.mapPosition.neighborhoodProfile.mapCenter.lon,
+                    }:this.props.mapCenter,
+      },()=>{
+        this.fetchRegionByCity()
+      })
+    }
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.mapPosition.neighborhoodProfile.slug != this.props.mapPosition.neighborhoodProfile.slug){
+      this.setState({
+        disSlug:this.props.mapPosition.neighborhoodProfile.slug
+      },()=>{
+        console.log('====================================');
+        console.log(prevProps.mapPosition.neighborhoodProfile.slug);
+        console.log(this.props.mapPosition.neighborhoodProfile.slug);
+        console.log(this.state.disSlug);
+        console.log('====================================');
+      })
+    }
+  }
+
+
+
 
   render() {
     const { cityList, districtList, districtListOther } = this.state;
@@ -349,6 +408,7 @@ class UserPosition extends React.Component {
               <ChiliMap
                 cityId={this.state.cityId}
                 mapCenter={this.state.mapCenter}
+                type={this.props.type}
               />
             }
           </TabPane>
@@ -361,6 +421,7 @@ class UserPosition extends React.Component {
 const mapStateToProps = state => ({
   mapPosition:{
     neighborhood: state.UserPosition.neighborhood,
+    neighborhoodProfile: state.UserPosition.neighborhoodProfile,
   }
 });
 const mapDispatchToProps = dispatch => ({
@@ -369,6 +430,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addNeighborhood: showStatus => {
     dispatch(addNeighborhood(showStatus));
+  },
+  addNeighborhoodProfile: showStatus => {
+    dispatch(addNeighborhoodProfile(showStatus));
   },
 });
 
