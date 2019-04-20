@@ -14,11 +14,10 @@ class ActivationCode extends React.Component {
     super(props);
     this.state = {
       user: this.props.user,
-      input1: "",
-      input2: "",
-      input3: "",
-      input4: "",
+      code: '',
+      disabled: false,
     };
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
@@ -32,13 +31,28 @@ class ActivationCode extends React.Component {
       fullName: user.fullName,
       email: user.email,
     }).then(response => {
-      console.log('^^^^res', response);
+      console.log(response);
     });
   };
 
   resetCode = () => {
     window.location.reload();
   };
+
+  sendSubmit = event => {
+    event.preventDefault();
+    const { code } = this.state;
+    const verification = {
+      verificationCode: code,
+    };
+    this.setState({ disabled: !this.state.disabled });
+    this.props.onSendVerify({ verification });
+  };
+
+  update(e) {
+    this.setState({ code: e.target.value });
+    console.log(this.state);
+  }
 
   render() {
     // Renderer callback with condition
@@ -66,7 +80,11 @@ class ActivationCode extends React.Component {
               {minutes}:{seconds}
             </b>
           </p>
-          <button type="submit" className="btn btn-success">
+          <button
+            disabled={this.state.disabled ? 'disabled' : ''}
+            type="submit"
+            className="btn btn-success"
+          >
             ارسال
           </button>
         </div>
@@ -77,47 +95,19 @@ class ActivationCode extends React.Component {
         <h4 className="midText text-center my-4">
           برای تأیید حساب کاربری کد 4 رقمی ارسال شده را وارد نمایید:
         </h4>
-        <form className="activationCode__form">
+        <form className="activationCode__form" onSubmit={this.sendSubmit}>
           <Container className="text-center">
             <Row>
-              <Col>
+              <Col xs={12}>
                 <Input
-                  maxLength="1"
+                  className="text-center activationCode__letter-spacing"
+                  maxLength="4"
                   type="text"
                   pattern="\d*"
                   id="activationCode__input-fourth"
+                  disabled={this.state.disabled ? 'disabled' : ''}
                   bsSize="lg"
-                  value={this.state.input1}
-                />{' '}
-              </Col>
-              <Col>
-                <Input
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-three"
-                  bsSize="lg"
-                  value={this.state.input2}
-                />{' '}
-              </Col>
-              <Col>
-                <Input
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-two"
-                  bsSize="lg"
-                  value={this.state.input3}
-                />{' '}
-              </Col>
-              <Col>
-                <Input
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-one"
-                  bsSize="lg"
-                  value={this.state.input4}
+                  onChange={this.update}
                 />{' '}
               </Col>
             </Row>
@@ -143,8 +133,8 @@ class ActivationCode extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: () => {
-    dispatch(getUserVerify());
+  onSendVerify: verification => {
+    dispatch(getUserVerify(verification));
   },
 });
 

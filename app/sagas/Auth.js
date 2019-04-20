@@ -128,8 +128,6 @@ function* userSignUp({ payload }) {
   try {
     yield put(enableLoading({ registerLoading: true }));
     const signUpUser = yield signUpPost(payload.user);
-    debugger;
-    console.log('sign up user ~~~~~~~>', signUpUser);
 
     if (signUpUser.status) {
       yield put(getUserInfo(signUpUser.result.session.user));
@@ -156,9 +154,6 @@ function* userSignUp({ payload }) {
       // );
     }
   } catch (error) {
-    console.log("error!!!!!!!!!!!!!!!!!");
-    console.log(error);
-    console.log("error!!!!!!!!!!!!!!!!!");
     yield put(disableLoading({ registerLoading: false }));
 
     if (error.status === 422) {
@@ -168,9 +163,6 @@ function* userSignUp({ payload }) {
         }),
       );
     } else {
-      console.log("error=====================");
-      console.log(error);
-      console.log("error=====================");
       yield put(
         addToast({
           text: error.data.message,
@@ -300,20 +292,15 @@ export function* UserVerify() {
 }
 
 function* userVerify({ payload }) {
-  try {
-    yield put(enableLoading({ verifyLoading: true }));
-    const verifyUserSignUp = yield verifyPost(payload.user);
-    if (verifyUserSignUp.status === 'success') {
-      localStorage.setItem('authToken', verifyUserSignUp.data.token);
+  try {    
+    yield put(enableLoading({ verifyLoading: true }));    
+    const verifyUserSignUp = yield verifyPost(payload.verification);    
+    if (verifyUserSignUp.status) {
+      // localStorage.setItem('authToken', verifyUserSignUp.data.token);
       yield put(getUserVerifyInfo(verifyUserSignUp.data));
-
+      yield put(push('/profile'));
       yield put(disableLoading({ verifyLoading: false }));
 
-      yield put(
-        showModal({
-          verifyModal: false,
-        }),
-      );
       yield put(
         addToast({
           text: verifyUserSignUp.message_fa,
@@ -339,7 +326,7 @@ function* userVerify({ payload }) {
     }
   } catch (error) {
     yield put(disableLoading({ verifyLoading: false }));
-
+    console.log('%%%%%%%%%%%%%%%', error);
     if (error.status === 422) {
       yield put(
         addValidation({
