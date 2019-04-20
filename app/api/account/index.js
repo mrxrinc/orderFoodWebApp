@@ -10,6 +10,11 @@ export const signUpPost = (params) => { //params: { fullname, phone_number, emai
   return deRequest(account.signUp_post(), "POST", params, false );
 }
 
+export const sendVerifyCodePost = (params) => {
+  //params: { fullname, mobileNumber, email }
+  console.log("ppppppp",params);
+  return deRequest(account.sendVerifyCode_post(), "POST", params, false );
+}
 export const profileChangePass = (params) => { //params: { password }
   return deRequest(account.profileChangePass_post(), "POST", params, false );
 }
