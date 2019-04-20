@@ -1,0 +1,151 @@
+{
+  "message_fa": null,
+  "go_to": null,
+  "result": {
+    "addresses": [
+      {
+        "id": 314774,
+        "cityId": 2,
+        "neighborhoodId": 238,
+        "complete": "میدان ونک، خیابان برزیل شرقی، خیابان شمس لاهیجانی،کوچه ۱۱  پلاک ۲۳، مجتمع اداری نیلو (رویال ونک)، طبقه اول",
+        "name": "شرکت",
+        "point": {
+          "lat": 35.755748,
+          "lon": 51.408999
+        },
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodName": "برزیل-توانیر",
+        "mapCenter": {
+          "lat": 35.674049,
+          "lon": 51.371262
+        },
+        "neighborhoodSlug": "brazil-tavanir",
+        "deliveryZonePrice": 3000,
+        "deliveryZoneId": 27492,
+        "deliveryZoneMaxDeliveryTime": 50,
+        "deliveryZoneMinDeliveryTime": 25
+      },
+      {
+        "id": 530516,
+        "cityId": 2,
+        "neighborhoodId": 238,
+        "complete": "Jnhh",
+        "name": "خانهg",
+        "point": {
+          "lat": 35.755955,
+          "lon": 51.40963
+        },
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodName": "برزیل-توانیر",
+        "mapCenter": {
+          "lat": 35.674049,
+          "lon": 51.371262
+        },
+        "neighborhoodSlug": "brazil-tavanir",
+        "deliveryZonePrice": 3000,
+        "deliveryZoneId": 27492,
+        "deliveryZoneMaxDeliveryTime": 50,
+        "deliveryZoneMinDeliveryTime": 25
+      },
+      {
+        "id": 551953,
+        "cityId": 2,
+        "neighborhoodId": 87,
+        "complete": "sss",
+        "name": "ssss",
+        "point": {
+          "lat": 35.740825,
+          "lon": 51.407851
+        },
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodName": "آبشار",
+        "mapCenter": {
+          "lat": 35.674049,
+          "lon": 51.371262
+        },
+        "neighborhoodSlug": "abshar",
+        "deliveryZonePrice": 3000,
+        "deliveryZoneId": 27492,
+        "deliveryZoneMaxDeliveryTime": 50,
+        "deliveryZoneMinDeliveryTime": 25
+      },
+      {
+        "id": 598430,
+        "cityId": 2,
+        "neighborhoodId": 238,
+        "complete": "یییی",
+        "name": "خانه",
+        "point": {
+          "lat": 35.755824,
+          "lon": 51.408951
+        },
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodName": "برزیل-توانیر",
+        "mapCenter": {
+          "lat": 35.674049,
+          "lon": 51.371262
+        },
+        "neighborhoodSlug": "brazil-tavanir",
+        "deliveryZonePrice": 3000,
+        "deliveryZoneId": 27492,
+        "deliveryZoneMaxDeliveryTime": 50,
+        "deliveryZoneMinDeliveryTime": 25
+      },
+      {
+        "id": 331197,
+        "cityId": 2,
+        "neighborhoodId": 277,
+        "complete": "شریعتی خاقانی خیابان عطاری مقدم جنوبی پلاک ۲۵ واحد دوم زنگ سوم",
+        "name": "خانه",
+        "point": {
+          "lat": 35.77565,
+          "lon": 51.433175
+        },
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodName": "زرگنده",
+        "mapCenter": {
+          "lat": 35.674049,
+          "lon": 51.371262
+        },
+        "neighborhoodSlug": "zargandeh",
+        "deliveryZonePrice": null,
+        "deliveryZoneId": null,
+        "deliveryZoneMaxDeliveryTime": null,
+        "deliveryZoneMinDeliveryTime": null
+      },
+      {
+        "id": 551986,
+        "cityId": 866,
+        "neighborhoodId": 996,
+        "complete": "ddd",
+        "name": "dddd",
+        "point": {
+          "lat": 36.284447,
+          "lon": 59.602742
+        },
+        "cityName": "مشهد",
+        "citySlug": "mashhad",
+        "neighborhoodName": "آخوند خراسانی",
+        "mapCenter": {
+          "lat": 36.231798,
+          "lon": 59.720267
+        },
+        "neighborhoodSlug": "akhoond-khorasani",
+        "deliveryZonePrice": null,
+        "deliveryZoneId": null,
+        "deliveryZoneMaxDeliveryTime": null,
+        "deliveryZoneMinDeliveryTime": null
+      }
+    ],
+    "userOrganizationAddress": [],
+    "restaurantDeliveryPolygon": [],
+    "APP_KEY": "AIzaSyBuwUs8xgh5hNTH8494lHdwzHuv6h2w0u4",
+    "userLogin": true
+  },
+  "status": true
+}

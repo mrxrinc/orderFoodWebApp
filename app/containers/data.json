@@ -1,0 +1,351 @@
+{
+  "status": true,
+  "result": {
+    "deliveryType": false,
+    "itemCount": 2,
+    "description": null,
+    "items": [
+      {
+        "created": {
+          "date": "2019-04-15 11:51:00.000000",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "count": 1,
+        "userAddressId": null,
+        "userAddressModel": null,
+        "restaurantId": 4622,
+        "foodName": "سالاد فریکادل",
+        "foodStatus": 1,
+        "foodPrice": 15000,
+        "itemId": 14927415,
+        "itemPrice": 15000,
+        "options": [],
+        "image": "https://media.chilivery.com/img/restaurantFoodImage/254752bfcabd96e73e2f1dfe602e0b5c/food-سالاداسفناج-135925.jpg"
+      },
+      {
+        "created": {
+          "date": "2019-04-15 11:51:00.000000",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "count": 1,
+        "userAddressId": null,
+        "userAddressModel": null,
+        "restaurantId": 4622,
+        "foodName": "چیکن برگر",
+        "foodStatus": 1,
+        "foodPrice": 20000,
+        "itemId": 14927416,
+        "itemPrice": 20000,
+        "options": [
+          {
+            "foodOptionId": 3598,
+            "foodOptionName": "نان چاباتا",
+            "foodOptionPrice": 0,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3600,
+            "foodOptionName": "بیف",
+            "foodOptionPrice": 9000,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3608,
+            "foodOptionName": "پنیر پارمزان",
+            "foodOptionPrice": 1350,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3609,
+            "foodOptionName": "پنیر بلوچیز",
+            "foodOptionPrice": 1350,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3614,
+            "foodOptionName": "هالوپینو",
+            "foodOptionPrice": 350,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3620,
+            "foodOptionName": "بدون سس",
+            "foodOptionPrice": 0,
+            "foodOptionLastPrice": null
+          },
+          {
+            "foodOptionId": 3767,
+            "foodOptionName": "سس باربیکیو",
+            "foodOptionPrice": 0,
+            "foodOptionLastPrice": null
+          }
+        ],
+        "image": "https://media.chilivery.com/img/restaurantFoodImage/0a3d002cacfbfa4e639cb95557d391c9/food-همبرگر-135914.jpg"
+      }
+    ],
+    "amount": {
+      "total": 51285,
+      "carry": 0,
+      "tax": 4235,
+      "pack": 0,
+      "time": [
+        12,
+        13
+      ],
+      "balance": 20960
+    },
+    "packageData": [],
+    "bankgateways": [
+      {
+        "id": 2,
+        "name": "تست",
+        "logo": "https://payment.iiventures.com/public/img/gateways/fake.png"
+      },
+      {
+        "id": 1,
+        "name": "سامان",
+        "logo": "https://payment.iiventures.com/public/img/gateways/saman.png"
+      },
+      {
+        "id": 11,
+        "name": "جیبیت",
+        "logo": "https://payment.iiventures.com/public/img/gateways/jibit.png"
+      }
+    ],
+    "restaurant": {
+      "id": 4622,
+      "slug": "frikadell-asp",
+      "status": 1,
+      "name": "فریکادل (آ اس پ)",
+      "minPriceSendLimit": 20000,
+      "address": "بزرگراه کردستان، خیابان شصت و چهارم، مجتمع تجاری A.S.P، واحد 15 و 1",
+      "slogan": "باهم برگر",
+      "notification": null,
+      "notificationTimeLimit": 0,
+      "rateAverage": 4.1,
+      "isRecommended": 0,
+      "commentCount": 117,
+      "site": null,
+      "description": null,
+      "point": "35.745136443159424 51.39968901872635",
+      "isNew": false,
+      "salePercentage": 0,
+      "hasCampaign": false,
+      "menuView": 1,
+      "packagingPrice": 0,
+      "deliveryBy": 2,
+      "phone": "95118795",
+      "email": null,
+      "features": [
+        {
+          "wifi": [
+            {
+              "name": "دارد",
+              "id": 1
+            },
+            {
+              "name": "ندارد",
+              "id": 0
+            }
+          ]
+        }
+      ],
+      "hasDeliveryInRestaurantPlace": true,
+      "Contract": {
+        "foodVat": 9
+      },
+      "chainData": {
+        "chainRestaurantId": 217,
+        "citySlug": "tehran",
+        "chainRestaurantName": "فریکادل",
+        "chainRestaurantSlug": "frikadell"
+      },
+      "profile": "https://media.chilivery.com/img/restaurantLogo/2d5642c057448002d39cdb5069572507/restaurantProfile-فریکادلآاسپ-110058.png",
+      "cover": "https://media.chilivery.com/img/restaurantCover/10fb14689be0351ba98b718ab0cea153/restaurantCover-فریکادلآاسپ-110115.png",
+      "mobileCover": "https://media.chilivery.com/img/mobileTag/4286d0d29c9673c4752806b03e73ab9f/restaurantMobileCover-فریکادلآاسپ-110121.png",
+      "openingInfo": {
+        "1": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 1,
+            "Day": "شنبه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 1,
+            "Day": "شنبه",
+            "isToday": false
+          }
+        ],
+        "2": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 2,
+            "Day": "یکشنبه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 2,
+            "Day": "یکشنبه",
+            "isToday": false
+          }
+        ],
+        "3": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 3,
+            "Day": "دوشنبه",
+            "isToday": true
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 3,
+            "Day": "دوشنبه",
+            "isToday": true
+          }
+        ],
+        "4": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 4,
+            "Day": "سه شنبه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 4,
+            "Day": "سه شنبه",
+            "isToday": false
+          }
+        ],
+        "5": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 5,
+            "Day": "چهارشنبه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 5,
+            "Day": "چهارشنبه",
+            "isToday": false
+          }
+        ],
+        "6": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 6,
+            "Day": "پنج شنبه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 6,
+            "Day": "پنج شنبه",
+            "isToday": false
+          }
+        ],
+        "7": [
+          {
+            "start": "11:30",
+            "end": "16:00",
+            "timeDay": 7,
+            "Day": "جمعه",
+            "isToday": false
+          },
+          {
+            "start": "16:00",
+            "end": "23:00",
+            "timeDay": 7,
+            "Day": "جمعه",
+            "isToday": false
+          }
+        ]
+      },
+      "openingHoursSchema": [
+        "Fr-Th-We-Tu-Mo-Su-Sa 11:30-16:00",
+        "Fr-Th-We-Tu-Mo-Su-Sa 16:00-23:00"
+      ],
+      "isOpen": true,
+      "nextOpeningTime": "11:30",
+      "nextActivationTime": {
+        "time": 19,
+        "unit": "h"
+      },
+      "todayTime": {
+        "4": {
+          "start": "11:30",
+          "end": "16:00"
+        },
+        "11": {
+          "start": "16:00",
+          "end": "23:00"
+        }
+      },
+      "neighborhood": {
+        "id": 104,
+        "name": "شیخ بهایی جنوبی",
+        "slug": "sheykhbahaee-south",
+        "cityId": 2,
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "status": 1
+      },
+      "deliveryZoneList": {
+        "25345": {
+          "id": 25345,
+          "price": 0,
+          "title": "یوسف آباد-توانیر-ونک-گاندی-امیرآباد",
+          "minTime": 15,
+          "maxTime": 55
+        },
+        "27434": {
+          "id": 27434,
+          "price": 0,
+          "title": "شیخ بهایی-کردستان",
+          "minTime": 15,
+          "maxTime": 45
+        },
+        "27435": {
+          "id": 27435,
+          "price": 1500,
+          "title": "ولیعصر-اسدآبادی",
+          "minTime": 15,
+          "maxTime": 45
+        },
+        "27436": {
+          "id": 27436,
+          "price": 2000,
+          "title": "زاگرس-ملاصدرا-فرهنگ",
+          "minTime": 15,
+          "maxTime": 45
+        },
+        "27437": {
+          "id": 27437,
+          "price": 3000,
+          "title": "آفریقا-کارگر شمالی",
+          "minTime": 15,
+          "maxTime": 45
+        }
+      },
+      "userSetLocation": true
+    }
+  }
+}

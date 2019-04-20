@@ -76,7 +76,7 @@ export class Checkout extends React.PureComponent {
         </div>
 
       </Container>
-      <StickyPrice />
+      {/*<StickyPrice />*/}
       </div>
     );
   }
