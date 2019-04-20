@@ -52,12 +52,13 @@ class HomePage extends React.Component {
               onClick={this.UserPositionModal}
             >
               <div className="i3 city flex spaceBetween hP10 hCenter primary disableBg">
-                <span className="text14 bold rightM5">تهران</span>
+                <span className="text14 bold rightM5">{
+                  typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.cityName: "تهران"}</span>
                 <span className="chilivery-arrow-bottom gray text12" />
               </div>
 
               <div className="i2-3 city flex spaceBetween hP10 hCenter primary whiteBg">
-                <span className="text14 bold rightM5">سهروردی شمالی</span>
+                <span className="text14 bold rightM5">{typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.name : "شیرازی شمال"}</span>
                 <span className="chilivery-arrow-bottom gray text12" />
               </div>
             </div>
@@ -102,7 +103,7 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  UserPosition: state.UserPosition.neighborhood,
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
