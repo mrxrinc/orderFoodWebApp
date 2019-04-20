@@ -17,5 +17,5 @@ export const get_region_by_city = (id) => `${API_URL_ROOT}/region/byCity?cityId=
 export const get_region_by_slug = (slug) => `${API_URL_ROOT}/region/bySlug?region_slug=${slug}`;
 
 //RESTAURANT 
-export const restaurant_search= (point,tag) => `${API_URL_ROOT}/restaurant/search?&point=${point}`;
+export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}&point=${point}`;
 export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaurantId=${id}`;
