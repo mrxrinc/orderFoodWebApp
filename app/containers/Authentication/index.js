@@ -27,8 +27,9 @@ export default class Authentication extends React.Component {
   }
 
   render() {
+    const addBorderBottom = 'header__border';
     return (
-      <div className=" authBg ">
+      <div className="authBg">
         <div className="authentication__page">
           <div className="authentication__shadow1" />
           <div className="authentication__shadow2" />
@@ -36,15 +37,15 @@ export default class Authentication extends React.Component {
             <div className="rainbow" />
             <div className="header">
               <button
-                className={`header__box  header__login-${
-                  this.state.isLogin
-                } header__rbox `}
+                className={`header__box ${this.state.isLogin &&
+                  addBorderBottom}  header__rbox`}
                 onClick={this.emailVisibie.bind(this)}
               >
                 ورود به حساب کاربری
               </button>
               <button
-                className="header__box header__lbox"
+                className={`header__box ${!this.state.isLogin &&
+                  addBorderBottom}  header__lbox`}
                 onClick={this.registerVisible.bind(this)}
               >
                 ثبت نام در چیلیوری
