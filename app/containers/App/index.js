@@ -26,6 +26,7 @@ import PageMoreMenu from '../PageMoreMenu';
 import ForgotPassword from '../ForgotPassword';
 import PageProfile from '../PageProfile';
 import PageProfileEdit from '../PageProfileEdit';
+import ActivationCode from '../ActivationCode';
 
 import GlobalStyle from '../../global-styles';
 
@@ -47,8 +48,12 @@ export default function App() {
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
+<<<<<<< HEAD
           <Route exact path="/profile" component={PageProfile} />
           <Route exact path="/profile/edit" component={PageProfileEdit} />
+=======
+          <Route exact path="/activation-code" component={ActivationCode} />
+>>>>>>> 4fbfd726608effb79c508cc391ac4377461dcb71
 
           <Route component={NotFoundPage} />
         </Switch>

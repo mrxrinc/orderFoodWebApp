@@ -8399,6 +8399,14 @@ react-cookie@^3.1.2:
     hoist-non-react-statics "^3.0.0"
     universal-cookie "^3.1.0"
 
+react-countdown-now@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-countdown-now/-/react-countdown-now-2.1.0.tgz#6daca892221276ca055fba1bacc2c58c5b63b79c"
+  integrity sha512-dAI4y1bpOScdXEWEHl1OAvFjt9I7MxVd7jmExdBcWhVVGcpHjA1wfFNptTtLCwl3qDc+rlXh65Ba7qxgF5gHwQ==
+  dependencies:
+    lodash.isequal "^4.5.0"
+    prop-types "^15.6.2"
+
 react-dom@16.6.0:
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.6.0.tgz#6375b8391e019a632a89a0988bce85f0cc87a92f"

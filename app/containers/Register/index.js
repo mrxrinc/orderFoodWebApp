@@ -3,48 +3,114 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnimateField } from '../../components/ChiliForm';
+import { signUpUser } from '../../actions/Auth';
 import './style.scss';
 
 class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signUpFullname: 'farz',
+      signUpPhone: '09125555555',
+      signUpUserEmail: 'farfarfarfarfar1@gmail.com',
+      signUpPass: '111111',
+    };
+    this.signUpSubmit = this.signUpSubmit.bind(this);
+
+    this.onChange = this.onChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  onChange = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+
+    // this.setState({ [e.target.name]: e.target.value });
+  };
+
+  signUpSubmit = e => {
+    e.preventDefault();
+    const {
+      signUpFullname,
+      signUpPhone,
+      signUpUserEmail,
+      signUpPass,
+    } = this.state;
+
+    // fire action
+    const user = {
+      fullName: signUpFullname,
+      mobileNumber: signUpPhone,
+      email: signUpUserEmail,
+      password: signUpPass,
+      confirmPass: signUpPass,
+    };
+    this.props.onSignUp({ user });
+  };
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.signUpSubmit(e);
+    }
+  };
+
   render() {
+    const {
+      signUpFullname,
+      signUpPass,
+      signUpPhone,
+      signUpUserEmail,
+    } = this.state;
     return (
       <div>
-        <form onSubmit={this.onHandleLogin} className="loginForm">
+        <form onSubmit={this.signUpSubmit} className="loginForm">
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="username"
+            name="signUpFullname"
+            value={signUpFullname}
             type="text"
             onClick=""
+            onChange={this.onChange}
             label="نام و نام خانوادگی"
             icon="chilivery-user"
           />
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="mobileNumber"
+            name="signUpPhone"
+            value={signUpPhone}
             type="text"
             onClick=""
+            onChange={this.onChange}
             label="موبایل"
             icon="chilivery-mobile"
-            validation={['شماره موبایل اشتباه است.']}
+            // validation={['شماره موبایل اشتباه است.']}
           />
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="email"
+            name="signUpUserEmail"
+            value={signUpUserEmail}
             type="text"
             onClick=""
+            onChange={this.onChange}
             label="ایمیل"
             icon="chilivery-email"
-            validation={['ایمیل اشتباه است.']}
+            // validation={['ایمیل اشتباه است.']}
           />
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="password"
-            type="text"
+            name="signUpPass"
+            type="password"
+            value={signUpPass}
             onClick=""
+            onChange={this.onChange}
             label="رمزعبور"
             icon="chilivery-pass"
           />
@@ -68,6 +134,13 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = response => ({ response });
+const mapDispatchToProps = dispatch => ({
+  onSignUp: signUpDetail => {
+    dispatch(signUpUser(signUpDetail));
+  },
+});
 
-export default connect(mapStateToProps)(Register);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Register);

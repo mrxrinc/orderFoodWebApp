@@ -1,0 +1,18 @@
+@import '../../style/sass/mixin/flexbox';
+.activationCode {
+    &__edit {
+        &__wrapper {
+            @include flexbox();
+            @include flex-direction(row);    
+            align-items: center;
+            justify-content: space-around;
+        }
+        border-bottom: 1px dotted #000;
+        text-decoration: none;
+
+    }
+
+    &__form {
+        margin:20px;
+    }
+}
