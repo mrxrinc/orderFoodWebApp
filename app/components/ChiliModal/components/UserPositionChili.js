@@ -47,6 +47,7 @@ class UserPositionChili extends Component {
         <UserPosition 
           data={classes.data}
           mapCenter={this.state.mapCenter}
+          type={classes.type}
         />
       </ChiliModal>
     );

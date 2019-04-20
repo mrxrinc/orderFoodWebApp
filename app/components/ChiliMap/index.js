@@ -5,18 +5,41 @@ import {
     GoogleMap,
     Marker
 } from "react-google-maps";
+import { connect } from 'react-redux';
+import { getNeighborhood } from '../../api/application/region';
+import { addNeighborhood } from '../../actions/UserPosition';
 import { restaurantSearch } from '../../api/application/restaurant';
-
-export default class MapContainer extends React.Component {
+const typeMap = {
+    profile : 'neighborhoodProfile',
+    home : 'neighborhood'
+}
+export class MapContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             map: null,
             restaurantListCount: 0,
-            userLocation: this.props.mapCenter
+            userLocation: this.props.mapCenter,
+            neighborhood:null
         };
     }
-    
+
+    fetchMap = () =>{
+        getNeighborhood(
+            `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+        ).then(
+            response => {
+                let neighborhood = response.result.neighbourhood;
+                const typeMapItem = typeMap[this.props.type]
+                let obj = {};
+                this.setState({ neighborhood: neighborhood },()=>{
+                    obj[typeMapItem] = this.state.neighborhood;
+                    this.props.addNeighborhood(obj)
+                });
+            }
+        );
+    }
+
     mapLoaded = map => {
         if (map != null) {
             this.setState({
@@ -30,6 +53,8 @@ export default class MapContainer extends React.Component {
                     this.setState({ restaurantListCount: restaurantListCount.length });
                 }
             );
+
+            this.fetchMap();
         }
     };
 
@@ -40,6 +65,7 @@ export default class MapContainer extends React.Component {
         });
     };
 
+
     mapOnDrag = () => {
         restaurantSearch(
             `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
@@ -49,6 +75,8 @@ export default class MapContainer extends React.Component {
                 this.setState({ restaurantListCount: restaurantListCount.length });
             }
         );
+        
+        this.fetchMap();
     }
 
     render() {
@@ -72,6 +100,24 @@ export default class MapContainer extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+    addNeighborhood: showStatus => {
+        dispatch(addNeighborhood(showStatus));
+    },
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(MapContainer);
+
+
+
 export const MapWithAMarker = withScriptjs(
     withGoogleMap(props => (
         <GoogleMap

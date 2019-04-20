@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import auth from './Auth';
 import Verify from './Verify';
 import Modals from './Modals';
+import UserPosition from './UserPosition';
 import Loading from './Loading';
 import Notification from './Notification';
 import Validation from './Validation';
@@ -13,6 +14,7 @@ import { connectRouter } from 'connected-react-router';
 const rootReducer = (history) => combineReducers({
   Validation,
   Modals,
+  UserPosition,
   Loading,
   Notification,
   auth,

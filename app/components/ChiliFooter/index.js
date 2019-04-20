@@ -33,13 +33,9 @@ class ChiliFooter extends React.Component {
 
     getAppInit().then(
       response => {
-        console.log(response.result.session.token)
         localStorage.setItem("token",response.result.session.token)
       }
     )
-
-
-
   }
 
   alertExpToggle = () => {
@@ -86,12 +82,12 @@ class ChiliFooter extends React.Component {
             </div>
 
             <div className="col">
-              <div className="chili-footer__list-item" onClick={this.alertExpToggle}>
+              <Link to="/profile" className="chili-footer__list-item">
                 <div className="chili-footer__list-icon">
                   <i className="icon chilivery-user" />
                 </div>
                 <div className="chili-footer__list-title">پروفایل</div>
-              </div>
+              </Link>
             </div>
 
             <div className="col">

@@ -15,6 +15,7 @@ import {API_URL_ROOT} from '../global';
 export const get_city_list = () => `${API_URL_ROOT}/region/cityList`
 export const get_region_by_city = (id) => `${API_URL_ROOT}/region/byCity?cityId=${id}`
 export const get_region_by_slug = (slug) => `${API_URL_ROOT}/region/bySlug?region_slug=${slug}`
+export const get_find_Neighborhood = (location) => `${API_URL_ROOT}/userAddress/findNeighborhood?region_center=${location}`
 
 //RESTAURANT 
 export const restaurant_search= (point,tag) => `${API_URL_ROOT}/restaurant/search?&point=${point}`
