@@ -1,12 +1,10 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disabtle react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import { getUser } from '../../actions/Auth';
-import { setCookie } from '../../utils/cookies';
 import { AnimateField } from '../../components/ChiliForm';
 import './style.scss';
 
@@ -17,7 +15,7 @@ class Login extends Component {
       loginUserName: '',
       loginPass: '',
     };
-    // this.loginSubmit = this.loginSubmit.bind(this);
+    this.loginSubmit = this.loginSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
@@ -27,69 +25,50 @@ class Login extends Component {
 
   handleKeyPress = e => {
     if (e.key === 'Enter') {
-      this.onHandleLogin(e);
+      this.loginSubmit(e);
     }
   };
 
-  onHandleLogin = event => {
+  loginSubmit = event => {
     event.preventDefault();
-
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-
-    const data = {
-      email,
-      password,
+    const { loginUserName, loginPass } = this.state;
+    const user = {
+      username: loginUserName,
+      password: loginPass,
     };
-
-    this.props.dispatch(getUser(data));
+    this.props.onLogin({ user });
   };
 
-  componentDidMount() {
-    axios
-      .post(
-        'https://chilivery.net/mobile-api/v2/user/login',
-        {
-          username: 'm.bazvand@netbarg.com',
-          password: '999999',
-        },
-        {
-          headers: {
-            // 'Access-Control-Allow-Origin': '*',
-            token: 'A8A8FFD0-FF3E-4A20-847C-28CA5CE8A652',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   render() {
+    const { loginUserName, loginPass } = this.state;
     return (
       <div>
-        <form onSubmit={this.onHandleLogin} className="loginForm">
+        <form onSubmit={this.loginSubmit} className="loginForm">
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="username"
+            name="loginUserName"
+            value={loginUserName}
             type="text"
             onClick=""
+            onChange={this.onChange}
             label="نام و نام خانوادگی"
+            onKeyPress={this.handleKeyPress}
             icon="chilivery-user"
+            required
           />
           <AnimateField
             className="col-12"
             placeholder=" "
-            name="password"
-            type="text"
+            name="loginPass"
+            onChange={this.onChange}
+            value={loginPass}
+            type="password"
             onClick=""
             label="رمزعبور"
             icon="chilivery-pass"
+            onKeyPress={this.handleKeyPress}
+            required
           />
           <div className="text-center mt-4">
             <Link to="/forgot-password">
@@ -104,12 +83,20 @@ class Login extends Component {
             <button className="btn btn-auth btn-success">ورود</button>
           </div>
         </form>
-        {/* <ChiliSocial /> */}
       </div>
     );
   }
 }
 
-const mapStateToProps = response => ({ response });
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: user => {
+      dispatch(getUser(user));
+    },
+  };
+};
 
-export default connect(mapStateToProps)(Login);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);

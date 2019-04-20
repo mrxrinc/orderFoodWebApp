@@ -1,4 +1,5 @@
 import { takeLatest, takeEvery, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 
 import {
   loginPost,
@@ -53,25 +54,17 @@ function* userLogin({ payload }) {
   try {
     yield put(enableLoading({ loginLoading: true }));
     const signInUser = yield loginPost(payload.user);
-    if (signInUser.status === 'success') {
-      // alert(signInUser.message)
-      localStorage.setItem('authToken', signInUser.data.token);
-      // yield put(showAuthMessage('signOutUser.message'));
-      yield put(getUserInfo(signInUser.data));
-      const response = yield balanceGet();
-      if (response.status === 'success') {
-        yield put(getUserBalance(response.data));
-      }
+    console.log('signinUssser', signInUser);
+    if (signInUser.status) {
+      /* localStorage.setItem('authToken', signInUser.result.session.token); */
+      console.log(localStorage);
+      // yield put(showAuthMessage('signOutUser.message_fa'));
+      yield put(getUserInfo(signInUser.result.session.user));
+      yield put(getUserBalance(signInUser.result.session.user.cacheBalance));
       yield put(disableLoading({ loginLoading: false }));
-
-      yield put(
-        showModal({
-          motochiliModal: false,
-        }),
-      );
       yield put(
         addToast({
-          text: signInUser.message,
+          text: signInUser.message_fa_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -82,28 +75,20 @@ function* userLogin({ payload }) {
         }),
       );
     } else {
+      console.log(191919191);
       yield put(disableLoading({ loginLoading: false }));
-
-      if (signInUser.data) {
+      if (signInUser) {
         yield put(
           addToast({
-            text: signInUser.message,
+            text: signInUser.message_fa_fa,
             color: 'danger',
             delay: 2000,
-          }),
-        );
-        yield put(getUserInfo(signInUser.data));
-        // yield put(getUserIsVerifyInfo(signInUser.data));
-        yield put(
-          showModal({
-            motochiliModal: false,
-            isVerifyModal: true,
           }),
         );
       } else {
         yield put(
           addToast({
-            text: signInUser.message,
+            text: 'امکان لاگین وجود ندارد',
             color: 'danger',
             delay: 2000,
           }),
@@ -143,18 +128,17 @@ function* userSignUp({ payload }) {
   try {
     yield put(enableLoading({ registerLoading: true }));
     const signUpUser = yield signUpPost(payload.user);
+    debugger;
+    console.log('sign up user ~~~~~~~>', signUpUser);
 
-    if (signUpUser.status === 'success') {
+    if (signUpUser.status) {
+      yield put(getUserInfo(signUpUser.result.session.user));
+      yield put(getUserBalance(signUpUser.result.session.user.cacheBalance));
       yield put(signUpUserResponse(signUpUser.data));
 
       yield put(disableLoading({ registerLoading: false }));
 
-      yield put(
-        showModal({
-          signUpModal: false,
-          verifyModal: true,
-        }),
-      );
+      yield put(push('/activation-code'));
       yield put(
         removeValidation({
           userSignup: {},
@@ -163,15 +147,18 @@ function* userSignUp({ payload }) {
     } else {
       yield put(disableLoading({ registerLoading: false }));
 
-      yield put(
-        addToast({
-          text: signUpUser.message,
-          color: 'danger',
-          delay: 2000,
-        }),
-      );
+      // yield put(
+      //   addToast({
+      //     text: signUpUser.message_fa,
+      //     color: 'danger',
+      //     delay: 2000,
+      //   }),
+      // );
     }
   } catch (error) {
+    console.log("error!!!!!!!!!!!!!!!!!");
+    console.log(error);
+    console.log("error!!!!!!!!!!!!!!!!!");
     yield put(disableLoading({ registerLoading: false }));
 
     if (error.status === 422) {
@@ -181,6 +168,9 @@ function* userSignUp({ payload }) {
         }),
       );
     } else {
+      console.log("error=====================");
+      console.log(error);
+      console.log("error=====================");
       yield put(
         addToast({
           text: error.data.message,
@@ -218,7 +208,7 @@ function* userIsVerifyUser({ payload }) {
       yield put(disableLoading());
       yield put(
         addToast({
-          text: userIsVerifyUser.message,
+          text: userIsVerifyUser.message_fa,
           color: 'danger',
           delay: 2000,
         }),
@@ -263,7 +253,7 @@ function* userUpdateInfo({ payload }) {
 
       yield put(
         addToast({
-          text: updateUser.message,
+          text: updateUser.message_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -278,7 +268,7 @@ function* userUpdateInfo({ payload }) {
 
       yield put(
         addToast({
-          text: updateUser.message,
+          text: updateUser.message_fa,
           color: 'danger',
           delay: 2000,
         }),
@@ -326,7 +316,7 @@ function* userVerify({ payload }) {
       );
       yield put(
         addToast({
-          text: verifyUserSignUp.message,
+          text: verifyUserSignUp.message_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -341,7 +331,7 @@ function* userVerify({ payload }) {
 
       yield put(
         addToast({
-          text: verifyUserSignUp.message,
+          text: verifyUserSignUp.message_fa,
           color: 'danger',
           delay: 2000,
         }),
@@ -389,7 +379,7 @@ function* userVerifyPass({ payload }) {
         }),
       );
       // yield put(addToast({
-      //   text: verifyUserPassWord.message,
+      //   text: verifyUserPassWord.message_fa,
       //   color: "success",
       //   delay: 2000
       // }))
@@ -403,7 +393,7 @@ function* userVerifyPass({ payload }) {
 
       yield put(
         addToast({
-          text: verifyUserPassWord.message,
+          text: verifyUserPassWord.message_fa,
           color: 'danger',
           delay: 2000,
         }),
@@ -458,7 +448,7 @@ function* userForGot({ payload }) {
 
       yield put(
         addToast({
-          text: forGotUser.message,
+          text: forGotUser.message_fa,
           color: 'danger',
           delay: 2000,
         }),
@@ -510,7 +500,7 @@ function* updateUserBalanceHandler() {
 //       }));
 //     } else {
 //       yield put(addToast({
-//         text: checkExistTokenMain.message,
+//         text: checkExistTokenMain.message_fa,
 //         color: "danger",
 //         delay: 2000
 //       }));

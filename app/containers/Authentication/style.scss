@@ -54,12 +54,13 @@ $border-radius : 20px;
     @include flex-direction(row);    
     align-items: center;
     justify-content: space-around;
-    &__login {
-      &-true {
+    &__border {
         border-top: none;
         border-bottom: 5px solid #E81D46;
         outline: none;        
-      }
+    }
+    &__none {
+      border: none;
     }
     &__box {
       padding: 20px 0;
