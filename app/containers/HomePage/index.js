@@ -94,7 +94,7 @@ class HomePage extends React.Component {
           headerColor="#eaeaea"
           bodyColor="#f5f5f5"
           data={this.state.cityList}
-          type="home"
+          type="profile"
         />
 
       </div>
@@ -103,7 +103,7 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  UserPosition: state.UserPosition.neighborhood,
+  UserPosition: state.UserPosition.neighborhoodProfile,
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
