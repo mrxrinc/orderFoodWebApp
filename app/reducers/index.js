@@ -8,6 +8,7 @@ import Loading from './Loading';
 import Notification from './Notification';
 import Validation from './Validation';
 import notFound from './notFound';
+import Basket from './Basket';
 import { connectRouter } from 'connected-react-router';
 const rootReducer = (history) => combineReducers({
   Validation,
@@ -15,6 +16,7 @@ const rootReducer = (history) => combineReducers({
   Loading,
   Notification,
   auth,
+  Basket,
   Verify,
   notFound,
   router: connectRouter(history)

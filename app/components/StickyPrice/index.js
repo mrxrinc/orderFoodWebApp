@@ -4,6 +4,7 @@ import { Collapse, Button, CardBody, Card } from 'reactstrap';
 import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
+import { connect } from 'react-redux';
 
 class StickyPrice extends React.PureComponent {
 
@@ -17,11 +18,20 @@ class StickyPrice extends React.PureComponent {
     this.setState(state => ({ collapse: !state.collapse }));
   }
 
+  totalPrice() {
+    const {data,basket,user} = this.props;
+    var total = data.total;
+    if(basket.accCharge) {
+      total = total - user.cacheBalance;
+    }
+    return total
+  }
+
   pushLink = () =>{
     history.push("/checkout")
   }
   render() {
-    const {data} = this.props;
+    const {data,basket,user} = this.props;
     return (
       <div className="StickyPrice">
         <Collapse isOpen={this.state.collapse}>
@@ -54,6 +64,12 @@ class StickyPrice extends React.PureComponent {
                 <span className="pull-left">{data.pack} تومان</span>
               </li>)
               }
+              {basket.accCharge &&
+              (<li>
+                <span>استفاده از کیف پول</span>
+                <span className="pull-left">{user.cacheBalance}- تومان</span>
+              </li>)
+              }
 
 
             </ul>
@@ -71,7 +87,7 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">۲</span>
-              <span className="text-price">{data.total} تومان</span>
+              <span className="text-price">{this.totalPrice()} تومان</span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
@@ -85,6 +101,12 @@ class StickyPrice extends React.PureComponent {
   }
 }
 
-StickyPrice.propTypes = {};
 
-export default StickyPrice;
+const mapStateToProps = state => ({
+  user: state.auth,
+  basket:state.Basket
+});
+
+export default connect(
+  mapStateToProps,
+)(StickyPrice);
