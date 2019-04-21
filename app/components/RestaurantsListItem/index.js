@@ -1,87 +1,63 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './style.scss';
-const data = {
-  commentCount: 585,
-  deliveryBy: 1,
-  deliveryIcon: 'https://chilivery.net/app/image/restaurant_delivery.png',
-  deliveryName: 'پیک رستوران',
-  deliveryPrice: 8000,
-  financialLevel: {
-    id: 34,
-    name: ' متوسط',
-    parentId: 10,
-    foreignKey: 1627,
-    financeLevel: 2,
-  },
-  foodTypes: [
-    {id: 696, name: "پیش غذا", iconSlug: "salad", parentId: 2, foreignKey: 1627},
-    {id: 697, name: "نوشیدنی", iconSlug: "juice", parentId: 2, foreignKey: 1627},
-    {id: 730, name: "دسر", iconSlug: "milkshake", parentId: 2, foreignKey: 1627},
-    {id: 698, name: "سالاد", iconSlug: "salad", parentId: 2, foreignKey: 1627},
-    {id: 722, name: "افزودنی های انتخابی", iconSlug: "add", parentId: 2, foreignKey: 1627},
-    {id: 749, name: "نوشیدنی سرد", iconSlug: "juice", parentId: 2, foreignKey: 1627},
-  ],
-  id: 1627,
-  isNew: 0,
-  isOpen: true,
-  isRecommended: 0,
-  name: "فرش باکس",
-  neighborhood: {
-    citySlug: "tehran", 
-    cityName: "تهران", 
-    name: "درب-دوم", 
-    id: 280, 
-    cityId: 2, 
-    slug: "darb-dovom",
-    status: 1
-  },
-  nextActivationTime: {time: 22, unit: "h"},
-  point: "35.783050862408665,51.43747463822365",
-  profile: "https://media.chilivery.net/img/restaurantLogo/988ae6af6f4067543abd5d2d2667ae26/restaurantProfile-فرشباکس-49100.png",
-  rateAverage: 4.2,
-  restaurantType: [{
-    foreignKey: 1627,
-    id: 756,
-    name: "سالاد بار",
-    parentId: 4
-  }],
-  salePercentage: 0,
-  slug: "freshbox",
-};
+import { financialLevel, rateColor } from '../GeneralFunctions';
 
 const RestaurantsListItem = props => (
-  <Link to="/restaurant-page" className="listItem dblock">
+  <Link to={`/restaurant-page/${props.id}`} className="listItem dblock">
+    {console.log('PROPS FROM ITEM===>', props)}
     <div className="head center">
       <div className="right center relative">
         <div
           className="imageBox centerBg contain"
-          style={{ backgroundImage: `url(${props.logo})` }}
+          style={{ backgroundImage: `url(${props.profile})` }}
         />
-        <span className="discount flex center absolute top left bgRed white centerText">
-          <span className="text14">30</span>
-          <span className="text12 topM3 leftM3">%</span>
-        </span>
+        {props.salePercentage > 0 && (
+          <span className="discount flex center absolute top left bgRed white centerText">
+            <span className="text14">{props.salePercentage}</span>
+            <span className="text12 topM3 leftM3">%</span>
+          </span>
+        )}
       </div>
       <div className="left relative">
-        <h2 className="font bold largeText primary">{props.data.name}</h2>
+        <h2 className="font bold largeText primary">{props.name}</h2>
 
-        <ul className="flex">
-          <li className="text12">ایتالیایی</li>
-          <li className="text12">ایتالیایی</li>
-          <li className="text10">ایتالیایی</li>
-        </ul>
+        {props.foodTypes.length > 0 && (
+          <ul className="flex">
+            {props.foodTypes.map(
+              (item, index) =>
+                index < 3 && (
+                  <li className="text12" key={item.id}>
+                    {item.name}
+                  </li>
+                ),
+            )}
+          </ul>
+        )}
 
         <div className="flex economy spaceBetween">
           <div className="flex hCenter">
-            <span className="chilivery-economic_level3 primary flex hCenter" />
-            <span className="chilivery-restaurant-vegeterian tag" />
+            <div className="flex">
+              <span
+                className={`chilivery-economic_${financialLevel(
+                  props.financialLevel.financeLevel
+                )} primary flex hCenter zIndex1 text30`}
+              />
+              <span className="chilivery-economic_level3 gray5 absolute zIndex0 flex hCenter text30" />
+            </div>
+
+            {/* <div className="vegeterian flex center">
+              <span className="chilivery-restaurant-vegeterian tag text22 rightM10" />
+            </div> */}
           </div>
 
-          <div className="suggested flex center">
-            <span className="white text12 centerText hP10">پیشنهادی</span>
-          </div>
+          {props.isRecommended !== 0 && (
+            <div className="suggested flex center">
+              <span className="white text12 centerText hP10">پیشنهادی</span>
+            </div>
+          )}
         </div>
 
         <div className="absolute top left center favorite">
@@ -93,16 +69,18 @@ const RestaurantsListItem = props => (
     <div className="addressRate flex rRow wFull">
       <div className="wFull flex hCenter rightP10 gray overhide">
         <span className="chilivery-location text18" />
-        <span className="text12 rightM5">سهروردی شمالی - پالیزی</span>
+        <span className="text12 rightM5">{props.neighborhood.name}</span>
       </div>
       <div className="reviews flex leftM10 vM3">
         <div className="flex i2 center gray">
-          <span className="text16 leftM3 topM5">87</span>
+          <span className="text16 leftM3 topM5">{props.commentCount}</span>
           <span className="chilivery-user text14" />
         </div>
 
-        <div className="flex i2 center tagBg round5">
-          <span className="white text16 leftM3 topM5">4/7</span>
+        <div
+          className={`flex i2 center round5 ${rateColor(props.rateAverage)}`}
+        >
+          <span className="white text16 leftM3 topM5">{props.rateAverage}</span>
           <span className="chilivery-smiley-good2 white text14" />
         </div>
       </div>
@@ -112,11 +90,15 @@ const RestaurantsListItem = props => (
 
     <div className="delivery flex rRow primary">
       <div className="moto flex hCenter rightP10 overhide">
-        <span className="chilivery-motochili text25" />
-        <span className="text14 bold rightM10">{props.data.deliveryName}</span>
+        {/* <span className="chilivery-motochili text25" /> */}
+        <span
+          className="deliveryIcon contain"
+          style={{ backgroundImage: `url(${props.deliveryIcon})` }}
+        />
+        <span className="text14 bold rightM10">{props.deliveryName}</span>
       </div>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <span className="leftM5">{props.data.deliveryPrice}</span>
+        <span className="leftM5">{props.deliveryPrice}</span>
         <span>تومان</span>
       </div>
     </div>

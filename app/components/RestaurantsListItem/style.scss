@@ -42,46 +42,37 @@
       height: inherit;
       padding: 15px 10px 15px 5px;
 
-      li {
-        color: $color-text-icon;
-        display: flex;
-        align-items: center;
-        &:after {
-          content: "";
-          display: block;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          margin: 0 8px 0 8px;
-          background-color: $color-secondary;
-        }
-        &:last-child:after {
-          display: none;
+      ul {
+        flex-wrap: wrap;
+        li {
+          color: $color-text-icon;
+          display: flex;
+          align-items: center;
+          &:after {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin: 0 8px 0 8px;
+            background-color: $color-secondary;
+          }
+          &:last-child:after {
+            display: none;
+          }
         }
       }
 
       .economy {
         padding: 5px 0;
-        div {
-          &:first-child {
-            span {
-              font-size: 30px;
-              &:after {
-                content: "";
-                display: block;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                margin: 0 0 0 8px;
-                background-color: $color-secondary;
-              }
-              &:last-child {
-                font-size: 22px;
-              }
-              &:last-child:after {
-                display: none;
-              }
-            }
+        .vegeterian {
+          &:before {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: $color-secondary;
           }
         }
 
@@ -118,6 +109,11 @@
   .delivery {
     height: 40px;
 
+    .deliveryIcon {
+      width: 30px;
+      height: 25px;
+      background-position: center;
+    }
     .moto {
       width: 200px;
     }
