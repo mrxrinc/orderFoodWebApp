@@ -5,26 +5,29 @@
   -moz-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
   width:100%;
-  height: 86px;
   background-color: #fff;
   border-radius: 10px;
   float: right;
   margin-bottom: 10px;
+  min-height: 99px;
   &__rbox{
-    width: 100px;
+    width: 110px;
     background-size: cover;
-    border-radius: 0 10px 10px 0;
-    height: 100%;
+    background-position: center;
+    border-radius: 10px;
+    height: 82px;
     float: right;
+    margin: 8px 8px 0 0;
       img {
-      width: 100%;
+      width: 90px;
       border-radius: 0 10px 10px 0;
     }
   }
   &__lbox{
-    padding-right: 110px;
+    padding-right: 130px;
     width: 100%;
     padding-left: 5px;
+    padding-top: 10px;
     .counter {
       padding-left: 5px;
       padding-bottom: 10px;
@@ -35,10 +38,32 @@
       margin-top: 10px;
       color: $grey-9;
     }
+    ul {
+      list-style: none;
+      margin-bottom: 10px;
+      li {
+        padding-right: 15px;
+        line-height: 18px;
+        position: relative;
+        font-size: 12px;
+        color: $grey-9;
+        &:before{
+          position: absolute;
+          right: 0;
+          top: 3px;
+          content: "\2022";
+          color: $orange-7;
+          font-weight: bold;
+          display: inline-block;
+          font-size: 25px;
+        }
+      }
+    }
     .number {
       display: block;
       color: $grey-7;
       font-size: 13px;
+      height: 19px;
     }
     .price{
       display: inline-block;

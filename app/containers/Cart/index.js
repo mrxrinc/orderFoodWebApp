@@ -11,8 +11,11 @@ import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout'
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/pattern.png';
 
+import dataSample from '../data.json';
+import addressSample from '../address.json';
 
 export class cart extends React.PureComponent {
+
   constructor(props) {
     super(props);
 
@@ -21,6 +24,13 @@ export class cart extends React.PureComponent {
       description: '',
       activeTabAddress: '1'
     };
+  }
+  componentDidMount() {
+    let count = 0;
+    dataSample.result.items.map((item) => {
+      count += item.count;
+    })
+    console.log(count);
   }
 
   toggle(tab) {
@@ -39,12 +49,9 @@ export class cart extends React.PureComponent {
     const {description} = this.state;
     return (
       <div className="cart bottomP50">
-        <RestaurantHeaderCheckout cover={cover} logo={logo} />
+        <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
         <div className="cart__card-item">
-          <CheckoutCardItem />
-          <CheckoutCardItem />
-          <CheckoutCardItem />
-          <CheckoutCardItem />
+          <CheckoutCardItem data={dataSample.result.items}/>
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
@@ -72,7 +79,7 @@ export class cart extends React.PureComponent {
             <div className="address">
               <h4>آدرس های ذخیره شده</h4>
               <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
-              <MyAddress />
+              <MyAddress data={addressSample.result} />
             </div>
           </TabPane>
           <TabPane tabId="2">
@@ -101,7 +108,7 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice />
+        <StickyPrice data={dataSample.result.amount} />
       </div>
     );
   }
