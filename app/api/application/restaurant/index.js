@@ -6,3 +6,5 @@ export const restaurantSearch = (cityId, point, tag) => {
 }
 
 export const restaurantDetail = id => deRequest(app.restaurant_detail(id), 'GET');
+
+export const createBasket = id => deRequest(app.create_basket(id), 'GET');

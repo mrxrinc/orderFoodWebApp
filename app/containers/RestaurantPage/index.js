@@ -17,7 +17,7 @@ import RestaurantSideDishGroup from '../../components/RestaurantSideDishGroup';
 import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/IncrementDecrease';
-import { restaurantDetail } from '../../api/application/restaurant';
+import { restaurantDetail, createBasket } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import './style.scss';
@@ -31,15 +31,20 @@ class RestaurantPage extends React.Component {
       restaurantDetail: null,
       loading: true,
       modalData: null,
+      basket: null,
     };
   }
 
   componentDidMount() {
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
     restaurantDetail(this.state.id).then(response => {
-      console.log(response.result);
       this.setState({ restaurantDetail: response.result }, () => {
         this.setState({ loading: false });
+
+        createBasket(this.state.id).then(basketResp => {
+          console.log('Basket Response ==>', basketResp.result);
+          this.setState({ basket: basketResp.result })
+        })
         console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
       });
     });
@@ -58,8 +63,8 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = number => {
-    console.log('Stepper ===>', number);
+  stepper = (parent, count) => {
+    console.log('Stepper ===>', parent, count);
   };
 
   render() {
@@ -93,6 +98,7 @@ class RestaurantPage extends React.Component {
                   {group.foods.map(food => (
                     <RestaurantFoodCard
                       onClick={() => this.openFoodModal(food)}
+                      id={food.id}
                       name={food.name}
                       haspic={food.hasPic}
                       foodImg={food.image}

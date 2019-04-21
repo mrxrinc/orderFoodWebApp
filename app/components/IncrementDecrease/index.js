@@ -12,11 +12,16 @@ class IncrementDecrease extends React.PureComponent {
   }
 
   IncrementItem = () => {
-    this.setState({ clicks: this.state.clicks + 1 });
+    console.log(this.props.parentId);
+    this.setState({ clicks: this.state.clicks + 1 }, 
+      () => this.props.stepper(this.props.parentId, this.state.clicks)
+    );
   };
 
   DecreaseItem = () => {
-    this.setState({ clicks: this.state.clicks - 1 });
+    this.setState({ clicks: this.state.clicks - 1 }, 
+      () => this.props.stepper(this.props.parentId, this.state.clicks)
+    );
   };
 
   render() {

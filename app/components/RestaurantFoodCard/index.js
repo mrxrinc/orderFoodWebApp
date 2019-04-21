@@ -63,7 +63,7 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper fontSize="18" action={props.action} />
+        <Stepper fontSize="18" parentId={props.id} stepper={props.stepper} />
       </div>
     </div>
   </div>
