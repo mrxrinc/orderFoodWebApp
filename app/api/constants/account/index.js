@@ -6,7 +6,7 @@ import {API_URL_ROOT} from '../global';
 export const login_post= () => API_URL_ROOT+'/user/login';
 export const signUp_post= () => API_URL_ROOT+'/user/register';
 export const sendVerifyCode_post= () => API_URL_ROOT+'/user/sendVerifyCode';
-export const verify_post= () => API_URL_ROOT+'/user/verify';
+export const verify_post= () => API_URL_ROOT+'/user/verifyCode';
 export const verifyPass_post= () => API_URL_ROOT+'/api/user/checkExistToken';
 export const isVerify_post= () => API_URL_ROOT+'/user/sendVerification';
 export const resend_verify_post= () => API_URL_ROOT+'/api/user/resendVerification';
