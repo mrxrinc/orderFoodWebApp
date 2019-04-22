@@ -19,7 +19,10 @@ export class MapContainer extends React.Component {
         this.state = {
             map: null,
             restaurantListCount: 0,
-            userLocation: this.props.mapCenter,
+            mapCenter: {
+                lat:'',
+                lon:''
+            },
             neighborhood:null
         };
     }
@@ -79,6 +82,26 @@ export class MapContainer extends React.Component {
         this.fetchMap();
     }
 
+    componentDidMount(){
+        this.setState({
+            userLocation:{
+                lat: this.props.neighborhood.mapCenter.lat,
+                lng: this.props.neighborhood.mapCenter.lon
+            }
+        })
+    }
+
+    // componentDidUpdate(prevProps,nextState){
+    //     if(prevProps.neighborhood.mapCenter.lat !== this.state.mapCenter.lat) {
+    //         this.setState({
+    //             userLocation:{
+    //                 lat: this.props.neighborhood.mapCenter.lat,
+    //                 lng: this.props.neighborhood.mapCenter.lon
+    //             }
+    //         })
+    //     }
+    // }
+
     render() {
         return (
             <div className="map-wrapper" style={{ height: '100%' }}>
@@ -102,6 +125,7 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    neighborhood: state.UserPosition.neighborhood,
 
 });
 

@@ -42,7 +42,7 @@ class UserPosition extends React.Component {
       disSlug: '',
       cityList: this.props.data,
       mapCenter: {},
-      map: false,
+      map: true,
 
       districtList: [
         {
@@ -75,20 +75,22 @@ class UserPosition extends React.Component {
     };
   }
 
+  getRegionByCityId = (id) => {
+    getRegionByCity(id).then(
+      response => {
+        this.setState({
+          districtListOther: response.result
+        })
+      }
+    )
+  }
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
       });
     }
-  };
-
-  UserPositionModal = (e) => {
-    e.preventDefault();
-    this.props.showModal({
-      UserPositionModal: false,
-    });
-    history.push('/restaurants-list')
   };
 
   searchUpdated(term) {
@@ -99,15 +101,12 @@ class UserPosition extends React.Component {
     this.setState({ searchDistrict: term })
   }
 
+
   onChangeClick = (id) => {
-    // if(this.state.cityId === 2){
       getCityList().then(
         response => {
           for(let x=0; x < response.result.length; x++){
             if(response.result[x].id === id){
-              console.log('=========result[x]===================');
-              console.log(response.result[x]);
-              console.log('====================================');
               let typeMapItem = typeMap[this.props.type];
               let obj = {};
               obj[typeMapItem] = {
@@ -115,7 +114,7 @@ class UserPosition extends React.Component {
                 slug:response.result[x].slug,
                 mapCenter:{
                   lat:response.result[x].mapCenter.lat,
-                  lng:response.result[x].mapCenter.lon
+                  lon:response.result[x].mapCenter.lon
                 },
               }
               this.props.addNeighborhood(obj);          
@@ -132,27 +131,20 @@ class UserPosition extends React.Component {
             }
           }
         }
-      ) 
-    // }
+      )
   }
 
 
   handleChange(event) {
-    console.log('====================================');
-    console.log(parseInt(event.target.value));
-    console.log('====================================');
     let eventId = parseInt(event.target.value);
-
     this.setState({
-      cityId: eventId
+      cityId: eventId,
+      map:false,
     },()=>{
         getCityList().then(
           response => {
             for(let x=0; x < response.result.length; x++){
               if(response.result[x].id === this.state.cityId){
-                console.log('=========result[x]===================');
-                console.log(response.result[x]);
-                console.log('====================================');
                 let typeMapItem = typeMap[this.props.type];
                 let obj = {};
                 obj[typeMapItem] = {
@@ -160,50 +152,46 @@ class UserPosition extends React.Component {
                   slug:response.result[x].slug,
                   mapCenter:{
                     lat:response.result[x].mapCenter.lat,
-                    lng:response.result[x].mapCenter.lon
+                    lon:response.result[x].mapCenter.lon
                   },
                 }
                 this.props.addNeighborhood(obj);          
-          
-                getRegionByCity(response.result[x].id).then(
-                  response => {
-                    this.setState({
-                      districtListOther: response.result
-                    }, () => {
-                      this.toggle('2');
-                    })
-                  }
-                )
+                this.getRegionByCityId(response.result[x].id)
+                this.setState({
+                  map:true
+                })
               }
             }
           }
         )
     })
-    // this.setState({
-    //   cityId: parseInt(event.target.value)
-    // }
-    // );
   }
 
   handleChangeDis(event) {
 
     this.setState({
-      disSlug: event.target.value
+      disSlug: event.target.value,
+      map:false,
     }, () => {
       getRegionBySlug(this.state.disSlug).then(
         response => {
-          this.setState({
-            map: false,
-            mapCenter: {
-              lat: response.result.mapCenter.lat,
-              lng: response.result.mapCenter.lon
+          let typeMapItem = typeMap[this.props.type];
+          let obj = {};
+          obj[typeMapItem] = {
+            cityId:response.result.id,
+            slug:response.result.slug,
+            mapCenter:{
+              lat:response.result.mapCenter.lat,
+              lon:response.result.mapCenter.lon
             },
-          }, () => {
-            this.toggle('3');
-            this.setState({
-              map: true
-            })
-          })
+          }
+
+          this.props.addNeighborhood(obj);
+          this.setState({
+            map:true,
+          })         
+          this.toggle('3');
+
         }
       )
     });
@@ -217,87 +205,20 @@ class UserPosition extends React.Component {
         })
       }
     )
-    console.log('============second==============');
-    console.log(this.state);
-    console.log('====================================');
   }
 
 
 
   componentDidMount(){
-
-    if(this.props.type === "profile"){
-      console.log('==========first===============');
-      console.log(this.props.mapPosition.neighborhoodProfile);
-      console.log('====================================');
-      this.setState({
-        cityId:(typeof this.props.mapPosition.neighborhoodProfile !== "undefined")?this.props.mapPosition.neighborhoodProfile.cityId:2,
-        disSlug:(typeof this.props.mapPosition.neighborhoodProfile !== "undefined")? this.props.mapPosition.neighborhoodProfile.slug: "tehran",
-        mapCenter: {
-          lat:(typeof this.props.mapPosition.neighborhoodProfile !== "undefined")?this.props.mapPosition.neighborhoodProfile.mapCenter.lat: parseInt("35.674049"),
-          lng:(typeof this.props.mapPosition.neighborhoodProfile !== "undefined")?this.props.mapPosition.neighborhoodProfile.mapCenter.lng:parseInt("51.371262"),
-        }
-      },()=> {
-        this.setState({
-          map:true
-        })
-      })
-    }
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
     let typeMapItem = typeMap[this.props.type];
-    if(prevProps.mapPosition[typeMapItem] && prevProps.mapPosition[typeMapItem].mapCenter != this.props.mapPosition[typeMapItem].mapCenter){
-      this.setState({
-        disSlug:this.props.mapPosition[typeMapItem].slug,
-        mapCenter:this.props.mapPosition[typeMapItem].mapCenter,
-      },()=>{
-        console.log('====================================');
-        console.log(prevProps.mapPosition[typeMapItem].mapCenter);
-        console.log(this.props.mapPosition[typeMapItem].mapCenter);
-        console.log(this.state.mapCenter);
-        console.log('====================================');
-      })
-    }
+    this.setState({
+      cityId:this.props.mapPosition[typeMapItem].cityId,
+      disSlug:this.props.mapPosition[typeMapItem].slug,
+    },()=> {
+      this.getRegionByCityId(this.state.cityId)
+    })
+
   }
-
-  // componentDidMount(){
-
-  //   if(this.props.type != "profile"){
-  //     console.log('====================================');
-  //     console.log("!profile");
-  //     console.log('====================================');
-  //     this.setState({
-  //       cityId:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.id:2,
-  //       disSlug:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.slug:'tehran',
-  //       mapCenter: (this.props.mapPosition.neighborhood != null) ? {
-  //                     lat:this.props.mapPosition.neighborhood.mapCenter.lat,
-  //                     lng:this.props.mapPosition.neighborhood.mapCenter.lon,
-  //                   }:this.state.mapCenter,
-  //     },this.fetchRegionByCity())
-  //   }else{
-  //     console.log('====================================');
-  //     console.log("profile");
-  //     console.log('====================================');
-  //     this.setState({
-  //       cityId:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.cityId:2,
-  //       disSlug:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.slug:'mostafa',
-  //       mapCenter: (this.props.mapPosition.neighborhoodProfile != null) ? {
-  //                     lat:this.props.mapPosition.neighborhoodProfile.mapCenter.lat,
-  //                     lng:this.props.mapPosition.neighborhoodProfile.mapCenter.lon,
-  //                   }:{
-  //                     lat: 35.674049,
-  //                     lng: 51.371262,
-  //                   },
-  //     },()=>{
-  //       this.fetchRegionByCity()
-  //     })
-  //   }
-
-  // }
-
- 
 
 
 
@@ -466,7 +387,10 @@ class UserPosition extends React.Component {
                             type="radio"
                             className="radio-input"
                             // name="cityId"
-                            checked={this.state.disSlug === city.slug}
+                            checked={
+                              (this.props.mapPosition[typeMap[this.props.type]] !== "undefined" ?
+                              this.props.mapPosition[typeMap[this.props.type]].slug : this.state.disSlug) === city.slug
+                            }
                             onChange={this.handleChangeDis}
                             value={city.slug}
                           />
@@ -488,8 +412,6 @@ class UserPosition extends React.Component {
 
             {this.state.map &&
               <ChiliMap
-                cityId={this.state.cityId}
-                mapCenter={this.state.mapCenter}
                 type={this.props.type}
               />
             }
