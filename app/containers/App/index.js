@@ -25,8 +25,14 @@ import PageAboutMotochili from '../PageAboutMotochili';
 import PageMoreMenu from '../PageMoreMenu';
 import ForgotPassword from '../ForgotPassword';
 import PageProfile from '../PageProfile';
-import PageProfileEdit from '../PageProfileEdit';
+import PageProfileEdit from '../PageProfile/PageProfileEdit';
 import ActivationCode from '../ActivationCode';
+import ProfileChangePass from '../PageProfile/PageProfileChangePass';
+import ChiliIntroduce from '../PageProfile/ChiliIntroduce';
+import ChiliChance from '../PageProfile/ChiliChance';
+import ChiliEvent from '../PageProfile/ChiliEvent';
+import ChiliComment from '../PageProfile/ChiliComment';
+import FavRestaurant from '../PageProfile/FavRestaurant';
 
 import GlobalStyle from '../../global-styles';
 
@@ -50,6 +56,13 @@ export default function App() {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/profile" component={PageProfile} />
           <Route exact path="/profile/edit" component={PageProfileEdit} />
+          <Route exact path="/profile/change-pass" component={ProfileChangePass} />
+          <Route exact path="/profile/Chili-Introduce" component={ChiliIntroduce} />
+          <Route exact path="/profile/Chili-Chance" component={ChiliChance} />
+          <Route exact path="/profile/Chili-Event" component={ChiliEvent} />
+          <Route exact path="/profile/Chili-Comment" component={ChiliComment} />
+          <Route exact path="/profile/Fav-Restaurant" component={FavRestaurant} />
+
           <Route exact path="/activation-code" component={ActivationCode} />
 
           <Route component={NotFoundPage} />
