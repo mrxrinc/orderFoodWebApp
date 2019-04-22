@@ -1,27 +1,20 @@
 import React from 'react';
 import './style.scss';
 
-/* eslint-disable react/prefer-stateless-function */
-class IncrementDecrease extends React.PureComponent {
+class Stepper extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      clicks: this.props.value || 0,
       show: true,
     };
   }
 
   IncrementItem = () => {
-    console.log(this.props.parentId);
-    this.setState({ clicks: this.state.clicks + 1 }, 
-      () => this.props.stepper(this.props.parentId, this.props.value + 1, 'add')
-    );
+    this.props.stepper(this.props.parentId, this.props.value + 1, 'add');
   };
 
   DecreaseItem = () => {
-    this.setState({ clicks: this.state.clicks - 1 }, 
-      () => this.props.stepper(this.props.parentId, this.props.value - 1, 'remove')
-    );
+    this.props.stepper(this.props.parentId, this.props.value - 1, 'remove');
   };
 
   render() {
@@ -42,14 +35,12 @@ class IncrementDecrease extends React.PureComponent {
         {this.props.value > 0 && (
           <React.Fragment>
             <span className="increment-decrease__count">
-              {this.state.show && (
-                <h2
-                  className="reset centerText hM5"
-                  style={{ fontSize: `${this.props.fontSize}px` }}
-                >
-                  {this.props.value}
-                </h2>
-              )}
+              <h2
+                className="reset centerText hM5"
+                style={{ fontSize: `${this.props.fontSize}px` }}
+              >
+                {this.props.value}
+              </h2>
             </span>
 
             <button
@@ -66,6 +57,4 @@ class IncrementDecrease extends React.PureComponent {
   }
 }
 
-IncrementDecrease.propTypes = {};
-
-export default IncrementDecrease;
+export default Stepper;
