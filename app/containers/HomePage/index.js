@@ -94,14 +94,14 @@ class HomePage extends React.Component {
             >
               <div className="i3 city flex spaceBetween hP10 hCenter primary disableBg">
                 <span className="text14 bold rightM5">
-                  {typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.cityName: ""}
+                  {typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.cityName: this.state.cityName}
                 </span>
                 <span className="chilivery-arrow-bottom gray text12" />
               </div>
 
               <div className="i2-3 city flex spaceBetween hP10 hCenter primary whiteBg">
                 <span className="text14 bold rightM5 text-truncate">
-                  {typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.name: ""}
+                  {typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.name: this.state.regionName}
                 </span>
                 <span className="chilivery-arrow-bottom gray text12" />
               </div>

@@ -217,7 +217,6 @@ class UserPosition extends React.Component {
     },()=> {
       this.getRegionByCityId(this.state.cityId)
     })
-
   }
 
 

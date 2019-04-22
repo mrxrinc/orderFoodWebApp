@@ -83,24 +83,17 @@ export class MapContainer extends React.Component {
     }
 
     componentDidMount(){
+        let typeMapItem = typeMap[this.props.type];
+
         this.setState({
             userLocation:{
-                lat: this.props.neighborhood.mapCenter.lat,
-                lng: this.props.neighborhood.mapCenter.lon
-            }
+                lat: this.props[typeMapItem].mapCenter.lat,
+                lng: this.props[typeMapItem].mapCenter.lon
+            },
+            
         })
-    }
 
-    // componentDidUpdate(prevProps,nextState){
-    //     if(prevProps.neighborhood.mapCenter.lat !== this.state.mapCenter.lat) {
-    //         this.setState({
-    //             userLocation:{
-    //                 lat: this.props.neighborhood.mapCenter.lat,
-    //                 lng: this.props.neighborhood.mapCenter.lon
-    //             }
-    //         })
-    //     }
-    // }
+    }
 
     render() {
         return (
@@ -126,6 +119,7 @@ export class MapContainer extends React.Component {
 
 const mapStateToProps = state => ({
     neighborhood: state.UserPosition.neighborhood,
+    neighborhoodProfile: state.UserPosition.neighborhoodProfile,
 
 });
 
