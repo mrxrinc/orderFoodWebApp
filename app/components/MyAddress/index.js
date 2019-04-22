@@ -7,6 +7,10 @@ import 'owl.carousel';
 import $ from 'jquery';
 
 class MyAddress extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount(){
     //fow OWL.Carousel
     $(document).ready(function () {
@@ -39,13 +43,11 @@ class MyAddress extends React.PureComponent {
   }
 
   render() {
-    let ChiliOwlDemo = [1,2,3,4,5,6]
-    let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
+    const {data} = this.props;
+    const ChiliOwlDemoItems = data.addresses.map((item, i) =>
       <div
         key={i}
         className="item"
-        style={{
-        }}
       >
         <div className="MyAddress">
           <div className="MyAddress-radio">
@@ -67,11 +69,11 @@ class MyAddress extends React.PureComponent {
               <a href="#!">
                 <span className="chilivery-delete"> </span>
               </a>
-              <label className="pull-right">محل کار</label>
+              <label className="pull-right">{item.name}</label>
             </div>
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">
-              <span>میدان ونک ، انتهای خیابان ونک ، تقاطع سيول ، خیابان رشیدی ، جنب بانک ملی ، پلاک ۴</span>
+              <span>{item.complete}</span>
             </div>
           </div>
         </div>
