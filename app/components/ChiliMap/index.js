@@ -19,7 +19,10 @@ export class MapContainer extends React.Component {
         this.state = {
             map: null,
             restaurantListCount: 0,
-            userLocation: this.props.mapCenter,
+            mapCenter: {
+                lat:'',
+                lon:''
+            },
             neighborhood:null
         };
     }
@@ -79,6 +82,19 @@ export class MapContainer extends React.Component {
         this.fetchMap();
     }
 
+    componentDidMount(){
+        let typeMapItem = typeMap[this.props.type];
+
+        this.setState({
+            userLocation:{
+                lat: this.props[typeMapItem].mapCenter.lat,
+                lng: this.props[typeMapItem].mapCenter.lon
+            },
+            
+        })
+
+    }
+
     render() {
         return (
             <div className="map-wrapper" style={{ height: '100%' }}>
@@ -102,6 +118,8 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    neighborhood: state.UserPosition.neighborhood,
+    neighborhoodProfile: state.UserPosition.neighborhoodProfile,
 
 });
 
