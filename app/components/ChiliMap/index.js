@@ -44,12 +44,14 @@ export class MapContainer extends React.Component {
     }
 
     mapLoaded = map => {
+        let typeMapItem = typeMap[this.props.type];
+
         if (map != null) {
             this.setState({
                 map: map
             });
             restaurantSearch(
-                `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+                this.props[typeMapItem].cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
             ).then(
                 response => {
                     let restaurantListCount = response.result.data;
@@ -70,8 +72,10 @@ export class MapContainer extends React.Component {
 
 
     mapOnDrag = () => {
+        let typeMapItem = typeMap[this.props.type];
+
         restaurantSearch(
-            `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+            this.props[typeMapItem].cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
         ).then(
             response => {
                 let restaurantListCount = response.result.data;

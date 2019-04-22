@@ -178,7 +178,7 @@ class UserPosition extends React.Component {
           let typeMapItem = typeMap[this.props.type];
           let obj = {};
           obj[typeMapItem] = {
-            cityId:response.result.id,
+            cityId:response.result.cityId,
             slug:response.result.slug,
             mapCenter:{
               lat:response.result.mapCenter.lat,
