@@ -69,7 +69,7 @@ class PageProfile extends React.Component{
 
           <div className="profile-address__item rightP10">
             <h2 className="profile-address__adtitle">{this.state.adtitle}</h2>
-            <ProfileAddress></ProfileAddress>
+            {/* <ProfileAddress></ProfileAddress> */}
           </div>
 
         </div>
