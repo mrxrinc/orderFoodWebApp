@@ -52,7 +52,7 @@ const RestaurantFoodCard = props => (
     <div className="footer flex primary">
       <ul className="flex reset hInherit">
         {props.lastPrice && (
-          <li className="moto flex hCenter rightP10 overLine gray">
+          <li className="moto flex hCenter rightP10 overLine danger">
             <span className="text12">{props.lastPrice}</span>
             <span className="text8 topM3 rightM3">تومان</span>
           </li>

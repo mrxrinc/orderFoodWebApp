@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { showModal } from '../../actions/Modals';
 import { history } from '../../store';
-import foodImg from '../../images/foodImg.jpg';
+// import foodImg from '../../images/foodImg.jpg';
 // import logo from '../../images/restaurant-logo.jpg';
 // import cover from '../../images/cover.jpg';
 
@@ -63,8 +63,25 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = (parent, count) => {
-    console.log('Stepper ===>', parent, count);
+  stepper = (id, count) => {
+    console.log('Stepper ===>', id, count);
+    console.log('state ===>', this.state.restaurantDetail.menuSections);
+    const data = this.state.restaurantDetail;
+    const menu = data.menuSections;
+    const newMenu = menu.map(group => {
+      const newGroup = group.foods.map(food => {
+        if(food.id === id) {
+          if(food.count) return { ...food, count: food.count++ }
+          return { ...food, count: 1 }
+        }
+        return { ...food, count: 0 };
+      });
+      return newGroup;
+    });
+
+    this.setState({ 
+      restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
+    }, () => console.log('new State ===>', this.state.restaurantDetail));
   };
 
   render() {
@@ -98,6 +115,7 @@ class RestaurantPage extends React.Component {
                   {group.foods.map(food => (
                     <RestaurantFoodCard
                       onClick={() => this.openFoodModal(food)}
+                      key={food.id}
                       id={food.id}
                       name={food.name}
                       haspic={food.hasPic}
@@ -187,7 +205,12 @@ class RestaurantPage extends React.Component {
                           </li>
                         </ul>
                         <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                          <Stepper className="topM20" fontSize="18" />
+                          <Stepper 
+                            className="topM20" 
+                            fontSize="18" 
+                            parentId={this.state.modalData.id} 
+                            stepper={this.stepper} 
+                          />
                         </div>
                       </div>
                     </div>
@@ -247,7 +270,12 @@ class RestaurantPage extends React.Component {
                     <div className="center i2">
                       <div className="">
                         <div className="flex hP10 primary text16 center">
-                          <Stepper fontSize="18" />
+                          <Stepper 
+                            className="topM20" 
+                            fontSize="18" 
+                            parentId={this.state.modalData.id} 
+                            stepper={this.stepper} 
+                          />
                         </div>
 
                         <div className="flex hCenter bold primary topM8">
