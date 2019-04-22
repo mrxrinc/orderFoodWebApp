@@ -38,7 +38,7 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
           <Route exact path="/restaurants-list" component={RestaurantsList} />
-          <Route exact path="/restaurant-page" component={RestaurantPage} />
+          <Route exact path="/restaurant-page/:id" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />

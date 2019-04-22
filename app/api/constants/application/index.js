@@ -18,4 +18,6 @@ export const get_region_by_slug = (slug) => `${API_URL_ROOT}/region/bySlug?regio
 export const get_find_Neighborhood = (location) => `${API_URL_ROOT}/userAddress/findNeighborhood?region_center=${location}`
 
 //RESTAURANT 
-export const restaurant_search= (point,tag) => `${API_URL_ROOT}/restaurant/search?&point=${point}`
+export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}&point=${point}`;
+export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaurantId=${id}`;
+export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}`;
