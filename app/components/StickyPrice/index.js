@@ -24,6 +24,9 @@ class StickyPrice extends React.PureComponent {
     if(basket.accCharge) {
       total = total - user.cacheBalance;
     }
+    if(total <= 0) {
+      total = 0;
+    }
     return total
   }
 
