@@ -6,7 +6,7 @@ class IncrementDecrease extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      clicks: 0,
+      clicks: this.props.value || 0,
       show: true,
     };
   }

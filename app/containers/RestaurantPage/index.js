@@ -20,6 +20,7 @@ import Stepper from '../../components/IncrementDecrease';
 import { restaurantDetail, createBasket } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
+import { addToBasket } from '../../actions/Basket';
 import './style.scss';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -65,23 +66,45 @@ class RestaurantPage extends React.Component {
 
   stepper = (id, count) => {
     console.log('Stepper ===>', id, count);
-    console.log('state ===>', this.state.restaurantDetail.menuSections);
+    const basketTempData = [];
     const data = this.state.restaurantDetail;
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
-      const newGroup = group.foods.map(food => {
+      const newFoods = group.foods.map(food => {
         if(food.id === id) {
-          if(food.count) return { ...food, count: food.count++ }
-          return { ...food, count: 1 }
+          if(food.count) {
+            const data = { ...food, count: food.count + 1 }
+            basketTempData.push(data);
+            return data;
+          } else {
+            const data = { ...food, count: 1 };
+            basketTempData.push(data);
+            return data;
+          }
         }
         return { ...food, count: 0 };
       });
-      return newGroup;
+      return {...group, foods: newFoods };
     });
+    console.log('newMEnu ===>', newMenu);
 
     this.setState({ 
       restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
-    }, () => console.log('new State ===>', this.state.restaurantDetail));
+    }, () => {
+      console.log('new State ===>', this.state.restaurantDetail);
+
+      // //continue to redux
+      // const dataForBasket = {
+      //   restaurantId: this.state.restaurantDetail.id,
+      //   orderId: this.state.basket.id,
+      //   items: {}
+      // }
+      // dataForBasket.items[id] = count;
+      // this.props.addToBasket({ items: dataForBasket })
+
+    });
+
+    
   };
 
   render() {
@@ -210,6 +233,7 @@ class RestaurantPage extends React.Component {
                             fontSize="18" 
                             parentId={this.state.modalData.id} 
                             stepper={this.stepper} 
+                            value={this.state.modalData.count}
                           />
                         </div>
                       </div>
@@ -308,11 +332,16 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
+  
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
+  addToBasket: value => {
+    dispatch(addToBasket(value));
+  }
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RestaurantPage);
+
