@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { showModal } from '../../actions/Modals';
 import { history } from '../../store';
-// import foodImg from '../../images/foodImg.jpg';
-// import logo from '../../images/restaurant-logo.jpg';
-// import cover from '../../images/cover.jpg';
 
 import RestaurantHeader from '../../components/RestaurantHeader';
 import RestaurantFoodGroup from '../../components/RestaurantFoodGroup';
@@ -16,14 +13,15 @@ import RestaurantFoodCard from '../../components/RestaurantFoodCard';
 import RestaurantSideDishGroup from '../../components/RestaurantSideDishGroup';
 import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
-import Stepper from '../../components/IncrementDecrease';
+import Stepper from '../../components/Stepper';
 import { restaurantDetail, createBasket } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
 import './style.scss';
 
-/* eslint-disable react/prefer-stateless-function */
+const basketTempData = {};
+
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +49,7 @@ class RestaurantPage extends React.Component {
     });
   }
 
-  openFoodModal = food => {
+  openFoodModal = (food) => {
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
       this.toggleModal()
@@ -64,47 +62,53 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = (id, count) => {
+  stepper = (id, count, role) => {
     console.log('Stepper ===>', id, count);
-    const basketTempData = [];
     const data = this.state.restaurantDetail;
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
         if(food.id === id) {
+          const key = food.id;
+          const basket = {};
           if(food.count) {
-            const data = { ...food, count: food.count + 1 }
-            basketTempData.push(data);
+            let data = null;
+
+            if(role === 'add') { data = { ...food, count: food.count + 1 } }
+            else if(role === 'remove') { data = { ...food, count: food.count - 1 } }
+
+            basket[key] = data;
+            Object.assign(basketTempData, basket);
             return data;
           } else {
             const data = { ...food, count: 1 };
-            basketTempData.push(data);
+            basket[key] = data;
+            Object.assign(basketTempData, basket);
             return data;
           }
+        } else if(food.count && food.count > 0) {
+          return food
         }
         return { ...food, count: 0 };
       });
-      return {...group, foods: newFoods };
+      return { ...group, foods: newFoods };
     });
-    console.log('newMEnu ===>', newMenu);
+    console.log('newMenu ===>', newMenu);
 
     this.setState({ 
       restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
     }, () => {
       console.log('new State ===>', this.state.restaurantDetail);
+      console.log('BASKET_TEMP_DATA', basketTempData);
 
-      // //continue to redux
-      // const dataForBasket = {
-      //   restaurantId: this.state.restaurantDetail.id,
-      //   orderId: this.state.basket.id,
-      //   items: {}
-      // }
-      // dataForBasket.items[id] = count;
-      // this.props.addToBasket({ items: dataForBasket })
-
+      //continue to redux
+      const dataForBasket = {
+        restaurantId: this.state.restaurantDetail.id,
+        orderId: this.state.basket.id,
+        items: basketTempData
+      }
+      this.props.addToBasket({ basket: dataForBasket })
     });
-
-    
   };
 
   render() {
@@ -141,7 +145,7 @@ class RestaurantPage extends React.Component {
                       key={food.id}
                       id={food.id}
                       name={food.name}
-                      haspic={food.hasPic}
+                      hasPic={food.hasPic}
                       foodImg={food.image}
                       description={food.description}
                       discount={food.salePercentage}
@@ -149,6 +153,7 @@ class RestaurantPage extends React.Component {
                       voteCount={food.voteCount}
                       price={food.price}
                       lastPrice={food.lastPrice}
+                      count={food.count}
                       stepper={this.stepper}
                     />
                   ))}
@@ -298,6 +303,7 @@ class RestaurantPage extends React.Component {
                             className="topM20" 
                             fontSize="18" 
                             parentId={this.state.modalData.id} 
+                            value={this.state.modalData.count}
                             stepper={this.stepper} 
                           />
                         </div>

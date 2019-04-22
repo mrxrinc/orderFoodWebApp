@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './style.scss';
-import Stepper from '../IncrementDecrease';
+import Stepper from '../Stepper';
 import { rateColor } from '../GeneralFunctions';
 
 const RestaurantFoodCard = props => (
@@ -63,7 +63,7 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper fontSize="18" parentId={props.id} stepper={props.stepper} value={props.value} />
+        <Stepper fontSize="18" parentId={props.id} stepper={props.stepper} value={props.count} />
       </div>
     </div>
   </div>
