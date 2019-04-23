@@ -292,9 +292,9 @@ export function* UserVerify() {
 }
 
 function* userVerify({ payload }) {
-  try {    
-    yield put(enableLoading({ verifyLoading: true }));    
-    const verifyUserSignUp = yield verifyPost(payload.verification);    
+  try {
+    yield put(enableLoading({ verifyLoading: true }));
+    const verifyUserSignUp = yield verifyPost(payload.verification);
     if (verifyUserSignUp.status) {
       // localStorage.setItem('authToken', verifyUserSignUp.data.token);
       yield put(getUserVerifyInfo(verifyUserSignUp.data));

@@ -45,9 +45,9 @@ export const getUserIsVerifyInfo = user => ({
   type: IS_VERIFY_USER,
   payload: user,
 });
-export const getUserVerify = user => ({
+export const getUserVerify = verification => ({
   type: VERIFY_USER,
-  payload: user,
+  payload: verification,
 });
 export const getUserVerifyPass = user => ({
   type: VERIFY_PASS_USER,

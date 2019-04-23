@@ -28,6 +28,7 @@ import PageProfile from '../PageProfile';
 import PageProfileEdit from '../PageProfileEdit';
 import PageProfileNewAddress from '../PageProfileNewAddress';
 import ActivationCode from '../ActivationCode';
+import Filters from '../Filters';
 
 import GlobalStyle from '../../global-styles';
 
@@ -51,6 +52,7 @@ export default function App() {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/profile" component={PageProfile} />
           <Route exact path="/profile/edit" component={PageProfileEdit} />
+          <Route exact path="/filters" component={Filters} />
           <Route exact path="/profile/add-new-address" component={PageProfileNewAddress} />
           <Route exact path="/activation-code" component={ActivationCode} />
 
