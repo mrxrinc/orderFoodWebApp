@@ -1,0 +1,31 @@
+import React,{Component} from 'react';
+import { Link } from 'react-router-dom';
+
+import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
+import './style.scss';
+import icon from '../../../images/icons/order_history_empty.png'
+
+class order extends React.Component{
+	constructor(props){
+		super(props)
+		this.state={
+			title: 'لیست سفارش های شما خالی است.',
+			
+		}
+	}
+
+	render(){
+		return(
+			<div className="order">
+				<div className="order__icon">
+					<img className="order__img" src={icon} alt=""/>
+                    <span className="order__title">{this.state.title}</span>
+				</div>
+
+				
+			</div>
+		);
+	}
+}
+
+export default order;

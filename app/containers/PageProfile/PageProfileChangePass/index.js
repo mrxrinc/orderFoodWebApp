@@ -23,7 +23,7 @@ class ProfileChangePass extends React.Component{
 			<div className="profile-edit">
 				<div className="container">
 					<div className="profile-edit__icon center">
-						<img src={icon} alt="change_password"/>
+						<img className="edit__img" src={icon} alt="change_password"/>
 					</div>
 					<div className="row">
 						<div className="col-lg-12 mt-5">

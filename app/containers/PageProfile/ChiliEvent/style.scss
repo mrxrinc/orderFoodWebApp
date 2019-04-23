@@ -20,7 +20,7 @@
 				color: #FFFFFF;
 				padding-bottom: 10px;
 			}
-			.event-text{
+			.event-text1{
 				.event__text1{
 					display: block;
 					padding-top: 18px;
@@ -30,6 +30,9 @@
 				}
 				.arrow-left{
 					color: $grey-6;
+					padding-right: 64px;
+					display: flex;
+					align-items: center;
 				}
 			}
 		}
@@ -50,7 +53,7 @@
 				color:$color-primary;
 				padding-bottom: 10px;
 			}
-			.event-text{
+			.event-text2{
 				.event__text2{
 					display: block;
 					padding-top: 18px;
@@ -60,6 +63,9 @@
 				}
 				.arrow-left{
 					color: $grey-6;
+					padding-left: 10px;
+					display: flex;
+					align-items: center;
 				}
 			}
 		}

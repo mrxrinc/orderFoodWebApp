@@ -22,7 +22,7 @@ class ChiliEvent extends React.Component{
 				<div className="chili-event__comment">
 					<div className="chili-event__task1">
 						<span className="event-tilte">{this.state.eventTitle}</span>
-						<div className="event-text flex center">
+						<div className="event-text1 flex">
 							<span className="event__text1">{this.state.eventText1}</span>
 							<span className="chilivery-arrow-left arrow-left"> </span>
 						</div>
@@ -30,7 +30,7 @@ class ChiliEvent extends React.Component{
 
 					<div className="chili-event__task2">
 						<span className="event-tilte2">{this.state.eventTitle2}</span>
-						<div className="event-text flex center">
+						<div className="event-text2 flex">
 							<span className="event__text2">{this.state.eventText2}</span>
 							<span className="chilivery-arrow-left arrow-left"> </span>
 						</div>

@@ -33,6 +33,8 @@ import ChiliChance from '../PageProfile/ChiliChance';
 import ChiliEvent from '../PageProfile/ChiliEvent';
 import ChiliComment from '../PageProfile/ChiliComment';
 import FavRestaurant from '../PageProfile/FavRestaurant';
+import Transaction from '../PageProfile/Transaction';
+import Order from '../PageProfile/Order';
 
 import GlobalStyle from '../../global-styles';
 
@@ -62,6 +64,9 @@ export default function App() {
           <Route exact path="/profile/Chili-Event" component={ChiliEvent} />
           <Route exact path="/profile/Chili-Comment" component={ChiliComment} />
           <Route exact path="/profile/Fav-Restaurant" component={FavRestaurant} />
+          <Route exact path="/profile/Transaction" component={Transaction} />
+          <Route exact path="/profile/Order" component={Order} />
+
 
           <Route exact path="/activation-code" component={ActivationCode} />
 

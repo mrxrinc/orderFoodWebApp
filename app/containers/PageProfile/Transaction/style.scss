@@ -1,0 +1,17 @@
+@import '../../../style/sass/variable';
+
+.transaction{
+    .transaction__icon{
+        padding-top: 110px;
+        text-align: center;
+        .transaction__img{
+            width: 90px;
+            height: 90px;
+        }
+        .transaction__title{
+            display: block;
+            padding-top: 12px;
+            color: $grey-15;
+        }
+    }
+}
