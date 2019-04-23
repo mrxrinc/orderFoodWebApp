@@ -1,0 +1,10 @@
+@import '../../style/sass/variable';
+
+.sideDishRow {
+  height: 60px;
+  // border: 1px solid $color-border-input;
+  border-right: none;
+  border-left: none;
+  border: 1px solid $color-disable;
+  margin-top: -1px;
+}

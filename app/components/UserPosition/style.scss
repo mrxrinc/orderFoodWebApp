@@ -48,7 +48,7 @@
     height: calc(80vh - 50px);
     position: relative;
     &:last-child{
-      background: url(../../images/map.png) no-repeat center center;
+      background: #ccc;
       background-size: cover;
     }
   }

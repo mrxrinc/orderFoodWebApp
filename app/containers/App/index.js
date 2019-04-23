@@ -26,6 +26,7 @@ import PageMoreMenu from '../PageMoreMenu';
 import ForgotPassword from '../ForgotPassword';
 import PageProfile from '../PageProfile';
 import PageProfileEdit from '../PageProfileEdit';
+import PageProfileNewAddress from '../PageProfileNewAddress';
 import ActivationCode from '../ActivationCode';
 import Filters from '../Filters';
 
@@ -38,8 +39,8 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
-          <Route exact path="/restaurants-list" component={RestaurantsList} />
-          <Route exact path="/restaurant-page" component={RestaurantPage} />
+          <Route exact path="/restaurants-list/:cityId/:point" component={RestaurantsList} />
+          <Route exact path="/restaurant-page/:id" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />
@@ -52,6 +53,7 @@ export default function App() {
           <Route exact path="/profile" component={PageProfile} />
           <Route exact path="/profile/edit" component={PageProfileEdit} />
           <Route exact path="/filters" component={Filters} />
+          <Route exact path="/profile/add-new-address" component={PageProfileNewAddress} />
           <Route exact path="/activation-code" component={ActivationCode} />
 
           <Route component={NotFoundPage} />

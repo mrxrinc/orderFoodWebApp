@@ -50,6 +50,7 @@
   "dependencies": {
     "@babel/polyfill": "7.0.0",
     "axios": "^0.18.0",
+    "babel-plugin-inline-json-import": "^0.3.2",
     "chalk": "2.4.1",
     "compression": "1.7.3",
     "connected-react-router": "^6.3.2",

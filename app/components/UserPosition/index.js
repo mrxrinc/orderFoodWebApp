@@ -9,8 +9,7 @@ import { history } from '../../store';
 import ChiliMap from '../../components/ChiliMap';
 import { addNeighborhood } from '../../actions/UserPosition';
 
-
-
+import { getCityList } from '../../api/application/region';
 import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
 
 const KEYS_TO_FILTERS = ['name'];
@@ -39,10 +38,10 @@ class UserPosition extends React.Component {
       searchTerm: '',
       searchDistrict: '',
       restaurantListCount: 0,
-      cityId: 2,
+      cityId: "",
       disSlug: '',
       cityList: this.props.data,
-      mapCenter: this.props.mapCenter,
+      mapCenter: {},
       map: true,
 
       districtList: [
@@ -76,20 +75,22 @@ class UserPosition extends React.Component {
     };
   }
 
+  getRegionByCityId = (id) => {
+    getRegionByCity(id).then(
+      response => {
+        this.setState({
+          districtListOther: response.result
+        })
+      }
+    )
+  }
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
       });
     }
-  };
-
-  UserPositionModal = (e) => {
-    e.preventDefault();
-    this.props.showModal({
-      UserPositionModal: false,
-    });
-    history.push('/restaurants-list')
   };
 
   searchUpdated(term) {
@@ -100,71 +101,97 @@ class UserPosition extends React.Component {
     this.setState({ searchDistrict: term })
   }
 
-  onChangeClick = () => {
-    if(this.state.cityId === 2){
-      this.toggle('2');
-    }
+
+  onChangeClick = (id) => {
+      getCityList().then(
+        response => {
+          for(let x=0; x < response.result.length; x++){
+            if(response.result[x].id === id){
+              let typeMapItem = typeMap[this.props.type];
+              let obj = {};
+              obj[typeMapItem] = {
+                cityId:response.result[x].id,
+                slug:response.result[x].slug,
+                mapCenter:{
+                  lat:response.result[x].mapCenter.lat,
+                  lon:response.result[x].mapCenter.lon
+                },
+              }
+              this.props.addNeighborhood(obj);          
+        
+              getRegionByCity(response.result[x].id).then(
+                response => {
+                  this.setState({
+                    districtListOther: response.result
+                  }, () => {
+                    this.toggle('2');
+                  })
+                }
+              )
+            }
+          }
+        }
+      )
   }
 
 
   handleChange(event) {
-
+    let eventId = parseInt(event.target.value);
     this.setState({
-      cityId: parseInt(event.target.value)
-    }, () => {
-      let typeMapItem = typeMap[this.props.type];
-      let obj = {};
-      obj[typeMapItem] = {
-        cityId:this.state.cityId
-      }
-      this.props.addNeighborhood(obj);
-      // if(this.props.type === "profile"){
-      //   this.props.addNeighborhoodProfile({
-      //     neighborhoodProfile:{
-      //       cityId:this.state.cityId
-      //     }
-      //   })
-      // }else{
-      //   this.props.addNeighborhood({
-      //     neighborhood:{
-      //       cityId:this.state.cityId
-      //     }
-      //   })
-      // }
-
-
-      getRegionByCity(this.state.cityId).then(
-        response => {
-          this.setState({
-            districtListOther: response.result
-          }, () => {
-            this.toggle('2');
-          })
-        }
-      )
-    }
-    );
+      cityId: eventId,
+      map:false,
+    },()=>{
+        getCityList().then(
+          response => {
+            for(let x=0; x < response.result.length; x++){
+              if(response.result[x].id === this.state.cityId){
+                let typeMapItem = typeMap[this.props.type];
+                let obj = {};
+                obj[typeMapItem] = {
+                  cityId:response.result[x].id,
+                  slug:response.result[x].slug,
+                  mapCenter:{
+                    lat:response.result[x].mapCenter.lat,
+                    lon:response.result[x].mapCenter.lon
+                  },
+                }
+                this.props.addNeighborhood(obj);          
+                this.getRegionByCityId(response.result[x].id)
+                this.setState({
+                  map:true
+                })
+              }
+            }
+          }
+        )
+    })
   }
 
   handleChangeDis(event) {
 
     this.setState({
-      disSlug: event.target.value
+      disSlug: event.target.value,
+      map:false,
     }, () => {
       getRegionBySlug(this.state.disSlug).then(
         response => {
-          this.setState({
-            map: false,
-            mapCenter: {
-              lat: response.result.mapCenter.lat,
-              lng: response.result.mapCenter.lon
+          let typeMapItem = typeMap[this.props.type];
+          let obj = {};
+          obj[typeMapItem] = {
+            cityId:response.result.cityId,
+            slug:response.result.slug,
+            mapCenter:{
+              lat:response.result.mapCenter.lat,
+              lon:response.result.mapCenter.lon
             },
-          }, () => {
-            this.toggle('3');
-            this.setState({
-              map: true
-            })
-          })
+          }
+
+          this.props.addNeighborhood(obj);
+          this.setState({
+            map:true,
+          })         
+          this.toggle('3');
+
         }
       )
     });
@@ -178,56 +205,18 @@ class UserPosition extends React.Component {
         })
       }
     )
-    console.log('============this.state==============');
-    console.log(this.state);
-    console.log('====================================');
   }
+
+
 
   componentDidMount(){
-
-    if(this.props.type != "profile"){
-      console.log('====================================');
-      console.log("!profile");
-      console.log('====================================');
-      this.setState({
-        cityId:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.cityId:2,
-        disSlug:(this.props.mapPosition.neighborhood != null) ? this.props.mapPosition.neighborhood.slug:'mostafa',
-        mapCenter: (this.props.mapPosition.neighborhood != null) ? {
-                      lat:this.props.mapPosition.neighborhood.mapCenter.lat,
-                      lng:this.props.mapPosition.neighborhood.mapCenter.lon,
-                    }:this.props.mapCenter,
-      },this.fetchRegionByCity())
-    }else{
-      console.log('====================================');
-      console.log("profile");
-      console.log('====================================');
-      this.setState({
-        cityId:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.cityId:2,
-        disSlug:(this.props.mapPosition.neighborhoodProfile != null) ? this.props.mapPosition.neighborhoodProfile.slug:'mostafa',
-        mapCenter: (this.props.mapPosition.neighborhoodProfile != null) ? {
-                      lat:this.props.mapPosition.neighborhoodProfile.mapCenter.lat,
-                      lng:this.props.mapPosition.neighborhoodProfile.mapCenter.lon,
-                    }:this.props.mapCenter,
-      },()=>{
-        this.fetchRegionByCity()
-      })
-    }
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
     let typeMapItem = typeMap[this.props.type];
-    if(prevProps.mapPosition[typeMapItem] && prevProps.mapPosition[typeMapItem].slug != this.props.mapPosition[typeMapItem].slug){
-      this.setState({
-        disSlug:this.props.mapPosition[typeMapItem].slug
-      },()=>{
-        console.log('====================================');
-        console.log(prevProps.mapPosition[typeMapItem].slug);
-        console.log(this.props.mapPosition[typeMapItem].slug);
-        console.log(this.state.disSlug);
-        console.log('====================================');
-      })
-    }
+    this.setState({
+      cityId:this.props.mapPosition[typeMapItem].cityId,
+      disSlug:this.props.mapPosition[typeMapItem].slug,
+    },()=> {
+      this.getRegionByCityId(this.state.cityId)
+    })
   }
 
 
@@ -296,7 +285,7 @@ class UserPosition extends React.Component {
                             className="radio-input"
                             checked={this.state.cityId === city.id}
                             onChange={this.handleChange}
-                            onClick={this.onChangeClick}
+                            onClick={()=>this.onChangeClick(city.id)}
                             value={city.id}
                           />
                           <div className="radio-face" />
@@ -397,7 +386,10 @@ class UserPosition extends React.Component {
                             type="radio"
                             className="radio-input"
                             // name="cityId"
-                            checked={this.state.disSlug === city.slug}
+                            checked={
+                              (this.props.mapPosition[typeMap[this.props.type]] !== "undefined" ?
+                              this.props.mapPosition[typeMap[this.props.type]].slug : this.state.disSlug) === city.slug
+                            }
                             onChange={this.handleChangeDis}
                             value={city.slug}
                           />
@@ -419,8 +411,6 @@ class UserPosition extends React.Component {
 
             {this.state.map &&
               <ChiliMap
-                cityId={this.state.cityId}
-                mapCenter={this.state.mapCenter}
                 type={this.props.type}
               />
             }

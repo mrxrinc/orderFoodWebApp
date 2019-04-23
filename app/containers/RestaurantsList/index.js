@@ -10,9 +10,9 @@ export default class RestaurantsList extends React.PureComponent {
     super(props);
     this.state = {
       restaurantList: [],
-      cityId: '2',
-      point: '35.737226079112496,51.41403033862298',
-      tag: '756',
+      cityId: props.match.params.cityId,
+      point: props.match.params.point,
+      // tag: '756',
     };
   }
 
@@ -20,9 +20,8 @@ export default class RestaurantsList extends React.PureComponent {
     restaurantSearch(this.state.cityId, this.state.point, this.state.tag).then(
       response => {
         const restaurantList = response.result.data;
-
         this.setState({ restaurantList });
-        console.log('=============homeGetResponse=================');
+        console.log('=============Restaurants List Response=================');
         console.log(this.state.restaurantList);
         console.log('====================================');
       },
@@ -34,12 +33,8 @@ export default class RestaurantsList extends React.PureComponent {
     return (
       <div className="lightBg padd15 rtl">
         {restaurantList.map((item, index) => (
-          <RestaurantsListItem key={index} data={item} logo={item.profile} />
+          <RestaurantsListItem key={index} {...item} />
         ))}
-        {/* <RestaurantsListItem logo={logo} />
-        <RestaurantsListItem logo={logo} />
-        <RestaurantsListItem logo={logo} />
-        <RestaurantsListItem logo={logo} /> */}
       </div>
     );
   }

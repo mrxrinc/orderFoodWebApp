@@ -31,7 +31,18 @@ import {
   SHOW_MODAL
 } from '../constants/actionModals';
 
-const modals = (state = {}, action) => {
+const initialModals = {
+  RestaurantPageModal: false,
+  UserPositionModal: false,
+  alertExp: false,
+  isVerifyModal: false,
+  motochiliModal: false,
+  successChangePassModal: false,
+  trackingModal: false,
+  verifyModal: false,
+};
+
+const modals = (state = initialModals, action) => {
   switch (action.type) {
 
       case CLOSE_MODAL:

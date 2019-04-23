@@ -1,12 +1,30 @@
 import React from 'react';
 import './style.scss';
-import { CheckBox } from '../ChiliForm';
 //fow OWL.Carousel
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 import $ from 'jquery';
+import { addressIdChanged } from '../../actions/Basket';
+import { connect } from 'react-redux';
 
 class MyAddress extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addressId: this.props.basket.addressId ? this.props.basket.addressId : ''
+    };
+  }
+
+
+  handleOptionChange = e => {
+    this.setState({
+        addressId: e.target.value,
+      }, ()=>
+        this.props.changeAddressId({addressId:this.state.addressId})
+    );
+  }
+
+
   componentDidMount(){
     //fow OWL.Carousel
     $(document).ready(function () {
@@ -39,13 +57,11 @@ class MyAddress extends React.PureComponent {
   }
 
   render() {
-    let ChiliOwlDemo = [1,2,3,4,5,6]
-    let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
+    const {data} = this.props;
+    const ChiliOwlDemoItems = data.addresses.map((item, i) =>
       <div
         key={i}
         className="item"
-        style={{
-        }}
       >
         <div className="MyAddress">
           <div className="MyAddress-radio">
@@ -53,10 +69,10 @@ class MyAddress extends React.PureComponent {
               type="radio"
               className="radio-input"
               name="signUpGender"
-              // checked={signUpGender === 'male'}
-              // onChange={this.onChange}
+              checked={this.state.addressId == item.id}
+              onChange={this.handleOptionChange}
               // onKeyPress={this.handleKeyPressUpdate}
-              value="male"
+              value={item.id}
             />
           </div>
           <div className="MyAddress__details">
@@ -67,11 +83,11 @@ class MyAddress extends React.PureComponent {
               <a href="#!">
                 <span className="chilivery-delete"> </span>
               </a>
-              <label className="pull-right">محل کار</label>
+              <label className="pull-right">{item.name}</label>
             </div>
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">
-              <span>میدان ونک ، انتهای خیابان ونک ، تقاطع سيول ، خیابان رشیدی ، جنب بانک ملی ، پلاک ۴</span>
+              <span>{item.complete}</span>
             </div>
           </div>
         </div>
@@ -91,6 +107,21 @@ class MyAddress extends React.PureComponent {
   }
 }
 
-MyAddress.propTypes = {};
 
-export default MyAddress;
+const mapDispatchToProps = dispatch => {
+  return {
+    changeAddressId: value => {
+      dispatch(addressIdChanged(value));
+    },
+  };
+};
+
+const mapStateToProps = state => ({
+  user: state.auth,
+  basket:state.Basket
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyAddress);

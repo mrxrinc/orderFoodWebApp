@@ -9,33 +9,32 @@ const divStyle = {
 };
 
 class AfterPaymentCardItem extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
   render() {
+    const {data} = this.props;
+    const  item= data && data.map((item, index) =>
+      <div className="afterpayment-carditem">
+        <div className="afterpayment-carditem__rbox" style={{ backgroundImage: `url(${item.image})`}}>
+        </div>
+        <div className="afterpayment-carditem__lbox">
+          <h2>{item.name}</h2>
+            <ul>
+              {item.options && item.options.map((option,index) =>
+                  <li>{option.name}</li>
+              )}
+            </ul>
+          <span className="number">{item.count} × {item.price}</span>
+          <span className="price">{item.count * item.price} تومان</span>
+        </div>
+      </div>
+    );
     return (
       <div>
-        <div className="afterpayment-carditem">
-          <div className="afterpayment-carditem__rbox" style={divStyle}>
-            {/*<img src={Food} alt="" />*/}
-          </div>
-          <div className="afterpayment-carditem__lbox">
-            <h2>برگر زغالی</h2>
-            <ul>
-              <li>سالاد کلم (رایگان)</li>
-              <li>سیب زمینی (۱/۵۰۰ تومان)</li>
-            </ul>
-            <span className="number">۲ × ۱۸۵۰۰</span>
-            <span className="price">۳۷/۰۰۰ تومان</span>
-          </div>
-        </div>
-        <div className="afterpayment-carditem">
-          <div className="afterpayment-carditem__rbox" style={divStyle}>
-            {/*<img src={Food} alt="" />*/}
-          </div>
-          <div className="afterpayment-carditem__lbox">
-            <h2>برگر زغالی</h2>
-            <span className="number">۲ × ۱۸۵۰۰</span>
-            <span className="price">۳۷/۰۰۰ تومان</span>
-          </div>
-        </div>
+        {item}
       </div>
     );
   }
