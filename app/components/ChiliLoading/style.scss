@@ -1,10 +1,12 @@
+@import '../../style/sass/variable';
+
 #loader-wrapper.page-cat-load-more{
   height: 115px;
   background: transparent;
   font-size: 0;
   #loader{
     border:5px solid #fff;
-    border-top: 5px solid #cb373c;
+    border-top: 5px solid $color-secondary;
   }
  }
  #loader{
@@ -13,7 +15,7 @@
   z-index: 1;
   border: 5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 5px solid #cb373c;
+  border-top: 5px solid $color-secondary;
   width: 68px;
   height: 68px;
   margin: -9px;
@@ -39,7 +41,7 @@
     }
   }
   &-body{
-    background: url('http://tik8.com/images/tik8_logo.svg') #cb373c no-repeat center center;
+    background: url('../../images/loading.png') #fff no-repeat center center;
     width: 50px;
     height: 50px;
     background-size: 80%;
