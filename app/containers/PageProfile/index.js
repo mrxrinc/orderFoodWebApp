@@ -7,6 +7,8 @@ import ProfileAddress from '../../components/MyAddress' ; //import a component f
 import ProfileMenu from './profilemenu' ; //import a component from another file
 import edit from './edit.png';
 // import pattern from '../../images/pattern.png';
+import addressSample from '../address.json';
+
 
 class PageProfile extends React.Component{
   constructor(props){
@@ -69,7 +71,8 @@ class PageProfile extends React.Component{
 
           <div className="profile-address__item rightP10">
             <h2 className="profile-address__adtitle">{this.state.adtitle}</h2>
-            <ProfileAddress></ProfileAddress>
+            <ProfileAddress data={addressSample.result} />
+
           </div>
 
         </div>

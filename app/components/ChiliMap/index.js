@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { getNeighborhood } from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
 import { restaurantSearch } from '../../api/application/restaurant';
+import {history} from '../../store';
 const typeMap = {
     profile : 'neighborhoodProfile',
     home : 'neighborhood'
@@ -19,7 +20,10 @@ export class MapContainer extends React.Component {
         this.state = {
             map: null,
             restaurantListCount: 0,
-            userLocation: this.props.mapCenter,
+            mapCenter: {
+                lat:'',
+                lon:''
+            },
             neighborhood:null
         };
     }
@@ -41,12 +45,14 @@ export class MapContainer extends React.Component {
     }
 
     mapLoaded = map => {
+        let typeMapItem = typeMap[this.props.type];
+
         if (map != null) {
             this.setState({
                 map: map
             });
             restaurantSearch(
-                `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+                this.props[typeMapItem].cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
             ).then(
                 response => {
                     let restaurantListCount = response.result.data;
@@ -67,8 +73,10 @@ export class MapContainer extends React.Component {
 
 
     mapOnDrag = () => {
+        let typeMapItem = typeMap[this.props.type];
+
         restaurantSearch(
-            `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+            this.props[typeMapItem].cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
         ).then(
             response => {
                 let restaurantListCount = response.result.data;
@@ -78,6 +86,28 @@ export class MapContainer extends React.Component {
         
         this.fetchMap();
     }
+
+    goToListPage = () => {
+        let typeMapItem = typeMap[this.props.type];
+        console.log('====================================');
+        console.log(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`);
+        console.log('====================================');
+        history.push(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`)
+    }
+
+    componentDidMount(){
+        let typeMapItem = typeMap[this.props.type];
+
+        this.setState({
+            userLocation:{
+                lat: this.props[typeMapItem].mapCenter.lat,
+                lng: this.props[typeMapItem].mapCenter.lon
+            },
+            
+        })
+
+    }
+
 
     render() {
         return (
@@ -92,7 +122,7 @@ export class MapContainer extends React.Component {
                     mapOnDrag={this.mapOnDrag}
                     userLocation={this.state.userLocation}
                 />
-                <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
+                <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.goToListPage}>
                     <span>مشاهده رستوران ها</span>
                     <span className="location__user-position-counter flex center rightM10">{this.state.restaurantListCount}</span>
                 </span>
@@ -102,6 +132,8 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    neighborhood: state.UserPosition.neighborhood,
+    neighborhoodProfile: state.UserPosition.neighborhoodProfile,
 
 });
 
