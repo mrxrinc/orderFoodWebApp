@@ -30,8 +30,8 @@ class StickyPrice extends React.PureComponent {
     return total
   }
 
-  pushLink = () =>{
-    history.push("/checkout")
+  pushLink = () => {
+    this.props.link ? history.push(this.props.link) : history.push("/checkout")
   }
   render() {
     const {data,basket,user} = this.props;

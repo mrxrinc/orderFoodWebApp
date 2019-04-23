@@ -14,6 +14,7 @@ import RestaurantSideDishGroup from '../../components/RestaurantSideDishGroup';
 import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
+import StickyPrice from '../../components/StickyPrice';
 import { restaurantDetail, createBasket } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
@@ -159,6 +160,7 @@ class RestaurantPage extends React.Component {
                   ))}
                 </RestaurantFoodGroup>
               ))}
+              <StickyPrice data={{}} link='/cart' />
             </div>
 
             <Modal
