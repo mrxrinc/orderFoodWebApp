@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 
   fetchMap = () =>{
     getNeighborhood(
-        `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+        `35.758367199999995,51.399477499999996`,
     ).then(
         response => {
             let neighborhood = response.result.neighbourhood;
@@ -53,21 +53,27 @@ class HomePage extends React.Component {
       }
     )
 
-    const getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        }
-    }
-    const showPosition = (position) => {
-        this.setState({
-          userLocation: {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            }
-        },this.fetchMap)
-    }
+    // const getLocation = () => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(showPosition);
+    //     }
+    // }
+    // const showPosition = (position) => {
+    //     this.setState({
+    //       userLocation: {
+    //             lat: 35.758367199999995,
+    //             lng: 51.399477499999996,
+    //         }
+    //     },this.fetchMap)
+    // }
     if(typeof this.props.UserPosition == "undefined"){
-      getLocation();
+      // getLocation();
+      this.setState({
+        userLocation: {
+              lat: 35.758367199999995,
+              lng: 51.399477499999996,
+          }
+      },this.fetchMap)
     }
   }
   
@@ -128,7 +134,8 @@ class HomePage extends React.Component {
           </div>
 
           <div className="wFull topM30 column center">
-            <Link to={`/restaurants-list/${this.props.UserPosition.cityId}/${this.props.UserPosition.mapCenter.lat},${this.props.UserPosition.mapCenter.lon}`} className="chilivery-compass" />
+          
+            <Link to={typeof this.props.UserPosition !== "undefined" ? `/restaurants-list/${this.props.UserPosition.cityId}/${this.props.UserPosition.mapCenter.lat},${this.props.UserPosition.mapCenter.lon}` : '/'} className="chilivery-compass" />
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
         </div>
