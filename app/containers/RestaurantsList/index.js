@@ -10,9 +10,9 @@ export default class RestaurantsList extends React.PureComponent {
     super(props);
     this.state = {
       restaurantList: [],
-      cityId: '2',
-      point: '35.737226079112496,51.41403033862298',
-      tag: '756',
+      cityId: props.match.params.cityId,
+      point: props.match.params.point,
+      // tag: '756',
     };
   }
 

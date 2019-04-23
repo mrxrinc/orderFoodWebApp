@@ -128,7 +128,7 @@ class HomePage extends React.Component {
           </div>
 
           <div className="wFull topM30 column center">
-            <Link to="/restaurants-list" className="chilivery-compass" />
+            <Link to={`/restaurants-list/${this.props.UserPosition.cityId}/${this.props.UserPosition.mapCenter.lat},${this.props.UserPosition.mapCenter.lon}`} className="chilivery-compass" />
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
         </div>

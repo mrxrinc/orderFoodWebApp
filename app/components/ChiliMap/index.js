@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { getNeighborhood } from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
 import { restaurantSearch } from '../../api/application/restaurant';
+import {history} from '../../store';
 const typeMap = {
     profile : 'neighborhoodProfile',
     home : 'neighborhood'
@@ -86,6 +87,14 @@ export class MapContainer extends React.Component {
         this.fetchMap();
     }
 
+    goToListPage = () => {
+        let typeMapItem = typeMap[this.props.type];
+        console.log('====================================');
+        console.log(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`);
+        console.log('====================================');
+        history.push(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`)
+    }
+
     componentDidMount(){
         let typeMapItem = typeMap[this.props.type];
 
@@ -98,6 +107,7 @@ export class MapContainer extends React.Component {
         })
 
     }
+
 
     render() {
         return (
@@ -112,7 +122,7 @@ export class MapContainer extends React.Component {
                     mapOnDrag={this.mapOnDrag}
                     userLocation={this.state.userLocation}
                 />
-                <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20">
+                <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.goToListPage}>
                     <span>مشاهده رستوران ها</span>
                     <span className="location__user-position-counter flex center rightM10">{this.state.restaurantListCount}</span>
                 </span>

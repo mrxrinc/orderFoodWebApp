@@ -38,7 +38,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
-          <Route exact path="/restaurants-list" component={RestaurantsList} />
+          <Route exact path="/restaurants-list/:cityId/:point" component={RestaurantsList} />
           <Route exact path="/restaurant-page/:id" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
