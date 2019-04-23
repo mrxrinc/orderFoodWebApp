@@ -31,8 +31,10 @@ class HomePage extends React.Component {
   };
 
   fetchMap = () =>{
+    // `35.758367199999995,51.399477499999996`,
+
     getNeighborhood(
-        `35.758367199999995,51.399477499999996`,
+        `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
     ).then(
         response => {
             let neighborhood = response.result.neighbourhood;
@@ -53,7 +55,7 @@ class HomePage extends React.Component {
       }
     )
 
-    // const getLocation = () => {
+        // const getLocation = () => {
     //     if (navigator.geolocation) {
     //         navigator.geolocation.getCurrentPosition(showPosition);
     //     }
@@ -66,14 +68,25 @@ class HomePage extends React.Component {
     //         }
     //     },this.fetchMap)
     // }
+
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+
+    // lat: 35.758367199999995,
+    // lng: 51.399477499999996,
+    const showPosition = (position) => {
+        this.setState({
+          userLocation: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            }
+        },this.fetchMap)
+    }
     if(typeof this.props.UserPosition == "undefined"){
-      // getLocation();
-      this.setState({
-        userLocation: {
-              lat: 35.758367199999995,
-              lng: 51.399477499999996,
-          }
-      },this.fetchMap)
+      getLocation();
     }
   }
   
