@@ -10,10 +10,10 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUpFullname: 'farz',
-      signUpPhone: '09125555555',
-      signUpUserEmail: 'farfarfarfarfar1@gmail.com',
-      signUpPass: '111111',
+      signUpFullname: '',
+      signUpPhone: '',
+      signUpUserEmail: '',
+      signUpPass: '',
     };
     this.signUpSubmit = this.signUpSubmit.bind(this);
 
