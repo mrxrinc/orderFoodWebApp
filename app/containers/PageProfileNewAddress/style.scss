@@ -1,12 +1,11 @@
 @import '../../style/sass/variable';
 
 .profile-edit{
-    &__icon{
-        padding-top: 60px;
-        img{
-
-            width: 80px;
-            height: 80px;
+    &__map{
+        height: 250px;
+        margin: 0 -12px;
+        .location__user-position-all-resaurant{
+            display: none;
         }
     }
 }

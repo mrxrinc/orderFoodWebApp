@@ -24,7 +24,6 @@ export class MapContainer extends React.Component {
                 lat:'',
                 lon:''
             },
-            neighborhood:null
         };
     }
 

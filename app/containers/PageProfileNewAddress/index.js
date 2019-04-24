@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
 import { getCityList,getNeighborhood } from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
+import ChiliMap from '../../components/ChiliMap';
 
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 import './style.scss';
@@ -19,6 +20,7 @@ class ProfileNewAddress extends React.Component{
 			regionName:'',
 			regionComplete:'',
 			addressLabel:'',
+			map:true,
 		}
 	}
 	onChange = e => {
@@ -70,30 +72,45 @@ class ProfileNewAddress extends React.Component{
       getLocation();
     }
 	}
+	onClosed = () => {
+		this.setState({ map:false },()=> {
+			this.setState({
+				map:true
+			})
+		})
+	}
 
 	render(){
 		return(
 			<div className="profile profile-add-new-adress">
 				<div className="container">
-					<div className="profile-edit__icon center">
-						<img src={icon} alt="edit_profile"/>
+					<div className="row">
+						<div className="col">			
+							<div className="profile-edit__map">
+							{this.state.map &&
+								<ChiliMap
+										type="profile"
+									/>
+							}
+							</div>
+						</div>
 					</div>
 					<div className="row">
 						<div className="col-lg-12 mt-5">
 
-							<div onClick={this.UserPositionModal}>
+							<div >
 								<AnimateField
 									className="col-12"
 									placeholder="وارد نمایید"
 									name="cityName"
 									type="text"
-									
+									onChange={this.onChange}
 									label="شهر"
 									value={
 										typeof this.props.UserPosition !== "undefined" ? this.props.UserPosition.cityName: ""
 									}
 									iconColor="#929292"
-									disabled
+									// disabled
 								/>
 							</div>
 
@@ -148,6 +165,7 @@ class ProfileNewAddress extends React.Component{
 						bodyColor="#f5f5f5"
 						data={this.state.cityList}
 						type="profile"
+						onClosed={this.onClosed}
 					/>
 				}
 			</div>
