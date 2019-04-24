@@ -43,9 +43,9 @@ const RestaurantFoodCard = props => (
           </div>
         </div>
 
-        {/* <div className="absolute top left center favorite">
+        <div className="absolute top left center favorite">
           <span className="chilivery-fav-full black red" />
-        </div> */}
+        </div>
       </div>
     </div>
 
@@ -63,7 +63,13 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper fontSize="18" parentId={props.id} stepper={props.stepper} value={props.count} />
+        <Stepper 
+          fontSize="18" 
+          parentId={props.id} 
+          stepper={props.stepper} 
+          value={props.count} 
+          item={props.item}
+        />
       </div>
     </div>
   </div>
