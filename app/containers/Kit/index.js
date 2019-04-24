@@ -13,6 +13,7 @@ import ChiliButton from '../../components/ChiliButton';
 
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../components/ChiliForm';
 import Icon from './icon';
+import ChiliAlert from '../../components/ChiliAlert';
 
 
 //fow OWL.Carousel
@@ -107,6 +108,25 @@ export class Kit extends React.Component {
     return (
       <div className="container">
         <div className="row">
+          <div className="col-lg-12">
+
+            <ChiliAlert type="success">
+              For test
+            </ChiliAlert>
+
+            <ChiliAlert type="warning">
+              For test
+            </ChiliAlert>
+
+            <ChiliAlert type="danger">
+              For test
+            </ChiliAlert>
+
+            <ChiliAlert type="info">
+              For test
+            </ChiliAlert>
+
+          </div>
           <div className="col-lg-12">
             <Icon />
           </div>
