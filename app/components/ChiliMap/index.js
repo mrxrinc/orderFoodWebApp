@@ -8,8 +8,11 @@ import {
 import { connect } from 'react-redux';
 import { getNeighborhood } from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
+import { showModal } from '../../actions/Modals';
+
 import { restaurantSearch } from '../../api/application/restaurant';
 import {history} from '../../store';
+
 const typeMap = {
     profile : 'neighborhoodProfile',
     home : 'neighborhood'
@@ -24,8 +27,19 @@ export class MapContainer extends React.Component {
                 lat:'',
                 lon:''
             },
+            userLocation:{
+                lat:this.props.userLocation.lat,
+                lng:this.props.userLocation.lng,
+            },
+            cityId:''
         };
     }
+
+    UserPositionModal = () => {
+		this.props.showModal({
+			UserPositionModal: false,
+		});
+	};
 
     fetchMap = () =>{
         getNeighborhood(
@@ -51,7 +65,7 @@ export class MapContainer extends React.Component {
                 map: map
             });
             restaurantSearch(
-                this.props[typeMapItem].cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
+                this.state.cityId,`${this.state.userLocation.lat},${this.state.userLocation.lng}`,
             ).then(
                 response => {
                     let restaurantListCount = response.result.data;
@@ -88,22 +102,35 @@ export class MapContainer extends React.Component {
 
     goToListPage = () => {
         let typeMapItem = typeMap[this.props.type];
-        console.log('====================================');
-        console.log(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`);
-        console.log('====================================');
         history.push(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`)
     }
 
     componentDidMount(){
         let typeMapItem = typeMap[this.props.type];
 
-        this.setState({
-            userLocation:{
-                lat: this.props[typeMapItem].mapCenter.lat,
-                lng: this.props[typeMapItem].mapCenter.lon
-            },
-            
-        })
+        if(typeof this.props[typeMapItem] !== "undefined" ){
+            console.log('============!!!undefined===========');
+            console.log(this.props.userLocation);
+            console.log('====================================');
+            this.setState({
+                userLocation:{
+                    lat: this.props[typeMapItem].mapCenter.lat,
+                    lng: this.props[typeMapItem].mapCenter.lon
+                },
+                cityId:this.props[typeMapItem].cityId
+            })
+        }else{
+            console.log('============undefined===========');
+            console.log(this.props.userLocation);
+            console.log('====================================');
+            this.setState({
+                userLocation:{
+                    lat:this.props.userLocation.lat,
+                    lng: this.props.userLocation.lng
+                },
+                cityId:2
+            })
+        }
 
     }
 
@@ -121,10 +148,17 @@ export class MapContainer extends React.Component {
                     mapOnDrag={this.mapOnDrag}
                     userLocation={this.state.userLocation}
                 />
-                <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.goToListPage}>
-                    <span>مشاهده رستوران ها</span>
-                    <span className="location__user-position-counter flex center rightM10">{this.state.restaurantListCount}</span>
-                </span>
+                {   this.props.type === "profile" &&
+                    <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.UserPositionModal}>
+                        <span>ثبت</span>
+                    </span>
+                }
+                {   this.props.type === "home" &&
+                    <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.goToListPage}>
+                        <span>مشاهده رستوران ها</span>
+                        <span className="location__user-position-counter flex center rightM10">{this.state.restaurantListCount}</span>
+                    </span>
+                }
             </div>
         );
     }
@@ -137,6 +171,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    showModal: (showStatus) => {
+		dispatch(showModal(showStatus))
+	},
     addNeighborhood: showStatus => {
         dispatch(addNeighborhood(showStatus));
     },

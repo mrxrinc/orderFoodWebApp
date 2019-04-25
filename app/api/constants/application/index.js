@@ -21,3 +21,7 @@ export const get_find_Neighborhood = (location) => `${API_URL_ROOT}/userAddress/
 export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}&point=${point}`;
 export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaurantId=${id}`;
 export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}`;
+
+
+//RESTAURANT 
+export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
