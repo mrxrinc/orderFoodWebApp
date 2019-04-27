@@ -98,10 +98,10 @@ class ActivationCode extends React.Component {
         <form className="activationCode__form" onSubmit={this.sendSubmit}>
           <Container className="text-center">
             <Row>
-              <Col xs={12}>
+              <Col>
                 <Input
                   className="text-center activationCode__letter-spacing"
-                  maxLength="4"
+                  maxLength="1"
                   type="text"
                   pattern="\d*"
                   id="activationCode__input-fourth"
@@ -110,6 +110,42 @@ class ActivationCode extends React.Component {
                   onChange={this.update}
                 />{' '}
               </Col>
+              <Col>
+                <Input
+                  className="text-center activationCode__letter-spacing"
+                  maxLength="1"
+                  type="text"
+                  pattern="\d*"
+                  id="activationCode__input-fourth"
+                  disabled={this.state.disabled ? 'disabled' : ''}
+                  bsSize="lg"
+                  onChange={this.update}
+                />{' '}
+              </Col>
+              <Col>
+                <Input
+                  className="text-center activationCode__letter-spacing"
+                  maxLength="1"
+                  type="text"
+                  pattern="\d*"
+                  id="activationCode__input-fourth"
+                  disabled={this.state.disabled ? 'disabled' : ''}
+                  bsSize="lg"
+                  onChange={this.update}
+                />{' '}
+              </Col>
+              <Col>
+                <Input
+                  className="text-center activationCode__letter-spacing"
+                  maxLength="1"
+                  type="text"
+                  pattern="\d*"
+                  id="activationCode__input-fourth"
+                  disabled={this.state.disabled ? 'disabled' : ''}
+                  bsSize="lg"
+                  onChange={this.update}
+                />{' '}
+              </Col>                                          
             </Row>
 
             <p className="midText mt-4">
