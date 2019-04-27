@@ -25,3 +25,4 @@ export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}
 
 //RESTAURANT 
 export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
+export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
