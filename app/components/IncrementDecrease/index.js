@@ -9,8 +9,8 @@ class IncrementDecrease extends React.PureComponent {
       clicks: this.props.value || 0,
       show: true,
     };
-  }
 
+  }
   IncrementItem = () => {
     console.log(this.props.parentId);
     this.setState({ clicks: this.state.clicks + 1 }, 

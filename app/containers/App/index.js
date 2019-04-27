@@ -13,7 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import RestaurantsList from 'containers/RestaurantsList/Loadable';
-import RestaurantPage from 'containers/RestaurantPage/Loadable';
+import RestaurantPage from 'containers/RestaurantPage';
 import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
 import Cart from 'containers/Cart';

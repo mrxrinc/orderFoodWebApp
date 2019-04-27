@@ -1,60 +1,49 @@
 import React from 'react';
 import './style.scss';
 
-class Stepper extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: true,
-    };
-  }
+const increase = props => {
+  props.stepper(props.parentId, props.value + 1, 'add', props.item);
+};
 
-  IncrementItem = () => {
-    this.props.stepper(this.props.parentId, this.props.value + 1, 'add');
-  };
+const decrease = props => {
+  props.stepper(props.parentId, props.value - 1, 'remove', props.item);
+};
 
-  DecreaseItem = () => {
-    this.props.stepper(this.props.parentId, this.props.value - 1, 'remove');
-  };
+const Stepper = props => (
+  <div
+    className={`stepper hCenter rRowReverse spaceBetween ${
+      props.className
+    }`}
+  >
+    <button
+      className="stepper__add center"
+      type="button"
+      onClick={() => increase(props)}
+    >
+      <span className="chilivery-add" />
+    </button>
 
-  render() {
-    return (
-      <div
-        className={`increment-decrease hCenter rRowReverse spaceBetween ${
-          this.props.className
-        }`}
-      >
+    {props.value > 0 && (
+      <React.Fragment>
+        <span className="stepper__count">
+          <h2
+            className="reset centerText hM5"
+            style={{ fontSize: `${props.fontSize}px` }}
+          >
+            {props.value}
+          </h2>
+        </span>
+
         <button
-          className="increment-decrease__add center"
+          className="stepper__remove center"
           type="button"
-          onClick={this.IncrementItem}
+          onClick={() => decrease(props)}
         >
-          <span className="chilivery-add" />
+          <span className="chilivery-remove" />
         </button>
-
-        {this.props.value > 0 && (
-          <React.Fragment>
-            <span className="increment-decrease__count">
-              <h2
-                className="reset centerText hM5"
-                style={{ fontSize: `${this.props.fontSize}px` }}
-              >
-                {this.props.value}
-              </h2>
-            </span>
-
-            <button
-              className="increment-decrease__remove center"
-              type="button"
-              onClick={this.DecreaseItem}
-            >
-              <span className="chilivery-remove" />
-            </button>
-          </React.Fragment>
-        )}
-      </div>
-    );
-  }
-}
+      </React.Fragment>
+    )}
+  </div>
+);
 
 export default Stepper;

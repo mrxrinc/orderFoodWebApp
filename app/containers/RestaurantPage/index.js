@@ -89,6 +89,9 @@ class RestaurantPage extends React.Component {
   openFoodModal = (food) => {
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
+      if(!this.state.modalData.count) { // for the first time increasing from inside of the modal
+        this.setState({ modalData: { ...this.state.modalData, count: 0 }})
+      }
       this.toggleModal()
     });
   };
@@ -99,8 +102,8 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = (id, count, role) => {
-    console.log('Stepper ===>', id, count);
+  stepper = (id, count, role, food) => {
+    console.log('Stepper ===>', id, count, role);
     const data = this.state.restaurantDetail;
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
@@ -109,18 +112,19 @@ class RestaurantPage extends React.Component {
           const key = food.id;
           const basket = {};
           if(food.count) {
-            let data = null;
-
-            if(role === 'add') { data = { ...food, count: food.count + 1 } }
-            else if(role === 'remove') { data = { ...food, count: food.count - 1 } }
-
+            let count = null;
+            if(role === 'add') count = food.count + 1;
+            else if(role === 'remove') count = food.count - 1;
+            const data = { ...food, count }
             basket[key] = data;
             Object.assign(basketTempData, basket);
+            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
           } else {
             const data = { ...food, count: 1 };
             basket[key] = data;
             Object.assign(basketTempData, basket);
+            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count: 1 } });
             return data;
           }
         } else if(food.count && food.count > 0) {
@@ -136,6 +140,7 @@ class RestaurantPage extends React.Component {
       restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
     }, () => {
       console.log('new State ===>', this.state.restaurantDetail);
+      console.log('modalData State ===>', this.state.modalData);
       console.log('BASKET_TEMP_DATA', basketTempData);
 
       //continue to redux
@@ -144,14 +149,22 @@ class RestaurantPage extends React.Component {
         orderId: this.state.basket.id,
         items: basketTempData
       }
-      this.props.addToBasket({ basket: dataForBasket })
+      this.props.addToBasket({ basket: dataForBasket });
     });
   };
+
+  modalPrice = () => {
+    const count = this.state.modalData.count;
+    const itemPrice = this.state.modalData.price;
+    const sum = itemPrice * count;
+    console.log(sum);
+    return sum;
+  }
 
   render() {
     const data = this.state.restaurantDetail;
     return (
-      <React.Fragment>
+      <div>
         {!this.state.loading ? (
           <div className="lightBg rtl">
             <RestaurantHeader
@@ -194,6 +207,7 @@ class RestaurantPage extends React.Component {
                         lastPrice={food.lastPrice}
                         count={food.count}
                         stepper={this.stepper}
+                        item={food} // to get inside Stepper component
                       />
                     ))}
                   </RestaurantFoodGroup>
@@ -229,9 +243,9 @@ class RestaurantPage extends React.Component {
                             onClick={this.toggleModal}
                           />
                         </li>
-                        {/* <li className="center">
+                        <li className="center">
                           <span className="chilivery-fav-full text25 red" />
-                        </li> */}
+                        </li>
                       </ul>
                     </div>
 
@@ -286,8 +300,8 @@ class RestaurantPage extends React.Component {
                             className="topM20" 
                             fontSize="18" 
                             parentId={this.state.modalData.id} 
-                            stepper={this.stepper} 
                             value={this.state.modalData.count}
+                            stepper={this.stepper}
                           />
                         </div>
                       </div>
@@ -346,20 +360,20 @@ class RestaurantPage extends React.Component {
 
                   <div className="modal-restaurant__detail-footer wFull flex bgWhite">
                     <div className="center i2">
-                      <div className="">
+                      <div>
                         <div className="flex hP10 primary text16 center">
                           <Stepper 
-                            className="topM20" 
+                            className="topM10" 
                             fontSize="18" 
                             parentId={this.state.modalData.id} 
                             value={this.state.modalData.count}
-                            stepper={this.stepper} 
+                            stepper={this.stepper}
                           />
                         </div>
 
-                        <div className="flex hCenter bold primary topM8">
+                        <div className="flex hCenter bold primary topM5">
                           <span className="text12 leftM5">مبلغ کل :</span>
-                          <span className="text22">20,000</span>
+                          <span className="text22">{this.modalPrice()}</span>
                           <span className="text12 topM5 rightM3">تومان</span>
                         </div>
                       </div>
@@ -378,7 +392,7 @@ class RestaurantPage extends React.Component {
         ) : (
           <Loading />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
