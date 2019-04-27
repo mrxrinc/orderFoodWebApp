@@ -5,6 +5,8 @@ import AddressOriginDestination from '../../components/AddressOriginDestination'
 import { Button } from 'reactstrap';
 import AfterPaymentCardItem from '../../components/AfterPaymentCardItem';
 import { getDataAfterPayment } from '../../api/account';
+import status02 from '../../images/after-payment-status/after-payment-status-02.png';
+import restaurantProfile from '../../images/test/restaurantProfile.jpg';
 
 const ResturantImagesUrl = {
   backgroundImage: `url(${ResturantImage})`,
@@ -34,22 +36,34 @@ export class AfterPayment extends React.PureComponent {
     const {data} = this.state;
     return (
       <div className="afterpayment">
+        {/*<div className="afterpayment__header">*/}
+          {/*<div className="d-flex justify-content-center">*/}
+            {/*<div className="p-2">*/}
+              {/*<div className="afterpayment__header-img" style={{ backgroundImage: `url(${ResturantImage})`}}>*/}
+                {/*{' '}*/}
+              {/*</div>*/}
+            {/*</div>*/}
+            {/*<div className="p-2">*/}
+              {/*<span>{data.restaurant && data.restaurant.name}</span>*/}
+              {/*<p>سفارش شما با موفقیت ثبت شد.</p>*/}
+            {/*</div>*/}
+          {/*</div>*/}
+        {/*</div>*/}
         <div className="afterpayment__header">
-          <div className="d-flex justify-content-center">
-            <div className="p-2">
-              <div className="afterpayment__header-img" style={{ backgroundImage: `url(${ResturantImage})`}}>
-                {' '}
-              </div>
-            </div>
-            <div className="p-2">
-              <span>{data.restaurant && data.restaurant.name}</span>
-              <p>سفارش شما با موفقیت ثبت شد.</p>
-            </div>
+          <div className="afterpayment__header__status">
+            <div className="afterpayment__header__status-img" style={{ backgroundImage: `url(${status02})`}}></div>
+            <div className="afterpayment__header__status-profile" style={{ backgroundImage: `url(${restaurantProfile})`}}></div>
           </div>
         </div>
-        <div className="text-center bottomM20">
-          <Button color="success">پیگیری لحظه به لحظه این سفارش</Button>
+        <div className="afterpayment__body">
+          <div className="afterpayment__body-status">
+            <span>رستوران باماهاس (میدان پالیزی)</span>
+            <p>در انتظار تایید سفارش توسط فروشنده</p>
+          </div>
         </div>
+        {/*<div className="text-center bottomM20">*/}
+          {/*<Button color="success">پیگیری لحظه به لحظه این سفارش</Button>*/}
+        {/*</div>*/}
         <div className="afterpayment__details">
           <div className="d-flex mb-3">
             <div className="flex-fill afterpayment__details__box">

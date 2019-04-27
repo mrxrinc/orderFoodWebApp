@@ -1,24 +1,65 @@
 @import '../../style/sass/variable';
 
 .afterpayment {
+  height: 100%;
+  background-color: $grey-2;
   &__header {
-    &-img {
-      width: 56px;
-      height: 56px;
-      background-size: cover;
-      border-radius: 6px;
-      float: right;
+    height: 200px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-image: url("../../images/afterpayment-bg.jpg");
+    margin-bottom: 55px;
+    &__status {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -35px;
+      margin: 0 auto;
+      width: 170px;
+      height: 170px;
+      background-image: url("../../images/afterpayment-circle.png");
+      background-size: 100%;
+      &-img {
+        width: 125px;
+        height: 125px;
+        background-size: contain;
+        background-position: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      &-profile {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        background-size: contain;
+        background-position: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -25px;
+        margin: 0 auto;
+      }
     }
-    span {
-      color: $grey-6;
-      font-size: 11px;
-      margin: 10px 0 7px;
-      display: inline-block;
-    }
-    p {
-      color: $grey-9;
-      font-size: 12px;
-      font-weight: bold;
+  }
+  &__body{
+    padding-top: 30px;
+    text-align: center;
+    &-status {
+      span {
+        color: $grey-6;
+        font-size: 13px;
+      }
+      p {
+        margin-top: 10px;
+        color: $grey-9;
+        font-weight: bold;
+        font-size: 14px;
+      }
     }
   }
   &__details {
