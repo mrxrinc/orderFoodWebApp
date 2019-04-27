@@ -20,6 +20,7 @@ import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
 import './style.scss';
+import TabThree from './components/TabThree';
 
 const basketTempData = {};
 
@@ -32,7 +33,42 @@ class RestaurantPage extends React.Component {
       loading: true,
       modalData: null,
       basket: null,
+      tabOne: false,
+      tabTwo: false,
+      tabThree: true,
     };
+  }
+
+  tabClick = (slug) => {
+    console.log('====================================');
+    console.log(slug);
+    console.log('====================================');
+    switch (slug) {
+      case 'tabOne':
+        this.setState({
+          tabOne: true,
+          tabTwo: false,
+          tabThree: false,
+        })
+        break;
+      case 'tabTwo':
+        this.setState({
+          tabOne: false,
+          tabTwo: true,
+          tabThree: false,
+        })
+        break;
+      case 'tabThree':
+        this.setState({
+          tabOne: false,
+          tabTwo: false,
+          tabThree: true,
+        })
+        break;
+    
+      default:
+        break;
+    }
   }
 
   componentDidMount() {
@@ -129,39 +165,50 @@ class RestaurantPage extends React.Component {
               isOpen
               commentCount={data.commentCount}
               rateAverage={data.rateAverage}
+              tabClick={this.tabClick}
             />
 
             {/* <div className="stickyMenu wFull" /> */}
 
-            <div className="hP10 vM10">
-              {data.menuSections.map(group => (
-                <RestaurantFoodGroup
-                  key={group.id}
-                  title={group.name}
-                  icon="italian" // Fix these iconssssssss
-                >
-                  {group.foods.map(food => (
-                    <RestaurantFoodCard
-                      onClick={() => this.openFoodModal(food)}
-                      key={food.id}
-                      id={food.id}
-                      name={food.name}
-                      hasPic={food.hasPic}
-                      foodImg={food.image}
-                      description={food.description}
-                      discount={food.salePercentage}
-                      vote={food.vote}
-                      voteCount={food.voteCount}
-                      price={food.price}
-                      lastPrice={food.lastPrice}
-                      count={food.count}
-                      stepper={this.stepper}
-                    />
-                  ))}
-                </RestaurantFoodGroup>
-              ))}
-              <StickyPrice data={{}} link='/cart' />
-            </div>
+            {this.state.tabOne &&
+              <div className="hP10 vM10">
+                {data.menuSections.map(group => (
+                  <RestaurantFoodGroup
+                    key={group.id}
+                    title={group.name}
+                    icon="italian" // Fix these iconssssssss
+                  >
+                    {group.foods.map(food => (
+                      <RestaurantFoodCard
+                        onClick={() => this.openFoodModal(food)}
+                        key={food.id}
+                        id={food.id}
+                        name={food.name}
+                        hasPic={food.hasPic}
+                        foodImg={food.image}
+                        description={food.description}
+                        discount={food.salePercentage}
+                        vote={food.vote}
+                        voteCount={food.voteCount}
+                        price={food.price}
+                        lastPrice={food.lastPrice}
+                        count={food.count}
+                        stepper={this.stepper}
+                      />
+                    ))}
+                  </RestaurantFoodGroup>
+                ))}
+                <StickyPrice data={{}} link='/cart' />
+              </div>
+            }
+            {this.state.tabTwo &&
+              <h1>tab2</h1>
+            }
+            {this.state.tabThree &&
+              <div className="container-fluid">
+                <TabThree data={data}/>
+              </div>
+            }
 
             <Modal
               className="modal-restaurant__detail"
