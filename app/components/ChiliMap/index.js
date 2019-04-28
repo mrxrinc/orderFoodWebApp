@@ -28,8 +28,8 @@ export class MapContainer extends React.Component {
                 lon:''
             },
             userLocation:{
-                lat:this.props.userLocation.lat,
-                lng:this.props.userLocation.lng,
+                lat:35.704334,
+                lng:51.393625,
             },
             cityId:''
         };
@@ -109,9 +109,6 @@ export class MapContainer extends React.Component {
         let typeMapItem = typeMap[this.props.type];
 
         if(typeof this.props[typeMapItem] !== "undefined" ){
-            console.log('============!!!undefined===========');
-            console.log(this.props.userLocation);
-            console.log('====================================');
             this.setState({
                 userLocation:{
                     lat: this.props[typeMapItem].mapCenter.lat,
@@ -120,9 +117,6 @@ export class MapContainer extends React.Component {
                 cityId:this.props[typeMapItem].cityId
             })
         }else{
-            console.log('============undefined===========');
-            console.log(this.props.userLocation);
-            console.log('====================================');
             this.setState({
                 userLocation:{
                     lat:this.props.userLocation.lat,

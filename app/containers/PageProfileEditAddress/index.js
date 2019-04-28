@@ -26,6 +26,7 @@ class ProfileEditAddress extends React.Component {
 			cityName: '',
 			regionName: '',
 			regionComplete: '',
+			regionCompleteOrg:'',
 			addressLabel: '',
 			map: false,
 			alertShow:false,
@@ -33,6 +34,9 @@ class ProfileEditAddress extends React.Component {
 			alertType:'',
 			id: this.props.match.params.id,
 			userAddressList:[],
+			organizationAddress:[],
+			description:'',
+			organization: false
 		}
 	}
 	onChange = e => {
@@ -75,6 +79,7 @@ class ProfileEditAddress extends React.Component {
 			"neighborhoodId":		addressData.id,
 			"name":  						this.state.addressLabel,
 			"complete":		   		this.state.regionComplete,
+			"description":	this.state.description,
 			"point":{
 				"latitude":				addressData.mapCenter.lat,
 				"longitude":			addressData.mapCenter.lon
@@ -100,10 +105,8 @@ class ProfileEditAddress extends React.Component {
 	componentDidMount() {
 
 		userAddressList(this.props.auth.id).then(
+			
       response => {
-				console.log('====================================');
-				console.log(response.result.userOrganizationAddress);
-				console.log('====================================')
         this.setState({
 					userAddressList:response.result,
 					addresses:response.result.addresses || [],
@@ -111,13 +114,13 @@ class ProfileEditAddress extends React.Component {
         },()=>{
 					let fullAddress = [];
 					fullAddress = this.state.organizationAddress.concat(this.state.addresses);
-					console.log('====================================');
-					console.log(fullAddress);
-					console.log('====================================');
+
 					const checkId = (filterArray) => filterArray.id == this.state.id;
 					const filterAddress = fullAddress.filter(checkId);
 					this.setState({
 						regionComplete: filterAddress[0].complete || filterAddress[0].organAddressComplete,
+						organization: filterAddress[0].organAddressComplete ? true : false,
+						description: filterAddress[0].description || filterAddress[0].complete,
 						addressLabel: filterAddress[0].name,
 						userLocation: {
 								lat: filterAddress[0].mapCenter.lat,
@@ -200,12 +203,16 @@ class ProfileEditAddress extends React.Component {
 
 							<div className="chili-animate-field form-group">
 								<div className="form-control">
+									{this.state.organization ? 
+										<p style={{backgroundColor:"#ccc"}}>{this.state.regionComplete}</p>:
+										null
+									}
 									<textarea
-										name="regionComplete"
-										value={this.state.regionComplete}
+										name={this.state.organization ? "description" : "regionComplete"}
+										value={this.state.organization ? this.state.description :this.state.regionComplete}
 										onChange={this.onChange}
 									>
-										{this.state.regionComplete}
+										{this.state.organization ? this.state.description :this.state.regionComplete}
 									</textarea>
 								</div>
 

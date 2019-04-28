@@ -146,7 +146,7 @@ class ProfileNewAddress extends React.Component {
 					</ChiliAlert>
 				}
 				<div className="container">
-					{/* <div className="row">
+					<div className="row">
 						<div className="col">
 							<div className="profile-edit__map">
 								{this.state.map &&
@@ -157,7 +157,7 @@ class ProfileNewAddress extends React.Component {
 								}
 							</div>
 						</div>
-					</div> */}
+					</div>
 					<div className="row">
 						<div className="col-lg-12 mt-5">
 
