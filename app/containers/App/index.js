@@ -20,6 +20,7 @@ import Cart from 'containers/Cart';
 import Login from 'containers/Login';
 import Authentication from 'containers/Authentication';
 import AfterPayment from 'containers/AfterPayment';
+import SuccessPayment from 'containers/SuccessPayment';
 import ChiliFooter from '../../components/ChiliFooter/Loadable';
 import PageAboutMotochili from '../PageAboutMotochili';
 import PageMoreMenu from '../PageMoreMenu';
@@ -56,6 +57,7 @@ export default function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/after-payment" component={AfterPayment} />
+          <Route exact path="/success-payment" component={SuccessPayment} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/page-about-motochili" component={PageAboutMotochili} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
