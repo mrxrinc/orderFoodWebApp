@@ -1,0 +1,11 @@
+@import '../../style/sass/variable';
+
+.profile-edit{
+    &__map{
+        height: 250px;
+        margin: 0 -12px;
+        .location__user-position-all-resaurant{
+            display: none;
+        }
+    }
+}

@@ -13,7 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import RestaurantsList from 'containers/RestaurantsList/Loadable';
-import RestaurantPage from 'containers/RestaurantPage';
+import RestaurantPage from '../RestaurantPage';
 import Kit from 'containers/Kit';
 import Checkout from 'containers/Checkout';
 import Cart from 'containers/Cart';
@@ -27,6 +27,7 @@ import ForgotPassword from '../ForgotPassword';
 import PageProfile from '../PageProfile';
 import Filters from '../Filters';
 import PageProfileNewAddress from '../PageProfileNewAddress';
+import PageProfileEditAddress from '../PageProfileEditAddress';
 import PageProfileEdit from '../PageProfile/PageProfileEdit';
 import ActivationCode from '../ActivationCode';
 import ProfileChangePass from '../PageProfile/PageProfileChangePass';
@@ -62,6 +63,7 @@ export default function App() {
           <Route exact path="/profile/edit" component={PageProfileEdit} />
           <Route exact path="/filters" component={Filters} />
           <Route exact path="/profile/add-new-address" component={PageProfileNewAddress} />
+          <Route exact path="/profile/edit-address/:id" component={PageProfileEditAddress} />
           <Route exact path="/profile/change-pass" component={ProfileChangePass} />
           <Route exact path="/profile/Chili-Introduce" component={ChiliIntroduce} />
           <Route exact path="/profile/Chili-Chance" component={ChiliChance} />

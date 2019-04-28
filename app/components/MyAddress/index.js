@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.scss';
 //fow OWL.Carousel
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -88,9 +89,9 @@ class MyAddress extends React.PureComponent {
           </div>
           <div className="MyAddress__details">
             <div className="MyAddress__details-action">
-              <a href="#!">
+              <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
-              </a>
+              </Link>
               <a href="#!">
                 <span className="chilivery-delete"> </span>
               </a>

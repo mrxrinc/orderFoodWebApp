@@ -8,3 +8,7 @@ export const addNewAddressPost = (params) => {
 export const userAddressList = (id) => {
   return deRequest(app.user_address_list(id), "get");
 }
+
+export const userUpdateAddressPost = (params) => {
+  return deRequest(app.user_update_address_post(params), "PUT", params, false);
+}

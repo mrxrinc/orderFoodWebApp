@@ -23,6 +23,7 @@ export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaur
 export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}`;
 
 
-//RESTAURANT 
+//USER ADDRESS 
 export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
 export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
+export const user_update_address_post = () => `${API_URL_ROOT}/userAddress/updateAddress`;
