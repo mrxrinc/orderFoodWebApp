@@ -10,6 +10,8 @@ import cover from '../../images/pattern.png';
 import dataSample from '../data.json';
 import { gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
+import { getDataAfterPayment } from '../../api/account';
+
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
   constructor(props) {
@@ -27,6 +29,7 @@ export class Checkout extends React.PureComponent {
       this.props.changeBankGetway({gateway:this.state.gateway})
     );
   }
+
 
   render() {
     return (
