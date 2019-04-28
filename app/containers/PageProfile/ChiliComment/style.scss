@@ -1,0 +1,50 @@
+@import '../../../style/sass/variable';
+
+.chili-comment{
+    .chili-comment__header{
+        text-align: center;
+        padding-top: 52px;
+        .comment-icon{
+            width: 80px;
+            height: 80px;
+        }
+        .comment-header{
+            display: block;
+            color: $grey-15;
+            padding-top: 11px;
+            padding-right: 40px;
+            padding-left: 40px;
+            font-size: 15px;
+        }
+    }
+    .chili-comment__explain{
+        padding-top: 50px;
+        text-align: left;
+        padding-left: 12px;
+        padding-right: 12px;
+        
+        .comment__text{
+            color: #929292;
+            font-size: 14px;
+        }
+        .comment__icon{
+            display: inline-block;
+            color: $color-secondary;
+            font-size: 22px;
+        }
+        .comment-guide{
+            width: 330px;
+            padding-top: 10px;
+        }
+    }
+    .chili-comment__button{
+        text-align: center;
+        margin-top: 40px;
+        .comment__btn{
+            width: 230px;
+            height: 50px;
+            border-radius: 50px;
+        }
+    }
+}
+

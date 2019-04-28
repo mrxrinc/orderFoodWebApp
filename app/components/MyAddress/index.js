@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.scss';
 //fow OWL.Carousel
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -11,7 +12,11 @@ class MyAddress extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      addressId: this.props.basket.addressId ? this.props.basket.addressId : ''
+      addressId: this.props.basket.addressId ? this.props.basket.addressId : '',
+      addresses:this.props.data.addresses || [],
+      organizationAddress:this.props.data.userOrganizationAddress || [],
+      fullAddress:[],
+      
     };
   }
 
@@ -26,6 +31,14 @@ class MyAddress extends React.PureComponent {
 
 
   componentDidMount(){
+    let fullAddress = this.state.organizationAddress.concat(this.state.addresses);
+    this.setState({
+      fullAddress
+    },()=>{
+      console.log('=============data================');
+      console.log(this.state.fullAddress);
+      console.log('====================================');
+    })
     //fow OWL.Carousel
     $(document).ready(function () {
       $('#demo').owlCarousel({
@@ -57,8 +70,7 @@ class MyAddress extends React.PureComponent {
   }
 
   render() {
-    const {data} = this.props;
-    const ChiliOwlDemoItems = data.addresses.map((item, i) =>
+    const ChiliOwlDemoItems = this.state.fullAddress.map((item, i) =>
       <div
         key={i}
         className="item"
@@ -77,9 +89,9 @@ class MyAddress extends React.PureComponent {
           </div>
           <div className="MyAddress__details">
             <div className="MyAddress__details-action">
-              <a href="#!">
+              <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
-              </a>
+              </Link>
               <a href="#!">
                 <span className="chilivery-delete"> </span>
               </a>
@@ -87,7 +99,7 @@ class MyAddress extends React.PureComponent {
             </div>
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">
-              <span>{item.complete}</span>
+              <span>{item.organAddressComplete?item.organAddressComplete:item.complete}</span>
             </div>
           </div>
         </div>
@@ -100,7 +112,9 @@ class MyAddress extends React.PureComponent {
               <span className="chilivery-add"> </span>
               <p>‌آدرس جدید</p>
             </div>
-            {ChiliOwlDemoItems}
+            {this.state.fullAddress.length > 0 &&
+              ChiliOwlDemoItems
+              }
           </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import {connect} from 'react-redux';
 import user from './user.png';
 import './style.scss';
 import ProfileAddress from '../../components/MyAddress' ; //import a component from another file
@@ -8,21 +8,29 @@ import ProfileMenu from './profilemenu' ; //import a component from another file
 import edit from './edit.png';
 // import pattern from '../../images/pattern.png';
 import addressSample from '../address.json';
-
+import {userAddressList} from '../../api/application/userAddress';
 
 class PageProfile extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      tilte:"پروفایل",
-      name:"معصومه حسنی",
-      email: "m.hasani@netbarg.com",
-      number:"09197117631",
-      cash:"موجودی فعلی‌ :",
-      money:"50000",
-      gain: "افزایش موجودی",
-      adtitle: "آدرس های من"
+      userAddressList:"",
+      userAddressListAdd:[],
+      AddressShow:false
     }
+  }
+  componentDidMount(){
+    userAddressList(this.props.auth.id).then(
+      response => {
+        this.setState({
+          userAddressList:response.result,
+        },()=>{
+          this.setState({
+            AddressShow:true
+          })
+        })
+      }
+    )
   }
   render() {
     return(
@@ -48,30 +56,32 @@ class PageProfile extends React.Component{
               </div>
 
               <div className="profile__character">
-                <h5 className="profile__name text14">{this.state.name}</h5>
-                <h6 className="profile__email text12">{this.state.email}</h6>
-                <span className="profile__number text14">{this.state.number}</span>
+                <h5 className="profile__name text14">{this.props.auth.fullName}</h5>
+                <h6 className="profile__email text12">{this.props.auth.email}</h6>
+                <span className="profile__number text14">{this.props.auth.mobileNumber}</span>
               </div>
             </div>
 
             <div className="profile-line center">
               <div className="profile-count leftMauto text12">
-                <span className="profile-count__cash">{this.state.cash}</span>
+                <span className="profile-count__cash">موجودی فعلی‌ :</span>
                 <span className="profile-count__money bold rightP5">
-                  {this.state.money}
+                  {this.props.auth.cacheBalance}
                   <span> تومان</span>
                 </span>
               </div>
 
               <div className="profile-gain">
-                <button type="button" className="btn btn-success">{this.state.gain}</button>
+                <button type="button" className="btn btn-success">افزایش موجودی</button>
               </div>
             </div>
           </div>
 
           <div className="profile-address__item rightP10">
-            <h2 className="profile-address__adtitle">{this.state.adtitle}</h2>
-            <ProfileAddress data={addressSample.result} />
+            <h2 className="profile-address__adtitle">آدرس های من</h2>
+            {this.state.AddressShow &&
+              <ProfileAddress data={this.state.userAddressList} />
+            }
 
           </div>
 
@@ -88,4 +98,19 @@ class PageProfile extends React.Component{
 
 
 
-export default PageProfile;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: user => {
+      dispatch(getUser(user));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PageProfile);
