@@ -58,7 +58,7 @@ class ChiliFooter extends React.Component {
       <React.Fragment>
         <footer className="chili-footer">
           <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
-          <AlertExp/>
+          {/* <AlertExp/> */}
 
           <div className="container-fluid">
             <div className="row chili-footer__list">

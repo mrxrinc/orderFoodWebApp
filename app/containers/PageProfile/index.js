@@ -7,8 +7,12 @@ import ProfileAddress from '../../components/MyAddress' ; //import a component f
 import ProfileMenu from './profilemenu' ; //import a component from another file
 import edit from './edit.png';
 // import pattern from '../../images/pattern.png';
-import addressSample from '../address.json';
 import {userAddressList} from '../../api/application/userAddress';
+import { logOutGet } from '../../api/account';
+import { logOutUser } from '../../actions/Auth';
+import {addToast} from '../../actions/Notifications';
+import {history} from '../../store';
+
 
 class PageProfile extends React.Component{
   constructor(props){
@@ -20,6 +24,9 @@ class PageProfile extends React.Component{
     }
   }
   componentDidMount(){
+    if (typeof this.props.auth.id === "undefined") {
+      history.push("/");
+    }
     userAddressList(this.props.auth.id).then(
       response => {
         this.setState({
@@ -32,6 +39,33 @@ class PageProfile extends React.Component{
       }
     )
   }
+
+  userLogOut= () => {
+    logOutGet()
+    .then(response=>{
+      if (response.status == true) {
+        history.push("/");
+        this.props.onLogOut();
+        this.props.showAlert({
+          text: "شما با موفقیت خارج شدید",
+          color: "success",
+          delay: 3000
+        });
+      }else{
+        this.props.showAlert({
+          text: "خطا در خروج",
+          color: "danger",
+        });
+      }
+    })
+    .catch(error => {
+      this.props.showAlert({
+        text: "خطا در خروج",
+        color: "danger",
+      });
+    })
+  }
+
   render() {
     return(
       <div className="page-profile">
@@ -88,7 +122,7 @@ class PageProfile extends React.Component{
         </div>
         <div className="profile-menu-detail">
           <div className="profile-menu__item">
-            <ProfileMenu />
+            <ProfileMenu userLogOut={this.userLogOut} />
           </div>
         </div>
       </div>
@@ -106,6 +140,12 @@ const mapDispatchToProps = dispatch => {
   return {
     onLogin: user => {
       dispatch(getUser(user));
+    },
+    showAlert: (showStatus) => {
+      dispatch(addToast(showStatus));
+    },
+    onLogOut: (user) => {
+      dispatch(logOutUser(user));
     },
   };
 };
