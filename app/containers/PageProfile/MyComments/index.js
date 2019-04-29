@@ -29,8 +29,11 @@ class MyComments extends React.Component{
 							<img className="mycomment-box__img" src={png} alt=""/>
 						</div>
 						<div className="mycomment-box__detail">
-							<span className="mycomment-box__title">{this.state.title1}</span>
-							<span class="chilivery-star chili-star"> </span>
+							<div className="mycomment__detail-main">
+								<span className="mycomment-box__title">{this.state.title1}</span>
+								<span class="chilivery-star chili-star"> </span>
+							</div>
+							
 							<div className="mycomment-detail">
 								<span className="mycomment-box__date">{this.state.date}</span>
 								<span className="mycomment-box__text">{this.state.text}</span>
@@ -58,8 +61,10 @@ class MyComments extends React.Component{
 							<img className="mycomment-box__img" src={png} alt=""/>
 						</div>
 						<div className="mycomment-box__detail">
-							<span className="mycomment-box__title">{this.state.title}</span>
-							<span class="chilivery-star chili-star"> </span>
+							<div className="mycomment__detail-main">
+								<span className="mycomment-box__title">{this.state.title}</span>
+								<span class="chilivery-star chili-star"> </span>
+							</div>
 							<div className="mycomment-detail">
 								<span className="mycomment-box__date">{this.state.date}</span>
 								<span className="mycomment-box__text">{this.state.text}</span>
@@ -76,8 +81,10 @@ class MyComments extends React.Component{
 							<img className="mycomment-box__img" src={png} alt=""/>
 						</div>
 						<div className="mycomment-box__detail">
-							<span className="mycomment-box__title">{this.state.title}</span>
-							<span class="chilivery-star chili-star"> </span>
+							<div className="mycomment__detail-main">
+								<span className="mycomment-box__title">{this.state.title}</span>
+								<span class="chilivery-star chili-star"> </span>
+							</div>
 							<div className="mycomment-detail">
 								<span className="mycomment-box__date">{this.state.date}</span>
 								<span className="mycomment-box__text">{this.state.text}</span>

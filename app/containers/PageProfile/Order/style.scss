@@ -33,39 +33,53 @@
                 padding-right: 8px;
                 width: 100%;
                 font-size: 14px;
-                .order-box__title{
-                    color: #434343;
-                    font-weight: bold;;
-                }
-                .chili-star{
-                    color: #1CBD2F;
-                    float: left;
-                    font-size: 22px;
+                .order__detail-main{
+                    display: flex;
+                    .order-box__title{
+                        color: $color-primary;
+                        font-weight: bold;;
+                    }
+                    .chili-star{
+                        color: #1CBD2F;
+                        margin-right: auto;
+                        font-size: 22px;
+                    }
                 }
                 .order-detail{
                     color: #929292;
                     padding-top: 6px;
+                    position: relative;
                     .order-box__date{
                         padding-right: 10px;
                         padding-left: 10px;
-                        // &:after{
-                        //     content: "";
-                        //     height: 5px;
-                        //     width: 5px;
-                        //     border-radius: 50px;
-                        //     background-color: #F2C930;
-                        //     position: absolute;
+                        &:after{
+                            content: "";
+                            height: 5px;
+                            width: 5px;
+                            border-radius: 50px;
+                            background-color: #F2C930;
+                            position: absolute;
+                            top: 14px;
+                            right: 58px;
                             
-                        // }
-                        // &:before{
-                        //     content: "";
-                        //     height: 5px;
-                        //     width: 5px;
-                        //     border-radius: 50px;
-                        //     background-color: #F2C930;
-                        //     position: absolute;
+                        }
+                        
+                    }
+                    .order-box__time{
+                        padding-right: 10px;
+                        padding-left: 10px;
+                        &:after{
+                            content: "";
+                            height: 5px;
+                            width: 5px;
+                            border-radius: 50px;
+                            background-color: #F2C930;
+                            position: absolute;
+                            top: 14px;
+                            left: 120px;
                             
-                        // }
+                        }
+                        
                     }
                 }
                 .order-box__btn{
@@ -84,13 +98,29 @@
                 border-top: 1px solid #E4E4E4;
                 color: #888787;
                 text-align: left;
-                
+                .chili-war{
+                    margin-right: auto;
+                }
                 .order-dmain__text{
-                    color: #888787;
+                    color: $color-primary;
                     text-align: left;
                     text-decoration: none;
-                    padding: 0;
-                    font-size: 14px;
+                    padding: 0 4px 0 0;
+                    font-size: 12px;
+                }
+            }
+        }
+        .order-box__dmain-time{
+            padding: 0 10px 10px;
+            text-align: center;
+            .order-box__time{
+                border-style: dashed;
+                border-radius: 30px;
+                border-color: $color-success;
+                padding: 8px;
+                font-size: 12px;
+                .order-dmain__text{
+                    color: #888787;
                 }
             }
         }
