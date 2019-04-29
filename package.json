@@ -73,6 +73,7 @@
     "rc-switch": "^1.9.0",
     "react": "16.6.0",
     "react-accessible-accordion": "^2.4.5",
+    "react-circular-progressbar": "^1.2.0",
     "react-cookie": "^3.1.2",
     "react-countdown-now": "^2.1.0",
     "react-dom": "16.6.0",
