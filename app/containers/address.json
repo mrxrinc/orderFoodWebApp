@@ -142,7 +142,34 @@
         "deliveryZoneMinDeliveryTime": null
       }
     ],
-    "userOrganizationAddress": [],
+    "userOrganizationAddress": [
+      {
+
+        "id": 1763,
+        "cityId": 2,
+        "cityName": "تهران",
+        "citySlug": "tehran",
+        "neighborhoodId": 238,
+        "neighborhoodName": "برزیل-توانیر",
+        "neighborhoodSlug": "brazil-tavanir",
+        "organizationAddressId": 6,
+        "name": "ساختمان ونک",
+        "organAddressComplete": "ونک، برزیل شرقی، خیابان لاهیجانی، پلاک 23",
+        "userDescription": "aaa",
+        "mapCenter": {
+          "lat": 35.754232,
+          "lon": 51.407518
+        },
+        "point": {
+          "lat": 35.756128,
+          "lon": 51.409249
+        },
+        "deliveryZoneId": 8647,
+        "deliveryZonePrice": 2000,
+        "deliveryZoneMaxDeliveryTime": 55,
+        "deliveryZoneMinDeliveryTime": 35
+      }
+    ],
     "restaurantDeliveryPolygon": [],
     "APP_KEY": "AIzaSyBuwUs8xgh5hNTH8494lHdwzHuv6h2w0u4",
     "userLogin": true

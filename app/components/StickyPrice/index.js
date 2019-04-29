@@ -5,13 +5,17 @@ import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
+import { putChangeBasket } from '../../api/account';
 
 class StickyPrice extends React.PureComponent {
 
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = { collapse: false };
+    this.state = {
+      collapse: false,
+      collaoseShow:false
+    };
   }
 
   toggle() {
@@ -30,13 +34,46 @@ class StickyPrice extends React.PureComponent {
     return total
   }
 
+  changeBasket = () => {
+    const {basket,link} = this.props;
+    const items = Object.keys(basket.basket.items).map((item) =>{
+      var updateData = {
+        "orderItemFoodId" : basket.basket.items[item].id,
+        "itemCount" : basket.basket.items[item].count
+      }
+      return updateData;
+    });
+    putChangeBasket(
+      {
+        "id":basket.basket.orderId,
+        "deliveryType":false,
+        "restaurantId":basket.basket.restaurantId,
+        "items":items
+      }
+    ).then(response => {
+      if(response.status) {
+        link ? history.push(link) : history.push("/checkout")
+        this.setState({
+        })
+      }
+    });
+  };
+
   pushLink = () => {
-    this.props.link ? history.push(this.props.link) : history.push("/checkout")
-  }
+    const {link} = this.props;
+    if (link == "/cart") {
+      this.changeBasket();
+    }
+
+  };
+
   render() {
-    const {data,basket,user} = this.props;
+    const {data,basket,user,collapseShow} = this.props;
+
     return (
+
       <div className="StickyPrice">
+        {collapseShow &&
         <Collapse isOpen={this.state.collapse}>
           <div className="StickyPrice-togglebutton-down">
             <button onClick={this.toggle} >
@@ -78,12 +115,13 @@ class StickyPrice extends React.PureComponent {
             </ul>
           </div>
         </Collapse>
-        {!this.state.collapse &&
-          <div className="StickyPrice-togglebutton-up">
-            <button onClick={this.toggle} >
-              <img src={toggleUp} width="70px"/>
-            </button>
-          </div>
+        }
+        {collapseShow && !this.state.collapse &&
+        <div className="StickyPrice-togglebutton-up">
+          <button onClick={this.toggle} >
+            <img src={toggleUp} width="70px"/>
+          </button>
+        </div>
         }
 
         <div className="StickyPrice__price">

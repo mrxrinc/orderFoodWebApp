@@ -100,7 +100,7 @@ class RestaurantPage extends React.Component {
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState({ 
+    this.setState({
       restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
     }, () => {
       console.log('new State ===>', this.state.restaurantDetail);
@@ -174,7 +174,7 @@ class RestaurantPage extends React.Component {
                   ))}
                 </RestaurantFoodGroup>
               ))}
-              <StickyPrice data={{}} link='/cart' />
+              <StickyPrice data={{}} link='/cart' collapseShow={false}/>
             </div>
 
             <Modal
@@ -249,10 +249,10 @@ class RestaurantPage extends React.Component {
                           </li>
                         </ul>
                         <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                          <Stepper 
-                            className="topM20" 
-                            fontSize="18" 
-                            parentId={this.state.modalData.id} 
+                          <Stepper
+                            className="topM20"
+                            fontSize="18"
+                            parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             stepper={this.stepper}
                           />
@@ -315,10 +315,10 @@ class RestaurantPage extends React.Component {
                     <div className="center i2">
                       <div>
                         <div className="flex hP10 primary text16 center">
-                          <Stepper 
-                            className="topM10" 
-                            fontSize="18" 
-                            parentId={this.state.modalData.id} 
+                          <Stepper
+                            className="topM10"
+                            fontSize="18"
+                            parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             stepper={this.stepper}
                           />
@@ -354,7 +354,7 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
-  
+
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
