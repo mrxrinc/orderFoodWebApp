@@ -24,6 +24,7 @@ class UserPositionChili extends Component {
         modal={classes.modals.UserPositionModal}
         headerAlign="center"
         title="تعیین موقعیت"
+        onClosed={this.props.onClosed}
       >
         <UserPosition 
           data={classes.data}
