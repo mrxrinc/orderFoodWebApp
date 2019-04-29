@@ -108,8 +108,7 @@ export class Kit extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
-
+          <div className="col-lg-12">            
             <ChiliAlert type="success">
               For test
             </ChiliAlert>

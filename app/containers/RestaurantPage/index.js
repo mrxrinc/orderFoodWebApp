@@ -36,9 +36,9 @@ class RestaurantPage extends React.Component {
       loading: true,
       modalData: null,
       basket: null,
-      tabOne: false,
+      tabOne: true,
       tabTwo: false,
-      tabThree: true,
+      tabThree: false,
     };
   }
 
@@ -247,6 +247,7 @@ class RestaurantPage extends React.Component {
                         id={food.id}
                         name={food.name}
                         hasPic={food.hasPic}
+                        hasOption={food.hasOption}
                         foodImg={food.image}
                         description={food.description}
                         discount={food.salePercentage}
