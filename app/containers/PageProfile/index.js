@@ -7,7 +7,6 @@ import ProfileAddress from '../../components/MyAddress' ; //import a component f
 import ProfileMenu from './profilemenu' ; //import a component from another file
 import edit from './edit.png';
 // import pattern from '../../images/pattern.png';
-import addressSample from '../address.json';
 import {userAddressList} from '../../api/application/userAddress';
 import { logOutGet } from '../../api/account';
 import { logOutUser } from '../../actions/Auth';
@@ -25,6 +24,9 @@ class PageProfile extends React.Component{
     }
   }
   componentDidMount(){
+    if (typeof this.props.auth.id === "undefined") {
+      history.push("/");
+    }
     userAddressList(this.props.auth.id).then(
       response => {
         this.setState({
@@ -41,9 +43,9 @@ class PageProfile extends React.Component{
   userLogOut= () => {
     logOutGet()
     .then(response=>{
-      if (response.status === true) {
-        this.props.onLogOut();
+      if (response.status == true) {
         history.push("/");
+        this.props.onLogOut();
         this.props.showAlert({
           text: "شما با موفقیت خارج شدید",
           color: "success",

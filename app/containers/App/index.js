@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -41,10 +42,34 @@ import Transaction from '../PageProfile/Transaction';
 import Order from '../PageProfile/Order';
 
 import GlobalStyle from '../../global-styles';
+import {history} from '../../store';
 
-export default function App() {
-  return (
-    <React.Fragment>
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+
+  locationFilter = ()=>{
+    let locationsplit = window.location.pathname.split("/");
+    let locationFilter = locationsplit.filter((location)=> location === "profile");
+    if(locationFilter[0] === "profile" && (typeof this.props.auth.id === "undefined")) {
+      history.push("/");
+    }
+  }
+
+  componentDidMount(){
+    this.locationFilter()
+  }
+
+  componentDidUpdate(prevProps){
+    this.locationFilter();
+  }
+
+  render() {
+    return (
+      <React.Fragment>
       <main className="main-container">
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -81,5 +106,15 @@ export default function App() {
       <GlobalStyle />
       <ChiliFooter />
     </React.Fragment>
-  );
+    );
+  }
 }
+const mapStateToProps = state => ({
+  auth: state.auth,
+  location: state.router.location
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(App);
