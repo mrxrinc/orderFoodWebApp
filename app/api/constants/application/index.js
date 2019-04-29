@@ -27,3 +27,4 @@ export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}
 export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
 export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
 export const user_update_address_post = () => `${API_URL_ROOT}/userAddress/updateAddress`;
+export const user_delete_address_post = () => `${API_URL_ROOT}/userAddress/deleteAddress`;

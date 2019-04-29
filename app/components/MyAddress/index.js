@@ -6,7 +6,11 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 import $ from 'jquery';
 import { addressIdChanged } from '../../actions/Basket';
+import { userDeleteAddressPost } from '../../api/application/userAddress';
+import AlertDeleteAddress from '../../components/ChiliModal/components/AlertDeleteAddress';
 import { connect } from 'react-redux';
+import { showModal } from '../../actions/Modals';
+import {addToast} from '../../actions/Notifications';
 
 class MyAddress extends React.PureComponent {
   constructor(props) {
@@ -16,10 +20,54 @@ class MyAddress extends React.PureComponent {
       addresses:this.props.data.addresses || [],
       organizationAddress:this.props.data.userOrganizationAddress || [],
       fullAddress:[],
+      deleteId:'',
       
     };
   }
 
+  alertExpToggle = (id) => {
+    this.setState({
+      deleteId : id
+    },()=>{
+      this.props.showModal({
+        alertExp: true,
+      });
+    })
+  };
+
+  fetchAddress = () => {
+    var elOwl = document.querySelector(`.owl-stage`);
+    let width = elOwl.style.width.split("px")[0];
+    let widthNew = elOwl.style.width = width;
+    var el = document.querySelector(`.item-${this.state.deleteId}`);
+    el.parentElement.remove();
+    $('#demo').trigger('to.owl.carousel', [0, 500, true]);
+  }
+  
+
+  deleteAddress = () => {
+    userDeleteAddressPost({"id":this.state.deleteId}).then(
+      response => {
+        this.props.showModal({
+          alertExp: false,
+        });
+        if(response.status === true){
+          this.fetchAddress();
+          this.props.showAlert({
+            text: response.message_fa,
+            color: "success",
+            delay: 3000
+          });
+        }else{
+          this.props.showAlert({
+            text: response.message_fa,
+            color: "danger",
+            delay: 3000
+          });
+        }
+      }
+    )
+  }
 
   handleOptionChange = e => {
     this.setState({
@@ -31,49 +79,45 @@ class MyAddress extends React.PureComponent {
 
 
   componentDidMount(){
-    let fullAddress = this.state.organizationAddress.concat(this.state.addresses);
-    this.setState({
-      fullAddress
-    },()=>{
-      console.log('=============data================');
-      console.log(this.state.fullAddress);
-      console.log('====================================');
-    })
-    //fow OWL.Carousel
-    $(document).ready(function () {
-      $('#demo').owlCarousel({
-        rtl: true,
-        loop: false,
-        margin: 15,
-        nav: false,
-        dots: false,
-        autoWidth: true,
-        responsive: {
-          0: {
-            items: 3,
-          },
-          768: {
-            items: 3,
-          },
-          992: {
-            items: 4,
-          },
-          1200: {
-            items: 5,
-          },
-          1440: {
-            items: 6,
-          },
-        },
-      });
-    });
+      let fullAddress = this.props.data.userOrganizationAddress.concat(this.props.data.addresses);
+      this.setState({
+        fullAddress
+      },()=>{
+        $(document).ready(function () {
+          $('#demo').owlCarousel({
+            rtl: true,
+            loop: false,
+            margin: 15,
+            nav: false,
+            dots: false,
+            autoWidth: true,
+            responsive: {
+              0: {
+                items: 3,
+              },
+              768: {
+                items: 3,
+              },
+              992: {
+                items: 4,
+              },
+              1200: {
+                items: 5,
+              },
+              1440: {
+                items: 6,
+              },
+            },
+          });
+        })
+      })
   }
 
   render() {
     const ChiliOwlDemoItems = this.state.fullAddress.map((item, i) =>
       <div
         key={i}
-        className="item"
+        className={`item item-${item.id}`}
       >
         <div className="MyAddress">
           <div className="MyAddress-radio">
@@ -92,9 +136,9 @@ class MyAddress extends React.PureComponent {
               <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
               </Link>
-              <a href="#!">
+              <span onClick={() => this.alertExpToggle(item.id)}>
                 <span className="chilivery-delete"> </span>
-              </a>
+              </span>
               <label className="pull-right">{item.name}</label>
             </div>
             <div className="clearfix"></div>
@@ -107,14 +151,19 @@ class MyAddress extends React.PureComponent {
     );
     return (
         <div className="ltr-plugin">
+          <AlertDeleteAddress
+            deleteAddress = { () => this.deleteAddress(this.state.deleteId)}
+          />
           <div id="demo" className="owl-carousel owl-theme zIndex0">
-            <div className="AddAddress">
-              <span className="chilivery-add"> </span>
-              <p>‌آدرس جدید</p>
-            </div>
+          <div className="AddAddress">
+            <span className="chilivery-add"> </span>
+            <p>‌آدرس جدید</p>
+          </div>
             {this.state.fullAddress.length > 0 &&
-              ChiliOwlDemoItems
-              }
+              <React.Fragment>
+                {ChiliOwlDemoItems}
+              </React.Fragment>
+            }
           </div>
         </div>
     );
@@ -127,12 +176,21 @@ const mapDispatchToProps = dispatch => {
     changeAddressId: value => {
       dispatch(addressIdChanged(value));
     },
+    showModal: showStatus => {
+      dispatch(showModal(showStatus));
+    },
+    showAlert: (showStatus) => {
+      dispatch(addToast(showStatus));
+    },
   };
 };
 
 const mapStateToProps = state => ({
-  user: state.auth,
-  basket:state.Basket
+  auth: state.auth,
+  basket:state.Basket,
+  modals: {
+    alertExp: state.Modals.alertExp,
+  },
 });
 
 export default connect(
