@@ -23,11 +23,12 @@ const RestaurantSideDishRow = props => {
             <label className="radio-modal">
               <div className="label-parent">
                 <input
+                  className="required-chechbox checked radio-input"
                   type="radio"
-                  className="radio-input"
+                  value={props.id}
+                  name={props.groupId}
                   onChange={props.onClick}
-                  defaultValue={0}
-                  value="male"
+                  defaultValue={0}                  
                 />
                 <div className="radio-face" />
                 <i />
