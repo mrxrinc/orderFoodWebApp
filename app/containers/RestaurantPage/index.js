@@ -21,8 +21,8 @@ import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
 import './style.scss';
 import TabThree from './components/TabThree';
-import CircularProgressbar from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import TabTwo from './components/TabTwo';
+
 
 const basketTempData = {};
 
@@ -38,8 +38,8 @@ class RestaurantPage extends React.Component {
       tabOne: false,
       tabTwo: true,
       tabThree: false,
-      activeTab:"tabThree",
-      percentage:0
+      activeTab:"tabTwo",
+
     };
   }
 
@@ -76,27 +76,6 @@ class RestaurantPage extends React.Component {
   }
 
   componentDidMount() {
-
-    let percentage = 0;
-    const myFunction = () => {
-
-      let myVar = setInterval(()=>{
-        percentage = percentage + 1;
-        console.log('====================================');
-        console.log(percentage,this.state.percentage);
-        console.log('====================================');
-        if(percentage >= this.state.percentage){
-          clearTimeout(myVar);
-          console.log('====================================');
-          console.log("finish");
-          console.log('====================================');
-        }
-      }, 1000);
-  
-    }
-
-    myFunction();
-
 
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
     restaurantDetail(this.state.id).then(response => {
@@ -189,40 +168,6 @@ class RestaurantPage extends React.Component {
 
   render() {
     const data = this.state.restaurantDetail;
-
-
-    // let percentage = 0;
-    // // let starter = setInterval(()=>{
-    // //   {
-    // //     percentage = percentage + 1
-    // //   }
-    // // }, 100);
-
-    // // if(percentage > 66){
-    // //   clearTimeout(starter)
-    // // }else{
-      
-    // //   console.log('====================================');
-    // //   console.log(percentage);
-    // //   console.log('====================================');
-
-    // // }
-
-    // var myVar;
-
-    // function myFunction() {
-    //   myVar = setInterval(function(){ percentage = percentage + 1 }, 1000);
-    //   console.log('====================================');
-    //   console.log(percentage);
-    //   console.log('====================================');
-    // }
-    // myFunction()
-    // if(percentage > 66){
-    //   clearTimeout(myVar);
-    // }
-
-    // function myStopFunction() {
-    // }
     
     return (
       <div>
@@ -278,12 +223,12 @@ class RestaurantPage extends React.Component {
               </div>
             }
             {this.state.tabTwo &&
+            <div className="container-fluid">
               <div>
-                {/* <CircularProgressbar
-                  percentage={percentage}
-                  text={`${percentage}%`}
-                /> */}
+                <TabTwo data={data}/>
+                
               </div>
+            </div>
             }
             {this.state.tabThree &&
               <div className="container-fluid">
