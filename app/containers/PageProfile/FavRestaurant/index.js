@@ -3,41 +3,117 @@ import { Link } from 'react-router-dom';
 
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
 import './style.scss';
-import icon from '../../../images/icons/favorite_empty.png';
-import png from './teach_fav.png';
+import png from '../../../images/restaurant-profileبرگرستان.png'
+
 
 class FavRestaurant extends React.Component{
 	constructor(props){
 		super(props)
 		this.state={
-			headCm:'لیست رستوران های مورد علاقه شما خالی است.',
-			btnComment:'جستجوی غذا یا رستوران',
-			textCm: 'برای افزودن رستوران به لیست علاقه مندی ها کافی است این آیکن را در لیست رستوران ها لمس کنید.'
+			title1: ' رستوران بادبادک',
+            title2:'رستوران لوکس تهران (میدان پالیزی)',
+			title3: 'رستوران دلینا',
+			item1: 'فست فود',
+			item2: 'ایتالیایی',
+			item3:' برگر',
+            orderBtn: 'ثبت امتیاز و نظر',
+            answer: '۲۱/۰۰۰ تومان',
+           
 		}
 	}
 
 	render(){
 		return(
-			<div className="fav-restaurant">
-				<div className="fav-restaurant__header">
-					<img className="fav-icon" src={icon} alt="favorite_empty"/>
-					<span className="fav-header">{this.state.headCm}</span>
-				</div>
+            <div className="fav-restaurant">
 
-				<div className="fav-restaurant__explain">
-					<span className="fav__text">{this.state.textCm}</span>
-					<div className="fav__icon">
-						<span class="chilivery-arrow"> </span>
-					</div>
-					<img className="fav-guide" src={png} alt=""/>
-				</div>
-				
-				<div className="fav-restaurant__button">
-					<button className="btn btn-success fav__btn">{this.state.btnComment}</button>
-				</div>
+                <div className="fav-restaurant__main">
+                    <div className="fav-box__main flex padd10">
+                        <div class="fav-restaurant__img">
+                            <img className="fav__img" src={png} alt=""/>
+                            <div class="fav-restaurant__discount flex center absolute bgRed white centerText">
+                                <span class="text16">30</span>
+                                <span class="text12 topM3 leftM3">%</span>
+                            </div>
+                        </div>
+                        <div className="fav-detail-restaurant wFull">
+                            <div className="fav-restaurant__detail">
+                                <span className="fav-restaurant__title">{this.state.title1}</span>
+                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                            </div>
+                            <div className="fav-restaurant__box">
+                                <div className="fav-detail">
+                                    <span className="fav-restaurant__item">{this.state.item1}</span>
+                                    <span className="fav-restaurant__item">{this.state.item2}</span>
+                                    <span className="fav-restaurant__item">{this.state.item3}</span>
+                                </div>
+                                <div className="fav-detail__btn center">
+                                    <button class="btn-white btn btn-secondary fav-btn center">مشاهده منو</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				
-			</div>
+
+                <div className="fav-restaurant__main">
+                    <div className="fav-box__main flex padd10">
+                        <div class="fav-restaurant__img">
+                            <img className="fav__img" src={png} alt=""/>
+                            {/* <div class="fav-restaurant__discount flex center absolute bgRed white centerText">
+                                <span class="text16">30</span>
+                                <span class="text12 topM3 leftM3">%</span>
+                            </div> */}
+                        </div>
+                        <div className="fav-detail-restaurant wFull">
+                            <div className="fav-restaurant__detail">
+                                <span className="fav-restaurant__title">{this.state.title2}</span>
+                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                            </div>
+                            <div className="fav-restaurant__box">
+                                <div className="fav-detail">
+                                    <span className="fav-restaurant__item">{this.state.item1}</span>
+                                    <span className="fav-restaurant__item">{this.state.item2}</span>
+                                    <span className="fav-restaurant__item">{this.state.item3}</span>
+                                </div>
+                                <div className="fav-detail__btn center">
+                                    <button class="btn-white btn btn-secondary fav-btn center">مشاهده منو</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="fav-restaurant__main">
+                    <div className="fav-box__main flex padd10">
+                        <div class="fav-restaurant__img">
+                            <img className="fav__img" src={png} alt=""/>    
+                            <div class="fav-restaurant__discount flex center absolute bgRed white centerText">
+                                <span class="text16">30</span>
+                                <span class="text12 topM3 leftM3">%</span>
+                            </div>
+                        </div>
+                        <div className="fav-detail-restaurant wFull">
+                            <div className="fav-restaurant__detail">
+                                <span className="fav-restaurant__title">{this.state.title3}</span>
+                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                            </div>
+                            <div className="fav-restaurant__box">
+                                <div className="fav-detail">
+                                    <span className="fav-restaurant__item">{this.state.item1}</span>
+                                    <span className="fav-restaurant__item">{this.state.item2}</span>
+                                    <span className="fav-restaurant__item">{this.state.item3}</span>
+                                </div>
+                                <div className="fav-detail__btn center">
+                                    <button class="btn-white btn btn-secondary fav-btn center">مشاهده منو</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
 		);
 	}
 }
