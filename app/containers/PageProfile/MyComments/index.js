@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
 import './style.scss';
 import png from '../../../images/restaurant-profileبرگرستان.png'
-
+import Slider from './component/Slider';
 class MyComments extends React.Component{
 	constructor(props){
 		super(props)
 		this.state={
-			title1:'رستوران لوکس تهران (میدان پالیزی)',
+			title1: ' برگرستان',
 			title: ' برگرستان',
 			title2: 'پاسخ مدیر رستوران',
 			// time: '۱۹:۳۵',
@@ -25,26 +25,49 @@ class MyComments extends React.Component{
 			<div className="mycomment">
 				<div className="mycomment-box">
 					<div className="mycomment-box__main flex padd10">
-						<div className="mycomment-box__icon">
-							<img className="mycomment-box__img" src={png} alt=""/>
-						</div>
-						<div className="mycomment-box__detail">
-							<div className="mycomment__detail-main">
-								<span className="mycomment-box__title">{this.state.title1}</span>
-								<span class="chilivery-star chili-star"> </span>
-							</div>
+
+						{this.props.type === "profile" ? 
+							<div className="mycomment-box__icon leftP5">
+								<img className="mycomment-box__img" src={png} alt=""/>
+							</div>:null
+						}
+
+						<div className="mycomment-box__detail overhide">
+							{this.props.type === "profile" ?
+								<React.Fragment>
+									<div className="mycomment__detail-main">
+										<span className="mycomment-box__title">{this.state.title1}</span>
+										<span className="icon chilivery-star chili-star rightMauto"> </span>
+									</div>
+									
+									<div className="mycomment-detail">
+										<span className="mycomment-box__date">{this.state.date}</span>
+										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
+									</div>
+								</React.Fragment>:
+								<React.Fragment>
+									<div className="mycomment__detail-main">
+										<span className="icon chilivery-star chili-star leftP10"> </span>
+										<span className="mycomment-box__title leftP10">{this.state.title1}</span>
+										<span className="mycomment-box__date text14">{this.state.date}</span>
+									</div>
+									
+									<div className="mycomment-detail">
+										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
+									</div>
+								</React.Fragment>
+							}
 							
-							<div className="mycomment-detail">
-								<span className="mycomment-box__date">{this.state.date}</span>
-								<span className="mycomment-box__text">{this.state.text}</span>
-								<span className="mycomment-box__cost">{this.state.cost}</span>
-							</div>
-						</div>	
+							<span className="mycomment-box__cost">
+								<Slider/>
+							</span>
+						</div>
+							
 					</div>
 
 					<div className="mycomment-box__dmain flex padd10">
 						<div className="mycomment-dmain__img center">
-							<span class="chilivery-chef-answer mycomment-dmain__icon"> </span>
+							<span className="icon chilivery-chef-answer mycomment-dmain__icon"> </span>
 						</div>
 							<div className="mycomment-dmain__box">
 								<span className="mycomment-box__title">{this.state.title2}</span>
@@ -57,40 +80,36 @@ class MyComments extends React.Component{
 
 				<div className="mycomment-box">
 					<div className="mycomment-box__main flex padd10">
-						<div className="mycomment-box__icon">
-							<img className="mycomment-box__img" src={png} alt=""/>
-						</div>
-						<div className="mycomment-box__detail">
-							<div className="mycomment__detail-main">
-								<span className="mycomment-box__title">{this.state.title}</span>
-								<span class="chilivery-star chili-star"> </span>
-							</div>
-							<div className="mycomment-detail">
-								<span className="mycomment-box__date">{this.state.date}</span>
-								<span className="mycomment-box__text">{this.state.text}</span>
-								<span className="mycomment-box__cost">{this.state.cost}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div className="mycomment-box">
-					<div className="mycomment-box__main flex padd10">
-						<div className="mycomment-box__icon">
-							<img className="mycomment-box__img" src={png} alt=""/>
-						</div>
-						<div className="mycomment-box__detail">
-							<div className="mycomment__detail-main">
-								<span className="mycomment-box__title">{this.state.title}</span>
-								<span class="chilivery-star chili-star"> </span>
-							</div>
-							<div className="mycomment-detail">
-								<span className="mycomment-box__date">{this.state.date}</span>
-								<span className="mycomment-box__text">{this.state.text}</span>
-								<span className="mycomment-box__time">{this.state.time1}</span>
-								<span className="mycomment-box__cost">{this.state.cost}</span>
-							</div>
+						{this.props.type === "profile" ? 
+							<div className="mycomment-box__icon leftP5">
+								<img className="mycomment-box__img" src={png} alt=""/>
+							</div>:null
+						}
+						<div className="mycomment-box__detail overhide">
+						{this.props.type === "profile" ?
+								<React.Fragment>
+									<div className="mycomment__detail-main">
+										<span className="mycomment-box__title">{this.state.title1}</span>
+										<span className="icon chilivery-star chili-star rightMauto"> </span>
+									</div>
+									
+									<div className="mycomment-detail">
+										<span className="mycomment-box__date">{this.state.date}</span>
+										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
+									</div>
+								</React.Fragment>:
+								<React.Fragment>
+									<div className="mycomment__detail-main">
+										<span className="icon chilivery-star chili-star leftP10"> </span>
+										<span className="mycomment-box__title leftP10">{this.state.title1}</span>
+										<span className="mycomment-box__date text14">{this.state.date}</span>
+									</div>
+									
+									<div className="mycomment-detail">
+										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
+									</div>
+								</React.Fragment>
+							}
 						</div>
 					</div>
 				</div>

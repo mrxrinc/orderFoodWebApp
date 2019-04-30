@@ -7,6 +7,7 @@ import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { rateColor } from '../../..//components/GeneralFunctions';
 import comment_empty from '../../../images/icons/comment_empty.png';
+import MyComments from '../../../containers/PageProfile/MyComments';
 class TabOne extends React.Component {
   constructor(props) {
     super(props);
@@ -100,13 +101,13 @@ class TabOne extends React.Component {
         <div className="col-6 hCenter">
           <div className="restauran-comment__ratebox flex rCol wFull">
             <div className="flex center bottomP10">
-              <span className="text14">سرعت ارسال</span>
+              <span className="text14 leftP10">سرعت ارسال</span>
               <div className="rightMauto">
                 {this.rateStar(3.4)}
               </div>
             </div>
             <div className="flex center">
-              <span>کیفیت غذا</span>
+              <span className="text14 leftP10">کیفیت غذا</span>
               <div className="rightMauto">
                 {this.rateStar(4.2)}
               </div>
@@ -140,6 +141,12 @@ class TabOne extends React.Component {
           </div>
         </div>
 
+        <div className="col-12">
+          <div className="topP40">
+            <MyComments type={'profile1'}/>
+          </div>
+        </div>
+        
         <div className="col-12">
           {this.submitYourComment('9Z9WA8Y')}
         </div>

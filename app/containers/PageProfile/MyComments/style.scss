@@ -3,12 +3,8 @@
 .mycomment{
     .mycomment-box{
         height: auto;
-        width: 350px;
-        // background: #FFFFFF;
         box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
         margin-top: 10px;
-        margin-right: 12px;
-        margin-left: 15px;
         border-radius: 14px 0 14px 0;
         .mycomment-box__main{
             .mycomment-box__icon{
@@ -29,7 +25,6 @@
                 border-top-left-radius: 14px;
                 } 
             .mycomment-box__detail{
-                padding-right: 8px;
                 .mycomment__detail-main{
                     display: flex;
                     .mycomment-box__title{
@@ -39,16 +34,12 @@
                     .chili-star{
                         color: #1CBD2F;
                         // float: left;
-                        margin-right: auto;
                         font-size: 22px;
                     }
                 }
                 .mycomment-detail{
                     color: #929292;
-                    padding-top: 6px;
                     .mycomment-box__date{
-                        padding-right: 10px;
-                        padding-left: 10px;
                         font-size: 12px;
                         // &:after{
                         //     content: "";
