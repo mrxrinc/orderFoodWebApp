@@ -108,8 +108,7 @@ export class Kit extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
-
+          <div className="col-lg-12">            
             <ChiliAlert type="success">
               For test
             </ChiliAlert>
@@ -198,16 +197,29 @@ export class Kit extends React.Component {
                   defaultChecked="checked"
                   // inputClassName="styled"
                   labelClassName="page-payment__rule"
-                  label={[
-                    <a key="1" to={'/rules/'} target="_blank">
-                      قوانین تیکت
-                    </a>,
-                    <span key="2"> را می پذیرم.</span>,
-                  ]}
+                  label={
+
+                    <span key="2"> را می پذیرم.</span>
+                  }
                 />
               </span>
             </div>
-
+            <label className="radio-wrapper">
+                  <div className="label-parent">
+                    <input
+                      type="radio"
+                      className="radio-input"
+                      name="signUpGender"
+                      checked={signUpGender === 'male'}
+                      onChange={this.onChange}
+                      // onKeyPress={this.handleKeyPressUpdate}
+                      value="male"
+                    />
+                    <div className="radio-face" />
+                    <i />
+                  </div>
+                  <span>مرد</span>
+                </label>
             <div className="chili-animate-field form-group col-sm-6">
               <div>
                 <label className="radio-wrapper">
