@@ -1,0 +1,28 @@
+@import '../../style/sass/variable';
+
+.restaurant-select {
+  button {
+    border: 1px solid $color-border-2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 25px;
+    width: 60px;
+  }
+  &__add {
+    &:active,&:focus {
+      outline: none;
+    }
+    span {      
+      vertical-align: middle;
+      font-size: 12px;
+      padding-top: 1px;      
+      color: $grey-6;
+      &.chilivery-add {
+        color: $color-success;
+        font-weight: bold;
+        margin-right: 4px;
+      }
+    }
+  }
+}

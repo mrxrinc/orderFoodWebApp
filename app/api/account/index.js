@@ -23,6 +23,14 @@ export const getSendGifCode = (params) => {
   return deRequest(account.sendGifCode(), "GET", params, false );
 }
 
+export const putChangeBasket = (params) => {
+  return deRequest(account.changeBasket(), "PUT", params, false );
+}
+
+export const getOrderitems = (params) => {
+  return deRequest(account.orderitems(params.orderId), "GET");
+}
+
 export const profileChangePass = (params) => { //params: { password }
   return deRequest(account.profileChangePass_post(), "POST", params, false );
 }

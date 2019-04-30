@@ -13,6 +13,10 @@ import cover from '../../images/pattern.png';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
+import { gatewayChanged } from '../../actions/Basket';
+import { connect } from 'react-redux';
+import { Checkout } from '../Checkout';
+import { getOrderitems } from '../../api/account';
 
 export class cart extends React.PureComponent {
 
@@ -22,15 +26,29 @@ export class cart extends React.PureComponent {
     this.toggle = this.toggle.bind(this);
     this.state = {
       description: '',
-      activeTabAddress: '1'
+      activeTabAddress: '1',
+      orderItems:{}
     };
   }
+  getOrderItem = () => {
+    const {basket} = this.props;
+    getOrderitems({
+      orderId:basket.basket.orderId
+    }).then(response => {
+      if(response.status) {
+        this.setState({
+          orderItems:response.result
+        })
+      }
+    });
+  };
+
   componentDidMount() {
     let count = 0;
     dataSample.result.items.map((item) => {
       count += item.count;
     })
-    console.log(count);
+    this.getOrderItem()
   }
 
   toggle(tab) {
@@ -46,12 +64,13 @@ export class cart extends React.PureComponent {
   };
 
   render() {
-    const {description} = this.state;
+    const {description,orderItems} = this.state;
+    const {basket} = this.props;
     return (
       <div className="cart bottomP50">
-        <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
+        {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          <CheckoutCardItem data={dataSample.result.items}/>
+          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.basket.items} items={orderItems.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
@@ -108,10 +127,29 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice data={dataSample.result.amount} />
+        <StickyPrice data={dataSample.result.amount}  collapseShow={true}/>
       </div>
     );
   }
 }
 
-export default cart;
+const mapDispatchToProps = dispatch => {
+  return {
+    changeBankGetway: value => {
+      dispatch(gatewayChanged(value));
+    },
+  };
+};
+
+const mapStateToProps = state => ({
+  user: state.auth,
+  basket:state.Basket
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(cart);
+
+
+
