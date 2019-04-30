@@ -83,7 +83,7 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__card">
             <ul>
               <li>
-                <span>مجموعه سفارشات</span>
+                <span>مجموع سفارشات</span>
                 <span className="pull-left">{data.total - data.carry - data.tax - data.pack} تومان</span>
               </li>
               {data.carry > 0 &&

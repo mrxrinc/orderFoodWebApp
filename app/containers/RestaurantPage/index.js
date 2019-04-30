@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { showModal } from '../../actions/Modals';
@@ -15,7 +15,10 @@ import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
-import { restaurantDetail, createBasket } from '../../api/application/restaurant';
+import {
+  restaurantDetail,
+  createBasket,
+} from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
@@ -33,9 +36,9 @@ class RestaurantPage extends React.Component {
       loading: true,
       modalData: null,
       basket: null,
-      tabOne: false,
+      tabOne: true,
       tabTwo: false,
-      tabThree: true,
+      tabThree: false,
     };
   }
 
@@ -79,22 +82,27 @@ class RestaurantPage extends React.Component {
 
         createBasket(this.state.id).then(basketResp => {
           console.log('Basket Response ==>', basketResp.result);
-          this.setState({ basket: basketResp.result })
-        })
+          this.setState({ basket: basketResp.result });
+        });
         console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
       });
     });
   }
 
-  openFoodModal = (food) => {
+  openFoodModal = food => {
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
-      if(!this.state.modalData.count) { // for the first time increasing from inside of the modal
-        this.setState({ modalData: { ...this.state.modalData, count: 0 }})
+      if (!this.state.modalData.count) {
+        // for the first time increasing from inside of the modal
+        this.setState({ modalData: { ...this.state.modalData, count: 0 } });
       }
-      this.toggleModal()
+      this.toggleModal();
     });
   };
+
+  onChangeSideDish = optionId => {
+    console.log("%%%%%%%%%",optionId);
+  }
 
   toggleModal = () => {
     this.props.showModal({
@@ -108,27 +116,31 @@ class RestaurantPage extends React.Component {
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
-        if(food.id === id) {
+        if (food.id === id) {
           const key = food.id;
           const basket = {};
-          if(food.count) {
+          if (food.count) {
             let count = null;
-            if(role === 'add') count = food.count + 1;
-            else if(role === 'remove') count = food.count - 1;
-            const data = { ...food, count }
+            if (role === 'add') count = food.count + 1;
+            else if (role === 'remove') count = food.count - 1;
+            const data = { ...food, count };
             basket[key] = data;
             Object.assign(basketTempData, basket);
-            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count } });
+            if (this.state.modalData)
+              this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
           } else {
             const data = { ...food, count: 1 };
             basket[key] = data;
             Object.assign(basketTempData, basket);
-            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count: 1 } });
+            if (this.state.modalData)
+              this.setState({
+                modalData: { ...this.state.modalData, count: 1 },
+              });
             return data;
           }
-        } else if(food.count && food.count > 0) {
-          return food
+        } else if (food.count && food.count > 0) {
+          return food;
         }
         return { ...food, count: 0 };
       });
@@ -154,11 +166,46 @@ class RestaurantPage extends React.Component {
   };
 
   modalPrice = () => {
-    const count = this.state.modalData.count;
-    const itemPrice = this.state.modalData.price;
-    const sum = itemPrice * count;
+    let sum = 0;
+    if (this.state.modalData) {
+      const { count } = this.state.modalData;
+      const itemPrice = this.state.modalData.price;
+      sum = itemPrice * count;
+    }
     console.log(sum);
     return sum;
+  };
+
+  createTitle = category => {
+    let title = `انتخاب ${category.groupName}`;
+    title += ' (';
+    category.groupRequired ? title += 'حداقل ' : title += 'حداکثر ';
+    title += category.groupMaxSelectionLimit;
+    title += `مورد) `;
+    return title;
+  }
+
+  calculateFinalSideDishPrice = category => {
+    if (category.groupMaxSelectionLimit === 1 && category.groupRequired) {
+      return "radio";
+    }
+    return "checkbox";
+  }
+
+  // finalPrice = category => {
+  //   if (category.groupPriceDisplayType == 0) {
+
+  //   }
+  // }
+
+  defineSideDishDiscount = option => {
+    if (
+      option.foodOptionLastPrice != null &&
+      option.foodOptionLastPrice !== 0
+    ) {
+      return { realPrice: option.foodOptionLastPrice, hasDiscount: true };
+    }
+    return { realPrice: option.foodOptionPrice, hasDiscount: false };
   }
 
   render() {
@@ -198,6 +245,7 @@ class RestaurantPage extends React.Component {
                         id={food.id}
                         name={food.name}
                         hasPic={food.hasPic}
+                        hasOption={food.hasOption}
                         foodImg={food.image}
                         description={food.description}
                         discount={food.salePercentage}
@@ -234,7 +282,9 @@ class RestaurantPage extends React.Component {
                   <div className="scroll modal-restaurant__detail-body lightBg">
                     <div
                       className="modal-restaurant__detail-head centerBg cover gray4Bg"
-                      style={{ backgroundImage: `url(${this.state.modalData.image})` }}
+                      style={{
+                        backgroundImage: `url(${this.state.modalData.image})`,
+                      }}
                     >
                       <ul className="flex spaceBetween reset">
                         <li className="center">
@@ -260,16 +310,16 @@ class RestaurantPage extends React.Component {
                         <div className="reviews absolute flex hP20 lightBg">
                           <div className="flex i2 center gray">
                             <span className="text14 leftM3 topM3">
-                            {this.state.modalData.voteCount}
+                              {this.state.modalData.voteCount}
                             </span>
                             <span className="chilivery-user text12" />
                           </div>
 
-                            <div
-                              className={`flex i2 center round5 ${rateColor(
-                                this.state.modalData.vote,
-                              )}`}
-                            >
+                          <div
+                            className={`flex i2 center round5 ${rateColor(
+                              this.state.modalData.vote,
+                            )}`}
+                          >
                             <span className="white text14 leftM3 topM3">
                               {this.state.modalData.vote}
                             </span>
@@ -286,12 +336,16 @@ class RestaurantPage extends React.Component {
                         <ul className="flex reset hInherit">
                           {this.state.modalData.lastPrice && (
                             <li className="moto flex hCenter rightP10 overLine danger">
-                              <span className="text12">{this.state.modalData.lastPrice}</span>
+                              <span className="text12">
+                                {this.state.modalData.lastPrice}
+                              </span>
                               <span className="text8 topM3 rightM3">تومان</span>
                             </li>
                           )}
                           <li className="moto flex hCenter rightP10 bold primary">
-                            <span className="text16">{this.state.modalData.price}</span>
+                            <span className="text16">
+                              {this.state.modalData.price}
+                            </span>
                             <span className="text10 topM3 rightM3">تومان</span>
                           </li>
                         </ul>
@@ -308,52 +362,26 @@ class RestaurantPage extends React.Component {
                     </div>
 
                     {this.state.modalData.hasOption && (
-                      <div className="modal-restaurant__detail-sideDishes topM30">
-                        <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)">
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                        </RestaurantSideDishGroup>
-
-                        <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)">
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                        </RestaurantSideDishGroup>
+                      <div>
+                        {this.state.modalData.options.map(category => (
+                          <div className="modal-restaurant__detail-sideDishes topM30">
+                            <RestaurantSideDishGroup title={this.createTitle(category)} key={category.groupId}>
+                               { category.options.map(option => (
+                                      <Fragment>
+                                       <input value={this.name} onChange={this.handleChange} />
+                                      <RestaurantSideDishRow
+                                      type={this.calculateFinalSideDishPrice(category)}
+                                      discount = {this.defineSideDishDiscount(option)}
+                                      price = {option.foodOptionPrice}
+                                      name={option.foodOptionName}
+                                      id={option.foodOptionId}
+                                      onClick={() => this.onChangeSideDish(option.foodOptionId)}
+                                    />
+                                    </Fragment>
+                               )) }
+                            </RestaurantSideDishGroup>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -401,16 +429,14 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
-
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
   addToBasket: value => {
     dispatch(addToBasket(value));
-  }
+  },
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RestaurantPage);
-
