@@ -100,6 +100,10 @@ class RestaurantPage extends React.Component {
     });
   };
 
+  onChangeSideDish = optionId => {
+    console.log("%%%%%%%%%",optionId);
+  }
+
   toggleModal = () => {
     this.props.showModal({
       RestaurantPageModal: !this.props.modals.RestaurantPageModal,
@@ -376,6 +380,8 @@ class RestaurantPage extends React.Component {
                                       discount = {this.defineSideDishDiscount(option)}
                                       price = {option.foodOptionPrice}
                                       name={option.foodOptionName}
+                                      id={option.foodOptionId}
+                                      onClick={() => this.onChangeSideDish(option.foodOptionId)}
                                     />
                                     </Fragment>
                                )) }

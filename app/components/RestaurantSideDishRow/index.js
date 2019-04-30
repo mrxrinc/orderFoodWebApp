@@ -3,14 +3,42 @@ import './style.scss';
 import { CheckBox } from '../ChiliForm';
 
 const RestaurantSideDishRow = props => {
+  console.log('####', props);
   return (
-    <div className="sideDishRow flex primary hP20 bgWhite">
-      <div className="flex hP10 primary text16 wFull hCenter">
-        <CheckBox {...props} />
-        <p>{props.name}</p>
-      </div>
+    <div className="sideDishRow flex primary hP20 bgWhite">      
+        {props.type === 'checkbox' && (
+          <div className="flex hP10 primary text16 wFull hCenter">
+          <CheckBox
+            className="required-chechbox checked"
+            type="checkbox"
+            name={props.name}
+            onChange={props.onClick}
+            defaultValue={0}
+            label={<span key={props.id}> {props.name} </span>}
+          />
+          </div>
+        )}
+        {props.type === 'radio' && (
+          <Fragment>
+            <label className="radio-modal">
+              <div className="label-parent">
+                <input
+                  type="radio"
+                  className="radio-input"
+                  onChange={props.onClick}
+                  defaultValue={0}
+                  value="male"
+                />
+                <div className="radio-face" />
+                <i />
+              </div>
+              <span key={props.id}> {props.name}</span>
+            </label>
+          </Fragment>
+        )}
+      
       <div className="center rightP10">
-        {props.price == 0 && (
+        {props.price === 0 && (
           <span className="text12 gray6 rightM5">(رایگان)</span>
         )}
         {props.price !== 0 && (

@@ -116,6 +116,35 @@ const CheckBox = props => {
   );
 };
 
+const RadioButton = props => {
+  const classes = props;
+  return (
+    <div
+      className={`radiobuttion radiobutton-success radiobutton-toggle topP5 ${
+        classes.className ? classes.className : ''
+      }`}
+    >
+      <input
+        type={classes.type}
+        name={classes.name}
+        defaultValue={classes.defaultValue}
+        checked={classes.checked}
+        className={`styled ${
+          classes.inputClassName ? classes.inputClassName : ''
+        }`}
+        defaultChecked={classes.defaultChecked}
+        onChange={classes.onChange}
+        onKeyPress={classes.onKeyPress}
+        id={classes.name}
+      />
+      <label htmlFor={classes.name} className={classes.labelClassName}>
+        {classes.label}
+      </label>
+    </div>
+  );
+};
+
+
 class AnimateFieldPassword extends React.Component {
   constructor(props) {
     super(props);
@@ -169,4 +198,10 @@ class AnimateFieldPassword extends React.Component {
   }
 }
 
-export { AnimateField, AnimateFieldSheba, AnimateFieldPassword, CheckBox };
+export {
+  AnimateField,
+  AnimateFieldSheba,
+  AnimateFieldPassword,
+  CheckBox,
+  RadioButton,
+};
