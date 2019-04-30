@@ -10,7 +10,7 @@ export const verify_post= () => API_URL_ROOT+'/user/verifyCode';
 export const verifyPass_post= () => API_URL_ROOT+'/api/user/checkExistToken';
 export const isVerify_post= () => API_URL_ROOT+'/user/sendVerification';
 export const resend_verify_post= () => API_URL_ROOT+'/api/user/resendVerification';
-export const logout_get= () => API_URL_ROOT+'/api/user/logout';
+export const logout_get= () => API_URL_ROOT+'/user/logout';
 export const user_update= (id) => API_URL_ROOT+'/api/user/update/' + id;
 export const profileChangePass_post= () => API_URL_ROOT+'/api/user/changePassword/';
 export const forgot_post= () => API_URL_ROOT+'/api/user/forgotPassword/';

@@ -71,10 +71,10 @@ class ProfileMenu extends React.Component{
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <span href="" className="accordion__title accordion_hide" onClick={()=> this.props.userLogOut()}>
             <span className="icon chilivery-arrow-2 text22"> </span>
             <span className="accordion__list-text">خروج</span>
-          </a>
+          </span>
         </div>
 
       </div>

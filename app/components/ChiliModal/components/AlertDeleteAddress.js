@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
-import UserPosition from '../../UserPosition';
-class UserPositionChili extends Component {
+import PageAboutMotochili from '../../../containers/PageAboutMotochili';
+import AlertBody from './AlertBody';
+
+class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userLocation:{},
-    };
+    this.state = {};
   }
-  toggleModal = () => {
+
+  toggleLogin = () => {
     this.props.showModal({
-      UserPositionModal: false,
+      alertExp: false,
     });
   };
 
@@ -20,33 +21,32 @@ class UserPositionChili extends Component {
     const classes = this.props;
     return (
       <ChiliModal
-        toggle={this.toggleModal}
-        modal={classes.modals.UserPositionModal}
-        headerAlign="center"
-        title="تعیین موقعیت"
-        onClosed={this.props.onClosed}
+        modal={classes.modals.alertExp}
+        alert
       >
-        <UserPosition 
-          data={classes.data}
-          type={classes.type}
-        />
+        <AlertBody
+          alertTitle="حذف آدرس"
+          toggle={this.toggleLogin}
+          verifyClick={classes.deleteAddress}
+        >
+        آیا مطمن هستید؟
+        </AlertBody>
       </ChiliModal>
     );
   }
-
 }
 
 const mapStateToProps = state => ({
   modals: {
-    UserPositionModal: state.Modals.UserPositionModal,
+    alertExp: state.Modals.alertExp,
   },
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => {
     dispatch(showModal(showStatus));
-  }
+  },
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(UserPositionChili);
+)(Login);

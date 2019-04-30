@@ -14,7 +14,7 @@ class AlertBody extends Component {
           <p className="centerText topM20 bottomM">{classes.children}</p>
         </div>
         <div className="flex chili-modal_alert-footer absolute bottom left right wFull white">
-          <div className="col chili-modal_alert-footer-item center" onClick={classes.toggle}>
+          <div className="col chili-modal_alert-footer-item center" onClick={classes.verifyClick}>
             <span>تایید</span>
           </div>
           <div className="col chili-modal_alert-footer-item center" onClick={classes.toggle}>

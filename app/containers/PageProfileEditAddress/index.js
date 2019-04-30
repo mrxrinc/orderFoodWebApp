@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import {addNewAddressPost} from '../../api/application/userAddress';
+import {userUpdateAddressPost} from '../../api/application/userAddress';
 import { AnimateField } from '../../components/ChiliForm';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
@@ -8,12 +7,15 @@ import { getCityList, getNeighborhood } from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
 import ChiliMap from '../../components/ChiliMap';
 import ChiliAlert from '../../components/ChiliAlert';
+import {addToast} from '../../actions/Notifications';
 
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
+import {userAddressList} from '../../api/application/userAddress';
+
 import './style.scss';
 import icon from '../../images/icons/edit_profile.png'
 
-class ProfileNewAddress extends React.Component {
+class ProfileEditAddress extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -24,11 +26,17 @@ class ProfileNewAddress extends React.Component {
 			cityName: '',
 			regionName: '',
 			regionComplete: '',
+			regionCompleteOrg:'',
 			addressLabel: '',
-			map: true,
+			map: false,
 			alertShow:false,
 			alertMessage:'',
-			alertType:''
+			alertType:'',
+			id: this.props.match.params.id,
+			userAddressList:[],
+			organizationAddress:[],
+			description:'',
+			organization: false
 		}
 	}
 	onChange = e => {
@@ -65,39 +73,63 @@ class ProfileNewAddress extends React.Component {
 
 	onSubmit = () => {
 		let addressData = this.props.UserPosition;
-		addNewAddressPost({
+		userUpdateAddressPost({
+			"id":								this.state.id,
 			"cityId":						addressData.cityId,
 			"neighborhoodId":		addressData.id,
 			"name":  						this.state.addressLabel,
 			"complete":		   		this.state.regionComplete,
+			"description":	this.state.description,
 			"point":{
 				"latitude":				addressData.mapCenter.lat,
 				"longitude":			addressData.mapCenter.lon
 			},
 		}).then(
 			response => {
-
+				this.props.showAlert({
+					text: response.message_fa,
+					color: "success",
+				});
 			}
 		).catch(
 			error => {
-				if(error.status === 401){
-					this.setState({
-						alertShow:true,
-						alertType:"danger",
-						alertMessage:"لظفا لاگین نمایید"
-					})
-				}else{
-					this.setState({
-						alertShow:true,
-						alertType:"danger",
-						alertMessage:error.data.message_fa
-					})
-				}
+				this.props.showAlert({
+					text: error.message_fa,
+					color: "success",
+				});
+			
 			}
 		)
 	}
 
 	componentDidMount() {
+
+		userAddressList(this.props.auth.id).then(
+			
+      response => {
+        this.setState({
+					userAddressList:response.result,
+					addresses:response.result.addresses || [],
+					organizationAddress:response.result.userOrganizationAddress || [],
+        },()=>{
+					let fullAddress = [];
+					fullAddress = this.state.organizationAddress.concat(this.state.addresses);
+
+					const checkId = (filterArray) => filterArray.id == this.state.id;
+					const filterAddress = fullAddress.filter(checkId);
+					this.setState({
+						regionComplete: filterAddress[0].complete || filterAddress[0].organAddressComplete,
+						organization: filterAddress[0].organAddressComplete ? true : false,
+						description: filterAddress[0].description || filterAddress[0].complete,
+						addressLabel: filterAddress[0].name,
+						userLocation: {
+								lat: filterAddress[0].mapCenter.lat,
+								lng: filterAddress[0].mapCenter.lon,
+							}
+						},this.fetchMap)
+				})
+		})
+		
 		getCityList().then(
 			response => {
 				this.setState({
@@ -106,27 +138,6 @@ class ProfileNewAddress extends React.Component {
 			}
 		)
 
-		const getLocation = () => {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
-			}
-		}
-		const positionSuccess = (position) => {
-			this.setState({
-				userLocation: {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				}
-			}, this.fetchMap)
-		}
-
-		const positionError = () => {
-			this.fetchMap();
-		}
-
-		if (typeof this.props.UserPosition == "undefined") {
-			getLocation();
-		}
 	}
 
 	componentWillUnmount() {
@@ -134,7 +145,6 @@ class ProfileNewAddress extends React.Component {
 		delete reduxProps["neighborhoodProfile"];
 		this.props.addNeighborhood(reduxProps);
 	}
-
 
 
 	render() {
@@ -193,12 +203,16 @@ class ProfileNewAddress extends React.Component {
 
 							<div className="chili-animate-field form-group">
 								<div className="form-control">
+									{this.state.organization ? 
+										<p style={{backgroundColor:"#ccc"}}>{this.state.regionComplete}</p>:
+										null
+									}
 									<textarea
-										name="regionComplete"
-										value={this.state.regionComplete}
+										name={this.state.organization ? "description" : "regionComplete"}
+										value={this.state.organization ? this.state.description :this.state.regionComplete}
 										onChange={this.onChange}
 									>
-										{this.state.regionComplete}
+										{this.state.organization ? this.state.description :this.state.regionComplete}
 									</textarea>
 								</div>
 
@@ -242,6 +256,7 @@ class ProfileNewAddress extends React.Component {
 const mapStateToProps = state => ({
 	UserPosition: state.UserPosition.neighborhoodProfile,
 	UserPositionMain: state.UserPosition,
+	auth: state.auth,
 });
 const mapDispatchToProps = dispatch => ({
 	showModal: (showStatus) => {
@@ -250,6 +265,9 @@ const mapDispatchToProps = dispatch => ({
 	addNeighborhood: showStatus => {
 		dispatch(addNeighborhood(showStatus));
 	},
+	showAlert: (showStatus) => {
+    dispatch(addToast(showStatus));
+	},
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileNewAddress);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileEditAddress);

@@ -1,9 +1,9 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
 
-import { AnimateField, AnimateFieldSheba,CheckBox } from '../../components/ChiliForm';
+import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
 import './editprofile.scss';
-import icon from '../../images/icons/edit_profile.png'
+import icon from '../../../images/icons/edit_profile.png'
 
 class ProfileEdit extends React.Component{
 	constructor(props){
@@ -27,7 +27,7 @@ class ProfileEdit extends React.Component{
 			<div className="profile-edit">
 				<div className="container">
 					<div className="profile-edit__icon center">
-						<img src={icon} alt="edit_profile"/>
+						<img className="edit-img" src={icon} alt="edit_profile"/>
 					</div>
 					<div className="row">
 						<div className="col-lg-12 mt-5">
