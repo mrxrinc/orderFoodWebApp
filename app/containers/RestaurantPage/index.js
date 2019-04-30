@@ -148,27 +148,21 @@ class RestaurantPage extends React.Component {
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState(
-      {
-        restaurantDetail: {
-          ...this.state.restaurantDetail,
-          menuSections: newMenu,
-        },
-      },
-      () => {
-        console.log('new State ===>', this.state.restaurantDetail);
-        console.log('modalData State ===>', this.state.modalData);
-        console.log('BASKET_TEMP_DATA', basketTempData);
+    this.setState({
+      restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
+    }, () => {
+      console.log('new State ===>', this.state.restaurantDetail);
+      console.log('modalData State ===>', this.state.modalData);
+      console.log('BASKET_TEMP_DATA', basketTempData);
 
-        //continue to redux
-        const dataForBasket = {
-          restaurantId: this.state.restaurantDetail.id,
-          orderId: this.state.basket.id,
-          items: basketTempData,
-        };
-        this.props.addToBasket({ basket: dataForBasket });
-      },
-    );
+      //continue to redux
+      const dataForBasket = {
+        restaurantId: this.state.restaurantDetail.id,
+        orderId: this.state.basket.id,
+        items: basketTempData
+      }
+      this.props.addToBasket({ basket: dataForBasket });
+    });
   };
 
   modalPrice = () => {
@@ -266,7 +260,7 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                <StickyPrice data={{}} link='/cart' />
+                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
               </div>
             }
             {this.state.tabTwo &&
