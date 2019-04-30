@@ -52,6 +52,11 @@
 .gray10 { color: $grey-10 };
 .gray10Bg { background-color: $grey-10 };
 
+.purple5 { color: $purple-5 };
+.purple5Bg { background-color: $purple-5 };
+
+
+
 .debug { background-color: #f9d7e1 };
 .d { background-color: #C8CA2633 };
 .f { background-color: #ff00aa33 };
@@ -96,6 +101,7 @@
 .ltr { direction: ltr };
 .flex { display: flex };
 .dblock { display: block };
+.dInlineBlock { display: inline-block };
 .rRow { flex-direction: row };
 .rRowReverse { flex-direction: row-reverse };
 .rCol { flex-direction: column };

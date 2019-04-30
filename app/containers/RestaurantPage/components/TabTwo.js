@@ -2,6 +2,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { rateColor } from '../../..//components/GeneralFunctions';
@@ -58,7 +59,7 @@ class TabOne extends React.Component {
           />
           <span className={`icon absolute text30 icon ${iconStart}`}> </span>
       </div>              
-      <span>{vStart}</span>
+      <span>{vStart}%</span>
     </div>
   )
 
@@ -67,11 +68,28 @@ class TabOne extends React.Component {
       <img src={comment_empty} className="i3 bottomP20"></img>
       <div className="restauran-comment__empty-box text-center text14">
         <div className="restauran-comment__empty-title bold bottomP15">تاکنون هیچ نظری درباره این رستوران ارسال نشده است!</div>
-        <div className="restauran-comment__empty-desc">از این رستوران سفارش دهید و سپس اولین نفری باشید که بهاین رستوران نظر و امتیاز خواهد داد.
+        <div className="restauran-comment__empty-desc">از این رستوران سفارش دهید و سپس اولین نفری باشید که به این رستوران نظر و امتیاز خواهد داد.
         </div>
       </div>
     </div>
   ))()
+  
+  submitYourComment = (order) => (
+    <div className="restauran-comment__submit center rCol padd15 round20 topM40">
+      <div className="restauran-comment__submit-box text-center text14">
+        <div className="restauran-comment__submit-title bottomP15">
+          <span className="dInlineBlock">نظر شما درباره سفارش</span>
+          <span className="dInlineBlock rightP5 leftP5">{order}</span>
+          <span className="info"> (جزئیات سفارش)</span>
+        </div>
+        <div className="restauran-comment__submit-title padd10 round10 purple5Bg white">
+          <i className="icon chilivery-forget-pass-1 text18 leftP5"></i>
+          <span className="bold text12">با هر نظر به سفارش‌های خود، ۵٪ تخفیف بگیرید.</span>
+        </div>
+          <button className="btn btn-success btn-big topM15">ثبت امتیاز و نظر</button>
+      </div>
+    </div>
+  )
 
   render() {
 
@@ -120,6 +138,10 @@ class TabOne extends React.Component {
 
             </div>
           </div>
+        </div>
+
+        <div className="col-12">
+          {this.submitYourComment('9Z9WA8Y')}
         </div>
 
         <div className="col-12">
