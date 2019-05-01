@@ -31,6 +31,10 @@ export const getOrderitems = (params) => {
   return deRequest(account.orderitems(params.orderId), "GET");
 }
 
+export const orderReviewGet = (orderId) => {
+  return deRequest(account.order_review_get(orderId), "GET");
+}
+
 export const profileChangePass = (params) => { //params: { password }
   return deRequest(account.profileChangePass_post(), "POST", params, false );
 }
