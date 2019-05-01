@@ -19,7 +19,6 @@ class CheckoutCardItem extends React.PureComponent {
 
   componentDidMount() {
     const {datas,items} =this.props;
-    console.log("item~~~~~~~~~~~~~~~~",items)
     let newData = items.map((item) => {
 
       if(item.options.length) {

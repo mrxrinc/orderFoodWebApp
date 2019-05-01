@@ -11,7 +11,11 @@ class GiftCode extends React.PureComponent {
     this.state = {
       data:'',
       campaginCode:'',
-      giftCode: false
+      giftCode: false,
+      userAddressModel: '',
+      userAddressId:'',
+      orderId:'',
+      organCode:''
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,9 +33,9 @@ class GiftCode extends React.PureComponent {
     getSendGifCode(
       {
         "campaginCode":this.state.campaginCode,
-        "orderId":"CHL-9XA640WZ",
-        "userAddressId":"314774",
-        "userAddressModel":"user"
+        "orderId":this.state.orderId,
+        "userAddressId":this.state.userAddressId,
+        "userAddressModel":this.state.userAddressModel
       }
     ).then(response => {
       console.log(response)
@@ -43,6 +47,25 @@ class GiftCode extends React.PureComponent {
       }
     });
   };
+  componentDidMount() {
+    if(this.props.organid) {
+      this.setState({
+        orderId:this.props.orderId,
+        campaginCode:this.props.organCode,
+        userAddressModel:'organ',
+        userAddressId:this.props.userAddressId
+      },()=>
+        this.sendGifCode()
+      )
+    }else {
+      this.setState({
+        orderId:this.props.orderId,
+        campaginCode:'',
+        userAddressModel:'user',
+        userAddressId:this.props.userAddressId
+      })
+    }
+  }
 
   render() {
     const {giftCode,data} = this.state;

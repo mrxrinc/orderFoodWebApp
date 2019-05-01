@@ -2,7 +2,8 @@ import {
   ACC_CHARGED_CHANGED,
   GETWAY_CHANGED,
   ADD_TO_BASKET,
-  ADDRESS_ID_CHANGED
+  ADDRESS_ID_CHANGED,
+  DELIVERY_TYPE_CHANGED
 } from '../constants/Basket';
 
 export const accChargedChanged = value => ({
@@ -25,3 +26,7 @@ export const addressIdChanged = value => ({
   payload: value,
 });
 
+export const deliveryTypeChanged = value => ({
+  type: DELIVERY_TYPE_CHANGED,
+  payload: value,
+});
