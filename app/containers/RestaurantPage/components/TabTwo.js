@@ -13,6 +13,7 @@ import { orderReviewGet } from '../../../api/account';
 import AfterPaymentCardItem from '../../../components/AfterPaymentCardItem';
 import { showModal } from '../../../actions/Modals';
 import OrderReviewModal from '../../../components/ChiliModal/components/OrderReviewModal';
+import YourCommentModal from '../../../components/ChiliModal/components/YourCommentModal';
 
 class TabTwo extends React.Component {
   constructor(props) {
@@ -33,7 +34,9 @@ class TabTwo extends React.Component {
   };
 
   componentDidMount() {
-
+    this.props.showModal({
+      yourCommentModal: true,
+    });
     const rateAnimate = (() => {
       let setTimer = setInterval(() => {
         this.setState({
@@ -187,6 +190,7 @@ class TabTwo extends React.Component {
           {this.state.orderReviewShow &&
             <OrderReviewModal data={this.state.orderReview} headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5" />
           }
+          <YourCommentModal data={this.state.orderReview} headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5" />
         </div>
       </div>
     );
@@ -196,6 +200,7 @@ class TabTwo extends React.Component {
 const mapStateToProps = state => ({
   modals: {
     orderReviewModal: state.Modals.orderReviewModal,
+    yourCommentModal: state.Modals.yourCommentModal,
   },
 });
 const mapDispatchToProps = dispatch => ({
