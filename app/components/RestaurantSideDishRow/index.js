@@ -55,5 +55,5 @@ const RestaurantSideDishRow = props => {
     </div>
   );
 };
-
+//checkWithDisplayType = (foodOptionPrice, displayType, foodPrice) => {
 export default RestaurantSideDishRow;

@@ -304,7 +304,7 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                <StickyPrice data={{}} link="/cart" />
+                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
               </div>
             )}
             {this.state.tabTwo && <h1>tab2</h1>}
