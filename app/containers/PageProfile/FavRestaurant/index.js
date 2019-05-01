@@ -38,7 +38,7 @@ class FavRestaurant extends React.Component{
                         <div className="fav-detail-restaurant wFull">
                             <div className="fav-restaurant__detail">
                                 <span className="fav-restaurant__title">{this.state.title1}</span>
-                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                                <span className="icon chilivery-fav-full fav-star"> </span>
                             </div>
                             <div className="fav-restaurant__box">
                                 <div className="fav-detail">
@@ -67,7 +67,7 @@ class FavRestaurant extends React.Component{
                         <div className="fav-detail-restaurant wFull">
                             <div className="fav-restaurant__detail">
                                 <span className="fav-restaurant__title">{this.state.title2}</span>
-                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                                <span className="icon chilivery-fav-full fav-star"> </span>
                             </div>
                             <div className="fav-restaurant__box">
                                 <div className="fav-detail">
@@ -96,7 +96,7 @@ class FavRestaurant extends React.Component{
                         <div className="fav-detail-restaurant wFull">
                             <div className="fav-restaurant__detail">
                                 <span className="fav-restaurant__title">{this.state.title3}</span>
-                                <span className="icon chilivery-fav-empty fav-star"> </span>
+                                <span className="icon chilivery-fav-full fav-star"> </span>
                             </div>
                             <div className="fav-restaurant__box">
                                 <div className="fav-detail">

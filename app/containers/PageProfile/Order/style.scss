@@ -39,8 +39,8 @@
                         color: $color-primary;
                         font-weight: bold;;
                     }
-                    .chili-star{
-                        color: #1CBD2F;
+                    .icon{
+                        color: #787878;
                         margin-right: auto;
                         font-size: 22px;
                     }
@@ -50,8 +50,7 @@
                     padding-top: 6px;
                     position: relative;
                     .order-box__date{
-                        padding-right: 10px;
-                        padding-left: 10px;
+                       padding-left: 12px;
                         &:after{
                             content: "";
                             height: 5px;
@@ -60,14 +59,14 @@
                             background-color: #F2C930;
                             position: absolute;
                             top: 14px;
-                            right: 58px;
+                            right: 50px;
                             
                         }
                         
                     }
                     .order-box__time{
-                        padding-right: 10px;
-                        padding-left: 10px;
+                        padding-left: 12px;
+                        padding-right: 4px;
                         &:after{
                             content: "";
                             height: 5px;
@@ -76,8 +75,7 @@
                             background-color: #F2C930;
                             position: absolute;
                             top: 14px;
-                            left: 120px;
-                            
+                            right: 98px;
                         }
                         
                     }
@@ -96,10 +94,15 @@
             }
             .order-box__dmain{
                 border-top: 1px solid #E4E4E4;
-                color: #888787;
+                
                 text-align: left;
-                .chili-war{
+                color: $color-primary;
+                .order-dmain__ready{
+                    font-size: 12px;
+                }
+                .icon{
                     margin-right: auto;
+                    color: #888787;
                 }
                 .order-dmain__text{
                     color: $color-primary;
