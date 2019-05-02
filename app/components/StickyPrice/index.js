@@ -52,7 +52,7 @@ class StickyPrice extends React.PureComponent {
       }
     ).then(response => {
       if(response.status) {
-        link ? history.push(link) : history.push("/checkout")
+        link ? history.push(link) : history.push("/checkout");
         this.setState({
         })
       }
@@ -61,8 +61,12 @@ class StickyPrice extends React.PureComponent {
 
   pushLink = () => {
     const {link} = this.props;
-    if (link == "/cart") {
+    if (link === "/cart") {
       this.changeBasket();
+    }
+    if (link === "/checkout") {
+      // this.changeBasket();
+      link ? history.push(link) : history.push("/checkout");
     }
 
   };
