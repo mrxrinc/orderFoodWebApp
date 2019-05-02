@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { showModal } from '../../actions/Modals';
@@ -15,13 +15,18 @@ import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
-import { restaurantDetail, createBasket } from '../../api/application/restaurant';
+import {
+  restaurantDetail,
+  createBasket,
+} from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
 import './style.scss';
+import TabThree from './components/TabThree';
 
 const basketTempData = {};
+
 
 class RestaurantPage extends React.Component {
   constructor(props) {
@@ -32,8 +37,46 @@ class RestaurantPage extends React.Component {
       loading: true,
       modalData: null,
       basket: null,
+      tabOne: true,
+      tabTwo: false,
+      tabThree: false,
+      modalButton: false,
+      modalRequired: [],
+      modalContainer: []
     };
   }
+
+  tabClick = slug => {
+    console.log('====================================');
+    console.log(slug);
+    console.log('====================================');
+    switch (slug) {
+      case 'tabOne':
+        this.setState({
+          tabOne: true,
+          tabTwo: false,
+          tabThree: false,
+        });
+        break;
+      case 'tabTwo':
+        this.setState({
+          tabOne: false,
+          tabTwo: true,
+          tabThree: false,
+        });
+        break;
+      case 'tabThree':
+        this.setState({
+          tabOne: false,
+          tabTwo: false,
+          tabThree: true,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
 
   componentDidMount() {
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
@@ -43,87 +86,171 @@ class RestaurantPage extends React.Component {
 
         createBasket(this.state.id).then(basketResp => {
           console.log('Basket Response ==>', basketResp.result);
-          this.setState({ basket: basketResp.result })
-        })
+          this.setState({ basket: basketResp.result });
+        });
         console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
       });
     });
   }
 
-  openFoodModal = (food) => {
+  openFoodModal = food => {
+    this.setState({ modalRequired: [] });
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
-      if(!this.state.modalData.count) { // for the first time increasing from inside of the modal
-        this.setState({ modalData: { ...this.state.modalData, count: 0 }})
+      const requiredCategories = this.state.modalData.options.filter(
+        category =>
+          category.groupRequired && category.groupMaxSelectionLimit === 1,
+      );
+      requiredCategories.map(category =>
+        this.state.modalRequired.push(category.groupId),
+      );
+      console.log("^^^",this.state.modalRequired);
+      if (!this.state.modalData.count) {
+        // for the first time increasing from inside of the modal
+        this.setState({ modalData: { ...this.state.modalData, count: 0 } });
       }
-      this.toggleModal()
+      this.toggleModal();
     });
   };
+
+  onChangeSideDish = (optionId, group) => {    
+    this.state.modalContainer.push(group.groupId);
+    if (this.hasSubArray(this.state.modalContainer, this.state.modalRequired)) {
+      this.setState({ modalButton: true });
+    }  
+  };
+
+  hasSubArray = (master, sub) => sub.every((i => v => i = master.indexOf(v, i) + 1)(0))
 
   toggleModal = () => {
     this.props.showModal({
       RestaurantPageModal: !this.props.modals.RestaurantPageModal,
     });
+    // this.state.modalRequired = [];
+    this.state.modalContainer = [];
   };
 
-  stepper = (id, count, role, food) => {
+  stepper = (id, count, role) => {
     console.log('Stepper ===>', id, count, role);
     const data = this.state.restaurantDetail;
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
-        if(food.id === id) {
+        if (food.id === id) {
           const key = food.id;
           const basket = {};
-          if(food.count) {
+
+          if (food.count) {
             let count = null;
-            if(role === 'add') count = food.count + 1;
-            else if(role === 'remove') count = food.count - 1;
-            const data = { ...food, count }
+            if (role === 'add') count = food.count + 1;
+            else if (role === 'remove') count = food.count - 1;
+            const data = { ...food, count };
             basket[key] = data;
             Object.assign(basketTempData, basket);
-            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count } });
+            if (this.state.modalData)
+              this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
-          } else {
+          } 
             const data = { ...food, count: 1 };
             basket[key] = data;
             Object.assign(basketTempData, basket);
-            if(this.state.modalData) this.setState({ modalData: { ...this.state.modalData, count: 1 } });
+            if (this.state.modalData)
+              this.setState({
+                modalData: { ...this.state.modalData, count: 1 },
+              });
             return data;
-          }
-        } else if(food.count && food.count > 0) {
-          return food
+          
+        } else if (food.count && food.count > 0) {
+          return food;
         }
         return { ...food, count: 0 };
       });
-      return { ...group, foods: newFoods };
+      return { foods: newFoods };
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState({ 
-      restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
-    }, () => {
-      console.log('new State ===>', this.state.restaurantDetail);
-      console.log('modalData State ===>', this.state.modalData);
-      console.log('BASKET_TEMP_DATA', basketTempData);
+    this.setState(
+      {
+        restaurantDetail: {
+          ...this.state.restaurantDetail,
+          menuSections: newMenu,
+        },
+      },
+      () => {
+        console.log('new State ===>', this.state.restaurantDetail);
+        console.log('modalData State ===>', this.state.modalData);
+        console.log('BASKET_TEMP_DATA', basketTempData);
 
-      //continue to redux
-      const dataForBasket = {
-        restaurantId: this.state.restaurantDetail.id,
-        orderId: this.state.basket.id,
-        items: basketTempData
-      }
-      this.props.addToBasket({ basket: dataForBasket });
-    });
+        // continue to redux
+        const dataForBasket = {
+          restaurantId: this.state.restaurantDetail.id,
+          orderId: this.state.basket.id,
+          items: basketTempData,
+        };
+        this.props.addToBasket({ basket: dataForBasket });
+      },
+    );
   };
 
   modalPrice = () => {
-    const count = this.state.modalData.count;
-    const itemPrice = this.state.modalData.price;
-    const sum = itemPrice * count;
+    let sum = 0;
+    if (this.state.modalData) {
+      const { count } = this.state.modalData;
+      const itemPrice = this.state.modalData.price;
+      sum = itemPrice * count;
+    }
     console.log(sum);
     return sum;
-  }
+  };
+
+  createTitle = category => {
+    let title = `انتخاب ${category.groupName}`;
+    title += ' (';
+    category.groupRequired ? (title += 'حداقل ') : (title += 'حداکثر ');
+    title += category.groupMaxSelectionLimit;
+    title += `مورد) `;
+    return title;
+  };
+
+  calculateFinalSideDishPrice = category => {
+    if (category.groupMaxSelectionLimit === 1 && category.groupRequired) {
+      return 'radio';
+    }
+    return 'checkbox';
+  };
+
+  checkWithDisplayType = (foodOptionPrice, displayType, foodPrice) => {
+    if (displayType === 0) {
+      return foodOptionPrice + foodPrice;
+    }
+    return foodOptionPrice;
+  };
+
+  defineSideDishDiscount = (
+    foodOptionPrice,
+    foodOptionLastPrice,
+    displayType,
+    foodPrice,
+  ) => {
+    console.log("***",foodOptionPrice,
+      foodOptionLastPrice,
+      displayType,
+      foodPrice,
+    );
+    if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {      
+      return {
+        realPrice: this.checkWithDisplayType(
+          foodOptionLastPrice,
+          displayType,
+          foodPrice,
+        ),
+        hasDiscount: true,
+      };
+    }    
+    return {
+      hasDiscount: false,
+    };
+  };
 
   render() {
     const data = this.state.restaurantDetail;
@@ -142,40 +269,50 @@ class RestaurantPage extends React.Component {
               isOpen
               commentCount={data.commentCount}
               rateAverage={data.rateAverage}
+              tabClick={this.tabClick}
             />
 
             {/* <div className="stickyMenu wFull" /> */}
 
-            <div className="hP10 vM10">
-              {data.menuSections.map(group => (
-                <RestaurantFoodGroup
-                  key={group.id}
-                  title={group.name}
-                  icon="italian" // Fix these iconssssssss
-                >
-                  {group.foods.map(food => (
-                    <RestaurantFoodCard
-                      onClick={() => this.openFoodModal(food)}
-                      key={food.id}
-                      id={food.id}
-                      name={food.name}
-                      hasPic={food.hasPic}
-                      foodImg={food.image}
-                      description={food.description}
-                      discount={food.salePercentage}
-                      vote={food.vote}
-                      voteCount={food.voteCount}
-                      price={food.price}
-                      lastPrice={food.lastPrice}
-                      count={food.count}
-                      stepper={this.stepper}
-                      item={food} // to get inside Stepper component
-                    />
-                  ))}
-                </RestaurantFoodGroup>
-              ))}
-              <StickyPrice data={{}} link='/cart' />
-            </div>
+            {this.state.tabOne && (
+              <div className="hP10 vM10">
+                {data.menuSections.map(group => (
+                  <RestaurantFoodGroup
+                    key={group.id}
+                    title={group.name}
+                    icon="italian" // Fix these iconssssssss
+                  >
+                    {group.foods.map(food => (
+                      <RestaurantFoodCard
+                        onClick={() => this.openFoodModal(food)}
+                        key={food.id}
+                        id={food.id}
+                        name={food.name}
+                        hasPic={food.hasPic}
+                        hasOption={food.hasOption}
+                        foodImg={food.image}
+                        description={food.description}
+                        discount={food.salePercentage}
+                        vote={food.vote}
+                        voteCount={food.voteCount}
+                        price={food.price}
+                        lastPrice={food.lastPrice}
+                        count={food.count}
+                        stepper={this.stepper}
+                        item={food} // to get inside Stepper component
+                      />
+                    ))}
+                  </RestaurantFoodGroup>
+                ))}
+                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+              </div>
+            )}
+            {this.state.tabTwo && <h1>tab2</h1>}
+            {this.state.tabThree && (
+              <div className="container-fluid">
+                <TabThree data={data} />
+              </div>
+            )}
 
             <Modal
               className="modal-restaurant__detail"
@@ -187,7 +324,9 @@ class RestaurantPage extends React.Component {
                   <div className="scroll modal-restaurant__detail-body lightBg">
                     <div
                       className="modal-restaurant__detail-head centerBg cover gray4Bg"
-                      style={{ backgroundImage: `url(${this.state.modalData.image})` }}
+                      style={{
+                        backgroundImage: `url(${this.state.modalData.image})`,
+                      }}
                     >
                       <ul className="flex spaceBetween reset">
                         <li className="center">
@@ -213,16 +352,16 @@ class RestaurantPage extends React.Component {
                         <div className="reviews absolute flex hP20 lightBg">
                           <div className="flex i2 center gray">
                             <span className="text14 leftM3 topM3">
-                            {this.state.modalData.voteCount}
+                              {this.state.modalData.voteCount}
                             </span>
                             <span className="chilivery-user text12" />
                           </div>
 
-                            <div
-                              className={`flex i2 center round5 ${rateColor(
-                                this.state.modalData.vote,
-                              )}`}
-                            >
+                          <div
+                            className={`flex i2 center round5 ${rateColor(
+                              this.state.modalData.vote,
+                            )}`}
+                          >
                             <span className="white text14 leftM3 topM3">
                               {this.state.modalData.vote}
                             </span>
@@ -239,20 +378,24 @@ class RestaurantPage extends React.Component {
                         <ul className="flex reset hInherit">
                           {this.state.modalData.lastPrice && (
                             <li className="moto flex hCenter rightP10 overLine danger">
-                              <span className="text12">{this.state.modalData.lastPrice}</span>
+                              <span className="text12">
+                                {this.state.modalData.lastPrice}
+                              </span>
                               <span className="text8 topM3 rightM3">تومان</span>
                             </li>
                           )}
                           <li className="moto flex hCenter rightP10 bold primary">
-                            <span className="text16">{this.state.modalData.price}</span>
+                            <span className="text16">
+                              {this.state.modalData.price}
+                            </span>
                             <span className="text10 topM3 rightM3">تومان</span>
                           </li>
                         </ul>
                         <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                          <Stepper 
-                            className="topM20" 
-                            fontSize="18" 
-                            parentId={this.state.modalData.id} 
+                          <Stepper
+                            className="topM20"
+                            fontSize="18"
+                            parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             stepper={this.stepper}
                           />
@@ -261,52 +404,49 @@ class RestaurantPage extends React.Component {
                     </div>
 
                     {this.state.modalData.hasOption && (
-                      <div className="modal-restaurant__detail-sideDishes topM30">
-                        <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)">
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                        </RestaurantSideDishGroup>
-
-                        <RestaurantSideDishGroup title="انتخاب سایز (حداکثر ۱ مورد)">
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                          <RestaurantSideDishRow
-                            labelClassName="gray7"
-                            type="radio"
-                            label="کوچک"
-                          />
-                        </RestaurantSideDishGroup>
+                      <div>
+                        {this.state.modalData.options.map(category => (
+                          <div className="modal-restaurant__detail-sideDishes topM30">
+                            <RestaurantSideDishGroup
+                              title={this.createTitle(category)}
+                              key={category.groupId}
+                            >
+                              { category.options.map(option => (
+                                <Fragment>
+                                  <input
+                                    value={this.name}
+                                    onChange={this.handleChange}
+                                  />
+                                  <RestaurantSideDishRow
+                                    type={this.calculateFinalSideDishPrice(
+                                      category,
+                                    )}
+                                    price={this.checkWithDisplayType(
+                                      option.foodOptionPrice,
+                                      category.groupPriceDisplayType,
+                                      this.state.modalData.price,
+                                    )}
+                                    discount={this.defineSideDishDiscount(
+                                      option.foodOptionPrice,
+                                      option.foodOptionLastPrice,
+                                      category.groupPriceDisplayType,
+                                      this.state.modalData.price,
+                                    )}
+                                    name={option.foodOptionName}
+                                    id={option.foodOptionId}
+                                    onClick={() =>
+                                      this.onChangeSideDish(
+                                        option.foodOptionId,
+                                        category,
+                                      )
+                                    }
+                                    groupId={category}
+                                  />
+                                </Fragment>
+                              )) }
+                            </RestaurantSideDishGroup>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -315,10 +455,10 @@ class RestaurantPage extends React.Component {
                     <div className="center i2">
                       <div>
                         <div className="flex hP10 primary text16 center">
-                          <Stepper 
-                            className="topM10" 
-                            fontSize="18" 
-                            parentId={this.state.modalData.id} 
+                          <Stepper
+                            className="topM10"
+                            fontSize="18"
+                            parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             stepper={this.stepper}
                           />
@@ -333,7 +473,11 @@ class RestaurantPage extends React.Component {
                     </div>
 
                     <div className="i2 center">
-                      <Button color="success w80" onClick={this.toggleModal}>
+                      <Button
+                        color="success w80"
+                        disabled={!this.state.modalButton}
+                        onClick={this.toggleModal}
+                      >
                         تایید
                       </Button>
                     </div>
@@ -354,16 +498,14 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
-  
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
   addToBasket: value => {
     dispatch(addToBasket(value));
-  }
+  },
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RestaurantPage);
-

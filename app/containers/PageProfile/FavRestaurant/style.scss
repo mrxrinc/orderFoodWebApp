@@ -1,0 +1,48 @@
+@import '../../../style/sass/variable';
+
+.fav-restaurant{
+    .fav-restaurant__header{
+        text-align: center;
+        padding-top: 52px;
+        .fav-icon{
+            width: 80px;
+            height: 80px;
+        }
+        .fav-header{
+            display: block;
+            color: $grey-15;
+            padding-top: 11px;
+            padding-right: 40px;
+            padding-left: 40px;
+            font-size: 15px;
+        }
+    }
+    .fav-restaurant__explain{
+        padding-top: 50px;
+        text-align: left;
+        padding-left: 12px;
+        padding-right: 12px;
+        .fav__text{
+            color: #929292;
+            font-size: 14px;
+        }
+        .fav__icon{
+            display: inline-block;
+            color: $color-secondary;
+            font-size: 22px;
+        }
+        .fav-guide{
+            width: 330px;
+            padding-top: 10px;
+        }
+    }
+    .fav-restaurant__button{
+        text-align: center;
+        margin-top: 40px;
+        .fav__btn{
+            width: 230px;
+            height: 50px;
+            border-radius: 50px;
+        }
+    }
+}

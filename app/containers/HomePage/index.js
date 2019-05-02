@@ -19,7 +19,10 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       cityList:[],
-      userLocation:{},
+      userLocation:{
+        lat: 35.704334,
+        lng: 51.393625
+      },
       cityName:"",
       regionName:""
     }
@@ -31,8 +34,6 @@ class HomePage extends React.Component {
   };
 
   fetchMap = () =>{
-    // `35.758367199999995,51.399477499999996`,
-
     getNeighborhood(
         `${this.state.userLocation.lat},${this.state.userLocation.lng}`,
     ).then(
@@ -46,7 +47,6 @@ class HomePage extends React.Component {
 }
 
   componentDidMount() {
-
     getCityList().then(
       response => {
         this.setState({
@@ -55,29 +55,13 @@ class HomePage extends React.Component {
       }
     )
 
-        // const getLocation = () => {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(showPosition);
-    //     }
-    // }
-    // const showPosition = (position) => {
-    //     this.setState({
-    //       userLocation: {
-    //             lat: 35.758367199999995,
-    //             lng: 51.399477499999996,
-    //         }
-    //     },this.fetchMap)
-    // }
-
     const getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        }
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(positionSuccess,positionError);
+      }
     }
 
-    // lat: 35.758367199999995,
-    // lng: 51.399477499999996,
-    const showPosition = (position) => {
+    const positionSuccess = (position) => {
         this.setState({
           userLocation: {
                 lat: position.coords.latitude,
@@ -85,9 +69,15 @@ class HomePage extends React.Component {
             }
         },this.fetchMap)
     }
+
+    const positionError = ()=>{
+      this.fetchMap();
+    }
+
     if(typeof this.props.UserPosition == "undefined"){
       getLocation();
     }
+    
   }
   
   UserPositionModal = () => {

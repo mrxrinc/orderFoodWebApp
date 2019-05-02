@@ -2,12 +2,13 @@ import React from 'react';
 import './style.scss';
 import Food from '../../images/test/food.jpg';
 import IncrementDecrease from '../IncrementDecrease';
+import Stepper from '../../components/Stepper';
 
 /* eslint-disable react/prefer-stateless-function */
 const divStyle = {
   backgroundImage: `url(${Food})`,
 };
-
+const basketTempData = {};
 class CheckoutCardItem extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -17,7 +18,9 @@ class CheckoutCardItem extends React.PureComponent {
   }
 
   componentDidMount() {
-    let newData = this.props.data.map((item) => {
+    const {datas,items} =this.props;
+    let newData = items.map((item) => {
+
       if(item.options.length) {
         let newOption = [];
         item.options.map((option) => {
@@ -66,7 +69,7 @@ class CheckoutCardItem extends React.PureComponent {
 
           <span className="price">{item.optionSum ? item.count * (item.foodPrice + item.optionSum) : item.count * item.foodPrice } تومان</span>
           <div className="counter">
-            <IncrementDecrease />
+            {/*<IncrementDecrease />*/}
           </div>
         </div>
       </div>

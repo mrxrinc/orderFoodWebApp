@@ -44,3 +44,52 @@
 .modal-restaurant__detail-sideDishes {
   
 }
+
+.restaurant-detail{
+  font-size: 14px;
+  .icon{
+    color: $orange-7;
+  }
+  &__more-restaurant{
+    border:2px dashed $color-success;
+  }
+  &__time{
+    &-item{
+      &:first-child{
+        padding-right: 0;
+        &:before{
+          display: none
+        }
+      }
+    }
+  }
+  &__item-box{
+    margin-bottom: 0 !important;
+  }
+  .owl-theme .owl-nav button {
+    position: absolute;
+    top: 38%;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    color: #fff !important;
+    background: rgba(0,0,0,0.5) !important;
+    border-radius: 50% !important;
+    display: block;
+    line-height: 40px !important;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0.7 !important;
+    outline: none;
+    font-size: 40px;
+    &.owl-prev{
+      right: 0;
+    }
+    &.owl-next{
+      left: 0;
+    }
+  }
+}
+
+input[value=""] {
+  visibility: hidden!important;
+}

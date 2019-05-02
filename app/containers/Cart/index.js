@@ -13,6 +13,11 @@ import cover from '../../images/pattern.png';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
+import { deliveryTypeChanged } from '../../actions/Basket';
+import { connect } from 'react-redux';
+import { Checkout } from '../Checkout';
+import { getOrderitems,getUserAddress } from '../../api/account';
+import ProfileAddress from '../PageProfile';
 
 export class cart extends React.PureComponent {
 
@@ -22,18 +27,58 @@ export class cart extends React.PureComponent {
     this.toggle = this.toggle.bind(this);
     this.state = {
       description: '',
-      activeTabAddress: '1'
+      activeTabAddress: this.props.basket.deliveryType ? "2":"1",
+      orderItems:{},
+      AddressShow:false
     };
   }
+
+  getOrderItem = () => {
+    const {basket} = this.props;
+    getOrderitems({
+      orderId:basket.basket.orderId
+    }).then(response => {
+      if(response.status) {
+        this.setState({
+          orderItems:response.result
+        })
+      }
+    });
+  };
+
+  getAddress = () => {
+    const {basket} = this.props;
+    getUserAddress({
+      restaurantId:basket.basket.restaurantId,
+      orderId:basket.basket.orderId
+    }).then(
+      response => {
+        this.setState({
+          userAddressList:response.result,
+        },()=>{
+          this.setState({
+            AddressShow:true
+          })
+        })
+      }
+    )
+  }
+
   componentDidMount() {
     let count = 0;
     dataSample.result.items.map((item) => {
       count += item.count;
     })
-    console.log(count);
+    this.getOrderItem();
+    this.getAddress();
   }
 
   toggle(tab) {
+    if(tab === "1") {
+      this.props.changeDeliveryType({deliveryType:false})
+    } else {
+      this.props.changeDeliveryType({deliveryType:true})
+    }
     if (this.state.activeTabAddress !== tab) {
       this.setState({
         activeTabAddress: tab
@@ -46,17 +91,18 @@ export class cart extends React.PureComponent {
   };
 
   render() {
-    const {description} = this.state;
+    const {description,orderItems,activeTabAddress} = this.state;
+    const {basket} = this.props;
     return (
       <div className="cart bottomP50">
-        <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
+        {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          <CheckoutCardItem data={dataSample.result.items}/>
+          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.basket.items} items={orderItems.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
             <span>تحویل غذا </span>
-            <span className="cost-sending">(هزینه ارسال: 0 تومان)</span>
+            {activeTabAddress == "1" &&<span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice} تومان)</span>}
           </div>
           <div className="food-delivery__lbox">
             <div className="tab-box">
@@ -79,7 +125,9 @@ export class cart extends React.PureComponent {
             <div className="address">
               <h4>آدرس های ذخیره شده</h4>
               <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
-              <MyAddress data={addressSample.result} />
+              {this.state.AddressShow &&
+                <MyAddress data={this.state.userAddressList} />
+              }
             </div>
           </TabPane>
           <TabPane tabId="2">
@@ -88,9 +136,9 @@ export class cart extends React.PureComponent {
               <div className="address__inplace">
                 <span className="address__inplace__header">
                   <span className="address__inplace__header-icon chilivery-restaurant"> </span>
-                  <span className="address__inplace__header-text">یاماهاسا (هفت تیر)</span>
+                  <span className="address__inplace__header-text">{orderItems.restaurant && orderItems.restaurant.name}</span>
                 </span>
-                <p>	ابتدای پل کریمخان، خیابان حسینی، نبش 2 غربی، پلاک 18</p>
+                <p>{orderItems.restaurant && orderItems.restaurant.address}</p>
               </div>
             </div>
           </TabPane>
@@ -108,10 +156,29 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice data={dataSample.result.amount} />
+        <StickyPrice link='/checkout' data={dataSample.result.amount}  collapseShow={true}/>
       </div>
     );
   }
 }
 
-export default cart;
+const mapDispatchToProps = dispatch => {
+  return {
+    changeDeliveryType: value => {
+      dispatch(deliveryTypeChanged(value));
+    },
+  };
+};
+
+const mapStateToProps = state => ({
+  user: state.auth,
+  basket:state.Basket
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(cart);
+
+
+

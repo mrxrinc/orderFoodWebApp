@@ -73,13 +73,13 @@ const RestaurantHeader = props => (
           </div>
 
           <ul className="tabs reset flex overhide text14 primary">
-            <li className="center gray6Bg white">
+            <li className="center gray6Bg white" onClick={() => props.tabClick("tabOne")}>
               <span>منوی رستوران</span>
             </li>
-            <li className="center">
+            <li className="center" onClick={() => props.tabClick("tabTwo")}>
               <span>نظر مشتریان</span>
             </li>
-            <li className="center">
+            <li className="center" onClick={() => props.tabClick("tabThree")}>
               <span>اطلاعات رستوران</span>
             </li>
           </ul>

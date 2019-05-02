@@ -10,6 +10,8 @@ import cover from '../../images/pattern.png';
 import dataSample from '../data.json';
 import { gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
+import { getDataAfterPayment } from '../../api/account';
+
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
   constructor(props) {
@@ -28,13 +30,20 @@ export class Checkout extends React.PureComponent {
     );
   }
 
+  componentDidMount() {
+    if(this.props.basket.organizationAddressId != null) {
+      console.log("ok")
+    }
+  }
+
+
   render() {
     return (
       <div className="checkout hFull">
         <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
-          <GiftCode />
+          <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.basket.orderId}/>
           <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
           <UserCacheBalance />
           <Row className="banks-row" >
@@ -66,7 +75,7 @@ export class Checkout extends React.PureComponent {
           </Row>
         </div>
       </Container>
-      <StickyPrice data={dataSample.result.amount} />
+      <StickyPrice data={dataSample.result.amount} collapseShow={true}/>
       </div>
     );
   }

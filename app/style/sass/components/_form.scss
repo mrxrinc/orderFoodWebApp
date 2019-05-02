@@ -16,7 +16,7 @@
   border-left: 0;
   border-right: 0;
   background-color: transparent;
-  padding-right: 8px;
+  padding-right: 0px;
   textarea{
     border: 0;
     outline: 0;
@@ -104,28 +104,38 @@
   }
 }
 
-.radio-wrapper {
+%radio-basic {
   height: 40px;
   width: 100%;
-  padding: 1px 40px 1px 20px !important;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border: 1px solid $color-border-2;
-  border-radius: 20px;
-  position: relative;
-  background-color: #fff;
-  outline: none!important;
-  // font-size: 1.2rem;
-  margin-bottom: 8px;
+  position: relative;  
+  outline: none!important;  
   margin-right: 0;
   overflow: hidden;
   cursor: pointer;
 }
-.radio-wrapper input {
+
+.radio-modal {
+  @extend %radio-basic;
+  padding: 1px 33px 1px 20px !important;
+  margin-top: 10px;
+}
+
+.radio-wrapper {
+  @extend %radio-basic;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border: 1px solid $color-border-2;
+  border-radius: 20px;
+  background-color: #fff;
+  margin-bottom: 8px;
+  padding: 1px 40px 1px 20px !important;
+}
+
+.radio-wrapper input , .radio-modal input  {
   position: absolute;
   top: -25px;
 }
-.radio-wrapper .radio-face {
+.radio-wrapper .radio-face , .radio-modal .radio-face {
   position: absolute;
   width: 18px;
   height: 18px;
@@ -137,7 +147,7 @@
   top: 10px;
   right: 10px;
 }
-.radio-wrapper .radio-face:after {
+.radio-wrapper .radio-face:after , .radio-modal .radio-face:after{
   position: absolute;
   width: 6px;
   height: 6px;
@@ -149,17 +159,17 @@
   top: 5px;
   right: 5px;
 }
-.radio-wrapper .label-parent input:checked+.radio-face:after {
+.radio-wrapper .label-parent input:checked+.radio-face:after , .radio-modal .label-parent input:checked+.radio-face:after{
   background-color: $color-white;
 }
-.basket-confirm.basket-payment .radio-wrapper .label-parent input:checked ~ i {
+.basket-confirm.basket-payment .radio-wrapper .label-parent .radio-modal input:checked ~ i {
   border: 1px solid #5f9be7;
 }
-.radio-wrapper span {
+.radio-wrapper span, .radio-modal span{
   display: flex;
   height: 36px;
   line-height: 36px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   width: 100%;
   position: relative;

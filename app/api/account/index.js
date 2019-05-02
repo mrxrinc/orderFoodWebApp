@@ -19,6 +19,22 @@ export const getDataAfterPayment = (params) => {
   return deRequest(account.getOrderDetail(), "GET", params, false );
 }
 
+export const getSendGifCode = (params) => {
+  return deRequest(account.sendGifCode(), "GET", params, false );
+}
+
+export const putChangeBasket = (params) => {
+  return deRequest(account.changeBasket(), "PUT", params, false );
+}
+
+export const getOrderitems = (params) => {
+  return deRequest(account.orderitems(params.orderId), "GET");
+}
+
+export const getUserAddress = (params) => {
+  return deRequest(account.userAddress(params), "GET", params, false );
+}
+
 export const profileChangePass = (params) => { //params: { password }
   return deRequest(account.profileChangePass_post(), "POST", params, false );
 }

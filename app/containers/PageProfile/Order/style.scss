@@ -1,0 +1,17 @@
+@import '../../../style/sass/variable';
+
+.order{
+    .order__icon{
+        padding-top: 110px;
+        text-align: center;
+        .order__img{
+            width: 90px;
+            height: 90px;
+        }
+        .order__title{
+            display: block;
+            padding-top: 12px;
+            color: $grey-15;
+        }
+    }
+}

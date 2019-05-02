@@ -19,6 +19,7 @@ class ChiliModal extends Component {
         className={`chili-modal ${classes.className} ${
           classes.alert ? 'chili-modal_alert' : ''
           }`}
+          onClosed={this.props.onClosed}
       >
         <div className="panigale__header-notification">
           {/* <PanigaleNotification/> */}

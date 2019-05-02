@@ -3,6 +3,7 @@ import React from 'react';
 import './style.scss';
 import Stepper from '../Stepper';
 import { rateColor } from '../GeneralFunctions';
+import RestaurantSelectSideDish from '../RestaurantSelectSideDish';
 
 const RestaurantFoodCard = props => (
   <div className="foodCard">
@@ -63,13 +64,18 @@ const RestaurantFoodCard = props => (
         </li>
       </ul>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <Stepper 
-          fontSize="18" 
-          parentId={props.id} 
-          stepper={props.stepper} 
-          value={props.count} 
-          item={props.item}
-        />
+        {!props.hasOption && (
+          <Stepper
+            fontSize="18"
+            parentId={props.id}
+            stepper={props.stepper}
+            value={props.count}
+            item={props.item}
+          />
+        )}
+        {props.hasOption && (
+          <RestaurantSelectSideDish onClick={props.onClick} />
+        )}
       </div>
     </div>
   </div>

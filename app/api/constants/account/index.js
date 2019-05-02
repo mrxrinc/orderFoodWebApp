@@ -10,7 +10,7 @@ export const verify_post= () => API_URL_ROOT+'/user/verifyCode';
 export const verifyPass_post= () => API_URL_ROOT+'/api/user/checkExistToken';
 export const isVerify_post= () => API_URL_ROOT+'/user/sendVerification';
 export const resend_verify_post= () => API_URL_ROOT+'/api/user/resendVerification';
-export const logout_get= () => API_URL_ROOT+'/api/user/logout';
+export const logout_get= () => API_URL_ROOT+'/user/logout';
 export const user_update= (id) => API_URL_ROOT+'/api/user/update/' + id;
 export const profileChangePass_post= () => API_URL_ROOT+'/api/user/changePassword/';
 export const forgot_post= () => API_URL_ROOT+'/api/user/forgotPassword/';
@@ -26,3 +26,7 @@ export const listWithTransactions_get= () => API_URL_ROOT+'/payment/api/order/li
 export const refund_ticket = () => API_URL_ROOT+'/payment/api/order/cancelByUser';
 export const get_guest_phone_number = (guestId) => API_URL_ROOT+'/api/user/showPhoneNumber/'+guestId;
 export const getOrderDetail= () => API_URL_ROOT+'/order/detail/CHL-8WZ79XA8';
+export const sendGifCode= () => API_URL_ROOT+'/campaign/checkCode';
+export const changeBasket= () => API_URL_ROOT+'/order/basket';
+export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
+export const userAddress= () => API_URL_ROOT+'/userAddress';

@@ -25,6 +25,7 @@
     }
     &__lbox {
       float: left;
+      clear: both;
       .tab-box {
         background-color: $grey-4;
         border-radius: 20px;
