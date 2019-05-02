@@ -22,6 +22,7 @@ import {
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
+import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 
@@ -44,6 +45,23 @@ class RestaurantPage extends React.Component {
       modalRequired: [],
       modalContainer: []
     };
+  }
+
+  componentDidMount() {
+    console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
+    restaurantDetail(this.state.id).then(response => {
+      this.setState({ restaurantDetail: response.result }, () => {
+        this.setState({ loading: false });
+
+        this.props.storeRestaurant(response.result);
+
+        createBasket(this.state.id).then(basketResp => {
+          console.log('Basket Response ==>', basketResp.result);
+          this.setState({ basket: basketResp.result });
+        });
+        console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
+      });
+    });
   }
 
   tabClick = slug => {
@@ -77,21 +95,6 @@ class RestaurantPage extends React.Component {
         break;
     }
   };
-
-  componentDidMount() {
-    console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
-    restaurantDetail(this.state.id).then(response => {
-      this.setState({ restaurantDetail: response.result }, () => {
-        this.setState({ loading: false });
-
-        createBasket(this.state.id).then(basketResp => {
-          console.log('Basket Response ==>', basketResp.result);
-          this.setState({ basket: basketResp.result });
-        });
-        console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
-      });
-    });
-  }
 
   openFoodModal = food => {
     this.setState({ modalRequired: [] });
@@ -501,9 +504,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
-  addToBasket: value => {
-    dispatch(addToBasket(value));
-  },
+  addToBasket: value => dispatch(addToBasket(value)),
+  storeRestaurant: value => dispatch(storeRestaurant(value)),
 });
 export default connect(
   mapStateToProps,
