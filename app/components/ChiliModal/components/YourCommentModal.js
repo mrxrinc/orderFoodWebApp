@@ -8,7 +8,9 @@ class YourCommentModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      yourComment:"خیلی خوب بود و کلی کیف داد."
+      yourComment:"خیلی خوب بود و کلی کیف داد.",
+      moreDetailComment:false,
+      foodOveralAccourdion: false,
     };
   }
 
@@ -22,6 +24,29 @@ class YourCommentModal extends Component {
     });
   };
 
+  accordionToggle = () => {
+    this.setState({
+      foodOveralAccourdion: !this.state.foodOveralAccourdion
+    })
+  }
+
+  rateFace = ({name,fontSize,labelHide}) => (
+    <div className="center restaurant-comment__facerate">
+      <label className={`rCol center ${labelHide ? "label-hide" : "" }`}>
+        <input type="radio" name={name}/>
+        <span className={`checkmark ${fontSize}`}/>
+      </label>
+      <label className={`rCol center ${labelHide ? "label-hide" : "" }`}>
+        <input type="radio" name={name}/>
+        <span className={`checkmark ${fontSize}`}/>
+      </label>
+      <label className={`rCol center ${labelHide ? "label-hide" : "" }`}>
+        <input type="radio" name={name}/>
+        <span className={`checkmark ${fontSize}`}/>
+      </label>
+    </div>
+  )
+
   render() {
     const classes = this.props;
     return (
@@ -33,64 +58,68 @@ class YourCommentModal extends Component {
         bodyColor={classes.bodyColor}
         // alert
         headerAlign="right"
-        title="جزییات سفارش"
+        title="نظر و امتیاز دهید"
         className="chili-modal__alert"
       >
         <div className="container-fluid restaurant-comment">
           <div className="text-center padd15">به این سفارش امتیاز دهید</div>
-          <div className="center restaurant-comment__facerate round20 boxShadow1">
-            <div className="rCol center padd15">
-              <i className="icon chilivery-star green text50"></i>
-              <div className="padd10">راضی</div>
-            </div>
-            <div className="rCol center padd15">
-              <i className="icon chilivery-star green text50"></i>
-              <div className="padd10">راضی</div>
-            </div>
-            <div className="rCol center padd15">
-              <i className="icon chilivery-star green text50"></i>
-              <div className="padd10">راضی</div>
-            </div>
+          <div className="center round20 boxShadow1" style={{height:'130px'}}>
+              {this.rateFace({
+                  name:'radioMian',
+                  fontSize:'text50',
+                })
+              }
           </div>
 
-          <div className="restaurant-comment__form-rate topP40">
+          { this.state.moreDetailComment &&
+            <div className="restaurant-comment__form-rate topP40">
               <div className="text-center">لطفاً در صورت تمایل فرم زیر را کامل نمایید:</div>
               <ul className="restaurant-comment__form-main-list topP20">
 
                 <li className="restaurant-comment__form-main-item row hCenter">
-                  <div className="col-6">سرعت ارسال غذا</div>
-                  <div className="col-6 center">
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
+                  <div className="col-6" onClick={this.accordionToggle}>کیفیت غذا</div>
+                  <div className="col-6">
+                    {this.rateFace({name:'name1',fontSize:'text30',labelHide:true})}
                   </div>
+                  { this.state.foodOveralAccourdion &&
+                    <ul className="col">
+
+                      <li className="row hCenter">
+                        <div className="col-6 gray6 rightP30">همبرگر</div>
+                        <div className="col-6">
+                          {this.rateFace({name:'name1',fontSize:'text25',labelHide:true})}
+                        </div>
+                      </li>
+                      
+                      <li className="row hCenter">
+                        <div className="col-6 gray6 rightP30">همبرگر</div>
+                        <div className="col-6">
+                          {this.rateFace({name:'name1',fontSize:'text25',labelHide:true})}
+                        </div>
+                      </li>
+                      
+                    </ul>
+                  }
                 </li>
 
                 <li className="restaurant-comment__form-main-item row hCenter">
                   <div className="col-6">سرعت ارسال غذا</div>
-                  <div className="col-6 center">
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
-                    <div className="rCol center padd15">
-                      <i className="icon chilivery-star green text30"></i>
-                    </div>
+                  <div className="col-6">
+                    {this.rateFace({name:'name1',fontSize:'text30',labelHide:true})}
+                  </div>
+                </li>
+
+                <li className="restaurant-comment__form-main-item row hCenter">
+                  <div className="col-6">تجربه سفارش با چیلیوری</div>
+                  <div className="col-6">
+                    {this.rateFace({name:'name2',fontSize:'text30',labelHide:true})}
                   </div>
                 </li>
 
               </ul>
-          </div>
+            </div>
+          }
 
-          
           <div className="restaurant-comment__form topP40">
               <div className="chili-animate-field form-group">
 								<div className="form-control">
@@ -110,13 +139,11 @@ class YourCommentModal extends Component {
                     color:'#A19E3E',
                   }}
                 />
-
 							</div>
           </div>
-          <div className="center topM40">
-            <button type="button" className="btn btn-success btn-big">
-              ثبت
-            </button>
+
+          <div className="center padd20">
+            <button type="button" className="btn btn-success">ثبت</button>
           </div>
 
         </div>        

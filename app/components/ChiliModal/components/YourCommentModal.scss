@@ -11,6 +11,88 @@
       }
     }
   }
+  &__facerate{
+    > label {
+        display: block;
+        position: relative;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: 15px;
+        text-align: center;
+        font-size: 16px;
+        padding-top:10px;
+        max-height: 100px;
+        margin-bottom:auto;
+        padding-bottom: 30px;
+        &:after{
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+        }
+        &.label-hide{
+          padding: 0;
+          margin-bottom: 15px;
+          &:after{
+            display: none;
+          }
+        }
+        .checkmark {
+          color: $grey-6;
+          &:after{
+            font-family: 'chilivery' !important;
+            display: block;
+            line-height: 1;
+          }
+        }
+        &:nth-child(1){
+          &:after{
+            content: 'راضی';
+            color: $color-success;
+          }
+          input:checked ~ .checkmark {
+            color: $color-success;
+          }
+          .checkmark:after {
+            content: "]";
+          }
+        }
+        &:nth-child(2){
+          &:after{
+            content: 'متوسط';
+            color: $color-warning;
+          }
+          input:checked ~ .checkmark {
+            color: $color-warning;
+          }
+          .checkmark:after {
+            content: "\E901";
+          }
+        }
+        &:nth-child(3){
+          &:after{
+            content: 'ناراضی';
+            color: $color-danger;
+          }
+          input:checked ~ .checkmark {
+            color: $color-danger;
+          }
+          .checkmark:after {
+            content: "o";
+          }
+        }
+    }
+  }
 }
 
 
@@ -27,13 +109,7 @@
 //   height:25px;
 // }
 
-// /* Hide the browser's default radio button */
-// .container input {
-//   position: absolute;
-//   opacity: 0;
-//   cursor: pointer;
-  
-// }
+
 
 // /* Create a custom radio button */
 // .checkmark {
@@ -47,24 +123,7 @@
 // }
 
 
-// /* When the radio button is checked, add a blue background */
-// .container input:checked ~ .checkmark {
-//   background-color: green;
-// }
 
-
-// /* Style the indicator (dot/circle) */
-// .container .checkmark:after {
-//  	top: 9px;
-// 	left: 9px;
-// 	width: 8px;
-// 	height: 8px;
-// 	border-radius: 50%;
-// 	background: white;
-//     display: block;
-//     content: "";
-//   	position: absolute;
-// }
 
 
 // <label class="container">
