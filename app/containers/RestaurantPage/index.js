@@ -273,7 +273,7 @@ class RestaurantPage extends React.Component {
             {this.state.tabTwo &&
             <div className="container-fluid">
               <div>
-                <TabTwo data={data}/>
+                <TabTwo id={data.id}/>
                 
               </div>
             </div>

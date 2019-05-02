@@ -28,3 +28,8 @@ export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddre
 export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
 export const user_update_address_post = () => `${API_URL_ROOT}/userAddress/updateAddress`;
 export const user_delete_address_post = () => `${API_URL_ROOT}/userAddress/deleteAddress`;
+
+// comment
+export const comment_for_Restaurant = id => `${API_URL_ROOT}/comment/commentForRestaurant?restaurantId=${id}`;
+export const comment_by_user = () => `${API_URL_ROOT}/comment/commentByUser`;
+export const add_comment_post = () => `${API_URL_ROOT}/comment/addComment`;

@@ -14,6 +14,7 @@ import AfterPaymentCardItem from '../../../components/AfterPaymentCardItem';
 import { showModal } from '../../../actions/Modals';
 import OrderReviewModal from '../../../components/ChiliModal/components/OrderReviewModal';
 import YourCommentModal from '../../../components/ChiliModal/components/YourCommentModal';
+import {commentForRestaurant} from '../../../api/application/comment';
 
 class TabTwo extends React.Component {
   constructor(props) {
@@ -23,20 +24,25 @@ class TabTwo extends React.Component {
         start: 0,
         orderReview: {},
         orderReviewShow: false,
+        commentData:{}
       }
     };
   }
 
-  orderReviewModal = () => {
-    this.props.showModal({
-      orderReviewModal: true,
-    });
-  };
-
   componentDidMount() {
-    this.props.showModal({
-      yourCommentModal: true,
-    });
+    
+    commentForRestaurant(this.props.id).then(
+      response => {
+        this.setState({
+          commentData: response.result
+        },()=>{
+          console.log('===============respose.result===========');
+          console.log(this.state.commentData);
+          console.log('====================================');
+        })
+      }
+    )
+
     const rateAnimate = (() => {
       let setTimer = setInterval(() => {
         this.setState({
@@ -53,6 +59,19 @@ class TabTwo extends React.Component {
     })()
 
   }
+
+  yourCommentModal = () => {
+    this.props.showModal({
+      yourCommentModal: true,
+    });
+  }
+
+  orderReviewModal = () => {
+    this.props.showModal({
+      orderReviewModal: true,
+    });
+  };
+
 
   getOrderReview = (orderId) => {
     orderReviewGet(orderId).then(
@@ -118,14 +137,14 @@ class TabTwo extends React.Component {
           <i className="icon chilivery-forget-pass-1 text18 leftP5"></i>
           <span className="bold text12">با هر نظر به سفارش‌های خود، ۵٪ تخفیف بگیرید.</span>
         </div>
-        <button className="btn btn-success btn-big topM15">ثبت امتیاز و نظر</button>
+        <button className="btn btn-success btn-big topM15" onClick={this.yourCommentModal}>ثبت امتیاز و نظر</button>
       </div>
     </div>
   )
 
   render() {
 
-
+    const {commentData} = this.state
     return (
       <div className="row padd10">
 
@@ -134,13 +153,13 @@ class TabTwo extends React.Component {
             <div className="flex center bottomP10">
               <span className="text14 leftP10">سرعت ارسال</span>
               <div className="rightMauto">
-                {this.rateStar(3.4)}
+                {this.rateStar(commentData.deliverySpeed)}
               </div>
             </div>
             <div className="flex center">
               <span className="text14 leftP10">کیفیت غذا</span>
               <div className="rightMauto">
-                {this.rateStar(4.2)}
+                {this.rateStar(commentData)}
               </div>
             </div>
           </div>
