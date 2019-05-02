@@ -43,7 +43,8 @@ class RestaurantPage extends React.Component {
       tabThree: false,
       modalButton: false,
       modalRequired: [],
-      modalContainer: []
+      modalContainer: [],
+      showSticky: false
     };
   }
 
@@ -307,7 +308,7 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                {this.props.basket.basket && <StickyPrice data={{}} link='/cart' collapseShow={false}/>}
               </div>
             )}
             {this.state.tabTwo && <h1>tab2</h1>}
@@ -501,6 +502,7 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
+  basket:state.Basket
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
