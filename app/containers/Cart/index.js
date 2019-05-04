@@ -36,7 +36,7 @@ export class cart extends React.PureComponent {
   getOrderItem = () => {
     const {basket} = this.props;
     getOrderitems({
-      orderId:basket.basket.orderId
+      orderId:basket.basket.id
     }).then(response => {
       if(response.status) {
         this.setState({
@@ -50,7 +50,7 @@ export class cart extends React.PureComponent {
     const {basket} = this.props;
     getUserAddress({
       restaurantId:basket.basket.restaurantId,
-      orderId:basket.basket.orderId
+      orderId:basket.basket.id
     }).then(
       response => {
         this.setState({

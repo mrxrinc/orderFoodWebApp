@@ -75,7 +75,7 @@ class StickyPrice extends React.PureComponent {
     });
     putChangeBasket(
       {
-        "id":basket.basket.orderId,
+        "id":basket.basket.id,
         "deliveryType":basket.deliveryType ? basket.deliveryType:false,
         "restaurantId":basket.basket.restaurantId,
         "items":items
@@ -97,7 +97,7 @@ class StickyPrice extends React.PureComponent {
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  true,
       "orderDeliveryType":  false,
-      "orderId":  basket.basket.orderId,
+      "orderId":  basket.basket.id,
       "payAmount":  "200",
       "paymentType":  "account",
       "addressId":  basket.addressId,
