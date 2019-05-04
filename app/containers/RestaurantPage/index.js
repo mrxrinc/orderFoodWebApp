@@ -52,8 +52,20 @@ class RestaurantPage extends React.Component {
       this.props.storeRestaurant(response.result);
       createBasket(this.state.id).then(basketResp => {
         console.log('Basket Response ==>', basketResp.result);
-        this.setState({ basket: basketResp.result });
+        this.props.addToBasket({ basket: basketResp.result });
+        this.updateRestaurantData(response.result.menuSections);
       });
+    });
+  }
+
+  updateRestaurantData = menu => {
+    const newMenu = menu.map(group => {
+      const newFoods = group.foods.map(food => {
+        if(this.props.basket.items[food.id]) {
+          console.log('//////////////// FOOD IN BASKET ID ====>', food.id);
+        }
+      });
+      return { ...group, foods: newFoods };
     });
   }
 
@@ -154,15 +166,14 @@ class RestaurantPage extends React.Component {
               this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
           } 
-            const data = { ...food, count: 1 };
-            basket[key] = data;
-            Object.assign(basketTempData, basket);
-            if (this.state.modalData)
-              this.setState({
-                modalData: { ...this.state.modalData, count: 1 },
-              });
-            return data;
-          
+          const data = { ...food, count: 1 };
+          basket[key] = data;
+          Object.assign(basketTempData, basket);
+          if (this.state.modalData)
+            this.setState({
+              modalData: { ...this.state.modalData, count: 1 },
+            });
+          return data;
         } else if (food.count && food.count > 0) {
           return food;
         }
@@ -180,8 +191,7 @@ class RestaurantPage extends React.Component {
 
     // update basket
     const dataForBasket = {
-      restaurantId: this.props.restaurant.id,
-      orderId: this.state.basket.id,
+      ...this.props.basket.basket,
       items: basketTempData,
     };
     this.props.addToBasket({ basket: dataForBasket });
