@@ -27,6 +27,10 @@ export const putChangeBasket = (params) => {
   return deRequest(account.changeBasket(), "PUT", params, false );
 }
 
+export const payOrderPost = (params) => {
+  return deRequest(account.payOrder(), "POST", params, false );
+}
+
 export const getOrderitems = (params) => {
   return deRequest(account.orderitems(params.orderId), "GET");
 }

@@ -5,7 +5,7 @@ import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
-import { putChangeBasket } from '../../api/account';
+import { putChangeBasket,payOrderPost } from '../../api/account';
 
 class StickyPrice extends React.PureComponent {
 
@@ -76,7 +76,7 @@ class StickyPrice extends React.PureComponent {
     putChangeBasket(
       {
         "id":basket.basket.orderId,
-        "deliveryType":false,
+        "deliveryType":basket.deliveryType ? basket.deliveryType:false,
         "restaurantId":basket.basket.restaurantId,
         "items":items
       }
@@ -89,14 +89,39 @@ class StickyPrice extends React.PureComponent {
     });
   };
 
+  payOrder = () => {
+    const {basket,link} = this.props;
+    payOrderPost({
+      "accCharge": false,
+      "acceptConditions": true,
+      "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
+      "gateway":  true,
+      "orderDeliveryType":  false,
+      "orderId":  basket.basket.orderId,
+      "payAmount":  "200",
+      "paymentType":  "account",
+      "addressId":  basket.addressId,
+      "campaginCode":"",
+      "bankgate": basket.gateway
+    }).then(response => {
+      if(response.status) {
+        // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
+        // window.location = response.result.url;
+      }
+    })
+  }
+
   pushLink = () => {
     const {link} = this.props;
     if (link === "/cart") {
       this.changeBasket();
     }
     if (link === "/checkout") {
-      // this.changeBasket();
+      this.changeBasket();
       link ? history.push(link) : history.push("/checkout");
+    }
+    if (link === "/bank") {
+      this.payOrder()
     }
 
   };

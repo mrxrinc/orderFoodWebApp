@@ -75,7 +75,7 @@ export class Checkout extends React.PureComponent {
           </Row>
         </div>
       </Container>
-      <StickyPrice data={dataSample.result.amount} collapseShow={true}/>
+      <StickyPrice data={dataSample.result.amount} collapseShow={true} link='/bank'/>
       </div>
     );
   }
