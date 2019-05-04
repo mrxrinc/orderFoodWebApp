@@ -36,7 +36,7 @@ export class cart extends React.PureComponent {
   getOrderItem = () => {
     const {basket} = this.props;
     getOrderitems({
-      orderId:basket.basket.id
+      orderId:basket.id
     }).then(response => {
       if(response.status) {
         this.setState({
@@ -49,8 +49,8 @@ export class cart extends React.PureComponent {
   getAddress = () => {
     const {basket} = this.props;
     getUserAddress({
-      restaurantId:basket.basket.restaurantId,
-      orderId:basket.basket.id
+      restaurantId:basket.restaurantId,
+      orderId:basket.id
     }).then(
       response => {
         this.setState({
@@ -97,7 +97,7 @@ export class cart extends React.PureComponent {
       <div className="cart bottomP50">
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.basket.items} items={orderItems.items}/>}
+          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.items} items={orderItems.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">

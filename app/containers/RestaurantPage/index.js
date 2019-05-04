@@ -313,8 +313,8 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                {typeof this.props.basket.basket !== 'undefined' &&
-                 Object.keys(this.props.basket.basket.items).length > 0 && (
+                {typeof this.props.basket !== 'undefined' &&
+                 Object.keys(this.props.basket.items).length > 0 && (
                 <StickyPrice data={{}} link='/cart' collapseShow={false}/>
                 )}
               </div>
