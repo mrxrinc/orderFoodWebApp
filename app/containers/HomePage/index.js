@@ -9,7 +9,7 @@ import { getCityList } from '../../api/application/region';
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 import {getNeighborhood} from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
-
+import {history} from '../../store';
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 
@@ -44,7 +44,38 @@ class HomePage extends React.Component {
             this.props.addNeighborhood(obj);
         }
     );
-}
+  }
+
+
+  myLocation = () => {
+    const myGetLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(myPositionSuccess,myPositionError);
+      }
+    }
+
+    const myPositionSuccess = (position) => {
+      const userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+      };
+      getNeighborhood(
+          `${userLocation.lat},${userLocation.lng}`,
+      ).then(
+          response => {
+              let neighborhood = response.result.neighbourhood;
+              history.push(`/restaurants-list/${neighborhood.cityId}/${neighborhood.mapCenter.lat},${neighborhood.mapCenter.lon}`)
+          }
+      );
+    }
+
+    const myPositionError = ()=>{
+      // this.fetchMap();
+    }
+
+    myGetLocation();
+  }
+
 
   componentDidMount() {
     getCityList().then(
@@ -138,7 +169,7 @@ class HomePage extends React.Component {
 
           <div className="wFull topM30 column center">
           
-            <Link to={typeof this.props.UserPosition !== "undefined" ? `/restaurants-list/${this.props.UserPosition.cityId}/${this.props.UserPosition.mapCenter.lat},${this.props.UserPosition.mapCenter.lon}` : '/'} className="chilivery-compass" />
+            <span className="chilivery-compass" onClick={this.myLocation}/>
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>
         </div>

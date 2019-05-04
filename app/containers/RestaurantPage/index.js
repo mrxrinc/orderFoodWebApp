@@ -24,6 +24,8 @@ import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
 import './style.scss';
 import TabThree from './components/TabThree';
+import TabTwo from './components/TabTwo';
+
 
 const basketTempData = {};
 
@@ -36,13 +38,15 @@ class RestaurantPage extends React.Component {
       loading: true,
       modalData: null,
       basket: null,
-      tabOne: true,
-      tabTwo: false,
+      tabOne: false,
+      tabTwo: true,
       tabThree: false,
+      activeTab:"tabTwo",
       modalButton: true,
       modalRequired: [],
       modalCurrentRequired: [],
       modalContainer: [],
+
     };
   }
 
@@ -53,21 +57,24 @@ class RestaurantPage extends React.Component {
           tabOne: true,
           tabTwo: false,
           tabThree: false,
-        });
+          activeTab:'tabOne'
+        })
         break;
       case 'tabTwo':
         this.setState({
           tabOne: false,
           tabTwo: true,
           tabThree: false,
-        });
+          activeTab:'tabTwo'
+        })
         break;
       case 'tabThree':
         this.setState({
           tabOne: false,
           tabTwo: false,
           tabThree: true,
-        });
+          activeTab:'tabThree'
+        })
         break;
 
       default:
@@ -76,6 +83,7 @@ class RestaurantPage extends React.Component {
   };
 
   componentDidMount() {
+
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
     restaurantDetail(this.state.id).then(response => {
       this.setState({ restaurantDetail: response.result }, () => {
@@ -301,6 +309,7 @@ class RestaurantPage extends React.Component {
 
   render() {
     const data = this.state.restaurantDetail;
+    
     return (
       <div>
         {!this.state.loading ? (
@@ -317,6 +326,7 @@ class RestaurantPage extends React.Component {
               commentCount={data.commentCount}
               rateAverage={data.rateAverage}
               tabClick={this.tabClick}
+              activeTab={this.state.activeTab}
             />
 
             {/* <div className="stickyMenu wFull" /> */}
@@ -354,12 +364,20 @@ class RestaurantPage extends React.Component {
                 <StickyPrice data={{}} link="/cart" collapseShow={false} />
               </div>
             )}
-            {this.state.tabTwo && <h1>tab2</h1>}
-            {this.state.tabThree && (
+
+            {this.state.tabTwo &&
+            <div className="container-fluid">
+              <div>
+                <TabTwo id={data.id}/>
+                
+              </div>
+            </div>
+            }
+            {this.state.tabThree &&
               <div className="container-fluid">
                 <TabThree data={data} />
               </div>
-            )}
+            }
 
             <Modal
               className="modal-restaurant__detail"

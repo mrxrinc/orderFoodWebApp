@@ -29,7 +29,7 @@ class TabThree extends React.Component {
         loop: false,
         autoplay: true,
         margin: 15,
-        nav: true,
+        nav: false,
         dots: false,
         items:1,
       });
@@ -123,7 +123,7 @@ class TabThree extends React.Component {
           </div>
         </div>
 
-        {/* <div className="col-12">
+        <div className="col-12">
           <div className="restaurant-detail__about topM20">
             <h2 className="restaurant-detail__about-title text16 gray6">درباره رستوران</h2>
             <div className="restaurant-detail__about-box topP10">
@@ -143,7 +143,7 @@ class TabThree extends React.Component {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         
         <div className="col-12">
           <div className="restaurant-detail__about topM20">
