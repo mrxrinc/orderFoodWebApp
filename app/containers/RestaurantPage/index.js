@@ -27,7 +27,6 @@ import TabThree from './components/TabThree';
 
 const basketTempData = {};
 
-
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -40,16 +39,14 @@ class RestaurantPage extends React.Component {
       tabOne: true,
       tabTwo: false,
       tabThree: false,
-      modalButton: false,
+      modalButton: true,
       modalRequired: [],
-      modalContainer: []
+      modalCurrentRequired: [],
+      modalContainer: [],
     };
   }
 
   tabClick = slug => {
-    console.log('====================================');
-    console.log(slug);
-    console.log('====================================');
     switch (slug) {
       case 'tabOne':
         this.setState({
@@ -97,14 +94,14 @@ class RestaurantPage extends React.Component {
     this.setState({ modalRequired: [] });
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
-      const requiredCategories = this.state.modalData.options.filter(
+      const { options } = this.state.modalData;
+      const requiredCategories = options.filter(
         category =>
           category.groupRequired && category.groupMaxSelectionLimit === 1,
       );
       requiredCategories.map(category =>
         this.state.modalRequired.push(category.groupId),
       );
-      console.log("^^^",this.state.modalRequired);
       if (!this.state.modalData.count) {
         // for the first time increasing from inside of the modal
         this.setState({ modalData: { ...this.state.modalData, count: 0 } });
@@ -113,21 +110,77 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  onChangeSideDish = (optionId, group) => {    
-    this.state.modalContainer.push(group.groupId);
-    if (this.hasSubArray(this.state.modalContainer, this.state.modalRequired)) {
+  onChangeSideDish = (optionId, group) => {
+    console.log(group);
+    // if (group.groupRequired !== 1 && group.groupMaxSelectionLimit !== 1) {
+    this.checkMaxSelection(optionId, group);
+    // }
+    this.state.modalCurrentRequired.push(group.groupId);
+    if (
+      this.hasSubArray(
+        this.state.modalCurrentRequired,
+        this.state.modalRequired,
+      )
+    ) {
       this.setState({ modalButton: true });
-    }  
+    }
   };
 
-  hasSubArray = (master, sub) => sub.every((i => v => i = master.indexOf(v, i) + 1)(0))
+  checkMaxSelection = (optionId, group) => {
+    const newObj = {
+      options: [],
+    };
+    const { modalContainer } = this.state;
+    const selectedCategory = modalContainer.find(
+      category => category.groupId === group.groupId,
+    );
+    if (
+      modalContainer.length === 0 ||
+      typeof selectedCategory === 'undefined'
+    ) {
+      newObj.groupId = group.groupId;
+      newObj.options.push(optionId);
+      this.setState({
+        modalContainer: [...this.state.modalContainer, newObj],
+      });
+    } else {
+      const groupIndexOf = modalContainer.indexOf(selectedCategory);
+      const optionIndex = selectedCategory.options.indexOf(optionId);
+
+      if (optionIndex > -1) {
+        this.state.modalContainer[groupIndexOf].options.splice(optionIndex, 1);
+        this.setState(() => {
+          const list = this.state.modalContainer[groupIndexOf].options.filter(
+            item => item !== optionId,
+          );
+          return list;
+        });
+      } else {
+        this.setState(() => {
+          const list = this.state.modalContainer[groupIndexOf].options.push(
+            optionId,
+          );
+          return list;
+        });
+      }
+    }
+
+    // if (this.state.modalContainer.indexOf(group.groupId) !== -1) {
+    //   this.state.modalContainer[group.groupId] = optionId;
+    // } else {
+    //   this.state.modalContainer[]
+    // }
+  };
+
+  hasSubArray = (master, sub) =>
+    sub.every((i => v => (i = master.indexOf(v, i) + 1))(0));
 
   toggleModal = () => {
     this.props.showModal({
       RestaurantPageModal: !this.props.modals.RestaurantPageModal,
     });
     // this.state.modalRequired = [];
-    this.state.modalContainer = [];
+    this.state.modalCurrentRequired = [];
   };
 
   stepper = (id, count, role) => {
@@ -150,17 +203,17 @@ class RestaurantPage extends React.Component {
             if (this.state.modalData)
               this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
-          } 
-            const data = { ...food, count: 1 };
-            basket[key] = data;
-            Object.assign(basketTempData, basket);
-            if (this.state.modalData)
-              this.setState({
-                modalData: { ...this.state.modalData, count: 1 },
-              });
-            return data;
-          
-        } else if (food.count && food.count > 0) {
+          }
+          const data = { ...food, count: 1 };
+          basket[key] = data;
+          Object.assign(basketTempData, basket);
+          if (this.state.modalData)
+            this.setState({
+              modalData: { ...this.state.modalData, count: 1 },
+            });
+          return data;
+        }
+        if (food.count && food.count > 0) {
           return food;
         }
         return { ...food, count: 0 };
@@ -199,7 +252,6 @@ class RestaurantPage extends React.Component {
       const itemPrice = this.state.modalData.price;
       sum = itemPrice * count;
     }
-    console.log(sum);
     return sum;
   };
 
@@ -232,12 +284,7 @@ class RestaurantPage extends React.Component {
     displayType,
     foodPrice,
   ) => {
-    console.log("***",foodOptionPrice,
-      foodOptionLastPrice,
-      displayType,
-      foodPrice,
-    );
-    if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {      
+    if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {
       return {
         realPrice: this.checkWithDisplayType(
           foodOptionLastPrice,
@@ -246,7 +293,7 @@ class RestaurantPage extends React.Component {
         ),
         hasDiscount: true,
       };
-    }    
+    }
     return {
       hasDiscount: false,
     };
@@ -304,7 +351,7 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                <StickyPrice data={{}} link="/cart" collapseShow={false} />
               </div>
             )}
             {this.state.tabTwo && <h1>tab2</h1>}
@@ -411,7 +458,7 @@ class RestaurantPage extends React.Component {
                               title={this.createTitle(category)}
                               key={category.groupId}
                             >
-                              { category.options.map(option => (
+                              {category.options.map(option => (
                                 <Fragment>
                                   <input
                                     value={this.name}
@@ -443,7 +490,7 @@ class RestaurantPage extends React.Component {
                                     groupId={category}
                                   />
                                 </Fragment>
-                              )) }
+                              ))}
                             </RestaurantSideDishGroup>
                           </div>
                         ))}
