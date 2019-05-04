@@ -52,7 +52,7 @@ class RestaurantPage extends React.Component {
       this.props.storeRestaurant(response.result);
       createBasket(this.state.id).then(basketResp => {
         console.log('Basket Response ==>', basketResp.result);
-        this.props.addToBasket({ basket: basketResp.result });
+        this.props.addToBasket(basketResp.result);
         this.updateRestaurantData(response.result.menuSections);
       });
     });
@@ -61,7 +61,7 @@ class RestaurantPage extends React.Component {
   updateRestaurantData = menu => {
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
-        if(this.props.basket.items[food.id]) {
+        if(this.props.basket && this.props.basket.items[food.id]) {
           console.log('//////////////// FOOD IN BASKET ID ====>', food.id);
         }
       });
@@ -194,7 +194,7 @@ class RestaurantPage extends React.Component {
       ...this.props.basket.basket,
       items: basketTempData,
     };
-    this.props.addToBasket({ basket: dataForBasket });
+    this.props.addToBasket(dataForBasket);
     
     console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
     console.log('MODAL DATA ===>', this.state.modalData);
