@@ -26,7 +26,7 @@ import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 
-const basketTempData = {};
+let basketTempData = {};
 
 
 class RestaurantPage extends React.Component {
@@ -34,8 +34,6 @@ class RestaurantPage extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      restaurantDetail: null,
-      loading: true,
       modalData: null,
       basket: null,
       tabOne: true,
@@ -51,16 +49,10 @@ class RestaurantPage extends React.Component {
   componentDidMount() {
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
     restaurantDetail(this.state.id).then(response => {
-      this.setState({ restaurantDetail: response.result }, () => {
-        this.setState({ loading: false });
-
-        this.props.storeRestaurant(response.result);
-
-        createBasket(this.state.id).then(basketResp => {
-          console.log('Basket Response ==>', basketResp.result);
-          this.setState({ basket: basketResp.result });
-        });
-        console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
+      this.props.storeRestaurant(response.result);
+      createBasket(this.state.id).then(basketResp => {
+        console.log('Basket Response ==>', basketResp.result);
+        this.setState({ basket: basketResp.result });
       });
     });
   }
@@ -134,9 +126,9 @@ class RestaurantPage extends React.Component {
     this.state.modalContainer = [];
   };
 
-  stepper = (id, count, role) => {
+  stepper = (id, count, role, item) => { // it take 4 arguments
     console.log('Stepper ===>', id, count, role);
-    const data = this.state.restaurantDetail;
+    const data = this.props.restaurant;
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
@@ -144,13 +136,20 @@ class RestaurantPage extends React.Component {
           const key = food.id;
           const basket = {};
 
-          if (food.count) {
+          if (food.count) { // if we have this food in the basket
             let count = null;
             if (role === 'add') count = food.count + 1;
             else if (role === 'remove') count = food.count - 1;
+            else count = food.count;
             const data = { ...food, count };
-            basket[key] = data;
-            Object.assign(basketTempData, basket);
+
+            if (count === 0) {  // to remove item from basket
+              delete basketTempData[key];
+            } else {
+              basket[key] = data; // to add the count info
+              Object.assign(basketTempData, basket);
+            }
+            
             if (this.state.modalData)
               this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
@@ -169,31 +168,27 @@ class RestaurantPage extends React.Component {
         }
         return { ...food, count: 0 };
       });
-      return { foods: newFoods };
+      return { ...group, foods: newFoods };
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState(
-      {
-        restaurantDetail: {
-          ...this.state.restaurantDetail,
-          menuSections: newMenu,
-        },
-      },
-      () => {
-        console.log('new State ===>', this.state.restaurantDetail);
-        console.log('modalData State ===>', this.state.modalData);
-        console.log('BASKET_TEMP_DATA', basketTempData);
+    // update restaurant store
+    this.props.storeRestaurant({
+      ...this.props.restaurant,
+      menuSections: newMenu
+    });
 
-        // continue to redux
-        const dataForBasket = {
-          restaurantId: this.state.restaurantDetail.id,
-          orderId: this.state.basket.id,
-          items: basketTempData,
-        };
-        this.props.addToBasket({ basket: dataForBasket });
-      },
-    );
+    // update basket
+    const dataForBasket = {
+      restaurantId: this.props.restaurant.id,
+      orderId: this.state.basket.id,
+      items: basketTempData,
+    };
+    this.props.addToBasket({ basket: dataForBasket });
+    
+    console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
+    console.log('MODAL DATA ===>', this.state.modalData);
+    console.log('BASKET_TEMP_DATA', basketTempData);
   };
 
   modalPrice = () => {
@@ -257,10 +252,10 @@ class RestaurantPage extends React.Component {
   };
 
   render() {
-    const data = this.state.restaurantDetail;
+    const data = this.props.restaurant;
     return (
       <div>
-        {!this.state.loading ? (
+        {data ? (
           <div className="lightBg rtl">
             <RestaurantHeader
               cover={data.cover}
@@ -269,7 +264,7 @@ class RestaurantPage extends React.Component {
               name={data.name}
               deliveryName={data.deliveryName}
               deliveryIcon={data.deliveryIcon}
-              deliveryPrice={12000}
+              deliveryPrice={12000} // Fix the delivery price
               isOpen
               commentCount={data.commentCount}
               rateAverage={data.rateAverage}
@@ -308,7 +303,10 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                {this.props.basket.basket && <StickyPrice data={{}} link='/cart' collapseShow={false}/>}
+                {typeof this.props.basket.basket !== 'undefined' &&
+                 Object.keys(this.props.basket.basket.items).length > 0 && (
+                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                )}
               </div>
             )}
             {this.state.tabTwo && <h1>tab2</h1>}
@@ -502,7 +500,8 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
-  basket:state.Basket
+  basket:state.Basket,
+  restaurant: state.restaurant
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),

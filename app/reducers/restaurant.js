@@ -2,10 +2,10 @@ import {
   STORE_RESTAURANT
 } from '../constants/restaurant';
 
-const restaurant = (state = {}, action) => {
+const restaurant = (state = null, action) => {
     switch (action.type) {
         case STORE_RESTAURANT:
-            return Object.assign({}, state, action.payload);
+            return action.payload;
         default:
             return state;
     }
