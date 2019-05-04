@@ -19,7 +19,7 @@ class StickyPrice extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.basket.basket !== this.props.basket.basket) {
+    if (prevProps.basket !== this.props.basket) {
       this.calculationsFunction()
     }
   }
@@ -28,13 +28,13 @@ class StickyPrice extends React.PureComponent {
     const {basket} = this.props;
     let totalCount = 0;
     let totalPrice = 0;
-    const items = Object.keys(basket.basket.items).map((item) =>{
-      totalCount += basket.basket.items[item].count;
-      totalPrice += basket.basket.items[item].price * basket.basket.items[item].count;
+    const items = Object.keys(basket.items).map((item) =>{
+      totalCount += basket.items[item].count;
+      totalPrice += basket.items[item].price * basket.items[item].count;
       return {
-        "orderItemFoodId" : basket.basket.items[item].id,
-        "itemCount" : basket.basket.items[item].count,
-        "price": basket.basket.items[item].price,
+        "orderItemFoodId" : basket.items[item].id,
+        "itemCount" : basket.items[item].count,
+        "price": basket.items[item].price,
       }
     });
     this.setState({
@@ -66,18 +66,18 @@ class StickyPrice extends React.PureComponent {
 
   changeBasket = () => {
     const {basket,link} = this.props;
-    const items = Object.keys(basket.basket.items).map((item) =>{
+    const items = Object.keys(basket.items).map((item) =>{
       var updateData = {
-        "orderItemFoodId" : basket.basket.items[item].id,
-        "itemCount" : basket.basket.items[item].count
+        "orderItemFoodId" : basket.items[item].id,
+        "itemCount" : basket.items[item].count
       };
       return updateData;
     });
     putChangeBasket(
       {
-        "id":basket.basket.id,
+        "id":basket.id,
         "deliveryType":basket.deliveryType ? basket.deliveryType:false,
-        "restaurantId":basket.basket.restaurantId,
+        "restaurantId":basket.restaurantId,
         "items":items
       }
     ).then(response => {
@@ -97,7 +97,7 @@ class StickyPrice extends React.PureComponent {
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  true,
       "orderDeliveryType":  false,
-      "orderId":  basket.basket.id,
+      "orderId":  basket.id,
       "payAmount":  "200",
       "paymentType":  "account",
       "addressId":  basket.addressId,
@@ -106,7 +106,7 @@ class StickyPrice extends React.PureComponent {
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
-        // window.location = response.result.url;
+        window.location = response.result.url;
       }
     })
   }
