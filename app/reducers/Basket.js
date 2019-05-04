@@ -3,7 +3,8 @@ import {
   GETWAY_CHANGED,
   ADD_TO_BASKET,
   ADDRESS_ID_CHANGED,
-  DELIVERY_TYPE_CHANGED
+  DELIVERY_TYPE_CHANGED,
+  CAMPAGIN_CODE_CHANGED
 } from '../constants/Basket';
 
 const Basket = (state = {}, action) => {
@@ -17,6 +18,8 @@ const Basket = (state = {}, action) => {
         case ADDRESS_ID_CHANGED:
           return Object.assign({}, state, action.payload);
         case DELIVERY_TYPE_CHANGED:
+          return Object.assign({}, state, action.payload);
+        case CAMPAGIN_CODE_CHANGED:
           return Object.assign({}, state, action.payload);
         default:
             return state;
