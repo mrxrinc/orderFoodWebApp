@@ -3,11 +3,10 @@ import './style.scss';
 import { CheckBox } from '../ChiliForm';
 
 const RestaurantSideDishRow = props => {
-  console.log('####', props);
   return (
-    <div className="sideDishRow flex primary hP20 bgWhite">      
-        {props.type === 'checkbox' && (
-          <div className="flex hP10 primary text16 wFull hCenter">
+    <div className="sideDishRow flex primary hP20 bgWhite">
+      {props.type === 'checkbox' && (
+        <div className="flex hP10 primary text16 wFull hCenter">
           <CheckBox
             className="required-chechbox checked"
             type="checkbox"
@@ -16,27 +15,27 @@ const RestaurantSideDishRow = props => {
             defaultValue={0}
             label={<span key={props.id}> {props.name} </span>}
           />
-          </div>
-        )}
-        {props.type === 'radio' && (
-          <Fragment>
-            <label className="radio-modal">
-              <div className="label-parent">
-                <input
-                  type="radio"
-                  className="radio-input"
-                  onChange={props.onClick}
-                  defaultValue={0}
-                  value="male"
-                />
-                <div className="radio-face" />
-                <i />
-              </div>
-              <span key={props.id}> {props.name}</span>
-            </label>
-          </Fragment>
-        )}
-      
+        </div>
+      )}
+      {props.type === 'radio' && (
+        <Fragment>
+          <label className="radio-modal">
+            <div className="label-parent">
+              <input
+                className="required-chechbox checked radio-input"
+                type="radio"
+                name={props.groupId}
+                onChange={props.onClick}
+                defaultValue={0}
+              />
+              <div className="radio-face" />
+              <i />
+            </div>
+            <span key={props.id}> {props.name}</span>
+          </label>
+        </Fragment>
+      )}
+
       <div className="center rightP10">
         {props.price === 0 && (
           <span className="text12 gray6 rightM5">(رایگان)</span>
@@ -56,5 +55,5 @@ const RestaurantSideDishRow = props => {
     </div>
   );
 };
-
+//checkWithDisplayType = (foodOptionPrice, displayType, foodPrice) => {
 export default RestaurantSideDishRow;

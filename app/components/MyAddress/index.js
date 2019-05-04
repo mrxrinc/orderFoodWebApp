@@ -21,8 +21,9 @@ class MyAddress extends React.PureComponent {
       organizationAddress:this.props.data.userOrganizationAddress || [],
       fullAddress:[],
       deleteId:'',
-      
+      organid:''
     };
+    this.handleOptionChange = this.handleOptionChange.bind(this);
   }
 
   alertExpToggle = (id) => {
@@ -43,7 +44,7 @@ class MyAddress extends React.PureComponent {
     el.parentElement.remove();
     $('#demo').trigger('to.owl.carousel', [0, 500, true]);
   }
-  
+
 
   deleteAddress = () => {
     userDeleteAddressPost({"id":this.state.deleteId}).then(
@@ -69,11 +70,13 @@ class MyAddress extends React.PureComponent {
     )
   }
 
-  handleOptionChange = e => {
+  handleOptionChange = (e) => {
     this.setState({
         addressId: e.target.value,
+        organid: e.target.getAttribute('organid'),
+        deliveryZonePrice:e.target.getAttribute('deliveryprice')
       }, ()=>
-        this.props.changeAddressId({addressId:this.state.addressId})
+        this.props.changeAddressId({addressId:this.state.addressId,organizationAddressId:this.state.organid,deliveryZonePrice:this.state.deliveryZonePrice})
     );
   }
 
@@ -129,6 +132,8 @@ class MyAddress extends React.PureComponent {
               onChange={this.handleOptionChange}
               // onKeyPress={this.handleKeyPressUpdate}
               value={item.id}
+              organid={item.organizationAddressId}
+              deliveryprice={item.deliveryZonePrice}
             />
           </div>
           <div className="MyAddress__details">

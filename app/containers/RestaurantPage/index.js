@@ -42,11 +42,15 @@ class RestaurantPage extends React.Component {
       tabTwo: true,
       tabThree: false,
       activeTab:"tabTwo",
+      modalButton: true,
+      modalRequired: [],
+      modalCurrentRequired: [],
+      modalContainer: [],
 
     };
   }
 
-  tabClick = (slug) => {
+  tabClick = slug => {
     switch (slug) {
       case 'tabOne':
         this.setState({
@@ -72,11 +76,11 @@ class RestaurantPage extends React.Component {
           activeTab:'tabThree'
         })
         break;
-    
+
       default:
         break;
     }
-  }
+  };
 
   componentDidMount() {
 
@@ -95,8 +99,17 @@ class RestaurantPage extends React.Component {
   }
 
   openFoodModal = food => {
+    this.setState({ modalRequired: [] });
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData);
+      const { options } = this.state.modalData;
+      const requiredCategories = options.filter(
+        category =>
+          category.groupRequired && category.groupMaxSelectionLimit === 1,
+      );
+      requiredCategories.map(category =>
+        this.state.modalRequired.push(category.groupId),
+      );
       if (!this.state.modalData.count) {
         // for the first time increasing from inside of the modal
         this.setState({ modalData: { ...this.state.modalData, count: 0 } });
@@ -105,17 +118,80 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  onChangeSideDish = optionId => {
-    console.log("%%%%%%%%%",optionId);
-  }
+  onChangeSideDish = (optionId, group) => {
+    console.log(group);
+    // if (group.groupRequired !== 1 && group.groupMaxSelectionLimit !== 1) {
+    this.checkMaxSelection(optionId, group);
+    // }
+    this.state.modalCurrentRequired.push(group.groupId);
+    if (
+      this.hasSubArray(
+        this.state.modalCurrentRequired,
+        this.state.modalRequired,
+      )
+    ) {
+      this.setState({ modalButton: true });
+    }
+  };
+
+  checkMaxSelection = (optionId, group) => {
+    const newObj = {
+      options: [],
+    };
+    const { modalContainer } = this.state;
+    const selectedCategory = modalContainer.find(
+      category => category.groupId === group.groupId,
+    );
+    if (
+      modalContainer.length === 0 ||
+      typeof selectedCategory === 'undefined'
+    ) {
+      newObj.groupId = group.groupId;
+      newObj.options.push(optionId);
+      this.setState({
+        modalContainer: [...this.state.modalContainer, newObj],
+      });
+    } else {
+      const groupIndexOf = modalContainer.indexOf(selectedCategory);
+      const optionIndex = selectedCategory.options.indexOf(optionId);
+
+      if (optionIndex > -1) {
+        this.state.modalContainer[groupIndexOf].options.splice(optionIndex, 1);
+        this.setState(() => {
+          const list = this.state.modalContainer[groupIndexOf].options.filter(
+            item => item !== optionId,
+          );
+          return list;
+        });
+      } else {
+        this.setState(() => {
+          const list = this.state.modalContainer[groupIndexOf].options.push(
+            optionId,
+          );
+          return list;
+        });
+      }
+    }
+
+    // if (this.state.modalContainer.indexOf(group.groupId) !== -1) {
+    //   this.state.modalContainer[group.groupId] = optionId;
+    // } else {
+    //   this.state.modalContainer[]
+    // }
+  };
+
+  hasSubArray = (master, sub) =>
+    sub.every((i => v => (i = master.indexOf(v, i) + 1))(0));
 
   toggleModal = () => {
     this.props.showModal({
       RestaurantPageModal: !this.props.modals.RestaurantPageModal,
     });
+    // this.state.modalRequired = [];
+    this.state.modalCurrentRequired = [];
   };
 
-  stepper = (id, count, role, food) => {
+  stepper = (id, count, role) => {
     console.log('Stepper ===>', id, count, role);
     const data = this.state.restaurantDetail;
     const menu = data.menuSections;
@@ -124,6 +200,7 @@ class RestaurantPage extends React.Component {
         if (food.id === id) {
           const key = food.id;
           const basket = {};
+
           if (food.count) {
             let count = null;
             if (role === 'add') count = food.count + 1;
@@ -134,40 +211,46 @@ class RestaurantPage extends React.Component {
             if (this.state.modalData)
               this.setState({ modalData: { ...this.state.modalData, count } });
             return data;
-          } else {
-            const data = { ...food, count: 1 };
-            basket[key] = data;
-            Object.assign(basketTempData, basket);
-            if (this.state.modalData)
-              this.setState({
-                modalData: { ...this.state.modalData, count: 1 },
-              });
-            return data;
           }
-        } else if (food.count && food.count > 0) {
+          const data = { ...food, count: 1 };
+          basket[key] = data;
+          Object.assign(basketTempData, basket);
+          if (this.state.modalData)
+            this.setState({
+              modalData: { ...this.state.modalData, count: 1 },
+            });
+          return data;
+        }
+        if (food.count && food.count > 0) {
           return food;
         }
         return { ...food, count: 0 };
       });
-      return { ...group, foods: newFoods };
+      return { foods: newFoods };
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState({
-      restaurantDetail: { ...this.state.restaurantDetail, menuSections: newMenu }
-    }, () => {
-      console.log('new State ===>', this.state.restaurantDetail);
-      console.log('modalData State ===>', this.state.modalData);
-      console.log('BASKET_TEMP_DATA', basketTempData);
+    this.setState(
+      {
+        restaurantDetail: {
+          ...this.state.restaurantDetail,
+          menuSections: newMenu,
+        },
+      },
+      () => {
+        console.log('new State ===>', this.state.restaurantDetail);
+        console.log('modalData State ===>', this.state.modalData);
+        console.log('BASKET_TEMP_DATA', basketTempData);
 
-      //continue to redux
-      const dataForBasket = {
-        restaurantId: this.state.restaurantDetail.id,
-        orderId: this.state.basket.id,
-        items: basketTempData
-      }
-      this.props.addToBasket({ basket: dataForBasket });
-    });
+        // continue to redux
+        const dataForBasket = {
+          restaurantId: this.state.restaurantDetail.id,
+          orderId: this.state.basket.id,
+          items: basketTempData,
+        };
+        this.props.addToBasket({ basket: dataForBasket });
+      },
+    );
   };
 
   modalPrice = () => {
@@ -177,41 +260,52 @@ class RestaurantPage extends React.Component {
       const itemPrice = this.state.modalData.price;
       sum = itemPrice * count;
     }
-    console.log(sum);
     return sum;
   };
 
   createTitle = category => {
     let title = `انتخاب ${category.groupName}`;
     title += ' (';
-    category.groupRequired ? title += 'حداقل ' : title += 'حداکثر ';
+    category.groupRequired ? (title += 'حداقل ') : (title += 'حداکثر ');
     title += category.groupMaxSelectionLimit;
     title += `مورد) `;
     return title;
-  }
+  };
 
   calculateFinalSideDishPrice = category => {
     if (category.groupMaxSelectionLimit === 1 && category.groupRequired) {
-      return "radio";
+      return 'radio';
     }
-    return "checkbox";
-  }
+    return 'checkbox';
+  };
 
-  // finalPrice = category => {
-  //   if (category.groupPriceDisplayType == 0) {
-
-  //   }
-  // }
-
-  defineSideDishDiscount = option => {
-    if (
-      option.foodOptionLastPrice != null &&
-      option.foodOptionLastPrice !== 0
-    ) {
-      return { realPrice: option.foodOptionLastPrice, hasDiscount: true };
+  checkWithDisplayType = (foodOptionPrice, displayType, foodPrice) => {
+    if (displayType === 0) {
+      return foodOptionPrice + foodPrice;
     }
-    return { realPrice: option.foodOptionPrice, hasDiscount: false };
-  }
+    return foodOptionPrice;
+  };
+
+  defineSideDishDiscount = (
+    foodOptionPrice,
+    foodOptionLastPrice,
+    displayType,
+    foodPrice,
+  ) => {
+    if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {
+      return {
+        realPrice: this.checkWithDisplayType(
+          foodOptionLastPrice,
+          displayType,
+          foodPrice,
+        ),
+        hasDiscount: true,
+      };
+    }
+    return {
+      hasDiscount: false,
+    };
+  };
 
   render() {
     const data = this.state.restaurantDetail;
@@ -237,7 +331,7 @@ class RestaurantPage extends React.Component {
 
             {/* <div className="stickyMenu wFull" /> */}
 
-            {this.state.tabOne &&
+            {this.state.tabOne && (
               <div className="hP10 vM10">
                 {data.menuSections.map(group => (
                   <RestaurantFoodGroup
@@ -267,9 +361,10 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                <StickyPrice data={{}} link="/cart" collapseShow={false} />
               </div>
-            }
+            )}
+
             {this.state.tabTwo &&
             <div className="container-fluid">
               <div>
@@ -280,7 +375,7 @@ class RestaurantPage extends React.Component {
             }
             {this.state.tabThree &&
               <div className="container-fluid">
-                <TabThree data={data}/>
+                <TabThree data={data} />
               </div>
             }
 
@@ -377,20 +472,43 @@ class RestaurantPage extends React.Component {
                       <div>
                         {this.state.modalData.options.map(category => (
                           <div className="modal-restaurant__detail-sideDishes topM30">
-                            <RestaurantSideDishGroup title={this.createTitle(category)} key={category.groupId}>
-                               { category.options.map(option => (
-                                      <Fragment>
-                                       <input value={this.name} onChange={this.handleChange} />
-                                      <RestaurantSideDishRow
-                                      type={this.calculateFinalSideDishPrice(category)}
-                                      discount = {this.defineSideDishDiscount(option)}
-                                      price = {option.foodOptionPrice}
-                                      name={option.foodOptionName}
-                                      id={option.foodOptionId}
-                                      onClick={() => this.onChangeSideDish(option.foodOptionId)}
-                                    />
-                                    </Fragment>
-                               )) }
+                            <RestaurantSideDishGroup
+                              title={this.createTitle(category)}
+                              key={category.groupId}
+                            >
+                              {category.options.map(option => (
+                                <Fragment>
+                                  <input
+                                    value={this.name}
+                                    onChange={this.handleChange}
+                                  />
+                                  <RestaurantSideDishRow
+                                    type={this.calculateFinalSideDishPrice(
+                                      category,
+                                    )}
+                                    price={this.checkWithDisplayType(
+                                      option.foodOptionPrice,
+                                      category.groupPriceDisplayType,
+                                      this.state.modalData.price,
+                                    )}
+                                    discount={this.defineSideDishDiscount(
+                                      option.foodOptionPrice,
+                                      option.foodOptionLastPrice,
+                                      category.groupPriceDisplayType,
+                                      this.state.modalData.price,
+                                    )}
+                                    name={option.foodOptionName}
+                                    id={option.foodOptionId}
+                                    onClick={() =>
+                                      this.onChangeSideDish(
+                                        option.foodOptionId,
+                                        category,
+                                      )
+                                    }
+                                    groupId={category}
+                                  />
+                                </Fragment>
+                              ))}
                             </RestaurantSideDishGroup>
                           </div>
                         ))}
@@ -420,7 +538,11 @@ class RestaurantPage extends React.Component {
                     </div>
 
                     <div className="i2 center">
-                      <Button color="success w80" onClick={this.toggleModal}>
+                      <Button
+                        color="success w80"
+                        disabled={!this.state.modalButton}
+                        onClick={this.toggleModal}
+                      >
                         تایید
                       </Button>
                     </div>

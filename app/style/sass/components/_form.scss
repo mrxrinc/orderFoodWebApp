@@ -107,10 +107,8 @@
 %radio-basic {
   height: 40px;
   width: 100%;
-  padding: 1px 40px 1px 20px !important;
   position: relative;  
   outline: none!important;  
-  margin-bottom: 8px;
   margin-right: 0;
   overflow: hidden;
   cursor: pointer;
@@ -119,6 +117,7 @@
 .radio-modal {
   @extend %radio-basic;
   padding: 1px 33px 1px 20px !important;
+  margin-top: 10px;
 }
 
 .radio-wrapper {
@@ -128,6 +127,8 @@
   border: 1px solid $color-border-2;
   border-radius: 20px;
   background-color: #fff;
+  margin-bottom: 8px;
+  padding: 1px 40px 1px 20px !important;
 }
 
 .radio-wrapper input , .radio-modal input  {
@@ -168,7 +169,7 @@
   display: flex;
   height: 36px;
   line-height: 36px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   width: 100%;
   position: relative;
