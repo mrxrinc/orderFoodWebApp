@@ -115,22 +115,6 @@ class RestaurantPage extends React.Component {
     }
   };
 
-  componentDidMount() {
-
-    console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
-    restaurantDetail(this.state.id).then(response => {
-      this.setState({ restaurantDetail: response.result }, () => {
-        this.setState({ loading: false });
-
-        createBasket(this.state.id).then(basketResp => {
-          console.log('Basket Response ==>', basketResp.result);
-          this.setState({ basket: basketResp.result });
-        });
-        console.log('Restaurant Detail ====> ', this.state.restaurantDetail);
-      });
-    });
-  }
-
   openFoodModal = food => {
     this.setState({ modalRequiredGroupIds: [] });
     this.setState({ modalData: food }, () => {
