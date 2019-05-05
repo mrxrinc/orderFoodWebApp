@@ -14,14 +14,9 @@ class TabThree extends React.Component {
 
     componentDidMount(){
       const {data} = this.props;
-      console.log (Object.keys(data.deliveryZoneList));
-      console.log('====================================');
-      console.log(Object.keys(data.openingInfo));
-      console.log('====================================');
       // Object.keys(this.props.data.type).forEach(currentItem => {
       //   console.log(this.props.data.type[currentItem].name);
       // });
-     
     // fow OWL.Carousel
     $(document).ready(function () {
       $('#demo').owlCarousel({
@@ -29,7 +24,7 @@ class TabThree extends React.Component {
         loop: false,
         autoplay: true,
         margin: 15,
-        nav: true,
+        nav: false,
         dots: false,
         items:1,
       });
@@ -45,7 +40,8 @@ class TabThree extends React.Component {
         className="item round20"
           style={{
           backgroundColor:"#4DC7A0",
-          padding:"1rem"
+          padding:"1rem",
+          height:"200px"
         }}
       >
         <h4>{posterItem}</h4>
@@ -123,11 +119,11 @@ class TabThree extends React.Component {
           </div>
         </div>
 
-        {/* <div className="col-12">
+        <div className="col-12">
           <div className="restaurant-detail__about topM20">
             <h2 className="restaurant-detail__about-title text16 gray6">درباره رستوران</h2>
             <div className="restaurant-detail__about-box topP10">
-              <div className="restaurant-detail__about-desc bottomP15">dsada</div>
+              <div className="restaurant-detail__about-desc bottomP15">این رستوران دارای شعب دیگری هم می‌باشداین رستوران دارای شعب دیگری هم می‌باشد</div>
             </div>
           </div>
         </div>
@@ -143,7 +139,7 @@ class TabThree extends React.Component {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         
         <div className="col-12">
           <div className="restaurant-detail__about topM20">
@@ -159,8 +155,8 @@ class TabThree extends React.Component {
             <h2 className="restaurant-detail__time-title text16 gray6">ساعات کاری رستوران</h2>
             <div className="restaurant-detail__time-box topP10">
               {
-                Object.keys(data.openingInfo).map(openingInfo =>          
-                  <div className={
+                Object.keys(data.openingInfo).map((openingInfo,i) =>          
+                  <div key={i} className={
                     "restaurant-detail__time-desc checkout-carditem__lbox padd15 bottomM10 round10 flex center" + 
                     (data.openingInfo[openingInfo][0].isToday ? " boxShadow1 bgWhite":"")
                     }

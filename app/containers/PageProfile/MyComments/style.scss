@@ -1,0 +1,130 @@
+@import '../../../style/sass/variable';
+
+.mycomment{
+    .mycomment-box{
+        height: auto;
+        box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        border-radius: 14px 0 14px 0;
+        .mycomment-box__main{
+            .mycomment-box__icon{
+                .mycomment-box__img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 10px;
+                }
+            }
+            .mycomment-box__bord{
+                width: 82px;
+                // height: 0;
+                border-top: 68px solid red;
+                border-right: 68px solid transparent;
+                // &:before{
+                //     content: "ثبت سفارش";
+                // }
+                border-top-left-radius: 14px;
+                } 
+            .mycomment-box__detail{
+                .mycomment__detail-main{
+                    display: flex;
+                    .mycomment-box__title{
+                        color: #434343;
+                        font-weight: bold;;
+                    }
+                    .chili-star{
+                        color: #1CBD2F;
+                        // float: left;
+                        font-size: 22px;
+                    }
+                }
+                .mycomment-detail{
+                    color: #929292;
+                    .mycomment-box__date{
+                        font-size: 12px;
+                        // &:after{
+                        //     content: "";
+                        //     height: 5px;
+                        //     width: 5px;
+                        //     border-radius: 50px;
+                        //     background-color: #F2C930;
+                        //     position: absolute;
+                            
+                        // }
+                        // &:before{
+                        //     content: "";
+                        //     height: 5px;
+                        //     width: 5px;
+                        //     border-radius: 50px;
+                        //     background-color: #F2C930;
+                        //     position: absolute;
+                            
+                        // }
+                    }
+                    .mycomment-box__text{
+                        display: block;
+                        font-size: 14px;
+                        color: $color-primary;
+                    }
+                }
+                .mycomment-box__btn{
+                    width: 130px;
+                    height: 34px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-right: 18px;
+                    padding: 0;
+                    background: #1CBD2F;
+                    border-color: #1CBD2F;
+                }
+            }
+        }
+        .mycomment-box__dmain{
+            color: #888787;
+            padding-top: 10px;
+            padding-left: 12px;
+            border-top: 1px solid #d4cbcb ;
+            .mycomment-dmain__img{
+                border: 1px solid #e6e3e3;
+                width: 40px;
+                height: 40px;
+                color: rgb(124, 86, 86);
+                border-radius: 14px;
+                padding: 10px;
+                .mycomment-dmain__icon{
+                    font-size: 30px;
+                }
+            }
+            .mycomment-dmain__box{
+                padding-right: 18px;
+                border-radius: 14px 0 14px 0;
+                background: #eeeaea;
+                border: 1px solid #eeeaea;
+                margin-right: 10px;
+                padding: 10px;
+                width: 100%;
+
+                .mycomment-box__title{
+                    font-size: 14px;
+                    display: block;
+                    color: #434343;
+                }
+                .mycomment-box__date{
+                    display: block;
+                    font-size: 12px;
+                }
+                .mycomment-dmain__answer{
+                    display: block;
+                    font-size: 14px;
+                    color: #434343;
+                }
+            }
+            .mycomment-dmain__text{
+                color: #888787;
+                text-align: left;
+                padding-top: 10px;
+                padding-left: 12px;
+            }
+            
+        }
+    }
+}

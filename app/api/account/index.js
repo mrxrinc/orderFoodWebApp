@@ -16,7 +16,7 @@ export const sendVerifyCodePost = (params) => {
 }
 
 export const getDataAfterPayment = (params) => {
-  return deRequest(account.getOrderDetail(), "GET", params, false );
+  return deRequest(account.getOrderDetail(params.orderId), "GET" );
 }
 
 export const getSendGifCode = (params) => {
@@ -33,6 +33,10 @@ export const payOrderPost = (params) => {
 
 export const getOrderitems = (params) => {
   return deRequest(account.orderitems(params.orderId), "GET");
+}
+
+export const orderReviewGet = (orderId) => {
+  return deRequest(account.order_review_get(orderId), "GET");
 }
 
 export const getUserAddress = (params) => {

@@ -27,7 +27,7 @@ class PageProfile extends React.Component{
     if (typeof this.props.auth.id === "undefined") {
       history.push("/");
     }
-    userAddressList(this.props.auth.id).then(
+    userAddressList("").then(
       response => {
         this.setState({
           userAddressList:response.result,

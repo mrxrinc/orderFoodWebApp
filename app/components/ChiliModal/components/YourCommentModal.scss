@@ -1,0 +1,144 @@
+@import '../../../style/sass/variable';
+
+
+.restaurant-comment{
+  &__form{
+    &-main{
+      &-item{
+        border-top:1px solid $color-border-2;
+      }
+      &-list{
+      }
+    }
+  }
+  &__facerate{
+    > label {
+        display: block;
+        position: relative;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: 15px;
+        text-align: center;
+        font-size: 16px;
+        padding-top:10px;
+        max-height: 100px;
+        margin-bottom:auto;
+        padding-bottom: 30px;
+        &:after{
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+        }
+        &.label-hide{
+          padding: 0;
+          margin-bottom: 15px;
+          &:after{
+            display: none;
+          }
+        }
+        .checkmark {
+          color: $grey-6;
+          &:after{
+            font-family: 'chilivery' !important;
+            display: block;
+            line-height: 1;
+          }
+        }
+        &:nth-child(1){
+          &:after{
+            content: 'راضی';
+            color: $color-success;
+          }
+          input:checked ~ .checkmark {
+            color: $color-success;
+          }
+          .checkmark:after {
+            content: "]";
+          }
+        }
+        &:nth-child(2){
+          &:after{
+            content: 'متوسط';
+            color: $color-warning;
+          }
+          input:checked ~ .checkmark {
+            color: $color-warning;
+          }
+          .checkmark:after {
+            content: "\E901";
+          }
+        }
+        &:nth-child(3){
+          &:after{
+            content: 'ناراضی';
+            color: $color-danger;
+          }
+          input:checked ~ .checkmark {
+            color: $color-danger;
+          }
+          .checkmark:after {
+            content: "o";
+          }
+        }
+    }
+  }
+}
+
+
+// .container {
+//   display: block;
+//   position: relative;
+//   margin-bottom: 12px;
+//   cursor: pointer;
+//   font-size: 22px;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+//   height:25px;
+// }
+
+
+
+// /* Create a custom radio button */
+// .checkmark {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 25px;
+//   width: 25px;
+//   background-color: red;
+//   border-radius: 50%;
+// }
+
+
+
+
+
+// <label class="container">
+//   <input type="radio" checked="checked" name="radio">
+//   <span class="checkmark"></span>
+// </label>
+// <label class="container">
+//   <input type="radio" name="radio">
+//   <span class="checkmark"></span>
+// </label>
+// <label class="container">
+//   <input type="radio" name="radio">
+//   <span class="checkmark"></span>
+// </label>
+// <label class="container">
+//   <input type="radio" name="radio">
+//   <span class="checkmark"></span>
+// </label>

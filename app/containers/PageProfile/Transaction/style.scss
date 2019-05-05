@@ -1,17 +1,161 @@
 @import '../../../style/sass/variable';
 
 .transaction{
-    .transaction__icon{
-        padding-top: 110px;
-        text-align: center;
-        .transaction__img{
-            width: 90px;
-            height: 90px;
+    .transaction-box{
+        height: auto;
+        box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        margin-right: 12px;
+        margin-left: 15px;
+        border-radius: 14px;
+        overflow: hidden;
+        .transaction-box__main{
+            position: relative;
+            .transaction-box__icon{
+                .transaction-box__img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 10px;
+                }
+            }
+            .transaction-box__bord{
+                width: 82px;
+                // height: 0;
+                border-top: 68px solid red;
+                border-right: 68px solid transparent;
+                // &:before{
+                //     content: "ثبت سفارش";
+                // }
+                border-top-left-radius: 14px;
+                } 
+            .transaction-box__detail{
+                padding-right: 8px;
+                .transaction-box__main-detail{
+                    font-size: 14px;
+                    .transaction-box__title{
+                        color: #434343;
+                    }
+                    .transaction-box__dcost{
+                        padding-right: 24px;
+                    }
+                }
+                .transaction-detail{
+                    font-size: 12px;
+                    position: relative;
+                    padding-top: 8px;
+                    .transaction-detail__right{
+                        color: #929292;
+                        padding-top: 6px;
+                        .transaction-box__date{
+                            padding-right: 10px;
+                            padding-left: 14px;
+                            &:after{
+                                content: "";
+                                height: 5px;
+                                width: 5px;
+                                border-radius: 50px;
+                                background-color: #F2C930;
+                                position: absolute;
+                                top: 20px;
+                                right: 54px;
+                            }
+                        }
+                    }
+                    .transaction-box__time  {
+                    }
+                    &__plus-min{
+                        width: 50px;
+                        height: 40px;
+                        background-color: #1CBD2F;
+                        position: absolute;
+                        right: -28px;
+                        bottom: 5px;
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        align-self: center;
+                        text-align: center;
+                        transform-origin: bottom right;
+                        transform: rotate(-45deg);
+                        .icon{
+                            transform-origin: 40px -1px;
+                            transform: rotate(45deg);
+                            font-size: 10px;
+                            font-weight: bold;
+                            width: 50px;
+                            color: #fff;
+                        }
+                    }
+                }
+                .transaction-detail__left{
+                    color: #929292;
+                    padding-top: 6px;
+                    margin-right: auto;
+                    .transaction-box__remnant{
+                        padding-right: 10px;
+                    }
+                    .transaction-box__cost{
+                        font-size: 12px;
+                    }
+                }
+
+                .transaction-box__btn{
+                    width: 130px;
+                    height: 34px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-right: 18px;
+                    padding: 0;
+                    background: #1CBD2F;
+                    border-color: #1CBD2F;
+                }
+            }
         }
-        .transaction__title{
-            display: block;
-            padding-top: 12px;
-            color: $grey-15;
+        .transaction-box__dmain{
+            color: #888787;
+            padding-top: 10px;
+            padding-left: 12px;
+            border-top: 1px solid gray;
+            .transaction-dmain__img{
+                border: 1px solid #e6e3e3;
+                width: 40px;
+                height: 40px;
+                color: rgb(124, 86, 86);
+                border-radius: 14px;
+                padding: 10px;
+                .transaction-dmain__icon{
+                    font-size: 30px;
+                }
+            }
+            .transaction-dmain__box{
+                padding-right: 18px;
+                border-radius: 14px 0 14px 0;
+                background: #eeeaea;
+                border: 1px solid #eeeaea;
+                margin-right: 10px;
+                padding: 10px;
+                .transaction-box__title{
+                    font-size: 14px;
+                    display: block;
+                    color: #434343;
+                }
+                .transaction-box__date{
+                    display: block;
+                    font-size: 12px;
+                }
+                .transaction-dmain__answer{
+                    display: block;
+                    font-size: 14px;
+                    color: #434343;
+                }
+            }
+            .transaction-dmain__text{
+                color: #888787;
+                text-align: left;
+                padding-top: 10px;
+                padding-left: 12px;
+            }
+            
         }
     }
 }

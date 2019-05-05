@@ -24,7 +24,7 @@ class ChiliEvent extends React.Component{
 						<span className="event-tilte">{this.state.eventTitle}</span>
 						<div className="event-text1 flex">
 							<span className="event__text1">{this.state.eventText1}</span>
-							<span className="chilivery-arrow-left arrow-left"> </span>
+							<span className="chilivery-arrow-left arrow-left leftP10 rightMauto"> </span>
 						</div>
 					</div>
 
@@ -32,7 +32,7 @@ class ChiliEvent extends React.Component{
 						<span className="event-tilte2">{this.state.eventTitle2}</span>
 						<div className="event-text2 flex">
 							<span className="event__text2">{this.state.eventText2}</span>
-							<span className="chilivery-arrow-left arrow-left"> </span>
+							<span className="chilivery-arrow-left arrow-left leftP10 rightMauto"> </span>
 						</div>
 					</div>
 				</div>

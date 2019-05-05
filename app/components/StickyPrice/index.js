@@ -86,10 +86,11 @@ class StickyPrice extends React.PureComponent {
       }
     ).then(response => {
       if(response.status) {
-        // link ? history.push(link) : history.push("/checkout");
-        if (link !== '/cart') history.push(link)
+        // history.push("/checkout");
         this.setState({
         })
+      } else {
+        return;
       }
     });
   };
@@ -97,7 +98,7 @@ class StickyPrice extends React.PureComponent {
   payOrder = () => {
     const {basket,link} = this.props;
     payOrderPost({
-      "accCharge": false,
+      "accCharge": basket.accCharge ? basket.accCharge : false,
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  true,
@@ -106,30 +107,32 @@ class StickyPrice extends React.PureComponent {
       "payAmount":  "200",
       "paymentType":  "account",
       "addressId":  basket.addressId,
-      "campaginCode":basket.campaginCode,
+      "campaginCode":"",
       "bankgate": basket.gateway
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
-        window.location = response.result.url;
+        // window.location = response.result.url;
+        if (response.go_to === 'app.success-pay') {
+          history.push('/success-payment')
+        }
       }
     })
   }
 
   pushLink = () => {
-    const {link} = this.props;
-    if (link === "/cart") {
-      // this.changeBasket();
+    const {links} = this.props;
+    if (links=== "cart") {
+      this.changeBasket();
       history.push("/cart");
     }
-    if (link === "/checkout") {
+    if (links === "checkout") {
       this.changeBasket();
-      link ? history.push(link) : history.push("/checkout");
+      history.push("/checkout");
     }
-    if (link === "/bank") {
+    if (links === "bank") {
       this.payOrder()
     }
-
   };
 
   render() {

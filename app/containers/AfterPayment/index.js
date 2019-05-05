@@ -7,10 +7,13 @@ import AfterPaymentCardItem from '../../components/AfterPaymentCardItem';
 import { getDataAfterPayment } from '../../api/account';
 import status02 from '../../images/after-payment-status/after-payment-status-02.png';
 import restaurantProfile from '../../images/test/restaurantProfile.jpg';
+import { deliveryTypeChanged } from '../../actions/Basket';
+import { connect } from 'react-redux';
+import { cart } from '../Cart';
 
-const ResturantImagesUrl = {
-  backgroundImage: `url(${ResturantImage})`,
-};
+// const ResturantImagesUrl = {
+//   backgroundImage: `url(${})`,
+// };
 
 
 export class AfterPayment extends React.PureComponent {
@@ -26,7 +29,9 @@ export class AfterPayment extends React.PureComponent {
   }
 
   dataAfterPayment = () => {
-    getDataAfterPayment().then(response => {
+    getDataAfterPayment({
+      orderId:this.props.basket.id
+    }).then(response => {
       this.setState({
         data:response.result
       })
@@ -34,6 +39,7 @@ export class AfterPayment extends React.PureComponent {
   };
   render() {
     const {data} = this.state;
+    const {basket} = this.props;
     return (
       <div className="afterpayment">
         {/*<div className="afterpayment__header">*/}
@@ -49,16 +55,18 @@ export class AfterPayment extends React.PureComponent {
             {/*</div>*/}
           {/*</div>*/}
         {/*</div>*/}
+        {data.restaurant &&
         <div className="afterpayment__header">
           <div className="afterpayment__header__status">
             <div className="afterpayment__header__status-img" style={{ backgroundImage: `url(${status02})`}}></div>
-            <div className="afterpayment__header__status-profile" style={{ backgroundImage: `url(${restaurantProfile})`}}></div>
+            <div className="afterpayment__header__status-profile" style={{ backgroundImage: `url(${data.restaurant.profile})`}}></div>
           </div>
         </div>
+        }
         <div className="afterpayment__body">
           <div className="afterpayment__body-status">
-            <span>رستوران باماهاس (میدان پالیزی)</span>
-            <p>در انتظار تایید سفارش توسط فروشنده</p>
+            <span>{data.restaurant && data.restaurant.name}</span>
+            <p>{data.status}</p>
           </div>
         </div>
         {/*<div className="text-center bottomM20">*/}
@@ -146,4 +154,16 @@ export class AfterPayment extends React.PureComponent {
   }
 }
 
-export default AfterPayment;
+
+const mapStateToProps = state => ({
+  user: state.auth,
+  basket:state.Basket
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(AfterPayment);
+
+
+
