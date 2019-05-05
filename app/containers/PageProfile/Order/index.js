@@ -94,7 +94,7 @@ class Order extends React.Component{
 								<span className="order-box__time">{this.state.time1}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
-							<div className="order-box__dmain center">
+							<div className="order-box__dmain order-dmain center">
 								<span class="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>

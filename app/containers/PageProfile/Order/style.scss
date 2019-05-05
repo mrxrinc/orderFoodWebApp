@@ -86,15 +86,14 @@
                     font-size: 12px;
                     font-weight: bold;
                     padding: 0;
-                    background: #1CBD2F;
-                    border-color: #1CBD2F;
+                    background: $color-success;
+                    border-color: $color-success;
                     margin-right: 18px;
                     
                 }
             }
             .order-box__dmain{
                 border-top: 1px solid #E4E4E4;
-                
                 text-align: left;
                 color: $color-primary;
                 .order-dmain__ready{
@@ -111,6 +110,9 @@
                     padding: 0 4px 0 0;
                     font-size: 12px;
                 }
+            }
+            .order-dmain{
+                border-top: 1px solid #CDCDCD;
             }
         }
         .order-box__dmain-time{
