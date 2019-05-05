@@ -10,10 +10,10 @@ const RestaurantSideDishRow = props => {
           <CheckBox
             className="required-chechbox checked"
             type="checkbox"
-            name={props.name}
+            name={props.tempName}
             onChange={props.onClick}
             defaultValue={0}
-            label={<span key={props.id}> {props.name} </span>}
+            label={<span key={props.key}> {props.name} </span>}
           />
         </div>
       )}
@@ -24,14 +24,14 @@ const RestaurantSideDishRow = props => {
               <input
                 className="required-chechbox checked radio-input"
                 type="radio"
-                name={props.groupId}
+                name={props.key}
                 onChange={props.onClick}
                 defaultValue={0}
               />
               <div className="radio-face" />
               <i />
             </div>
-            <span key={props.id}> {props.name}</span>
+            <span key={props.key}> {props.name}</span>
           </label>
         </Fragment>
       )}
@@ -55,5 +55,5 @@ const RestaurantSideDishRow = props => {
     </div>
   );
 };
-//checkWithDisplayType = (foodOptionPrice, displayType, foodPrice) => {
+
 export default RestaurantSideDishRow;
