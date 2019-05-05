@@ -7,7 +7,6 @@ import { financialLevel, rateColor } from '../GeneralFunctions';
 
 const RestaurantsListItem = props => (
   <Link to={`/restaurant-page/${props.id}`} className="listItem dblock">
-    {console.log('PROPS FROM ITEM===>', props)}
     <div className="head center">
       <div className="right center relative">
         <div

@@ -2,6 +2,7 @@ import React from 'react';
 import RestaurantsListItem from '../../components/RestaurantsListItem/index';
 import logo from '../../images/restaurant-logo.jpg';
 import { restaurantSearch } from '../../api/application/restaurant';
+import Loading from '../../components/ChiliLoading';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -9,6 +10,7 @@ export default class RestaurantsList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       restaurantList: [],
       cityId: props.match.params.cityId,
       point: props.match.params.point,
@@ -20,11 +22,8 @@ export default class RestaurantsList extends React.PureComponent {
     restaurantSearch(this.state.cityId, this.state.point, this.state.tag).then(
       response => {
         const restaurantList = response.result.data;
-        this.setState({ restaurantList });
-        console.log('=============Restaurants List Response=================');
-        console.log(this.state.restaurantList);
-        console.log('====================================');
-      },
+        this.setState({ restaurantList, loading: false });
+      }
     );
   }
 
@@ -32,9 +31,12 @@ export default class RestaurantsList extends React.PureComponent {
     const { restaurantList } = this.state;
     return (
       <div className="lightBg padd15 rtl">
-        {restaurantList.map((item, index) => (
-          <RestaurantsListItem key={index} {...item} />
-        ))}
+        {this.state.loading ? 
+          <Loading /> :
+          restaurantList.map((item, index) => (
+            <RestaurantsListItem key={index} {...item} />
+          ))
+        }
       </div>
     );
   }
