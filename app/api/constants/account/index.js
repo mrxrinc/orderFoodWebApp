@@ -31,3 +31,4 @@ export const changeBasket= () => API_URL_ROOT+'/order/basket';
 export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
 export const order_review_get= (orderId) => API_URL_ROOT+'/order/toReview?orderId='+orderId;
 export const userAddress= () => API_URL_ROOT+'/userAddress';
+export const payOrder= () => API_URL_ROOT+'/payment/action';
