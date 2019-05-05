@@ -35,6 +35,10 @@ export const getOrderitems = (params) => {
   return deRequest(account.orderitems(params.orderId), "GET");
 }
 
+export const orderReviewGet = (orderId) => {
+  return deRequest(account.order_review_get(orderId), "GET");
+}
+
 export const getUserAddress = (params) => {
   return deRequest(account.userAddress(params), "GET", params, false );
 }

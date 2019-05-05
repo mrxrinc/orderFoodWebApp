@@ -1,23 +1,20 @@
 @import '../../../style/sass/variable';
 
-.transaction{
-    .transaction-box{
+.mycomment{
+    .mycomment-box{
         height: auto;
-        width: 350px;
         box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
         margin-top: 10px;
-        margin-right: 12px;
-        margin-left: 15px;
-        border-radius: 14px;
-        .transaction-box__main{
-            .transaction-box__icon{
-                .transaction-box__img{
+        border-radius: 14px 0 14px 0;
+        .mycomment-box__main{
+            .mycomment-box__icon{
+                .mycomment-box__img{
                     width: 50px;
                     height: 50px;
                     border-radius: 10px;
                 }
             }
-            .transaction-box__bord{
+            .mycomment-box__bord{
                 width: 82px;
                 // height: 0;
                 border-top: 68px solid red;
@@ -27,55 +24,49 @@
                 // }
                 border-top-left-radius: 14px;
                 } 
-            .transaction-box__detail{
-                padding-right: 8px;
-                .transaction-box__main-detail{
-                    font-size: 14px;
-                    .transaction-box__title{
+            .mycomment-box__detail{
+                .mycomment__detail-main{
+                    display: flex;
+                    .mycomment-box__title{
                         color: #434343;
+                        font-weight: bold;;
                     }
-                    .transaction-box__dcost{
-                        padding-right: 24px;
-                    }
-                }
-                .transaction-detail{
-                    font-size: 12px;
-                    position: relative;
-                    .transaction-detail__right{
-                        color: #929292;
-                        padding-top: 6px;
-                        .transaction-box__date{
-                            padding-right: 10px;
-                            padding-left: 10px;
-                            &:after{
-                                content: "";
-                                height: 5px;
-                                width: 5px;
-                                border-radius: 50px;
-                                background-color: #F2C930;
-                                position: absolute;
-                                top: 12px;
-                                right: 52px;
-                            }
-                        }
-                }
-                    .transaction-box__time  {
-                         
+                    .chili-star{
+                        color: #1CBD2F;
+                        // float: left;
+                        font-size: 22px;
                     }
                 }
-                .transaction-detail__left{
+                .mycomment-detail{
                     color: #929292;
-                    padding-top: 6px;
-                    margin-right: auto;
-                    .transaction-box__remnant{
-                        padding-right: 10px;
-                    }
-                    .transaction-box__cost{
+                    .mycomment-box__date{
                         font-size: 12px;
+                        // &:after{
+                        //     content: "";
+                        //     height: 5px;
+                        //     width: 5px;
+                        //     border-radius: 50px;
+                        //     background-color: #F2C930;
+                        //     position: absolute;
+                            
+                        // }
+                        // &:before{
+                        //     content: "";
+                        //     height: 5px;
+                        //     width: 5px;
+                        //     border-radius: 50px;
+                        //     background-color: #F2C930;
+                        //     position: absolute;
+                            
+                        // }
+                    }
+                    .mycomment-box__text{
+                        display: block;
+                        font-size: 14px;
+                        color: $color-primary;
                     }
                 }
-
-                .transaction-box__btn{
+                .mycomment-box__btn{
                     width: 130px;
                     height: 34px;
                     font-size: 14px;
@@ -87,45 +78,45 @@
                 }
             }
         }
-        .transaction-box__dmain{
+        .mycomment-box__dmain{
             color: #888787;
             padding-top: 10px;
             padding-left: 12px;
-            border-top: 1px solid gray;
-            .transaction-dmain__img{
+            border-top: 1px solid #d4cbcb ;
+            .mycomment-dmain__img{
                 border: 1px solid #e6e3e3;
                 width: 40px;
                 height: 40px;
                 color: rgb(124, 86, 86);
                 border-radius: 14px;
                 padding: 10px;
-                .transaction-dmain__icon{
+                .mycomment-dmain__icon{
                     font-size: 30px;
                 }
             }
-            .transaction-dmain__box{
+            .mycomment-dmain__box{
                 padding-right: 18px;
                 border-radius: 14px 0 14px 0;
                 background: #eeeaea;
                 border: 1px solid #eeeaea;
                 margin-right: 10px;
                 padding: 10px;
-                .transaction-box__title{
+                .mycomment-box__title{
                     font-size: 14px;
                     display: block;
                     color: #434343;
                 }
-                .transaction-box__date{
+                .mycomment-box__date{
                     display: block;
                     font-size: 12px;
                 }
-                .transaction-dmain__answer{
+                .mycomment-dmain__answer{
                     display: block;
                     font-size: 14px;
                     color: #434343;
                 }
             }
-            .transaction-dmain__text{
+            .mycomment-dmain__text{
                 color: #888787;
                 text-align: left;
                 padding-top: 10px;
