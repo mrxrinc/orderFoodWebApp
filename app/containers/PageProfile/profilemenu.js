@@ -14,60 +14,60 @@ class ProfileMenu extends React.Component{
     return(
       <div className="chili-more-menu">
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/order" className="accordion__title accordion_hide">
             <span className="icon chilivery-warning-2 text22"> </span>
             <span className="accordion__list-text">سفارش های من</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/transaction" className="accordion__title accordion_hide">
             <span className="icon chilivery-sort-economy text22"> </span>
             <span className="accordion__list-text">تراکنش های من</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/fav-restaurant" className="accordion__title accordion_hide">
             <span className="icon chilivery-fav-empty text22"> </span>
             <span className="accordion__list-text">رستوران های مورد علاقه من</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/my-Comments" className="accordion__title accordion_hide">
             <span className="icon chilivery-speech text22"> </span>
             <span className="accordion__list-text">نظرات من</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide leftP40">
+          <Link to="/profile/Chili-Event" className="accordion__title accordion_hide leftP40">
             <span className="icon chilivery-notification text22"> </span>
             <span className="accordion__list-text">اعلان ها</span>
             <span className="accordion__list-text  list-text__left">۱ اعلان خوانده نشده</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/Chili-Introduce" className="accordion__title accordion_hide">
             <span className="icon chilivery-referral text22"> </span>
             <span className="accordion__list-text">معرفی چیلیوری به دوستان</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/change-pass" className="accordion__title accordion_hide">
             <span className="icon chilivery-gift text22"> </span>
             <span className="accordion__list-text">تغییر رمز عبور</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">
-          <a href="" className="accordion__title accordion_hide">
+          <Link to="/profile/" className="accordion__title accordion_hide">
             <span className="icon chilivery-setting text22"> </span>  
             <span className="accordion__list-text">تنظیمات</span>
-          </a>
+          </Link>
         </div>
 
         <div className="chili-more-menu__item">

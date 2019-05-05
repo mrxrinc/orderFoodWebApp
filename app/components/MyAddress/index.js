@@ -141,8 +141,12 @@ class MyAddress extends React.PureComponent {
               <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
               </Link>
-              <span onClick={() => this.alertExpToggle(item.id)}>
-                <span className="chilivery-delete"> </span>
+              <span 
+                className="leftM10"
+                style={{float:"left"}}
+                onClick={() => this.alertExpToggle(item.id)}
+              >
+                <span className="chilivery-delete text20"> </span>
               </span>
               <label className="pull-right">{item.name}</label>
             </div>
