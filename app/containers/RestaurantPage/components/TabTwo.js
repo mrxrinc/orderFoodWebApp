@@ -15,6 +15,7 @@ import OrderReviewModal from '../../../components/ChiliModal/components/OrderRev
 import YourCommentModal from '../../../components/ChiliModal/components/YourCommentModal';
 import { commentForRestaurant } from '../../../api/application/comment';
 import RateFace from './rateFace';
+import ChiliLoading from '../../../components/ChiliLoading';
 class TabTwo extends React.Component {
   constructor(props) {
     super(props);
@@ -189,7 +190,7 @@ class TabTwo extends React.Component {
                 /> : null
               }
             </div>
-          </div> : null
+          </div> : <ChiliLoading/>
         }
       </React.Fragment>
     );

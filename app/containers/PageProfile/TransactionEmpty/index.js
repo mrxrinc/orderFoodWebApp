@@ -16,7 +16,7 @@ class TransactionEmpty extends React.Component{
 
 	render(){
 		return(
-			<div className="transaction-empty">
+			<div className="transaction-empty hFull center">
 				<div className="transaction-empty__icon">
 					<img className="transaction-empty__img" src={icon} alt=""/>
                     <span className="transaction-empty__title">{this.state.title}</span>

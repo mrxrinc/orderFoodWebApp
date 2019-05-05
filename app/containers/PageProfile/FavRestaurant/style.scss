@@ -1,48 +1,86 @@
 @import '../../../style/sass/variable';
 
 .fav-restaurant{
-    .fav-restaurant__header{
-        text-align: center;
-        padding-top: 52px;
-        .fav-icon{
-            width: 80px;
-            height: 80px;
+    .fav-restaurant__main{
+        height: auto;
+        box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        margin-right: 12px;
+        margin-left: 15px;
+        border-radius: 14px;
+        .fav-box__main{
+            .fav-restaurant__img{
+                position: relative;
+                .fav__img{
+                    border-radius: 14px;
+                    width: 90px;
+                    height: 90px;
+                }
+                // background-image: url(../../../images/restaurant-profileبرگرستان.png);
+                .fav-restaurant__discount{
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    box-shadow: 0 3px 10px #d31d1d77;
+                    top: -10px;
+                    left: -10px;
+                }
+            }
+            .fav-detail-restaurant{
+                padding-right: 20px;
+                .fav-restaurant__detail{
+                    display: flex;
+                    font-size: 14px;
+                    .fav-restaurant__title{
+                        color: $color-primary;
+                        font-weight: bold;;
+                    }
+                    .icon{
+                        color: #E41D36;
+                        margin-right: auto;
+                        font-size: 22px;
+                    }
+                }
+                .fav-restaurant__box{
+                    display: flex;
+                    .fav-detail{
+                        color: #929292;
+                        padding-top: 6px;
+                        .fav-restaurant__item{
+                            position: relative;
+                            padding-right: 17px;
+                            font-size: 12px;
+                            &:after{
+                                content: "";
+                                height: 5px;
+                                width: 5px;
+                                border-radius: 50px;
+                                background-color: #F2C930;
+                                position: absolute;
+                                top: 10px;
+                                right: 6px;
+                            }
+                            &:first-child:after {
+                                display: none;
+                             }
+                            &:first-child {
+                                padding-right: 0;
+                             }
+                            
+                        }
+                        
+                    }
+                    .fav-detail__btn{
+                        .fav-btn{
+                            font-size: 12px;
+                            width: 80px;
+                            height: 30px;
+                        }
+                    }
+                }
+            }
         }
-        .fav-header{
-            display: block;
-            color: $grey-15;
-            padding-top: 11px;
-            padding-right: 40px;
-            padding-left: 40px;
-            font-size: 15px;
-        }
-    }
-    .fav-restaurant__explain{
-        padding-top: 50px;
-        text-align: left;
-        padding-left: 12px;
-        padding-right: 12px;
-        .fav__text{
-            color: #929292;
-            font-size: 14px;
-        }
-        .fav__icon{
-            display: inline-block;
-            color: $color-secondary;
-            font-size: 22px;
-        }
-        .fav-guide{
-            width: 330px;
-            padding-top: 10px;
-        }
-    }
-    .fav-restaurant__button{
-        text-align: center;
-        margin-top: 40px;
-        .fav__btn{
-            width: 230px;
-            height: 50px;
-            border-radius: 50px;
-        }
+        
     }
 }
+

@@ -3,13 +3,14 @@
 .transaction{
     .transaction-box{
         height: auto;
-        width: 350px;
         box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
         margin-top: 10px;
         margin-right: 12px;
         margin-left: 15px;
         border-radius: 14px;
+        overflow: hidden;
         .transaction-box__main{
+            position: relative;
             .transaction-box__icon{
                 .transaction-box__img{
                     width: 50px;
@@ -41,12 +42,13 @@
                 .transaction-detail{
                     font-size: 12px;
                     position: relative;
+                    padding-top: 8px;
                     .transaction-detail__right{
                         color: #929292;
                         padding-top: 6px;
                         .transaction-box__date{
                             padding-right: 10px;
-                            padding-left: 10px;
+                            padding-left: 14px;
                             &:after{
                                 content: "";
                                 height: 5px;
@@ -54,13 +56,35 @@
                                 border-radius: 50px;
                                 background-color: #F2C930;
                                 position: absolute;
-                                top: 12px;
-                                right: 52px;
+                                top: 20px;
+                                right: 54px;
                             }
                         }
-                }
+                    }
                     .transaction-box__time  {
-                         
+                    }
+                    &__plus-min{
+                        width: 50px;
+                        height: 40px;
+                        background-color: #1CBD2F;
+                        position: absolute;
+                        right: -28px;
+                        bottom: 5px;
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        align-self: center;
+                        text-align: center;
+                        transform-origin: bottom right;
+                        transform: rotate(-45deg);
+                        .icon{
+                            transform-origin: 40px -1px;
+                            transform: rotate(45deg);
+                            font-size: 10px;
+                            font-weight: bold;
+                            width: 50px;
+                            color: #fff;
+                        }
                     }
                 }
                 .transaction-detail__left{

@@ -14,6 +14,7 @@ class Order extends React.Component{
 			date: '96/7/22',
 			cost:' تومان ۲۸/۰۰۰  ',
 			orderBtn: 'ثبت امتیاز و نظر',
+			ready: 'در حال آماده سازی...',
 			text:'جزيیات سفارش',
 			date1: '۹۶/۷/۱۷',
 			time1: '۱۵:۱۳',
@@ -30,24 +31,26 @@ class Order extends React.Component{
 		return(
 			<div className="order">
 				<div className="order-box">
-					<div className="order-box__main flex padd10 center">
+					<div className="order-box__main flex padd10 center relative">
 						<div className="order-box__icon">
 							<img className="order-box__img" src={png} alt=""/>
 						</div>
 						
 						<div className="order-box__detail">
 							<span className="order-box__title">{this.state.title}</span>
-							<div className="order-detail">
+							<div className="order-detail bottomP10">
 								<span className="order-box__date">{this.state.date}</span>
 								<span className="order-box__time">{this.state.time}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
 							<div className="order-box__dmain center">
-								<span class="chilivery-warning-2 chili-war"> </span>
+								<span className="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>
 						</div>
-						{/* <div className="order-box__bord">ثبت سفارش</div> */}
+						<div className="order-box__bord ">
+							<span>پیش سفارش</span>
+						</div>
 					</div>
 					<div className="order-box__dmain-time">
 						<div className="order-box__time">
@@ -65,15 +68,19 @@ class Order extends React.Component{
 							<img className="order-box__img" src={png} alt=""/>
 						</div>
 						<div className="order-box__detail">
-							<span className="order-box__title">{this.state.title}</span>
-							<button class="btn btn-success order-box__btn">{this.state.orderBtn}</button>
+							<div className="center">
+								<span className="order-box__title wFull">{this.state.title}</span>
+								<button className="btn btn-success order-box__btn"
+									style={{minWidth:"100px"}}
+								>{this.state.orderBtn}</button>
+							</div>
 							<div className="order-detail">
 								<span className="order-box__date">{this.state.date}</span>
 								<span className="order-box__time">{this.state.time}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
 							<div className="order-box__dmain center">
-								<span class="chilivery-warning-2 chili-war"> </span>
+								<span className="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>
 						</div>
@@ -93,8 +100,8 @@ class Order extends React.Component{
 								<span className="order-box__time">{this.state.time1}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
-							<div className="order-box__dmain center">
-								<span class="chilivery-warning-2 chili-war"> </span>
+							<div className="order-box__dmain order-dmain center">
+								<span className="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>
 						</div>
@@ -109,14 +116,15 @@ class Order extends React.Component{
 						</div>
 						<div className="order-box__detail">
 							<span className="order-box__title">{this.state.title}</span>
-							<button class="btn btn-success order-box__btn">{this.state.orderBtn}</button>
+							<button className="btn btn-success order-box__btn">{this.state.orderBtn}</button>
 							<div className="order-detail">
 								<span className="order-box__date">{this.state.date2}</span>
 								<span className="order-box__time">{this.state.time2}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
 							<div className="order-box__dmain center">
-								<span class="chilivery-warning-2 chili-war"> </span>
+								<span className="order-dmain__ready center">{this.state.ready}</span>
+								<span className="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>
 						</div>
@@ -133,7 +141,7 @@ class Order extends React.Component{
 							<div className="order__detail-main">
 
 								<span className="order-box__title">{this.state.title}</span>
-								<span class="chilivery-star  chili-star"> </span>
+								<span className="chilivery-star icon"> </span>
 							</div>
 							<div className="order-detail">
 								<span className="order-box__date">{this.state.date3}</span>
@@ -141,7 +149,7 @@ class Order extends React.Component{
 								<span className="order-box__cost">{this.state.cost}</span>
 							</div>
 							<div className="order-box__dmain center">
-								<span class="chilivery-warning-2 chili-war"> </span>
+								<span className="chilivery-warning-2 icon"> </span>
 								<button className="btn btn-link order-dmain__text">{this.state.text}</button>
 							</div>
 							

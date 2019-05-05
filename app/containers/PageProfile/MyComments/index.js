@@ -19,37 +19,41 @@ class MyComments extends React.Component {
 			answer: 'با تشکر از وقتی که برای ارسال نظر گذاشتید. در سفارشات بعدی این مشکل رفع خواهد شد.'
 		}
 	}
-	componentDidMount() {
-		console.log('====================================');
-		console.log(this.props.data);
-		console.log('====================================');
-	}
 
 	render() {
 		const data = this.props.data;
 		return (
 			<div className="mycomment">
 				{data.map((item, index) =>
-					<div className="mycomment-box">
+					<div className="mycomment-box" key={index}>
 						<div className="mycomment-box__main flex padd10">
 
 							{this.props.type === "profile" ?
-								<div className="mycomment-box__icon leftP5">
-									<img className="mycomment-box__img" src={png} alt="" />
-								</div> : null
+								<React.Fragment>
+									{ item.logo && 
+										<div className="mycomment-box__icon leftP5">
+											<img className="mycomment-box__img" src={item.logo} alt="" />
+										</div>
+									}
+								</React.Fragment>
+								: null
 							}
 
-							<div className="mycomment-box__detail overhide">
+							<div className="mycomment-box__detail overhide wFull">
 								{this.props.type === "profile" ?
 									<React.Fragment>
 										<div className="mycomment__detail-main">
-											<span className="mycomment-box__title">{this.state.title1}</span>
-											<span className="icon chilivery-star chili-star rightMauto"> </span>
+											<span className="mycomment-box__title">{item.restaurantName}</span>
+											<span className={`icon text22 rightMauto ${
+												item.voteNum === 3 ? "chilivery-star green" :
+												item.voteNum === 2 ? "chilivery-smiley-average yellow":
+												"chilivery-smiley-bad red"
+											}`}> </span>
 										</div>
 
 										<div className="mycomment-detail">
-											<span className="mycomment-box__date">{this.state.date}</span>
-											<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
+											<span className="mycomment-box__date">{item.date}</span>
+											<span className="mycomment-box__text bottomP10 topP10">{item.text}</span>
 										</div>
 									</React.Fragment> :
 
@@ -83,7 +87,7 @@ class MyComments extends React.Component {
 						</div>
 						{
 							item.replies.map((replay, index) =>
-								<div className="mycomment-box__dmain flex padd10">
+								<div className="mycomment-box__dmain flex padd10" key={index}>
 									<div className="mycomment-dmain__img center">
 										<span className="icon chilivery-chef-answer mycomment-dmain__icon"> </span>
 									</div>
