@@ -1,8 +1,8 @@
 import React from 'react';
 import RestaurantsListItem from '../../components/RestaurantsListItem/index';
-import logo from '../../images/restaurant-logo.jpg';
 import { restaurantSearch } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
+import NavigationBar from '../../components/NavigationBar';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -27,16 +27,31 @@ export default class RestaurantsList extends React.PureComponent {
     );
   }
 
+  back = () => {
+    console.log('BACK');
+  }
+
   render() {
     const { restaurantList } = this.state;
     return (
-      <div className="lightBg padd15 rtl">
-        {this.state.loading ? 
-          <Loading /> :
-          restaurantList.map((item, index) => (
-            <RestaurantsListItem key={index} {...item} />
-          ))
-        }
+      <div className="lightBg">
+        <NavigationBar 
+          back={this.back}
+          title="لیست رستورانها"
+          // titleOnPress
+          // map
+          filter
+          // like
+          background
+        />
+        <div className="padd15 rtl">
+          {this.state.loading ? 
+            <Loading /> :
+            restaurantList.map((item, index) => (
+              <RestaurantsListItem key={index} {...item} />
+            ))
+          }
+        </div>
       </div>
     );
   }

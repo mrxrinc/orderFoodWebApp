@@ -21,7 +21,7 @@ const RestaurantsListItem = props => (
         )}
       </div>
       <div className="left relative">
-        <h2 className="font bold largeText primary">{props.name}</h2>
+        <h2 className="font bold largeText primary text-truncate w80">{props.name}</h2>
 
         {props.foodTypes.length > 0 && (
           <ul className="flex">

@@ -15,6 +15,7 @@ import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
+import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket
@@ -486,6 +487,13 @@ class RestaurantPage extends React.Component {
     const data = this.props.restaurant;
     return (
       <div>
+        <NavigationBar 
+          back
+          fixTitle={data && data.name}
+          like
+          share
+          scroll={199}
+        />
         {data ? (
           <div className="lightBg rtl">
             <RestaurantHeader
