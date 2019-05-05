@@ -16,7 +16,7 @@ class OrderEmpty extends React.Component{
 
 	render(){
 		return(
-			<div className="order-empty">
+			<div className="order-empty hFull center">
 				<div className="order-empty__icon">
 					<img className="order-empty__img" src={icon} alt=""/>
                     <span className="order-empty__title">{this.state.title}</span>

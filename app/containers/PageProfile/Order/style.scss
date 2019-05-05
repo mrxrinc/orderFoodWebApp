@@ -3,14 +3,15 @@
 .order{
     .order-box{
         height: auto;
-        width: 350px;
         // background: #FFFFFF;
         box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.1);
         margin-top: 10px;
         margin-right: 12px;
         margin-left: 15px;
         border-radius: 14px;
+        overflow: hidden;
         .order-box__main{
+            overflow: hidden;
             .order-box__icon{
                 // padding-top: 6px;
                 // padding-right: 6px;
@@ -21,12 +22,32 @@
                 }
             }
             .order-box__bord{
-                width: 82px;
-                border-top: 68px solid red;
-                border-right: 68px solid transparent;
-               
-                border-top-left-radius: 14px;
-                display: none;
+                width: 80px;
+                height: 100px;
+                background-color: $color-success;
+                position: absolute;
+                left: 10px;
+                top: -60px;
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                align-self: center;
+                text-align: center;
+                transform-origin: 0 0;
+                transform: rotate(45deg);
+                span{
+                    transform-origin: 29px 13px;
+                    transform: rotate(-90deg);
+                    font-size: 10px;
+                    font-weight: bold;
+                    width: 50px;
+                    color: #fff;
+                }
+                // border-top: 68px solid $color-success;
+                // border-right: 68px solid transparent;
+                // border-top-left-radius: 14px;
+                // position: relative;
+                // display: none;
                 } 
             .order-box__detail{
                 // padding-top: 10px;
@@ -40,23 +61,23 @@
                         font-weight: bold;;
                     }
                     .icon{
-                        color: #787878;
+                        color: $grey-8;
                         margin-right: auto;
                         font-size: 22px;
                     }
                 }
                 .order-detail{
-                    color: #929292;
+                    color: $grey-6;
                     padding-top: 6px;
                     position: relative;
                     .order-box__date{
-                       padding-left: 12px;
+                        padding-left: 12px;
                         &:after{
                             content: "";
                             height: 5px;
                             width: 5px;
                             border-radius: 50px;
-                            background-color: #F2C930;
+                            background-color: $color-warning;
                             position: absolute;
                             top: 14px;
                             right: 50px;
@@ -72,7 +93,7 @@
                             height: 5px;
                             width: 5px;
                             border-radius: 50px;
-                            background-color: #F2C930;
+                            background-color: $color-warning;
                             position: absolute;
                             top: 14px;
                             right: 98px;
@@ -93,7 +114,7 @@
                 }
             }
             .order-box__dmain{
-                border-top: 1px solid #E4E4E4;
+                border-top: 1px solid $color-disable;
                 text-align: left;
                 color: $color-primary;
                 .order-dmain__ready{
@@ -101,7 +122,7 @@
                 }
                 .icon{
                     margin-right: auto;
-                    color: #888787;
+                    color: $grey-6;
                 }
                 .order-dmain__text{
                     color: $color-primary;
@@ -112,20 +133,19 @@
                 }
             }
             .order-dmain{
-                border-top: 1px solid #CDCDCD;
+                border-top: 1px solid $grey-4;
             }
         }
         .order-box__dmain-time{
             padding: 0 10px 10px;
             text-align: center;
             .order-box__time{
-                border-style: dashed;
                 border-radius: 30px;
-                border-color: $color-success;
+                border: 2px dashed $color-success;
                 padding: 8px;
                 font-size: 12px;
                 .order-dmain__text{
-                    color: #888787;
+                    color: $grey-6;
                 }
             }
         }
