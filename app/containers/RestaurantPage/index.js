@@ -57,6 +57,10 @@ class RestaurantPage extends React.Component {
       });
     });
   }
+
+  componentWillUnmount() {
+    this.props.storeRestaurant(null)
+  }
   
   updateRestaurantData = data => {          
     const menu = data.menuSections;
@@ -406,7 +410,7 @@ class RestaurantPage extends React.Component {
                           )}
                           <li className="moto flex hCenter rightP10 bold primary">
                             <span className="text16">
-                              {this.state.modalData.price}
+                              {this.state.modalData.foodPrice}
                             </span>
                             <span className="text10 topM3 rightM3">تومان</span>
                           </li>
@@ -416,7 +420,7 @@ class RestaurantPage extends React.Component {
                             className="topM20"
                             fontSize="18"
                             parentId={this.state.modalData.id}
-                            value={this.state.modalData.count}
+                            value={this.state.modalData.itemCount}
                             stepper={this.stepper}
                           />
                         </div>
@@ -479,7 +483,7 @@ class RestaurantPage extends React.Component {
                             className="topM10"
                             fontSize="18"
                             parentId={this.state.modalData.id}
-                            value={this.state.modalData.count}
+                            value={this.state.modalData.itemCount}
                             stepper={this.stepper}
                           />
                         </div>
