@@ -90,6 +90,8 @@
   }
 }
 
-input[value=""] {
-  visibility: hidden!important;
+.restaurantPage  {
+  & input[value=""] {
+    visibility: hidden!important;
+  }
 }
