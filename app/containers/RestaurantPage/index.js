@@ -96,6 +96,10 @@ class RestaurantPage extends React.Component {
     });
   }
 
+  makeTempName = (id, name) => {
+    return id + name;
+  }
+
   openFoodModal = food => {
     this.setState({ modalRequiredGroupIds: [] });
     this.setState({ modalData: food }, () => {
@@ -622,7 +626,10 @@ class RestaurantPage extends React.Component {
                                       this.state.modalData.price,
                                     )}
                                     name={option.foodOptionName}
-                                    id={option.foodOptionId}
+                                    tempName={this.makeTempName(
+                                      option.foodOptionId,
+                                      option.foodOptionName,
+                                    )}
                                     onClick={() =>
                                       this.onChangeSideDish(
                                         option.foodOptionId,
