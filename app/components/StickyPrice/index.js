@@ -72,7 +72,7 @@ class StickyPrice extends React.PureComponent {
     const {basket,link} = this.props;
     const items = Object.keys(basket.items).map((item) =>{
       var updateData = {
-        "orderItemFoodId" : basket.items[item].id,
+        "orderItemFoodId" : item,
         "itemCount" : basket.items[item].itemCount
       };
       return updateData;
