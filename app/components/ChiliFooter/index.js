@@ -53,6 +53,10 @@ class ChiliFooter extends React.Component {
     });
   };
 
+  componentDidUpdate(){
+
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -93,12 +97,20 @@ class ChiliFooter extends React.Component {
               </div>
 
               <div className="col">
+                {this.props.Auth.id ?
                 <Link to="/profile" className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-user" />
                   </div>
                   <div className="chili-footer__list-title">پروفایل</div>
+                </Link>:
+                <Link to="/authentication" className="chili-footer__list-item">
+                  <div className="chili-footer__list-icon">
+                    <i className="icon chilivery-user" />
+                  </div>
+                  <div className="chili-footer__list-title">ورود/ثبتنام</div>
                 </Link>
+                }
               </div>
 
               <div className="col">
@@ -126,7 +138,8 @@ class ChiliFooter extends React.Component {
 
 
 const mapStateToProps = state => ({
-  Notification:state.Notification
+  Notification:state.Notification,
+  Auth:state.auth
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {

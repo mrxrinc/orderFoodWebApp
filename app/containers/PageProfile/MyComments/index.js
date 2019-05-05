@@ -19,18 +19,13 @@ class MyComments extends React.Component {
 			answer: 'با تشکر از وقتی که برای ارسال نظر گذاشتید. در سفارشات بعدی این مشکل رفع خواهد شد.'
 		}
 	}
-	componentDidMount() {
-		console.log('====================================');
-		console.log(this.props.data);
-		console.log('====================================');
-	}
 
 	render() {
 		const data = this.props.data;
 		return (
 			<div className="mycomment">
 				{data.map((item, index) =>
-					<div className="mycomment-box">
+					<div className="mycomment-box" key={index}>
 						<div className="mycomment-box__main flex padd10">
 
 							{this.props.type === "profile" ?
@@ -83,7 +78,7 @@ class MyComments extends React.Component {
 						</div>
 						{
 							item.replies.map((replay, index) =>
-								<div className="mycomment-box__dmain flex padd10">
+								<div className="mycomment-box__dmain flex padd10" key={index}>
 									<div className="mycomment-dmain__img center">
 										<span className="icon chilivery-chef-answer mycomment-dmain__icon"> </span>
 									</div>
