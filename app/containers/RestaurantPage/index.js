@@ -17,7 +17,7 @@ import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
 import {
   restaurantDetail,
-  createBasket,
+  createBasket
 } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
@@ -48,25 +48,31 @@ class RestaurantPage extends React.Component {
 
   componentDidMount() {
     console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
-    restaurantDetail(this.state.id).then(response => {
-      this.props.storeRestaurant(response.result);
+    restaurantDetail(this.state.id).then(restaurantResp => {
+      this.props.storeRestaurant(restaurantResp.result);
       createBasket(this.state.id).then(basketResp => {
         console.log('Basket Response ==>', basketResp.result);
         this.props.addToBasket(basketResp.result);
-        this.updateRestaurantData(response.result.menuSections);
+        this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
       });
     });
   }
+  
 
-  updateRestaurantData = menu => {
+  updateRestaurantData = data => {          
+    const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
         if(this.props.basket && this.props.basket.items[food.id]) {
-          console.log('//////////////// FOOD IN BASKET ID ====>', food.id);
+          return { ...food, count: this.props.basket.items[food.id].itemCount };
         }
+        return food;
       });
       return { ...group, foods: newFoods };
     });
+    const newData = { ...data, menuSections: newMenu };
+    console.log('UPDATE BASKET DATA TO RESTAURANT ITEMS', newData);
+    this.props.storeRestaurant(newData);
   }
 
   tabClick = slug => {
@@ -313,7 +319,7 @@ class RestaurantPage extends React.Component {
                     ))}
                   </RestaurantFoodGroup>
                 ))}
-                {typeof this.props.basket !== 'undefined' &&
+                {typeof this.props.basket.items !== 'undefined' &&
                  Object.keys(this.props.basket.items).length > 0 && (
                 <StickyPrice data={{}} link='/cart' collapseShow={false}/>
                 )}
