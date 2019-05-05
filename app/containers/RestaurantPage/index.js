@@ -39,13 +39,8 @@ class RestaurantPage extends React.Component {
       tabOne: true,
       tabTwo: false,
       tabThree: false,
-<<<<<<< HEAD
       activeTab:"tabOne",
       modalButton: true,
-=======
-      activeTab: 'tabOne',
-      modalButton: false,
->>>>>>> 74eccee7fe7489597b2371700cc1bd5cf9f5b380
       modalRequired: [],
       modalContainer: [],
       showSticky: false,
