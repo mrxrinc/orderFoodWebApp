@@ -13,9 +13,11 @@ class ProfileEdit extends React.Component{
 			loginPhoneNumber: '09197117631',
 			loginUserEmail: 'masihhasani98@gmail.com',
 			loginBirthday:'77/03/10',
+			organizationCode:'',
 			signUpSheba: '',
 			signUpCity: '',
 			loginPass: '',
+			signUpGender: 'male',
 		}
 	}
 	onChange = e => {
@@ -23,6 +25,7 @@ class ProfileEdit extends React.Component{
   };
 
 	render(){
+		const {signUpGender} = this.state
 		return(
 			<div className="profile-edit">
 				<div className="container">
@@ -56,6 +59,8 @@ class ProfileEdit extends React.Component{
 								iconColor="#929292"
 								validation={['شماره موبایل اشتباه است.']}
 							/>
+							<button class="btn-white btn btn-secondary edit-prifile-btn center">تایید</button>
+
 							<AnimateField
 								className="col-12"
 								placeholder="وارد نمایید"
@@ -66,6 +71,18 @@ class ProfileEdit extends React.Component{
 								value={this.state.loginUserEmail}
 								onChange={this.onChange}
 								icon="chilivery-email"
+								iconColor="#929292"
+							/>
+							<AnimateField
+								className="col-12"
+								placeholder="وارد نمایید"
+								name="organizationCode"
+								type="text"
+								onClick=""
+								label="کد سازمانی"
+								value={this.state.organizationCode}
+								onChange={this.onChange}
+								icon="chilivery-organization-code"
 								iconColor="#929292"
 							/>
 							<AnimateFieldSheba
@@ -94,6 +111,49 @@ class ProfileEdit extends React.Component{
 								iconColor="#929292"
 							/>
 						</div>
+						<div className="chili-animate-field form-group col-sm-6">
+							<div className="profile-gender">
+								<div>
+									<label> جنسیت </label>
+									<label className="radio-wrapper">
+										<div className="label-parent">
+											<input
+												type="radio"
+												className="radio-input"
+												name="signUpGender"
+												checked={signUpGender === 'male'}
+												onChange={this.onChange}
+												// onKeyPress={this.handleKeyPressUpdate}
+												value="male"
+											/>
+											<div className="radio-face" />
+											<i />
+										</div>
+										<span>مرد</span>
+									</label>
+									<label className="radio-wrapper">
+										<div className="label-parent">
+											<input
+												type="radio"
+												className="radio-input"
+												name="signUpGender"
+												checked={signUpGender === 'female'}
+												onChange={this.onChange}
+												// onKeyPress={this.handleKeyPressUpdate}
+												value="female"
+											/>
+											<div className="radio-face" />
+											<i />
+										</div>
+										<span>زن</span>
+									</label>
+								</div>
+								{/* <label> جنسیت </label> */}
+							</div>
+						</div>
+					</div>
+					<div class="edit-profile-button">
+						<button class="btn btn-success edit__btn">ثبت تغییرات</button>
 					</div>
 				</div>
 			</div>

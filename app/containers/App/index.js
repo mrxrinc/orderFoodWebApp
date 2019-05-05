@@ -37,6 +37,7 @@ import ChiliChance from '../PageProfile/ChiliChance';
 import ChiliEvent from '../PageProfile/ChiliEvent';
 import ChiliComment from '../PageProfile/ChiliComment';
 import FavRestaurant from '../PageProfile/FavRestaurant';
+import FavEmptyRestaurant from '../PageProfile/FavEmptyRestaurant';
 import Transaction from '../PageProfile/Transaction';
 import TransactionEmpty from '../PageProfile/TransactionEmpty';
 import Order from '../PageProfile/Order';
@@ -75,6 +76,7 @@ export default function App() {
           <Route exact path="/profile/Chili-Event" component={ChiliEvent} />
           <Route exact path="/profile/Chili-Comment" component={ChiliComment} />
           <Route exact path="/profile/Fav-Restaurant" component={FavRestaurant} />
+          <Route exact path="/profile/Fav-Empty-Restaurant" component={FavEmptyRestaurant} />
           <Route exact path="/profile/Transaction" component={Transaction} />
           <Route exact path="/profile/Transaction-Empty" component={TransactionEmpty} />
           <Route exact path="/profile/Order" component={Order} />
