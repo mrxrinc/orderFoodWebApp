@@ -12,7 +12,7 @@ class Order extends React.Component{
 			title: 'فست فود برگرستان',
 			time: '۱۹:۳۵',
 			date: '96/7/22',
-			cost:' تومان ۲۸/۰۰۰  ',
+			cost:'  ۲۸/۰۰۰ تومان ',
 			orderBtn: 'ثبت امتیاز و نظر',
 			ready: 'در حال آماده سازی...',
 			text:'جزيیات سفارش',
@@ -74,7 +74,7 @@ class Order extends React.Component{
 									style={{minWidth:"100px"}}
 								>{this.state.orderBtn}</button>
 							</div>
-							<div className="order-detail">
+							<div className="order-detail bottomP10">
 								<span className="order-box__date">{this.state.date}</span>
 								<span className="order-box__time">{this.state.time}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
@@ -95,7 +95,7 @@ class Order extends React.Component{
 						</div>
 						<div className="order-box__detail">
 							<span className="order-box__title">{this.state.title}</span>
-							<div className="order-detail">
+							<div className="order-detail bottomP10">
 								<span className="order-box__date">{this.state.date1}</span>
 								<span className="order-box__time">{this.state.time1}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
@@ -115,9 +115,13 @@ class Order extends React.Component{
 							<img className="order-box__img" src={png} alt=""/>
 						</div>
 						<div className="order-box__detail">
-							<span className="order-box__title">{this.state.title}</span>
-							<button className="btn btn-success order-box__btn">{this.state.orderBtn}</button>
-							<div className="order-detail">
+						`	<div className="center">
+								<span className="order-box__title wFull">{this.state.title}</span>
+								<button className="btn btn-success order-box__btn"
+									style={{minWidth:"100px"}}
+								>{this.state.orderBtn}</button>
+							</div>
+							<div className="order-detail bottomP10">
 								<span className="order-box__date">{this.state.date2}</span>
 								<span className="order-box__time">{this.state.time2}</span>
 								<span className="order-box__cost">{this.state.cost}</span>
@@ -143,7 +147,7 @@ class Order extends React.Component{
 								<span className="order-box__title">{this.state.title}</span>
 								<span className="chilivery-star icon"> </span>
 							</div>
-							<div className="order-detail">
+							<div className="order-detail bottomP10">
 								<span className="order-box__date">{this.state.date3}</span>
 								<span className="order-box__time">{this.state.time3}</span>
 								<span className="order-box__cost">{this.state.cost}</span>

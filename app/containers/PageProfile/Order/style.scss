@@ -13,8 +13,6 @@
         .order-box__main{
             overflow: hidden;
             .order-box__icon{
-                // padding-top: 6px;
-                // padding-right: 6px;
                 .order-box__img{
                     width: 85px;
                     height: 85px;
@@ -43,14 +41,8 @@
                     width: 50px;
                     color: #fff;
                 }
-                // border-top: 68px solid $color-success;
-                // border-right: 68px solid transparent;
-                // border-top-left-radius: 14px;
-                // position: relative;
-                // display: none;
-                } 
+            } 
             .order-box__detail{
-                // padding-top: 10px;
                 padding-right: 8px;
                 width: 100%;
                 font-size: 14px;
@@ -110,7 +102,6 @@
                     background: $color-success;
                     border-color: $color-success;
                     margin-right: 18px;
-                    
                 }
             }
             .order-box__dmain{
