@@ -66,8 +66,8 @@ class RestaurantPage extends React.Component {
   componentWillUnmount() {
     this.props.storeRestaurant(null)
   }
-  
-  updateRestaurantData = data => {          
+
+  updateRestaurantData = data => {
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
@@ -155,6 +155,10 @@ class RestaurantPage extends React.Component {
   };
 
   onChangeSideDish = (optionId, group) => {
+    this.state.modalContainer.push(group.groupId);
+    if (this.hasSubArray(this.state.modalContainer, this.state.modalRequired)) {
+      this.setState({ modalButton: true });
+    }
     const newObj = {
       options: [],
     };
@@ -360,11 +364,11 @@ class RestaurantPage extends React.Component {
               basket[key] = data; // to add the itemCount info
               Object.assign(basketTempData, basket);
             }
-            
+
             if (this.state.modalData)
               this.setState({ modalData: { ...this.state.modalData, itemCount } });
             return data;
-          } 
+          }
           const data = { ...food, itemCount: 1, foodPrice: food.price };
           basket[key] = data;
           Object.assign(basketTempData, basket);
@@ -394,7 +398,7 @@ class RestaurantPage extends React.Component {
       items: basketTempData,
     };
     this.props.addToBasket(dataForBasket);
-    
+
     console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
     console.log('MODAL DATA ===>', this.state.modalData);
     console.log('BASKET_TEMP_DATA', basketTempData);
@@ -439,6 +443,11 @@ class RestaurantPage extends React.Component {
     displayType,
     foodPrice,
   ) => {
+    console.log("***",foodOptionPrice,
+      foodOptionLastPrice,
+      displayType,
+      foodPrice,
+    );
     if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {
       return {
         realPrice: this.checkWithDisplayType(
@@ -512,7 +521,7 @@ class RestaurantPage extends React.Component {
 
                 {typeof this.props.basket.items !== 'undefined' &&
                   Object.keys(this.props.basket.items).length > 0 && (
-                  <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                  <StickyPrice data={{}} links='cart' collapseShow={false}/>
                   )}
               </React.Fragment>
             )}
@@ -521,7 +530,7 @@ class RestaurantPage extends React.Component {
             <div className="container-fluid">
               <div>
                 <TabTwo id={data.id}/>
-                
+
               </div>
             </div>
             }

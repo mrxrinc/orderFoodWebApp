@@ -156,7 +156,7 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice link='/checkout' data={dataSample.result.amount}  collapseShow={true}/>
+        <StickyPrice links='checkout' data={dataSample.result.amount}  collapseShow={true}/>
       </div>
     );
   }
