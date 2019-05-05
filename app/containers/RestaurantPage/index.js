@@ -26,7 +26,6 @@ import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
 
-
 const basketTempData = {};
 
 class RestaurantPage extends React.Component {
@@ -46,7 +45,6 @@ class RestaurantPage extends React.Component {
       modalRequiredGroupIds: [],
       checkboxValidation: true,
       modalContainer: [],
-
     };
   }
 
@@ -103,11 +101,15 @@ class RestaurantPage extends React.Component {
     this.setState({ modalData: food }, () => {
       console.log('MODAL DATA ==>', this.state.modalData.options);
       const { options } = this.state.modalData;
+      if (options.length > 0) {
+        this.setState({ modalButton: false });
+      } else {
+        this.setState({ modalButton: true });
+      }
       const addedOptionValidationArray = options.map(option => ({
         ...option,
         canAddOptions: true,
       }));
-      console.log(addedOptionValidationArray);
       if (this.state.modalData.options.length > 1) {
         const copyOfModalData = this.state.modalData;
         copyOfModalData.options = addedOptionValidationArray;
