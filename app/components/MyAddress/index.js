@@ -21,7 +21,8 @@ class MyAddress extends React.PureComponent {
       organizationAddress:this.props.data.userOrganizationAddress || [],
       fullAddress:[],
       deleteId:'',
-      organid:''
+      organid:'',
+      deliveryZoneId:null
     };
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
@@ -74,9 +75,10 @@ class MyAddress extends React.PureComponent {
     this.setState({
         addressId: e.target.value,
         organid: e.target.getAttribute('organid'),
-        deliveryZonePrice:e.target.getAttribute('deliveryprice')
+        deliveryZonePrice:e.target.getAttribute('deliveryprice'),
+        deliveryZoneId:e.target.getAttribute('deliveryzoneid'),
       }, ()=>
-        this.props.changeAddressId({addressId:this.state.addressId,organizationAddressId:this.state.organid,deliveryZonePrice:this.state.deliveryZonePrice})
+        this.props.changeAddressId({addressId:this.state.addressId,organizationAddressId:this.state.organid,deliveryZonePrice:this.state.deliveryZonePrice,deliveryZoneId:this.state.deliveryZoneId})
     );
   }
 
@@ -134,6 +136,7 @@ class MyAddress extends React.PureComponent {
               value={item.id}
               organid={item.organizationAddressId}
               deliveryprice={item.deliveryZonePrice}
+              deliveryzoneid={item.deliveryZoneId}
             />
           </div>
           <div className="MyAddress__details">

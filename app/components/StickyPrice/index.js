@@ -5,7 +5,7 @@ import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
-import { putChangeBasket } from '../../api/account';
+import { putChangeBasket,payOrderPost } from '../../api/account';
 
 class StickyPrice extends React.PureComponent {
 
@@ -19,7 +19,7 @@ class StickyPrice extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.basket.basket !== this.props.basket.basket) {
+    if (prevProps.basket !== this.props.basket) {
       this.calculationsFunction()
     }
   }
@@ -28,13 +28,13 @@ class StickyPrice extends React.PureComponent {
     const {basket} = this.props;
     let totalCount = 0;
     let totalPrice = 0;
-    const items = Object.keys(basket.basket.items).map((item) =>{
-      totalCount += basket.basket.items[item].count;
-      totalPrice += basket.basket.items[item].price * basket.basket.items[item].count;
+    const items = Object.keys(basket.items).map((item) =>{
+      totalCount += basket.items[item].itemCount;
+      totalPrice += basket.items[item].foodPrice * basket.items[item].itemCount;
       return {
-        "orderItemFoodId" : basket.basket.items[item].id,
-        "itemCount" : basket.basket.items[item].count,
-        "price": basket.basket.items[item].price,
+        "orderItemFoodId" : basket.items[item].id,
+        "itemCount" : basket.items[item].itemCount,
+        "foodPrice": basket.items[item].foodPrice,
       }
     });
     this.setState({
@@ -44,6 +44,10 @@ class StickyPrice extends React.PureComponent {
 
   componentDidMount() {
     this.calculationsFunction()
+  }
+
+  componentWillUnmount() {
+    this.changeBasket()
   }
 
 
@@ -66,37 +70,64 @@ class StickyPrice extends React.PureComponent {
 
   changeBasket = () => {
     const {basket,link} = this.props;
-    const items = Object.keys(basket.basket.items).map((item) =>{
+    const items = Object.keys(basket.items).map((item) =>{
       var updateData = {
-        "orderItemFoodId" : basket.basket.items[item].id,
-        "itemCount" : basket.basket.items[item].count
+        "orderItemFoodId" : item,
+        "itemCount" : basket.items[item].itemCount
       };
       return updateData;
     });
     putChangeBasket(
       {
-        "id":basket.basket.orderId,
-        "deliveryType":false,
-        "restaurantId":basket.basket.restaurantId,
+        "id":basket.id,
+        "deliveryType":basket.deliveryType ? basket.deliveryType:false,
+        "restaurantId":basket.restaurantId,
         "items":items
       }
     ).then(response => {
       if(response.status) {
-        link ? history.push(link) : history.push("/checkout");
+        // link ? history.push(link) : history.push("/checkout");
+        if (link !== '/cart') history.push(link)
         this.setState({
         })
       }
     });
   };
 
+  payOrder = () => {
+    const {basket,link} = this.props;
+    payOrderPost({
+      "accCharge": false,
+      "acceptConditions": true,
+      "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
+      "gateway":  true,
+      "orderDeliveryType":  false,
+      "orderId":  basket.id,
+      "payAmount":  "200",
+      "paymentType":  "account",
+      "addressId":  basket.addressId,
+      "campaginCode":"",
+      "bankgate": basket.gateway
+    }).then(response => {
+      if(response.status) {
+        // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
+        window.location = response.result.url;
+      }
+    })
+  }
+
   pushLink = () => {
     const {link} = this.props;
     if (link === "/cart") {
-      this.changeBasket();
+      // this.changeBasket();
+      history.push("/cart");
     }
     if (link === "/checkout") {
-      // this.changeBasket();
+      this.changeBasket();
       link ? history.push(link) : history.push("/checkout");
+    }
+    if (link === "/bank") {
+      this.payOrder()
     }
 
   };
