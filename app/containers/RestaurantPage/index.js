@@ -28,7 +28,6 @@ import TabThree from './components/TabThree';
 
 let basketTempData = {};
 
-
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +43,7 @@ class RestaurantPage extends React.Component {
       modalContainer: [],
       showSticky: false
     };
+    // basketTempData = this.props.basket;
   }
 
   componentDidMount() {
@@ -58,15 +58,14 @@ class RestaurantPage extends React.Component {
     });
   }
   
-
   updateRestaurantData = data => {          
     const menu = data.menuSections;
     const newMenu = menu.map(group => {
       const newFoods = group.foods.map(food => {
         if(this.props.basket && this.props.basket.items[food.id]) {
-          return { ...food, count: this.props.basket.items[food.id].itemCount };
+          return { ...food, itemCount: this.props.basket.items[food.id].itemCount ,foodPrice:food.price};
         }
-        return food;
+        return { ...food, foodPrice: food.price };
       });
       return { ...group, foods: newFoods };
     });
@@ -154,36 +153,36 @@ class RestaurantPage extends React.Component {
           const key = food.id;
           const basket = {};
 
-          if (food.count) { // if we have this food in the basket
-            let count = null;
-            if (role === 'add') count = food.count + 1;
-            else if (role === 'remove') count = food.count - 1;
-            else count = food.count;
-            const data = { ...food, count };
+          if (food.itemCount) { // if we have this food in the basket
+            let itemCount = null;
+            if (role === 'add') itemCount = food.itemCount + 1;
+            else if (role === 'remove') itemCount = food.itemCount - 1;
+            else itemCount = food.itemCount;
+            const data = { ...food, itemCount, foodPrice: food.price };
 
-            if (count === 0) {  // to remove item from basket
+            if (itemCount === 0) {  // to remove item from basket
               delete basketTempData[key];
             } else {
-              basket[key] = data; // to add the count info
+              basket[key] = data; // to add the itemCount info
               Object.assign(basketTempData, basket);
             }
             
             if (this.state.modalData)
-              this.setState({ modalData: { ...this.state.modalData, count } });
+              this.setState({ modalData: { ...this.state.modalData, itemCount } });
             return data;
           } 
-          const data = { ...food, count: 1 };
+          const data = { ...food, itemCount: 1, foodPrice: food.price };
           basket[key] = data;
           Object.assign(basketTempData, basket);
           if (this.state.modalData)
             this.setState({
-              modalData: { ...this.state.modalData, count: 1 },
+              modalData: { ...this.state.modalData, itemCount: 1, foodPrice: food.price },
             });
           return data;
-        } else if (food.count && food.count > 0) {
+        } else if (food.itemCount && food.itemCount > 0) {
           return food;
         }
-        return { ...food, count: 0 };
+        return { ...food, itemCount: 0, foodPrice: food.price };
       });
       return { ...group, foods: newFoods };
     });
@@ -197,7 +196,7 @@ class RestaurantPage extends React.Component {
 
     // update basket
     const dataForBasket = {
-      ...this.props.basket.basket,
+      ...this.props.basket,
       items: basketTempData,
     };
     this.props.addToBasket(dataForBasket);
@@ -290,40 +289,43 @@ class RestaurantPage extends React.Component {
             {/* <div className="stickyMenu wFull" /> */}
 
             {this.state.tabOne && (
-              <div className="hP10 vM10">
-                {data.menuSections.map(group => (
-                  <RestaurantFoodGroup
-                    key={group.id}
-                    title={group.name}
-                    icon="italian" // Fix these iconssssssss
-                  >
-                    {group.foods.map(food => (
-                      <RestaurantFoodCard
-                        onClick={() => this.openFoodModal(food)}
-                        key={food.id}
-                        id={food.id}
-                        name={food.name}
-                        hasPic={food.hasPic}
-                        hasOption={food.hasOption}
-                        foodImg={food.image}
-                        description={food.description}
-                        discount={food.salePercentage}
-                        vote={food.vote}
-                        voteCount={food.voteCount}
-                        price={food.price}
-                        lastPrice={food.lastPrice}
-                        count={food.count}
-                        stepper={this.stepper}
-                        item={food} // to get inside Stepper component
-                      />
-                    ))}
-                  </RestaurantFoodGroup>
-                ))}
+              <React.Fragment>
+                <div className="hP10 vM10">
+                  {data.menuSections.map(group => (
+                    <RestaurantFoodGroup
+                      key={group.id}
+                      title={group.name}
+                      icon="italian" // Fix these iconssssssss
+                    >
+                      {group.foods.map(food => (
+                        <RestaurantFoodCard
+                          onClick={() => this.openFoodModal(food)}
+                          key={food.id}
+                          id={food.id}
+                          name={food.name}
+                          hasPic={food.hasPic}
+                          hasOption={food.hasOption}
+                          foodImg={food.image}
+                          description={food.description}
+                          discount={food.salePercentage}
+                          vote={food.vote}
+                          voteCount={food.voteCount}
+                          price={food.foodPrice}
+                          lastPrice={food.lastPrice}
+                          count={food.itemCount}
+                          stepper={this.stepper}
+                          item={food} // to get inside Stepper component
+                        />
+                      ))}
+                    </RestaurantFoodGroup>
+                  ))}
+                </div>
+
                 {typeof this.props.basket.items !== 'undefined' &&
-                 Object.keys(this.props.basket.items).length > 0 && (
-                <StickyPrice data={{}} link='/cart' collapseShow={false}/>
-                )}
-              </div>
+                  Object.keys(this.props.basket.items).length > 0 && (
+                  <StickyPrice data={{}} link='/cart' collapseShow={false}/>
+                  )}
+              </React.Fragment>
             )}
             {this.state.tabTwo && <h1>tab2</h1>}
             {this.state.tabThree && (

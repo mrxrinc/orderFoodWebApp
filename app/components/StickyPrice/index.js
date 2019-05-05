@@ -29,12 +29,12 @@ class StickyPrice extends React.PureComponent {
     let totalCount = 0;
     let totalPrice = 0;
     const items = Object.keys(basket.items).map((item) =>{
-      totalCount += basket.items[item].count;
-      totalPrice += basket.items[item].price * basket.items[item].count;
+      totalCount += basket.items[item].itemCount;
+      totalPrice += basket.items[item].foodPrice * basket.items[item].itemCount;
       return {
         "orderItemFoodId" : basket.items[item].id,
-        "itemCount" : basket.items[item].count,
-        "price": basket.items[item].price,
+        "itemCount" : basket.items[item].itemCount,
+        "foodPrice": basket.items[item].foodPrice,
       }
     });
     this.setState({
@@ -44,6 +44,10 @@ class StickyPrice extends React.PureComponent {
 
   componentDidMount() {
     this.calculationsFunction()
+  }
+
+  componentWillUnmount() {
+    this.changeBasket()
   }
 
 
@@ -69,7 +73,7 @@ class StickyPrice extends React.PureComponent {
     const items = Object.keys(basket.items).map((item) =>{
       var updateData = {
         "orderItemFoodId" : basket.items[item].id,
-        "itemCount" : basket.items[item].count
+        "itemCount" : basket.items[item].itemCount
       };
       return updateData;
     });
@@ -82,7 +86,8 @@ class StickyPrice extends React.PureComponent {
       }
     ).then(response => {
       if(response.status) {
-        link ? history.push(link) : history.push("/checkout");
+        // link ? history.push(link) : history.push("/checkout");
+        if (link !== '/cart') history.push(link)
         this.setState({
         })
       }
@@ -114,7 +119,8 @@ class StickyPrice extends React.PureComponent {
   pushLink = () => {
     const {link} = this.props;
     if (link === "/cart") {
-      this.changeBasket();
+      // this.changeBasket();
+      history.push("/cart");
     }
     if (link === "/checkout") {
       this.changeBasket();
