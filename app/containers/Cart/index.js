@@ -13,7 +13,7 @@ import cover from '../../images/pattern.png';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
-import { deliveryTypeChanged } from '../../actions/Basket';
+import { addressIdChanged, deliveryTypeChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { Checkout } from '../Checkout';
 import { getOrderitems,getUserAddress } from '../../api/account';
@@ -78,6 +78,7 @@ export class cart extends React.PureComponent {
       this.props.changeDeliveryType({deliveryType:false})
     } else {
       this.props.changeDeliveryType({deliveryType:true})
+      this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:0,deliveryZoneId:''})
     }
     if (this.state.activeTabAddress !== tab) {
       this.setState({
@@ -156,7 +157,7 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice links='checkout' data={dataSample.result.amount}  collapseShow={true}/>
+        <StickyPrice links='checkout' data={orderItems.amount}  collapseShow={true}/>
       </div>
     );
   }
@@ -167,6 +168,9 @@ const mapDispatchToProps = dispatch => {
     changeDeliveryType: value => {
       dispatch(deliveryTypeChanged(value));
     },
+    changeAddressId: value => {
+      dispatch(addressIdChanged(value));
+    }
   };
 };
 

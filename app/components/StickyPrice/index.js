@@ -65,7 +65,10 @@ class StickyPrice extends React.PureComponent {
     if(total <= 0) {
       total = 0;
     }
-    return total
+    if(data) {
+      total = parseInt(total) + parseInt(basket.deliveryZonePrice) + parseInt(data.tax) + parseInt(data.pack)
+    }
+    return total;
   }
 
   changeBasket = () => {
@@ -105,10 +108,11 @@ class StickyPrice extends React.PureComponent {
       "orderDeliveryType":  false,
       "orderId":  basket.id,
       "payAmount":  "200",
-      "paymentType":  "account",
       "addressId":  basket.addressId,
       "campaginCode":"",
-      "bankgate": basket.gateway
+      "paymentType": "bank",
+      "bankgate": basket.gateway,
+      "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
@@ -153,21 +157,22 @@ class StickyPrice extends React.PureComponent {
             <ul>
               <li>
                 <span>مجموع سفارشات</span>
-                <span className="pull-left">{totalPrice - data.carry - data.tax - data.pack} تومان</span>
+                <span className="pull-left">{totalPrice } تومان</span>
               </li>
-              {data.carry > 0 &&
+              {basket.deliveryZonePrice > 0 &&
               <li>
                 <span>هزینه ارسال</span>
-                <span className="pull-left">{data.carry} تومان</span>
+                <span className="pull-left">{basket.deliveryZonePrice} تومان</span>
               </li>
               }
-              {data.tax > 0 &&
+
+              {data && data.tax > 0 &&
               <li>
                 <span>مالیات</span>
                 <span className="pull-left">{data.tax} تومان</span>
               </li>
               }
-              {data.pack > 0 &&
+              {data && data.pack > 0 &&
               (<li>
                 <span>هزینه بسته بندی</span>
                 <span className="pull-left">{data.pack} تومان</span>
