@@ -15,6 +15,7 @@ import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
+import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket
@@ -47,8 +48,8 @@ class RestaurantPage extends React.Component {
       modalRequiredGroupIds: [],
       checkboxValidation: true,
       modalContainer: [],
+      sameRestaurant: false
     };
-    // basketTempData = this.props.basket;
   }
 
   componentDidMount() {
@@ -57,6 +58,12 @@ class RestaurantPage extends React.Component {
       this.props.storeRestaurant(restaurantResp.result);
       createBasket(this.state.id).then(basketResp => {
         console.log('Basket Response ==>', basketResp.result);
+
+        // checking if this is the same restaurant as before added to cart or not
+        if(this.props.basket.restaurantId && this.props.basket.restaurantId === restaurantResp.result.id) {
+          this.setState({ sameRestaurant: true }, () => console.log('YOOO IT SAYS TRUE ===#####'));
+        }
+
         this.props.addToBasket(basketResp.result);
         this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
       });
@@ -362,16 +369,28 @@ class RestaurantPage extends React.Component {
               delete basketTempData[key];
             } else {
               basket[key] = data; // to add the itemCount info
-              Object.assign(basketTempData, basket);
-            }
 
-            if (this.state.modalData)
+              // if(this.state.sameRestaurant) {
+                Object.assign(basketTempData, basket);
+              // } else {
+              //   basketTempData = basket;
+              // }
+            }
+            
+            if (this.state.modalData) {
               this.setState({ modalData: { ...this.state.modalData, itemCount } });
+            }
             return data;
           }
           const data = { ...food, itemCount: 1, foodPrice: food.price };
           basket[key] = data;
-          Object.assign(basketTempData, basket);
+
+          // if(this.state.sameRestaurant) {
+            Object.assign(basketTempData, basket);
+          // } else {
+          //   basketTempData = basket;
+          // }
+
           if (this.state.modalData)
             this.setState({
               modalData: { ...this.state.modalData, itemCount: 1, foodPrice: food.price },
@@ -397,6 +416,7 @@ class RestaurantPage extends React.Component {
       ...this.props.basket,
       items: basketTempData,
     };
+    
     this.props.addToBasket(dataForBasket);
 
     console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
@@ -467,6 +487,13 @@ class RestaurantPage extends React.Component {
     const data = this.props.restaurant;
     return (
       <div>
+        <NavigationBar 
+          back
+          fixTitle={data && data.name}
+          like
+          share
+          scroll={199}
+        />
         {data ? (
           <div className="lightBg rtl">
             <RestaurantHeader

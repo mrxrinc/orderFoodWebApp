@@ -11,6 +11,7 @@ import dataSample from '../data.json';
 import { accChargedChanged, gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { getDataAfterPayment } from '../../api/account';
+import NavigationBar from '../../components/NavigationBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -58,6 +59,11 @@ export class Checkout extends React.PureComponent {
   render() {
     return (
       <div className="checkout hFull">
+        <NavigationBar 
+          back
+          title="سبد خرید"
+          // background
+        />
         <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
