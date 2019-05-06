@@ -32,9 +32,11 @@ class PageProfile extends React.Component{
         this.setState({
           userAddressList:response.result,
         },()=>{
-          this.setState({
-            AddressShow:true
-          })
+          if(typeof this.state.userAddressList !== 'undefined'){
+            this.setState({
+              AddressShow:true
+            })
+          }
         })
       }
     )
