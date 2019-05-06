@@ -86,10 +86,18 @@ class ProfileEditAddress extends React.Component {
 			},
 		}).then(
 			response => {
-				this.props.showAlert({
-					text: response.message_fa,
-					color: "success",
-				});
+				if(response.status){
+					this.props.showAlert({
+						text: response.message_fa,
+						color: "success",
+					});
+					history.push("/profile");
+				}else{
+					this.props.showAlert({
+						text: response.message_fa,
+						color: "danger",
+					});
+				}
 			}
 		).catch(
 			error => {

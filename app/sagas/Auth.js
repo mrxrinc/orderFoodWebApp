@@ -54,17 +54,13 @@ function* userLogin({ payload }) {
   try {
     yield put(enableLoading({ loginLoading: true }));
     const signInUser = yield loginPost(payload.user);
-    console.log('signinUssser', signInUser);
     if (signInUser.status) {
-      /* localStorage.setItem('authToken', signInUser.result.session.token); */
-      console.log(localStorage);
-      // yield put(showAuthMessage('signOutUser.message_fa'));
       yield put(getUserInfo(signInUser.result.session.user));
       yield put(getUserBalance(signInUser.result.session.user.cacheBalance));
       yield put(disableLoading({ loginLoading: false }));
       yield put(
         addToast({
-          text: signInUser.message_fa_fa,
+          text: signInUser.message_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -74,13 +70,13 @@ function* userLogin({ payload }) {
           userLogin: {},
         }),
       );
+      window.history.back();
     } else {
-      console.log(191919191);
       yield put(disableLoading({ loginLoading: false }));
       if (signInUser) {
         yield put(
           addToast({
-            text: signInUser.message_fa_fa,
+            text: signInUser.message_fa,
             color: 'danger',
             delay: 2000,
           }),
