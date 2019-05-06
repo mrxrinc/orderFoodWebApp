@@ -10,6 +10,7 @@ import StickyPrice from '../../components/StickyPrice';
 import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/pattern.png';
+import NavigationBar from '../../components/NavigationBar';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
@@ -36,7 +37,7 @@ export class cart extends React.PureComponent {
   getOrderItem = () => {
     const {basket} = this.props;
     getOrderitems({
-      orderId:basket.basket.orderId
+      orderId:basket.id
     }).then(response => {
       if(response.status) {
         this.setState({
@@ -49,8 +50,8 @@ export class cart extends React.PureComponent {
   getAddress = () => {
     const {basket} = this.props;
     getUserAddress({
-      restaurantId:basket.basket.restaurantId,
-      orderId:basket.basket.orderId
+      restaurantId:basket.restaurantId,
+      orderId:basket.id
     }).then(
       response => {
         this.setState({
@@ -95,9 +96,15 @@ export class cart extends React.PureComponent {
     const {basket} = this.props;
     return (
       <div className="cart bottomP50">
+        <NavigationBar 
+          back
+          title="سبد خرید"
+          // background
+        />
+
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.basket.items} items={orderItems.items}/>}
+          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.items} items={orderItems.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
@@ -156,7 +163,7 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice link='/checkout' data={dataSample.result.amount}  collapseShow={true}/>
+        <StickyPrice links='checkout' data={dataSample.result.amount}  collapseShow={true}/>
       </div>
     );
   }

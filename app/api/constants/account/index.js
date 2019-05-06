@@ -25,9 +25,10 @@ export const listWithTransactions_get= () => API_URL_ROOT+'/payment/api/order/li
 
 export const refund_ticket = () => API_URL_ROOT+'/payment/api/order/cancelByUser';
 export const get_guest_phone_number = (guestId) => API_URL_ROOT+'/api/user/showPhoneNumber/'+guestId;
-export const getOrderDetail= () => API_URL_ROOT+'/order/detail/CHL-8WZ79XA8';
+export const getOrderDetail= (orderId) => API_URL_ROOT+'/order/detail/'+orderId;
 export const sendGifCode= () => API_URL_ROOT+'/campaign/checkCode';
 export const changeBasket= () => API_URL_ROOT+'/order/basket';
 export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
 export const order_review_get= (orderId) => API_URL_ROOT+'/order/toReview?orderId='+orderId;
 export const userAddress= () => API_URL_ROOT+'/userAddress';
+export const payOrder= () => API_URL_ROOT+'/payment/action';

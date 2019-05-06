@@ -42,7 +42,7 @@ import Transaction from '../PageProfile/Transaction';
 import TransactionEmpty from '../PageProfile/TransactionEmpty';
 import Order from '../PageProfile/Order';
 import OrderEmpty from '../PageProfile/OrderEmpty';
-import MyComments from '../PageProfile/MyComments';
+import MyComments from '../PageProfile/MyComments/myComments';
 
 import GlobalStyle from '../../global-styles';
 

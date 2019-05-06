@@ -11,27 +11,24 @@ class UserCacheBalance extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      accCharge: this.props.basket.accCharge ? this.props.basket.accCharge : false
+
     };
   }
 
-  onChange = e => {
-    this.setState({accCharge: !this.state.accCharge},()=>
-      this.props.accChargeChanged({accCharge:this.state.accCharge})
-    );
-  };
 
   render() {
     const {user,basket} = this.props;
+    const {showGetway} = this.state;
     return (
+      <React.Fragment>
       <div className="UserCacheBalance">
         <div className="UserCacheBalance-checkbox">
           <CheckBox
             className="required-chechbox"
             type="checkbox"
             name="accCharge"
-            checked={this.state.accCharge}
-            onChange={this.onChange}
+            checked={this.props.accCharge}
+            onChange={this.props.onChange}
             labelClassName="page-payment__rule"
           />
         </div>
@@ -41,15 +38,14 @@ class UserCacheBalance extends React.PureComponent {
           <span>موجودی شما برای پرداخت هزینه این سفارش کافی است.</span>
         </div>
       </div>
+      </React.Fragment>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    accChargeChanged: value => {
-      dispatch(accChargedChanged(value));
-    },
+
   };
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import './style.scss';
 import { getSendGifCode } from '../../api/account';
+import { campaginCodeChanged } from '../../actions/Basket';
+import { connect } from 'react-redux';
+import { cart } from '../../containers/Cart';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
@@ -26,6 +29,8 @@ class GiftCode extends React.PureComponent {
   clearGifCode= () => {
     this.setState({
       giftCode:false
+    },() => {
+      this.props.changeCampaginCode({campaginCode:''})
     })
   };
 
@@ -42,7 +47,9 @@ class GiftCode extends React.PureComponent {
       if(response.status) {
         this.setState({
           data:response.result,
-          giftCode:response.status
+          giftCode:true
+        },()=>{
+          this.props.changeCampaginCode({campaginCode:this.state.campaginCode})
         })
       }
     });
@@ -96,6 +103,18 @@ class GiftCode extends React.PureComponent {
   }
 }
 
-GiftCode.propTypes = {};
 
-export default GiftCode;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeCampaginCode: value => {
+      dispatch(campaginCodeChanged(value));
+    },
+  };
+};
+
+export default connect(null,
+  mapDispatchToProps
+)(GiftCode);
+
+

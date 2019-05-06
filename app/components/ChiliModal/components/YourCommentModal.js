@@ -159,7 +159,7 @@ class YourCommentModal extends Component {
                   { this.state.foodOveralAccourdion &&
                     <ul className="col">
                       { this.props.data.items.map((item,index)=> 
-                        <li className="row hCenter">
+                        <li className="row hCenter" key={index}>
                           <div className="col-6 gray6 rightP30">{item.food.name}</div>
                           <div className="col-6">
                             {this.rateFace({name:item.food.id,fontSize:'text25',labelHide:true})}
