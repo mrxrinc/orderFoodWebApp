@@ -107,8 +107,9 @@ class StickyPrice extends React.PureComponent {
       "payAmount":  "200",
       "paymentType":  "account",
       "addressId":  basket.addressId,
-      "campaginCode":"",
-      "bankgate": basket.gateway
+      "campaginCode":basket.campaginCode,
+      "bankgate": basket.gateway,
+      "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
