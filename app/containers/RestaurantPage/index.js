@@ -376,7 +376,7 @@ class RestaurantPage extends React.Component {
               //   basketTempData = basket;
               // }
             }
-            
+
             if (this.state.modalData) {
               this.setState({ modalData: { ...this.state.modalData, itemCount } });
             }
@@ -416,7 +416,7 @@ class RestaurantPage extends React.Component {
       ...this.props.basket,
       items: basketTempData,
     };
-    
+
     this.props.addToBasket(dataForBasket);
 
     console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
@@ -487,7 +487,7 @@ class RestaurantPage extends React.Component {
     const data = this.props.restaurant;
     return (
       <div>
-        <NavigationBar 
+        <NavigationBar
           back
           fixTitle={data && data.name}
           like
@@ -548,7 +548,7 @@ class RestaurantPage extends React.Component {
 
                 {typeof this.props.basket.items !== 'undefined' &&
                   Object.keys(this.props.basket.items).length > 0 && (
-                  <StickyPrice data={{}} links='cart' collapseShow={false} />
+                  <StickyPrice  links='cart' collapseShow={false}/>
                   )}
               </React.Fragment>
             )}
