@@ -64,7 +64,7 @@ function* userLogin({ payload }) {
       yield put(disableLoading({ loginLoading: false }));
       yield put(
         addToast({
-          text: signInUser.message_fa_fa,
+          text: signInUser.message_fa,
           color: 'success',
           delay: 2000,
         }),
@@ -74,13 +74,14 @@ function* userLogin({ payload }) {
           userLogin: {},
         }),
       );
+      window.history.back();
     } else {
       console.log(191919191);
       yield put(disableLoading({ loginLoading: false }));
       if (signInUser) {
         yield put(
           addToast({
-            text: signInUser.message_fa_fa,
+            text: signInUser.message_fa,
             color: 'danger',
             delay: 2000,
           }),

@@ -105,7 +105,7 @@ class StickyPrice extends React.PureComponent {
       "orderId":  basket.id,
       "payAmount":  "200",
       "addressId":  basket.addressId,
-      "campaginCode":"",
+      "campaginCode":basket.campaginCode,
       "paymentType": "bank",
       "bankgate": basket.gateway,
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user'

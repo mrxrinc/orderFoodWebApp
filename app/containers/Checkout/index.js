@@ -27,9 +27,9 @@ export class Checkout extends React.PureComponent {
 
   handleOptionChange = e => {
     this.setState({
-      gateway: e.target.value,
-    },()=>
-      this.props.changeBankGetway({gateway:this.state.gateway})
+        gateway: e.target.value,
+      },()=>
+        this.props.changeBankGetway({gateway:this.state.gateway})
     );
   }
 
@@ -51,7 +51,7 @@ export class Checkout extends React.PureComponent {
     this.setState({accCharge: !this.state.accCharge},()=>
       this.props.accChargeChanged({accCharge:this.state.accCharge})
     );
-    if(this.state.accCharge && (this.props.basket.totalPrice >= this.state.accCharge)) {
+    if(this.state.accCharge && (this.props.basket.totalPrice <= this.props.user.cacheBalance)) {
       this.setState({
         showGetway:false
       })
@@ -103,11 +103,11 @@ export class Checkout extends React.PureComponent {
                   </div>
                   <span className="clearfix">
                     {value.name}
-                    <img
-                      src={value.logo}
-                      className="pull-left"
-                      alt="tik8"
-                    />
+                      <img
+                        src={value.logo}
+                        className="pull-left"
+                        alt="tik8"
+                      />
                   </span>
                 </label>
               </Col>
@@ -147,5 +147,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Checkout);
-
 
