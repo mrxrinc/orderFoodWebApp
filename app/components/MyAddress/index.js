@@ -22,7 +22,8 @@ class MyAddress extends React.PureComponent {
       fullAddress:[],
       deleteId:'',
       organid:'',
-      deliveryZoneId:null
+      deliveryZoneId:null,
+      deliveryZonePrice: this.props.basket.deliveryZonePrice ? this.props.basket.deliveryZonePrice : 0
     };
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
@@ -85,6 +86,7 @@ class MyAddress extends React.PureComponent {
 
   componentDidMount(){
       let fullAddress = this.props.data.userOrganizationAddress.concat(this.props.data.addresses);
+      this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:'',deliveryZoneId:''})
       this.setState({
         fullAddress
       },()=>{

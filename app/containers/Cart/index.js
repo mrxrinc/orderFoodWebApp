@@ -10,6 +10,7 @@ import StickyPrice from '../../components/StickyPrice';
 import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout';
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/pattern.png';
+import NavigationBar from '../../components/NavigationBar';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
@@ -96,14 +97,20 @@ export class cart extends React.PureComponent {
     const {basket} = this.props;
     return (
       <div className="cart bottomP50">
+        <NavigationBar
+          back
+          title="سبد خرید"
+          // background
+        />
+
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.items} items={orderItems.items}/>}
+          {orderItems.items && <CheckoutCardItem items={orderItems.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
             <span>تحویل غذا </span>
-            {activeTabAddress == "1" &&<span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice} تومان)</span>}
+            {activeTabAddress == "1" && basket.deliveryZonePrice && <span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice} تومان)</span>}
           </div>
           <div className="food-delivery__lbox">
             <div className="tab-box">

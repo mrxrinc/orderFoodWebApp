@@ -5,7 +5,8 @@ import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
-import { putChangeBasket,payOrderPost } from '../../api/account';
+import { payOrderPost } from '../../api/account';
+import { putChangeBasket } from '../../actions/Basket';
 
 class StickyPrice extends React.PureComponent {
 
@@ -62,6 +63,9 @@ class StickyPrice extends React.PureComponent {
     if(basket.accCharge) {
       total = total - user.cacheBalance;
     }
+    if(basket.accCharge) {
+      total = total - basket.discountAmount;
+    }
     if(total <= 0) {
       total = 0;
     }
@@ -80,22 +84,14 @@ class StickyPrice extends React.PureComponent {
       };
       return updateData;
     });
-    putChangeBasket(
+    const basketData =
       {
-        "id":basket.id,
-        "deliveryType":basket.deliveryType ? basket.deliveryType:false,
-        "restaurantId":basket.restaurantId,
-        "items":items
-      }
-    ).then(response => {
-      if(response.status) {
-        // history.push("/checkout");
-        this.setState({
-        })
-      } else {
-        return;
-      }
-    });
+        id:basket.id,
+        deliveryType:basket.deliveryType ? basket.deliveryType:false,
+        restaurantId:basket.restaurantId,
+        items:items
+      };
+      this.props.changeBasketData({basketData});
   };
 
   payOrder = () => {
@@ -178,6 +174,12 @@ class StickyPrice extends React.PureComponent {
                 <span className="pull-left">{data.pack} تومان</span>
               </li>)
               }
+              {basket.discountAmount &&
+              (<li>
+                <span>کد تخفیف</span>
+                <span className="pull-left">{basket.discountAmount}- تومان</span>
+              </li>)
+              }
               {basket.accCharge &&
               (<li>
                 <span>استفاده از کیف پول</span>
@@ -217,6 +219,14 @@ class StickyPrice extends React.PureComponent {
 }
 
 
+const mapDispatchToProps = dispatch => {
+  return {
+    changeBasketData: data => {
+      dispatch(putChangeBasket(data.basketData));
+    },
+  };
+};
+
 const mapStateToProps = state => ({
   user: state.auth,
   basket:state.Basket
@@ -224,4 +234,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(StickyPrice);

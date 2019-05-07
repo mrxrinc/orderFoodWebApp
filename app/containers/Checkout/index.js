@@ -11,6 +11,7 @@ import dataSample from '../data.json';
 import { accChargedChanged, gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { getDataAfterPayment, getOrderitems } from '../../api/account';
+import NavigationBar from '../../components/NavigationBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -73,6 +74,11 @@ export class Checkout extends React.PureComponent {
     const {orderItems} =this.state
     return (
       <div className="checkout hFull">
+        <NavigationBar
+          back
+          title="سبد خرید"
+          // background
+        />
         <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
@@ -110,7 +116,9 @@ export class Checkout extends React.PureComponent {
           }
         </div>
       </Container>
-      <StickyPrice data={orderItems.amount} collapseShow={true} links='bank'/>
+      {orderItems &&
+        <StickyPrice data={orderItems.amount} collapseShow={true} links='bank'/>
+      }
       </div>
     );
   }

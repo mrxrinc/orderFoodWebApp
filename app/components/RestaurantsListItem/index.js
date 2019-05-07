@@ -7,7 +7,6 @@ import { financialLevel, rateColor } from '../GeneralFunctions';
 
 const RestaurantsListItem = props => (
   <Link to={`/restaurant-page/${props.id}`} className="listItem dblock">
-    {console.log('PROPS FROM ITEM===>', props)}
     <div className="head center">
       <div className="right center relative">
         <div
@@ -22,7 +21,7 @@ const RestaurantsListItem = props => (
         )}
       </div>
       <div className="left relative">
-        <h2 className="font bold largeText primary">{props.name}</h2>
+        <h2 className="font bold largeText primary text-truncate w80">{props.name}</h2>
 
         {props.foodTypes.length > 0 && (
           <ul className="flex">
