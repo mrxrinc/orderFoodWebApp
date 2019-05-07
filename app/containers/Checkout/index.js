@@ -10,7 +10,7 @@ import cover from '../../images/pattern.png';
 import dataSample from '../data.json';
 import { accChargedChanged, gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
-import { getDataAfterPayment } from '../../api/account';
+import { getDataAfterPayment, getOrderitems } from '../../api/account';
 import NavigationBar from '../../components/NavigationBar';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -20,25 +20,38 @@ export class Checkout extends React.PureComponent {
     this.state = {
       description: '',
       gateway: this.props.basket.gateway ? this.props.basket.gateway : '1',
-      accCharge: this.props.basket.accCharge ? this.props.basket.accCharge : false,
+      accCharge: false,
       showGetway:false
     };
   }
 
   handleOptionChange = e => {
     this.setState({
-      gateway: e.target.value,
-    },()=>
-      this.props.changeBankGetway({gateway:this.state.gateway})
+        gateway: e.target.value,
+      },()=>
+        this.props.changeBankGetway({gateway:this.state.gateway})
     );
   }
+
+  getOrderItem = () => {
+    const {basket} = this.props;
+    getOrderitems({
+      orderId:basket.id
+    }).then(response => {
+      if(response.status) {
+        this.setState({
+          orderItems:response.result
+        })
+      }
+    });
+  };
 
   ChangeAccCharge = e => {
     console.log("omid")
     this.setState({accCharge: !this.state.accCharge},()=>
       this.props.accChargeChanged({accCharge:this.state.accCharge})
     );
-    if(this.state.accCharge && (this.props.basket.totalPrice >= this.state.accCharge)) {
+    if(this.state.accCharge && (this.props.basket.totalPrice <= this.props.user.cacheBalance)) {
       this.setState({
         showGetway:false
       })
@@ -53,13 +66,15 @@ export class Checkout extends React.PureComponent {
     if(this.props.basket.organizationAddressId != null) {
       console.log("ok")
     }
+    this.getOrderItem();
   }
 
 
   render() {
+    const {orderItems} =this.state
     return (
       <div className="checkout hFull">
-        <NavigationBar 
+        <NavigationBar
           back
           title="سبد خرید"
           // background
@@ -72,7 +87,7 @@ export class Checkout extends React.PureComponent {
           <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge}/>
           {!this.state.showGetway &&
           <Row className="banks-row" >
-            {dataSample.result.bankgateways.map((value,index) =>
+            {orderItems && orderItems.bankgateways.map((value,index) =>
               <Col xs="6">
                 <label className="radio-wrapper">
                   <div className="label-parent">
@@ -88,11 +103,11 @@ export class Checkout extends React.PureComponent {
                   </div>
                   <span className="clearfix">
                     {value.name}
-                    <img
-                      src={value.logo}
-                      className="pull-left"
-                      alt="tik8"
-                    />
+                      <img
+                        src={value.logo}
+                        className="pull-left"
+                        alt="tik8"
+                      />
                   </span>
                 </label>
               </Col>
@@ -101,7 +116,9 @@ export class Checkout extends React.PureComponent {
           }
         </div>
       </Container>
-      <StickyPrice data={dataSample.result.amount} collapseShow={true} links='bank'/>
+      {orderItems &&
+        <StickyPrice data={orderItems.amount} collapseShow={true} links='bank'/>
+      }
       </div>
     );
   }
@@ -130,5 +147,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Checkout);
-
 

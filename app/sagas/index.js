@@ -10,6 +10,10 @@ import {
     updateUserBalance
 } from './Auth';
 
+import {
+  ChangeBasket
+} from  './Basket'
+
 export default function* rootSaga(getState) {
     yield all([
         //authSagas(),
@@ -21,6 +25,7 @@ export default function* rootSaga(getState) {
         UserVerify(),
         UserVerifyPass(),
         UserUpdate(),
-        updateUserBalance()
+        updateUserBalance(),
+        ChangeBasket()
     ]);
 }
