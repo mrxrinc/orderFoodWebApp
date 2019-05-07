@@ -15,6 +15,7 @@ import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
 import Stepper from '../../components/Stepper';
 import StickyPrice from '../../components/StickyPrice';
+import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket,
@@ -45,7 +46,46 @@ class RestaurantPage extends React.Component {
       modalRequiredGroupIds: [],
       checkboxValidation: true,
       modalContainer: [],
+      sameRestaurant: false
     };
+  }
+
+  componentDidMount() {
+    console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
+    restaurantDetail(this.state.id).then(restaurantResp => {
+      this.props.storeRestaurant(restaurantResp.result);
+      createBasket(this.state.id).then(basketResp => {
+        console.log('Basket Response ==>', basketResp.result);
+
+        // checking if this is the same restaurant as before added to cart or not
+        if(this.props.basket.restaurantId && this.props.basket.restaurantId === restaurantResp.result.id) {
+          this.setState({ sameRestaurant: true }, () => console.log('YOOO IT SAYS TRUE ===#####'));
+        }
+
+        this.props.addToBasket(basketResp.result);
+        this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.storeRestaurant(null)
+  }
+
+  updateRestaurantData = data => {
+    const menu = data.menuSections;
+    const newMenu = menu.map(group => {
+      const newFoods = group.foods.map(food => {
+        if(this.props.basket && this.props.basket.items[food.id]) {
+          return { ...food, itemCount: this.props.basket.items[food.id].itemCount ,foodPrice:food.price};
+        }
+        return { ...food, foodPrice: food.price };
+      });
+      return { ...group, foods: newFoods };
+    });
+    const newData = { ...data, menuSections: newMenu };
+    console.log('UPDATE BASKET DATA TO RESTAURANT ITEMS', newData);
+    this.props.storeRestaurant(newData);
   }
 
   tabClick = slug => {
@@ -134,6 +174,10 @@ class RestaurantPage extends React.Component {
   };
 
   onChangeSideDish = (optionId, group) => {
+    this.state.modalContainer.push(group.groupId);
+    if (this.hasSubArray(this.state.modalContainer, this.state.modalRequired)) {
+      this.setState({ modalButton: true });
+    }
     const newObj = {
       options: [],
     };
@@ -326,20 +370,39 @@ class RestaurantPage extends React.Component {
           const key = food.id;
           const basket = {};
 
-          if (food.count) {
-            let count = null;
-            if (role === 'add') count = food.count + 1;
-            else if (role === 'remove') count = food.count - 1;
-            const data = { ...food, count };
-            basket[key] = data;
-            Object.assign(basketTempData, basket);
-            if (this.state.modalData)
-              this.setState({ modalData: { ...this.state.modalData, count } });
+          if (food.itemCount) { // if we have this food in the basket
+            let itemCount = null;
+            if (role === 'add') itemCount = food.itemCount + 1;
+            else if (role === 'remove') itemCount = food.itemCount - 1;
+            else itemCount = food.itemCount;
+            const data = { ...food, itemCount, foodPrice: food.price };
+
+            if (itemCount === 0) {  // to remove item from basket
+              delete basketTempData[key];
+            } else {
+              basket[key] = data; // to add the itemCount info
+
+              // if(this.state.sameRestaurant) {
+                Object.assign(basketTempData, basket);
+              // } else {
+              //   basketTempData = basket;
+              // }
+            }
+            
+            if (this.state.modalData) {
+              this.setState({ modalData: { ...this.state.modalData, itemCount } });
+            }
             return data;
           }
-          const data = { ...food, count: 1 };
+          const data = { ...food, itemCount: 1, foodPrice: food.price };
           basket[key] = data;
-          Object.assign(basketTempData, basket);
+
+          // if(this.state.sameRestaurant) {
+            Object.assign(basketTempData, basket);
+          // } else {
+          //   basketTempData = basket;
+          // }
+
           if (this.state.modalData)
             this.setState({
               modalData: { ...this.state.modalData, count: 1 },
@@ -355,27 +418,23 @@ class RestaurantPage extends React.Component {
     });
     console.log('newMenu ===>', newMenu);
 
-    this.setState(
-      {
-        restaurantDetail: {
-          ...this.state.restaurantDetail,
-          menuSections: newMenu,
-        },
-      },
-      () => {
-        console.log('new State ===>', this.state.restaurantDetail);
-        console.log('modalData State ===>', this.state.modalData);
-        console.log('BASKET_TEMP_DATA', basketTempData);
+    // update restaurant store
+    this.props.storeRestaurant({
+      ...this.props.restaurant,
+      menuSections: newMenu
+    });
 
-        // continue to redux
-        const dataForBasket = {
-          restaurantId: this.state.restaurantDetail.id,
-          orderId: this.state.basket.id,
-          items: basketTempData,
-        };
-        this.props.addToBasket({ basket: dataForBasket });
-      },
-    );
+    // update basket
+    const dataForBasket = {
+      ...this.props.basket,
+      items: basketTempData,
+    };
+    
+    this.props.addToBasket(dataForBasket);
+
+    console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
+    console.log('MODAL DATA ===>', this.state.modalData);
+    console.log('BASKET_TEMP_DATA', basketTempData);
   };
 
   modalPrice = () => {
@@ -417,6 +476,11 @@ class RestaurantPage extends React.Component {
     displayType,
     foodPrice,
   ) => {
+    console.log("***",foodOptionPrice,
+      foodOptionLastPrice,
+      displayType,
+      foodPrice,
+    );
     if (foodOptionLastPrice != null && foodOptionLastPrice !== 0) {
       return {
         realPrice: this.checkWithDisplayType(
@@ -437,7 +501,14 @@ class RestaurantPage extends React.Component {
     
     return (
       <div>
-        {!this.state.loading ? (
+        <NavigationBar 
+          back
+          fixTitle={data && data.name}
+          like
+          share
+          scroll={199}
+        />
+        {data ? (
           <div className="lightBg rtl">
             <RestaurantHeader
               cover={data.cover}
@@ -457,44 +528,50 @@ class RestaurantPage extends React.Component {
             {/* <div className="stickyMenu wFull" /> */}
 
             {this.state.tabOne && (
-              <div className="hP10 vM10">
-                {data.menuSections.map(group => (
-                  <RestaurantFoodGroup
-                    key={group.id}
-                    title={group.name}
-                    icon="italian" // Fix these iconssssssss
-                  >
-                    {group.foods.map(food => (
-                      <RestaurantFoodCard
-                        onClick={() => this.openFoodModal(food)}
-                        key={food.id}
-                        id={food.id}
-                        name={food.name}
-                        hasPic={food.hasPic}
-                        hasOption={food.hasOption}
-                        foodImg={food.image}
-                        description={food.description}
-                        discount={food.salePercentage}
-                        vote={food.vote}
-                        voteCount={food.voteCount}
-                        price={food.price}
-                        lastPrice={food.lastPrice}
-                        count={food.count}
-                        stepper={this.stepper}
-                        item={food} // to get inside Stepper component
-                      />
-                    ))}
-                  </RestaurantFoodGroup>
-                ))}
-                <StickyPrice data={{}} link="/cart" collapseShow={false} />
-              </div>
+              <React.Fragment>
+                <div className="hP10 vM10">
+                  {data.menuSections.map(group => (
+                    <RestaurantFoodGroup
+                      key={group.id}
+                      title={group.name}
+                      icon="italian" // Fix these iconssssssss
+                    >
+                      {group.foods.map(food => (
+                        <RestaurantFoodCard
+                          onClick={() => this.openFoodModal(food)}
+                          key={food.id}
+                          id={food.id}
+                          name={food.name}
+                          hasPic={food.hasPic}
+                          hasOption={food.hasOption}
+                          foodImg={food.image}
+                          description={food.description}
+                          discount={food.salePercentage}
+                          vote={food.vote}
+                          voteCount={food.voteCount}
+                          price={food.foodPrice}
+                          lastPrice={food.lastPrice}
+                          count={food.itemCount}
+                          stepper={this.stepper}
+                          item={food} // to get inside Stepper component
+                        />
+                      ))}
+                    </RestaurantFoodGroup>
+                  ))}
+                </div>
+
+                {typeof this.props.basket.items !== 'undefined' &&
+                  Object.keys(this.props.basket.items).length > 0 && (
+                  <StickyPrice data={{}} links='cart' collapseShow={false}/>
+                  )}
+              </React.Fragment>
             )}
 
             {this.state.tabTwo &&
             <div className="container-fluid">
               <div>
                 <TabTwo id={data.id}/>
-                
+
               </div>
             </div>
             }

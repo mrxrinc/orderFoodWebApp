@@ -19,7 +19,7 @@ const persistConfig = {
   key: 'root',
   storage,
   // stateReconciler: hardSet,
-  whitelist: ['auth','UserPosition','Basket'],
+  whitelist: ['auth','UserPosition','Basket','restaurant'],
   // blacklist: ['todos'],
 };
 const history = createBrowserHistory();

@@ -26,7 +26,7 @@ const RestaurantFoodCard = props => (
         </span>
       </div>
       <div className="leftHand relative">
-        <h2 className="font bold largeText primary bottomM10">{props.name}</h2>
+        <h2 className="font bold largeText primary bottomM10 text-truncate w80">{props.name}</h2>
 
         <p className="description gray5 overhide bottomM5">
           {props.description}
