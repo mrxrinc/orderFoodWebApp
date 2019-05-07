@@ -99,7 +99,7 @@ export class cart extends React.PureComponent {
         <NavigationBar 
           back
           title="سبد خرید"
-          // background
+          background
         />
 
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}

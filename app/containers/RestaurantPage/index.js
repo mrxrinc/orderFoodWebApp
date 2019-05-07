@@ -548,7 +548,7 @@ class RestaurantPage extends React.Component {
 
                 {typeof this.props.basket.items !== 'undefined' &&
                   Object.keys(this.props.basket.items).length > 0 && (
-                  <StickyPrice data={{}} links='cart' collapseShow={false}/>
+                  <StickyPrice data={{}} links='cart' collapseShow={false} />
                   )}
               </React.Fragment>
             )}
