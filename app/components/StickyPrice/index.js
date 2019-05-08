@@ -44,7 +44,7 @@ class StickyPrice extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.calculationsFunction()
+    // this.calculationsFunction()
   }
 
   componentWillUnmount() {
@@ -129,9 +129,9 @@ class StickyPrice extends React.PureComponent {
     if (links=== "cart") {
       this.changeBasket();
     }
-    if (links === "checkout") {
-      this.changeBasket();
-      history.push("/checkout");
+    if (link === "/checkout") {
+      // this.changeBasket();
+      link ? history.push(link) : history.push("/checkout");
     }
     if (links === "bank") {
       this.payOrder()
