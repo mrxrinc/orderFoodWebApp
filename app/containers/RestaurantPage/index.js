@@ -124,13 +124,21 @@ class RestaurantPage extends React.Component {
       );
       requiredCategories.map(category =>
         this.state.modalRequiredGroupIds.push(category.groupId),
-      );
+      );      
       if (!this.state.modalData.count) {
         // for the first time increasing from inside of the modal
         this.setState({ modalData: { ...this.state.modalData, count: 0 } });
+        this.setState({ checkboxValidation: true });
+        this.setState({ checkboxValidation: true });
+        this.setState({ radioValidation: true });
+        this.setState({ modalContainer: [] }, () => {
+          console.log("^^^^^^^",this.state);
+        });
+        
       }
       this.toggleModal();
     });
+    
   };
 
   onChangeSideDish = (optionId, group) => {
@@ -162,11 +170,7 @@ class RestaurantPage extends React.Component {
           groupIndexOf = this.state.modalContainer.indexOf(selectedCategory);
           if (group.groupRequired) {
             this.checkRadio(optionId, groupIndexOf, () => {
-              if (this.state.radioValidation && this.state.checkboxValidation) {
-                this.setState({
-                  modalButton: true,
-                });
-              }
+              this.checkModalButtonDisable();
             });
           }
         },
@@ -181,22 +185,27 @@ class RestaurantPage extends React.Component {
           selectedCategory,
           groupIndexOf,
           () => {
-            if (this.state.radioValidation && this.state.checkboxValidation) {
-              this.setState({
-                modalButton: true,
-              });
-            }
+            this.checkModalButtonDisable();
           },
         );
       } else {
         this.checkRadio(optionId, groupIndexOf, () => {
-          if (this.state.radioValidation && this.state.checkboxValidation) {
-            this.setState({
-              modalButton: true,
-            });
-          }
+          this.checkModalButtonDisable();
         });
       }
+    }
+  };
+
+  checkModalButtonDisable = () => {
+    console.log(this.state.radioValidation && this.state.checkboxValidation);    
+    if (this.state.radioValidation && this.state.checkboxValidation) {
+      this.setState({
+        modalButton: true,
+      });
+    } else {
+      this.setState({
+        modalButton: false,
+      });      
     }
   };
 
@@ -219,7 +228,6 @@ class RestaurantPage extends React.Component {
   };
 
   checkAllRadioButtons = cb => {
-    console.log('$$$$$$');
     let validation = true;
     const radioCount = this.state.modalContainer.filter(
       group => group.groupRequired,

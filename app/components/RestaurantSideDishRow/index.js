@@ -16,7 +16,7 @@ const RestaurantSideDishRow = props => {
             label={<span key={props.key}> {props.name} </span>}
           />
         </div>
-      )}
+      )}      
       {props.type === 'radio' && (
         <Fragment>
           <label className="radio-modal">
@@ -24,7 +24,7 @@ const RestaurantSideDishRow = props => {
               <input
                 className="required-chechbox checked radio-input"
                 type="radio"
-                name={props.key}
+                name={props.groupId}
                 onChange={props.onClick}
                 defaultValue={0}
               />
