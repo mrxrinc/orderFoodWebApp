@@ -5,7 +5,8 @@ import './style.scss';
 import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
-import { putChangeBasket,payOrderPost } from '../../api/account';
+import { payOrderPost } from '../../api/account';
+import { putChangeBasket } from '../../actions/Basket';
 
 class StickyPrice extends React.PureComponent {
 
@@ -43,11 +44,11 @@ class StickyPrice extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.calculationsFunction()
+    // this.calculationsFunction()
   }
 
   componentWillUnmount() {
-    this.changeBasket()
+    // this.changeBasket()
   }
 
 
@@ -62,74 +63,83 @@ class StickyPrice extends React.PureComponent {
     if(basket.accCharge) {
       total = total - user.cacheBalance;
     }
+    if(basket.accCharge) {
+      total = total - basket.discountAmount;
+    }
     if(total <= 0) {
       total = 0;
     }
-    return total
+    if(data) {
+      total = parseInt(total) + parseInt(basket.deliveryZonePrice) + parseInt(data.tax) + parseInt(data.pack)
+    }
+    return total;
   }
 
   changeBasket = () => {
-    const {basket,link} = this.props;
-    const items = Object.keys(basket.items).map((item) =>{
-      var updateData = {
-        "orderItemFoodId" : item,
-        "itemCount" : basket.items[item].itemCount
-      };
-      return updateData;
-    });
-    putChangeBasket(
-      {
-        "id":basket.id,
-        "deliveryType":basket.deliveryType ? basket.deliveryType:false,
-        "restaurantId":basket.restaurantId,
-        "items":items
-      }
-    ).then(response => {
-      if(response.status) {
-        // link ? history.push(link) : history.push("/checkout");
-        if (link !== '/cart') history.push(link)
-        this.setState({
-        })
-      }
-    });
+    // const {basket,link} = this.props;
+    // const items = Object.keys(basket.items).map((item) =>{
+    //   var updateData = {
+    //     "orderItemFoodId" : item,
+    //     "itemCount" : basket.items[item].itemCount
+    //   };
+    //   return updateData;
+    // });
+    // putChangeBasket(
+    //   {
+    //     "id":basket.id,
+    //     "deliveryType":basket.deliveryType ? basket.deliveryType:false,
+    //     "restaurantId":basket.restaurantId,
+    //     "items":items
+    //   }
+    // ).then(response => {
+    //   if(response.status) {
+    //     // link ? history.push(link) : history.push("/checkout");
+    //     if (link !== '/cart') history.push(link)
+    //     this.setState({
+    //     })
+    //   }
+    // });
   };
 
   payOrder = () => {
     const {basket,link} = this.props;
     payOrderPost({
-      "accCharge": false,
+      "accCharge": basket.accCharge ? basket.accCharge : false,
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  true,
       "orderDeliveryType":  false,
       "orderId":  basket.id,
       "payAmount":  "200",
-      "paymentType":  "account",
       "addressId":  basket.addressId,
-      "campaginCode":"",
-      "bankgate": basket.gateway
+      "campaginCode":basket.campaginCode,
+      "paymentType": "bank",
+      "bankgate": basket.gateway,
+      "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
-        window.location = response.result.url;
+        // window.location = response.result.url;
+        if (response.go_to === 'app.success-pay') {
+          history.push('/success-payment')
+        }
       }
     })
   }
 
   pushLink = () => {
-    const {link} = this.props;
-    if (link === "/cart") {
-      // this.changeBasket();
+    const {links} = this.props;
+    if (links=== "cart") {
+      this.changeBasket();
       history.push("/cart");
     }
     if (link === "/checkout") {
-      this.changeBasket();
+      // this.changeBasket();
       link ? history.push(link) : history.push("/checkout");
     }
-    if (link === "/bank") {
+    if (links === "bank") {
       this.payOrder()
     }
-
   };
 
   render() {
@@ -150,24 +160,31 @@ class StickyPrice extends React.PureComponent {
             <ul>
               <li>
                 <span>مجموع سفارشات</span>
-                <span className="pull-left">{totalPrice - data.carry - data.tax - data.pack} تومان</span>
+                <span className="pull-left">{totalPrice } تومان</span>
               </li>
-              {data.carry > 0 &&
+              {basket.deliveryZonePrice > 0 &&
               <li>
                 <span>هزینه ارسال</span>
-                <span className="pull-left">{data.carry} تومان</span>
+                <span className="pull-left">{basket.deliveryZonePrice} تومان</span>
               </li>
               }
-              {data.tax > 0 &&
+
+              {data && data.tax > 0 &&
               <li>
                 <span>مالیات</span>
                 <span className="pull-left">{data.tax} تومان</span>
               </li>
               }
-              {data.pack > 0 &&
+              {data && data.pack > 0 &&
               (<li>
                 <span>هزینه بسته بندی</span>
                 <span className="pull-left">{data.pack} تومان</span>
+              </li>)
+              }
+              {basket.discountAmount &&
+              (<li>
+                <span>کد تخفیف</span>
+                <span className="pull-left">{basket.discountAmount}- تومان</span>
               </li>)
               }
               {basket.accCharge &&
@@ -209,6 +226,14 @@ class StickyPrice extends React.PureComponent {
 }
 
 
+const mapDispatchToProps = dispatch => {
+  return {
+    changeBasketData: data => {
+      dispatch(putChangeBasket(data.basketData));
+    },
+  };
+};
+
 const mapStateToProps = state => ({
   user: state.auth,
   basket:state.Basket
@@ -216,4 +241,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(StickyPrice);

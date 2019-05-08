@@ -8,9 +8,10 @@ import RestaurantHeaderCheckout from '../../components/RestaurantHeaderCheckout'
 import logo from '../../images/restaurant-logo.jpg';
 import cover from '../../images/pattern.png';
 import dataSample from '../data.json';
-import { gatewayChanged } from '../../actions/Basket';
+import { accChargedChanged, gatewayChanged } from '../../actions/Basket';
 import { connect } from 'react-redux';
-import { getDataAfterPayment } from '../../api/account';
+import { getDataAfterPayment, getOrderitems } from '../../api/account';
+import NavigationBar from '../../components/NavigationBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Checkout extends React.PureComponent {
@@ -18,36 +19,75 @@ export class Checkout extends React.PureComponent {
     super(props);
     this.state = {
       description: '',
-      gateway: this.props.basket.gateway ? this.props.basket.gateway : '1'
+      gateway: this.props.basket.gateway ? this.props.basket.gateway : '1',
+      accCharge: false,
+      showGetway:false
     };
   }
 
   handleOptionChange = e => {
     this.setState({
-      gateway: e.target.value,
-    },()=>
-      this.props.changeBankGetway({gateway:this.state.gateway})
+        gateway: e.target.value,
+      },()=>
+        this.props.changeBankGetway({gateway:this.state.gateway})
     );
   }
+
+  getOrderItem = () => {
+    const {basket} = this.props;
+    getOrderitems({
+      orderId:basket.id
+    }).then(response => {
+      if(response.status) {
+        this.setState({
+          orderItems:response.result
+        })
+      }
+    });
+  };
+
+  ChangeAccCharge = e => {
+    console.log("omid")
+    this.setState({accCharge: !this.state.accCharge},()=>
+      this.props.accChargeChanged({accCharge:this.state.accCharge})
+    );
+    if(this.state.accCharge && (this.props.basket.totalPrice <= this.props.user.cacheBalance)) {
+      this.setState({
+        showGetway:false
+      })
+    } else  {
+      this.setState({
+        showGetway:true
+      })
+    }
+  };
 
   componentDidMount() {
     if(this.props.basket.organizationAddressId != null) {
       console.log("ok")
     }
+    this.getOrderItem();
   }
 
 
   render() {
+    const {orderItems} =this.state
     return (
       <div className="checkout hFull">
+        <NavigationBar
+          back
+          title="سبد خرید"
+          // background
+        />
         <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
       <Container className="checkout">
         <div className="padd5">
           <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>
           <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
-          <UserCacheBalance />
+          <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge}/>
+          {!this.state.showGetway &&
           <Row className="banks-row" >
-            {dataSample.result.bankgateways.map((value,index) =>
+            {orderItems && orderItems.bankgateways.map((value,index) =>
               <Col xs="6">
                 <label className="radio-wrapper">
                   <div className="label-parent">
@@ -63,19 +103,22 @@ export class Checkout extends React.PureComponent {
                   </div>
                   <span className="clearfix">
                     {value.name}
-                    <img
-                      src={value.logo}
-                      className="pull-left"
-                      alt="tik8"
-                    />
+                      <img
+                        src={value.logo}
+                        className="pull-left"
+                        alt="tik8"
+                      />
                   </span>
                 </label>
               </Col>
             )}
           </Row>
+          }
         </div>
       </Container>
-      <StickyPrice data={dataSample.result.amount} collapseShow={true} link='/bank'/>
+      {orderItems &&
+        <StickyPrice data={orderItems.amount} collapseShow={true} links='bank'/>
+      }
       </div>
     );
   }
@@ -89,6 +132,9 @@ const mapDispatchToProps = dispatch => {
     changeBankGetway: value => {
       dispatch(gatewayChanged(value));
     },
+    accChargeChanged: value => {
+      dispatch(accChargedChanged(value));
+    }
   };
 };
 
@@ -101,5 +147,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Checkout);
-
 

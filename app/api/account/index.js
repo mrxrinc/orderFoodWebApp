@@ -16,7 +16,7 @@ export const sendVerifyCodePost = (params) => {
 }
 
 export const getDataAfterPayment = (params) => {
-  return deRequest(account.getOrderDetail(), "GET", params, false );
+  return deRequest(account.getOrderDetail(params.orderId), "GET" );
 }
 
 export const getSendGifCode = (params) => {

@@ -30,7 +30,7 @@ class GiftCode extends React.PureComponent {
     this.setState({
       giftCode:false
     },() => {
-      this.props.changeCampaginCode({campaginCode:''})
+      this.props.changeCampaginCode({campaginCode:'',discountAmount:''})
     })
   };
 
@@ -49,7 +49,7 @@ class GiftCode extends React.PureComponent {
           data:response.result,
           giftCode:true
         },()=>{
-          this.props.changeCampaginCode({campaginCode:this.state.campaginCode})
+          this.props.changeCampaginCode({campaginCode:this.state.campaginCode,discountAmount:this.state.data.discountAmount})
         })
       }
     });
