@@ -204,7 +204,7 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
-              <span className="text-price">{this.totalPrice()} تومان</span>
+              <span className="text-price">{this.state.totalPrice && this.totalPrice()} تومان</span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
