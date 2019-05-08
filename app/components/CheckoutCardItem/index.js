@@ -18,21 +18,22 @@ class CheckoutCardItem extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {items} =this.props;
-    let newData = items.map((item) => {
 
-      if(item.options.length) {
+    const {items} =this.props;
+
+    let newData = Object.keys(items).map((id) => {
+      if(items[id].options.length) {
         let newOption = [];
-        item.options.map((option) => {
+        items[id].options.map((option) => {
           newOption.push(option.foodOptionPrice);
         });
         let sum = newOption.reduce((acc, currValue) => {
           console.log(acc)
           return acc + currValue;
         }, 0);
-        return { ...item, optionSum: sum }
+        return { ...items[id], optionSum: sum }
       } else {
-        return item;
+        return items[id];
       }
     });
     this.setState({
@@ -51,7 +52,7 @@ class CheckoutCardItem extends React.PureComponent {
           {/*<img src={Food} alt="" />*/}
         </div>
         <div className="checkout-carditem__lbox">
-          <h2>{item.foodName}</h2>
+          <h2>{item.name}</h2>
           {item.options.map((option) =>
             <ul>
               <li>{option.foodOptionName} ({option.foodOptionPrice > 0 ? option.foodOptionPrice  : 'رایگان'})</li>
@@ -60,14 +61,14 @@ class CheckoutCardItem extends React.PureComponent {
 
 
             <span className="number">
-              {item.count > 1 &&
+              {item.itemCount > 1 &&
                 <span>
-                  {item.count } × {item.optionSum ? item.foodPrice + item.optionSum : item.foodPrice}
+                  {item.itemCount } × {item.optionSum ? item.foodPrice + item.optionSum : item.foodPrice}
                 </span>
               }
             </span>
 
-          <span className="price">{item.optionSum ? item.count * (item.foodPrice + item.optionSum) : item.count * item.foodPrice } تومان</span>
+          <span className="price">{item.optionSum ? item.itemCount * (item.foodPrice + item.optionSum) : item.itemCount * item.foodPrice } تومان</span>
           <div className="counter">
             {/*<IncrementDecrease />*/}
           </div>

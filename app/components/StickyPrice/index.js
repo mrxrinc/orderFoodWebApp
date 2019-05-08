@@ -48,7 +48,7 @@ class StickyPrice extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.changeBasket()
+    this.changeBasket(true)
   }
 
 
@@ -75,7 +75,7 @@ class StickyPrice extends React.PureComponent {
     return total;
   }
 
-  changeBasket = () => {
+  changeBasket = (preventRedirect) => {
     const {basket,link} = this.props;
     const items = Object.keys(basket.items).map((item) =>{
       var updateData = {
@@ -86,12 +86,16 @@ class StickyPrice extends React.PureComponent {
     });
     const basketData =
       {
-        id:basket.id,
-        deliveryType:basket.deliveryType ? basket.deliveryType:false,
-        restaurantId:basket.restaurantId,
-        items:items
+        data : {
+          id:basket.id,
+          deliveryType:basket.deliveryType ? basket.deliveryType:false,
+          restaurantId:basket.restaurantId,
+          items:items ,
+        },
+        nextPage : this.props.links,
+        preventRedirect: preventRedirect
       };
-      this.props.changeBasketData({basketData});
+      this.props.changeBasketData(basketData);
   };
 
   payOrder = () => {
@@ -124,7 +128,6 @@ class StickyPrice extends React.PureComponent {
     const {links} = this.props;
     if (links=== "cart") {
       this.changeBasket();
-      history.push("/cart");
     }
     if (links === "checkout") {
       this.changeBasket();
@@ -222,7 +225,7 @@ class StickyPrice extends React.PureComponent {
 const mapDispatchToProps = dispatch => {
   return {
     changeBasketData: data => {
-      dispatch(putChangeBasket(data.basketData));
+      dispatch(putChangeBasket(data));
     },
   };
 };

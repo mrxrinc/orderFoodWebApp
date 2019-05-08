@@ -14,11 +14,12 @@ import NavigationBar from '../../components/NavigationBar';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
-import { addressIdChanged, deliveryTypeChanged } from '../../actions/Basket';
+import { addressIdChanged, addToBasket, deliveryTypeChanged , getBasketItems } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { Checkout } from '../Checkout';
 import { getOrderitems,getUserAddress } from '../../api/account';
 import ProfileAddress from '../PageProfile';
+import { createBasket } from '../../api/application/restaurant';
 
 export class cart extends React.PureComponent {
 
@@ -36,15 +37,17 @@ export class cart extends React.PureComponent {
 
   getOrderItem = () => {
     const {basket} = this.props;
-    getOrderitems({
-      orderId:basket.id
-    }).then(response => {
-      if(response.status) {
-        this.setState({
-          orderItems:response.result
-        })
-      }
-    });
+    // getOrderitems({
+    //   orderId:basket.id
+    // }).then(response => {
+    //   if(response.status) {
+    //     this.setState({
+    //       orderItems:response.result
+    //     },() => {
+    //       // this.props.addToBasket(basketResp.result);
+    //     })
+    //   }
+    // });
   };
 
   getAddress = () => {
@@ -72,6 +75,18 @@ export class cart extends React.PureComponent {
     })
     this.getOrderItem();
     this.getAddress();
+    const restaurantId = { restaurantId :  this.props.basket.restaurantId};
+    this.props.getBasketItems(restaurantId);
+    // createBasket(this.props.basket.restaurantId).then(response => {
+    //   this.props.addToBasket(response.result);
+    // })
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log()
+    // createBasket(this.props.basket.restaurantId).then(response => {
+    //   this.props.addToBasket(response.result);
+    // })
   }
 
   toggle(tab) {
@@ -105,7 +120,7 @@ export class cart extends React.PureComponent {
 
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {orderItems.items && <CheckoutCardItem items={orderItems.items}/>}
+          {Object.keys(this.props.basket.items).length > 0 && <CheckoutCardItem items={this.props.basket.items}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
@@ -177,7 +192,9 @@ const mapDispatchToProps = dispatch => {
     },
     changeAddressId: value => {
       dispatch(addressIdChanged(value));
-    }
+    },
+    getBasketItems: restaurantId => dispatch(getBasketItems(restaurantId)),
+    addToBasket: value => dispatch(addToBasket(value))
   };
 };
 

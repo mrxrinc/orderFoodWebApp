@@ -59,21 +59,22 @@ class RestaurantPage extends React.Component {
       this.setState({ restaurant: restaurantResp.result }, () => {
         createBasket(this.state.id).then(basketResp => {
           console.log('Basket Response ==>', basketResp.result);
-  
           // checking if this is the same restaurant as before added to cart or not
-          if(typeof this.props.basket !== 'undefined' && 
-            this.props.basket.restaurantId && 
+          if(typeof this.props.basket !== 'undefined' &&
+            this.props.basket.restaurantId &&
             this.props.basket.restaurantId === restaurantResp.result.id
             ) {
             this.setState({ sameRestaurant: true }, () => console.log('YOOO IT SAYS TRUE ===#####'));
           }
-          if(typeof this.props.basket !== 'undefined' && 
-            Object.keys(this.props.basket.items).length > 0)
+          // if(typeof this.props.basket !== 'undefined' &&
+          //   typeof this.props.basket.items !== 'undefined' &&
+          //   Object.keys(this.props.basket.items).length > 0) {
+          // }
           this.props.addToBasket(basketResp.result);
           this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
         });
       })
-      
+
     });
   }
 
