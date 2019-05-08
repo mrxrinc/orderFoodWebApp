@@ -44,11 +44,11 @@ class StickyPrice extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.calculationsFunction()
+    // this.calculationsFunction()
   }
 
   componentWillUnmount() {
-    this.changeBasket()
+    // this.changeBasket()
   }
 
 
@@ -76,22 +76,29 @@ class StickyPrice extends React.PureComponent {
   }
 
   changeBasket = () => {
-    const {basket,link} = this.props;
-    const items = Object.keys(basket.items).map((item) =>{
-      var updateData = {
-        "orderItemFoodId" : item,
-        "itemCount" : basket.items[item].itemCount
-      };
-      return updateData;
-    });
-    const basketData =
-      {
-        id:basket.id,
-        deliveryType:basket.deliveryType ? basket.deliveryType:false,
-        restaurantId:basket.restaurantId,
-        items:items
-      };
-      this.props.changeBasketData({basketData});
+    // const {basket,link} = this.props;
+    // const items = Object.keys(basket.items).map((item) =>{
+    //   var updateData = {
+    //     "orderItemFoodId" : item,
+    //     "itemCount" : basket.items[item].itemCount
+    //   };
+    //   return updateData;
+    // });
+    // putChangeBasket(
+    //   {
+    //     "id":basket.id,
+    //     "deliveryType":basket.deliveryType ? basket.deliveryType:false,
+    //     "restaurantId":basket.restaurantId,
+    //     "items":items
+    //   }
+    // ).then(response => {
+    //   if(response.status) {
+    //     // link ? history.push(link) : history.push("/checkout");
+    //     if (link !== '/cart') history.push(link)
+    //     this.setState({
+    //     })
+    //   }
+    // });
   };
 
   payOrder = () => {
@@ -126,9 +133,9 @@ class StickyPrice extends React.PureComponent {
       this.changeBasket();
       history.push("/cart");
     }
-    if (links === "checkout") {
-      this.changeBasket();
-      history.push("/checkout");
+    if (link === "/checkout") {
+      // this.changeBasket();
+      link ? history.push(link) : history.push("/checkout");
     }
     if (links === "bank") {
       this.payOrder()
