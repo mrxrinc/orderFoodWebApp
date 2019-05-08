@@ -6,9 +6,6 @@ import { rateColor } from '../GeneralFunctions';
 import RestaurantSelectSideDish from '../RestaurantSelectSideDish';
 
 class RestaurantFoodCard extends React.Component {
-  componentDidMount(){
-    console.log("thiiiiiiiis props",this.props)
-  }
   render(){
     const props = this.props;
     return (

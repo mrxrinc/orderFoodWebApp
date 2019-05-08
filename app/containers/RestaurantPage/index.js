@@ -68,12 +68,16 @@ class RestaurantPage extends React.Component {
             this.setState({ sameRestaurant: true }, () => console.log('YOOO IT SAYS TRUE ===#####'));
           }
           if(typeof this.props.basket !== 'undefined' && 
-            Object.keys(this.props.basket.items).length > 0)
-          this.props.addToBasket(basketResp.result);
+            typeof this.props.basket.items !== 'undefined' && 
+            Object.keys(this.props.basket.items).length > 0){
+              this.props.addToBasket(this.props.basket); // anyway we have basket in storage, we use it!
+            } else {
+              this.props.addToBasket(basketResp.result); // if we dont have basket in storage, we use from API
+            }
+          basketTempData = basketResp.result.items;
           this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
         });
-      })
-      
+      });
     });
   }
 
@@ -353,7 +357,7 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = (id, count, role, item) => { // it take 4 arguments
+  stepper = (id, count, role, item) => { // it takes 4 arguments
     console.log('Stepper ===>', id, count, role);
     const data = this.state.restaurant;
     const menu = data.menuSections;
@@ -375,13 +379,7 @@ class RestaurantPage extends React.Component {
             } else {
               basket[key] = data; // to add the itemCount info
 
-              if(this.state.sameRestaurant) {
-                console.log('STPPER IF true', this.state.sameRestaurant)
-                Object.assign(basketTempData, basket);
-              } else {
-                basketTempData = basket;
-                console.log('STPPER IF false', this.state.sameRestaurant)
-              }
+              this.assignDataToBasket(basketTempData, basket);
             }
 
             if (this.state.modalData) {
@@ -392,11 +390,7 @@ class RestaurantPage extends React.Component {
           const data = { ...food, itemCount: 1, foodPrice: food.price };
           basket[key] = data;
 
-          if(this.state.sameRestaurant) {
-            Object.assign(basketTempData, basket);
-          } else {
-            basketTempData = basket;
-          }
+          this.assignDataToBasket(basketTempData, basket);
 
           if (this.state.modalData)
             this.setState({
@@ -432,6 +426,18 @@ class RestaurantPage extends React.Component {
     console.log('MODAL DATA ===>', this.state.modalData);
     console.log('BASKET_TEMP_DATA', basketTempData);
   };
+
+  assignDataToBasket(basketTempData, basket) {
+    if(this.state.sameRestaurant) {
+      console.log('STPPER SAME RESTAURANT', this.state.sameRestaurant)
+      Object.assign(basketTempData, basket);
+    } else {
+      this.setState({ sameRestaurant: true }, () => {
+        basketTempData = basket;
+        console.log('STPPER SAME RESTAURANT', this.state.sameRestaurant);
+      })
+    }
+  }
 
   modalPrice = () => {
     let sum = 0;
