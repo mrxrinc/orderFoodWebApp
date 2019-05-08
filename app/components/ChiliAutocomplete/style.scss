@@ -84,10 +84,10 @@
         right: 0;
         z-index: 10;
         &-ul {
-          border-bottom: 1px solid red;
           font-size: 14px;
           list-style: none;
-
+          overflow-y: auto;
+          max-height: 300px;
           &:last-child {
             border-bottom: 0;
           }
@@ -110,7 +110,7 @@
           }
 
           &:hover {
-            background: red;
+            background: transparent;
           }
         }
       }

@@ -8,9 +8,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { autocompleteResFood } from '../../api/application/autocomplete';
 import { history } from '../../store';
-import {
-  showModal,
-} from 'actions/Modals';
 import './style.scss';
 
 
@@ -70,13 +67,7 @@ class ChiliAutocomplete extends Component {
     let eventClass = document.querySelectorAll('.panigale-suggestion-search__item-body-restaurant');
     let historyLink = function () {
       history.push(`/${this.getAttribute("data-city")}/${this.getAttribute("data-slug")}/`);
-      closeModal();
     };
-    let closeModal = () => {
-      this.props.showModal({
-        searchModal: false,
-      });
-    }
     Array.from(eventClass).forEach(function (element) {
       element.addEventListener('click', historyLink);
     });
@@ -137,9 +128,6 @@ class ChiliAutocomplete extends Component {
     const { query } = this.state;
 
     if (query !== "") {
-      this.props.showModal({
-        searchModal: false,
-      });
       history.push(`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}/?query=${query}/`);
     }else{
       history.push(`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}/`);
@@ -212,14 +200,6 @@ class ChiliAutocomplete extends Component {
 const mapStateToProps = state => ({
   UserPosition: state.UserPosition.neighborhood
 });
-const mapDispatchToProps = dispatch => ({
-  showModal: (showStatus) => {
-    dispatch(showModal(showStatus))
-  }
-  // onLogin: (user) => {
-  //     dispatch(getUser(user));
-  // },
-
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChiliAutocomplete)
