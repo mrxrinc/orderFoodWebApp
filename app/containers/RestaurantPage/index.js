@@ -253,26 +253,46 @@ class RestaurantPage extends React.Component {
                       title={group.name}
                       icon="italian" // Fix these iconssssssss
                     >
-                      {group.foods.map(food => (
-                        <RestaurantFoodCard
-                          onClick={() => this.openFoodModal({item:food})}
-                          restaurantId={this.state.id}
-                          key={food.id}
-                          id={food.id}
-                          name={food.name}
-                          hasPic={food.hasPic}
-                          hasOption={food.hasOption}
-                          foodImg={food.image}
-                          description={food.description}
-                          discount={food.salePercentage}
-                          vote={food.vote}
-                          voteCount={food.voteCount}
-                          price={food.foodPrice}
-                          lastPrice={food.lastPrice}
-                          // stepper={this.stepper}
-                          item={food} // to get inside Stepper component
-                        />
-                      ))}
+                      {group.foods.map(food => {
+
+                        const _data = {
+                          restaurantId: food.id,
+                          id: food.id,
+                          name: food.name,
+                          hasPic: food.hasPic,
+                          hasOption: food.hasOption,
+                          foodImg: food.image,
+                          description: food.description,
+                          discount: food.salePercentage,
+                          vote: food.vote,
+                          voteCount: food.voteCount,
+                          price: food.foodPrice,
+                          lastPrice: food.lastPrice,
+                          item: food
+                        }
+
+                        return (
+                          <RestaurantFoodCard
+                            onClick={() => this.openFoodModal(_data)}
+                            restaurantId={this.state.id}
+                            key={food.id}
+                            id={food.id}
+                            name={food.name}
+                            hasPic={food.hasPic}
+                            hasOption={food.hasOption}
+                            foodImg={food.image}
+                            description={food.description}
+                            discount={food.salePercentage}
+                            vote={food.vote}
+                            voteCount={food.voteCount}
+                            price={food.foodPrice}
+                            lastPrice={food.lastPrice}
+                            // stepper={this.stepper}
+                            item={food} // to get inside Stepper component
+                          />
+                        )
+                        })
+                      }
                     </RestaurantFoodGroup>
                   ))}
                 </div>

@@ -428,17 +428,8 @@ class AlertBody extends Component {
 
                   <Stepper
                     fontSize="18"
-                    restaurantId={
-                      this.props.type === "modal" ?
-                      this.props.modalData.item.id:
-                      this.props.modalData.id
-                    
-                    }
-                    data={
-                      this.props.type === "modal" ?
-                      this.props.basket.items[this.props.modalData.item.id]:
-                      this.props.basket.items[this.props.modalData.id]
-                    }
+                    restaurantId={this.props.modalData.id}
+                    data={this.props.modalData}
                     type={this.props.type}
                   />
 

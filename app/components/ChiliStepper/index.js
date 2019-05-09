@@ -22,21 +22,10 @@ class ChiliStepper extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('===========this.props.data===============');
-    // console.log(this.props.data);
-    // console.log('====================================');
-    let food;
-    if(this.props.type === 'modal'){
-      console.log('====================================');
-      console.log(this.props);
-      console.log('====================================');
-      food = this.props.data.item;
-    }else{
-      food = this.props.data
-      console.log('====================================');
-      console.log(2);
-      console.log('====================================');
-    }
+    console.log('===========this.props.data===============');
+    console.log(this.props.data);
+    console.log('====================================');
+    let food = this.props.data;
     console.log('========food====================');
     console.log(food);
     console.log('====================================');
