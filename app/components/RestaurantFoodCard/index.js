@@ -71,12 +71,7 @@ class RestaurantFoodCard extends React.Component {
                 <Stepper
                   fontSize="18"
                   restaurantId = {this.props.restaurantId}
-                  // parentId={props.id}
-                  // stepper={props.stepper}
-                  // value={props.count}
-                  // item={props.item}
                   data={props}
-                  data1={this.props.data1}
                 />
               )}
               {props.hasOption && (

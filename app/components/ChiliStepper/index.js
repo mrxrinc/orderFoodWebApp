@@ -22,10 +22,24 @@ class ChiliStepper extends React.Component {
   }
 
   componentDidMount() {
-    console.log('===========this.props.data=============');
-    console.log(this.props.data1);
+    // console.log('===========this.props.data===============');
+    // console.log(this.props.data);
+    // console.log('====================================');
+    let food;
+    if(this.props.type === 'modal'){
+      console.log('====================================');
+      console.log(this.props);
+      console.log('====================================');
+      food = this.props.data.item;
+    }else{
+      food = this.props.data
+      console.log('====================================');
+      console.log(2);
+      console.log('====================================');
+    }
+    console.log('========food====================');
+    console.log(food);
     console.log('====================================');
-    const food = this.props.data;
     const foodId = food.id;
     let basketToArray = [];
     const basketFromStore = this.props.basket;
@@ -58,59 +72,6 @@ class ChiliStepper extends React.Component {
       itemCount: -1
     });
   }
-
-  // increase = () => {
-    // this.setState({itemCount:this.state.itemCount + 1},()=>{
-    //   if(Object.keys(this.props.basket.items).length > 0){
-    //     console.log('====================================');
-    //     console.log('start true');
-    //     console.log('====================================');
-
-    //     if(this.props.basket.items.hasOwnProperty(this.state.selectionKey)){
-    //       let basketFromStore = this.props.basket.items[this.state.selectionKey]
-    //       basketFromStore['itemCount'] = this.state.itemCount;
-    //       this.props.addToBasket(this.props.basket);
-
-    //     }else{
-    //       console.log('====================================');
-    //       console.log('zereshllllll');
-    //       console.log('====================================');
-    //     }
-    //   }else{
-        
-    //     let newBasket = this.props.basket;
-    //     const food = this.props.data.item;
-    //       const newBasketItem = {
-    //        [food.id]:{
-    //         "image": food.image,
-    //         "options": food.options,
-    //         "orderItemFoodId": food.id,
-    //         "itemCount": 1,
-    //         "foodPrice": food.price,
-    //         "foodName": food.name,
-    //         "foodLastPrice": null,
-    //         "basketOrderItemKey": food.id
-    //       }
-    //     }
-    //     newBasket['items'] = newBasketItem;
-    //     this.props.addToBasket(newBasket);
-    //   }
-    // })
-  // };
-  
-  // decrease = () => {
-  //   if(this.state.itemCount > 0){
-  //     this.setState({itemCount:this.state.itemCount - 1},()=>{
-  //       let basketFromStore = this.props.basket.items[this.state.selectionKey]
-  //       basketFromStore['itemCount'] = this.state.itemCount;
-  //       this.props.addToBasket(this.props.basket);
-  //     })
-  //   }else{
-  //     console.log('====================================');
-  //     console.log('zereshkkkkkkkkkkkk');
-  //     console.log('====================================');
-  //   }
-  // };
 
   render() {
     const food_basket = (this.props.data && this.props.basket && this.props.basket.items[this.props.data.id])?this.props.basket.items[this.props.data.id]:{itemCount: 0};

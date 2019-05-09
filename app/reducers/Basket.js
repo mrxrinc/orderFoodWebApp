@@ -29,6 +29,9 @@ const Basket = (state = initState, action) => {
           return Object.assign({}, state, action.payload);
         case CHANGE_BASKET:
           let {restaurantId, food, itemCount} = action.payload;
+          console.log('=========foodfoodfood===========================');
+          console.log(food);
+          console.log('====================================');
           let items = JSON.parse(JSON.stringify(state.items));
           if( state.restaurantId != restaurantId){
             items = {};
