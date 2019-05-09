@@ -17,11 +17,7 @@ class MyAddress extends React.PureComponent {
     super(props);
     this.state = {
       addressId: this.props.basket.addressId ? this.props.basket.addressId : '',
-<<<<<<< HEAD
-      addresses:this.props.data.addresses?this.props.data.addresses:[],
-=======
       addresses:this.props.data.addresses?this.props.data.addresses: [],
->>>>>>> 9d32ea455eb8a89eb22c9cdc780c1e10990c40e2
       organizationAddress:this.props.data.userOrganizationAddress?this.props.data.userOrganizationAddress:[],
       fullAddress:[],
       deleteId:'',
