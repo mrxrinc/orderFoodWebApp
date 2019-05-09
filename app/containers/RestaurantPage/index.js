@@ -13,13 +13,18 @@ import RestaurantFoodCard from '../../components/RestaurantFoodCard';
 import RestaurantSideDishGroup from '../../components/RestaurantSideDishGroup';
 import RestaurantSideDishRow from '../../components/RestaurantSideDishRow';
 import Modal from '../../components/ChiliModal';
-import Stepper from '../../components/Stepper';
+import Stepper from '../../components/ChiliStepper';
 import StickyPrice from '../../components/StickyPrice';
 import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket,
 } from '../../api/application/restaurant';
+import {
+  changeBasketPost,
+  putChangeBasket
+} from '../../api/account';
+
 import Loading from '../../components/ChiliLoading';
 import { rateColor } from '../../components/GeneralFunctions';
 import { addToBasket } from '../../actions/Basket';
@@ -50,54 +55,161 @@ class RestaurantPage extends React.Component {
       //when modal with sidedish foods opens , we create container for whole user's input
       modalContainer: [],
       sameRestaurant: false,
+      basketToState:{},
+      basketObjItems:{}
     };
   }
 
+
   componentDidMount() {
-    console.log('======>>>> ID FROM PROPS ====>', this.props.match.params.id);
+
     restaurantDetail(this.state.id).then(restaurantResp => {
-      this.setState({ restaurant: restaurantResp.result }, () => {
-        console.log('Restaurant Response ==>', restaurantResp);
-        createBasket(this.state.id).then(basketResp => {
-          console.log('======Basket Response ==>', basketResp.result);
-          // checking if this is the same restaurant as before added to cart or not
-          if(typeof this.props.basket !== 'undefined' && 
-            this.props.basket.restaurantId && 
-            this.props.basket.restaurantId === restaurantResp.result.id
-            ) {
-            this.setState({ sameRestaurant: true }, () => console.log('YOOO IT SAYS TRUE ===#####'));
+      this.setState({ restaurant: restaurantResp.result });
+    })
+
+    createBasket(this.state.id).then((response) => {
+      console.log('=========fetchBasket==================');
+      console.log(response);
+      console.log('====================================');
+    
+      this.setState({
+        basketObjItems:response.result.items,
+        basketObj:response.result,
+      },()=>{
+
+        let basketToArray = Object.keys(this.state.basketObjItems);
+        let basketStoreObjItems = this.props.basket.items;
+        let basketStoreObj = this.props.basket;
+    
+    
+        if(basketToArray.length > 0){
+          if( JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems) ) {
+              this.setState({
+                basketToState:basketStoreObj,
+              },()=>{
+                console.log('========= server full from current =================');
+                console.log('basketToState from store');
+                console.log(this.state.basketToState);
+                console.log('====================================');
+              })
+          }else{
+              this.props.addToBasket(this.state.basketObj);
+              console.log('============= server full from current ==============');
+              console.log('setBasketToStore from server');
+              console.log('====================================');
           }
-          if(typeof this.props.basket !== 'undefined' && 
-            typeof this.props.basket.items !== 'undefined' && 
-            Object.keys(this.props.basket.items).length > 0){
-              this.props.addToBasket(this.props.basket); // anyway we have basket in storage, we use it!
-            } else {
-              this.props.addToBasket(basketResp.result); // if we dont have basket in storage, we use from API
+
+        }else{
+          if( this.state.basketObj.id === basketStoreObj.id ) {
+            this.setState({
+              basketToState:basketStoreObj,
+            },()=>{
+              console.log('========== server null from current ================');
+              console.log('basketToState from store');
+              console.log(this.state.basketToState);
+              console.log('====================================');
+            })
+          }else{
+              this.props.addToBasket(this.state.basketObj);
+              console.log('============ server null from other =================');
+              console.log('setBasketToStore from server');
+              console.log('====================================');
           }
-          basketTempData = basketResp.result.items;
-          this.updateRestaurantData(restaurantResp.result); // TO REFRESH THE RESTAURANT DATA ACCORDING TO BASKET
-        });
-      });
+        }
+      })
+  
+    }).catch((err) => {
+      console.log(err)
     });
+
   }
 
-  updateRestaurantData = data => {
-    const menu = data.menuSections;
-    const newMenu = menu.map(group => {
-      const newFoods = group.foods.map(food => {
-        if(this.props.basket && this.props.basket.items[food.id]) {
-          return { ...food, itemCount: this.props.basket.items[food.id].itemCount ,foodPrice:food.price};
-        }
-        return { ...food, itemCount: 0, foodPrice: food.price };
-      });
-      return { ...group, foods: newFoods };
-    });
-    const newData = { ...data, menuSections: newMenu };
-    console.log('UPDATE BASKET DATA TO RESTAURANT ITEMS', newData);
-    this.setState({ restaurant: newData },()=>{
-      console.log(this.state.restaurant)
-    });
+  componentWillUnmount(){
+    changeBasketPost(this.props.basket).then(
+      response => {
+        console.log('========changeBasketPost===============');
+        console.log(response);
+        console.log('====================================');
+      }
+    ).catch(
+      err => {
+        console.log('===========err==================');
+        console.log(err.response);
+        console.log('====================================');
+      }
+    )
   }
+
+  // stepper = (id, count, role, item) => { // it takes 4 arguments
+  //   console.log('Stepper ===>', id, count, role);
+  //   const data = this.state.restaurant;
+  //   const menu = data.menuSections;
+  //   const newMenu = menu.map(group => {
+  //     const newFoods = group.foods.map(food => {
+  //       if (food.id === id) {
+  //         const key = food.id;
+  //         const basket = {};
+
+  //         if (food.itemCount) { // if we have this food in the basket
+  //           let itemCount = null;
+  //           if (role === 'add') itemCount = food.itemCount + 1;
+  //           else if (role === 'remove') itemCount = food.itemCount - 1;
+  //           else itemCount = food.itemCount;
+  //           const data = { ...food, itemCount, foodPrice: food.price };
+
+  //           if (itemCount === 0) {  // to remove item from basket
+  //             delete basketTempData[key];
+  //           } else {
+  //             basket[key] = data; // to add the itemCount info
+
+  //             this.assignDataToBasket(basketTempData, basket);
+  //           }
+
+  //           if (this.state.modalData) {
+  //             this.setState({ modalData: { ...this.state.modalData, itemCount } });
+  //           }
+  //           return data;
+  //         }
+  //         const data = { ...food, itemCount: 1, foodPrice: food.price };
+  //         basket[key] = data;
+
+  //         this.assignDataToBasket(basketTempData, basket);
+
+  //         if (this.state.modalData)
+  //           this.setState({
+  //             modalData: { ...this.state.modalData, count: 1 },
+  //           });
+  //         return data;
+  //       }
+  //       if (food.count && food.count > 0) {
+  //         return food;
+  //       }
+  //       return { ...food, count: 0 };
+  //     });
+  //     return { ...group, foods: newFoods };
+  //   });
+  //   console.log('newMenu ===>', newMenu);
+
+  //   // update restaurant store
+  //   this.setState({
+  //     restaurant: {
+  //       ...this.props.restaurant,
+  //       menuSections: newMenu
+  //     }
+  //   });
+
+  //   // update basket
+  //   const dataForBasket = {
+  //     ...this.props.basket,
+  //     items: basketTempData,
+  //   };
+
+  //   this.props.addToBasket(dataForBasket);
+
+  //   console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
+  //   console.log('MODAL DATA ===>', this.state.modalData);
+  //   console.log('BASKET_TEMP_DATA', basketTempData);
+  // };
 
   tabClick = slug => {
     switch (slug) {
@@ -353,76 +465,7 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  stepper = (id, count, role, item) => { // it takes 4 arguments
-    console.log('Stepper ===>', id, count, role);
-    const data = this.state.restaurant;
-    const menu = data.menuSections;
-    const newMenu = menu.map(group => {
-      const newFoods = group.foods.map(food => {
-        if (food.id === id) {
-          const key = food.id;
-          const basket = {};
-
-          if (food.itemCount) { // if we have this food in the basket
-            let itemCount = null;
-            if (role === 'add') itemCount = food.itemCount + 1;
-            else if (role === 'remove') itemCount = food.itemCount - 1;
-            else itemCount = food.itemCount;
-            const data = { ...food, itemCount, foodPrice: food.price };
-
-            if (itemCount === 0) {  // to remove item from basket
-              delete basketTempData[key];
-            } else {
-              basket[key] = data; // to add the itemCount info
-
-              this.assignDataToBasket(basketTempData, basket);
-            }
-
-            if (this.state.modalData) {
-              this.setState({ modalData: { ...this.state.modalData, itemCount } });
-            }
-            return data;
-          }
-          const data = { ...food, itemCount: 1, foodPrice: food.price };
-          basket[key] = data;
-
-          this.assignDataToBasket(basketTempData, basket);
-
-          if (this.state.modalData)
-            this.setState({
-              modalData: { ...this.state.modalData, count: 1 },
-            });
-          return data;
-        }
-        if (food.count && food.count > 0) {
-          return food;
-        }
-        return { ...food, count: 0 };
-      });
-      return { ...group, foods: newFoods };
-    });
-    console.log('newMenu ===>', newMenu);
-
-    // update restaurant store
-    this.setState({
-      restaurant: {
-        ...this.props.restaurant,
-        menuSections: newMenu
-      }
-    });
-
-    // update basket
-    const dataForBasket = {
-      ...this.props.basket,
-      items: basketTempData,
-    };
-
-    this.props.addToBasket(dataForBasket);
-
-    console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
-    console.log('MODAL DATA ===>', this.state.modalData);
-    console.log('BASKET_TEMP_DATA', basketTempData);
-  };
+  
 
   assignDataToBasket(basketTempData, basket) {
     if(this.state.sameRestaurant) {
@@ -545,7 +588,7 @@ class RestaurantPage extends React.Component {
                           price={food.foodPrice}
                           lastPrice={food.lastPrice}
                           count={food.itemCount}
-                          stepper={this.stepper}
+                          // stepper={this.stepper}
                           item={food} // to get inside Stepper component
                         />
                       ))}
@@ -728,7 +771,7 @@ class RestaurantPage extends React.Component {
                             fontSize="18"
                             parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
-                            stepper={this.stepper}
+                            // stepper={this.stepper}
                           />
                         </div>
 

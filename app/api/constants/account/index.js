@@ -30,6 +30,7 @@ export const get_guest_phone_number = (guestId) => API_URL_ROOT+'/api/user/showP
 export const getOrderDetail= (orderId) => API_URL_ROOT+'/order/detail/'+orderId;
 export const sendGifCode= () => API_URL_ROOT+'/campaign/checkCode';
 export const changeBasket= () => API_URL_ROOT+'/order/basket';
+export const change_basket_post= () => API_URL_ROOT+'/order/basket';
 export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
 export const order_review_get= (orderId) => API_URL_ROOT+'/order/toReview?orderId='+orderId;
 export const userAddress= () => API_URL_ROOT+'/userAddress';
