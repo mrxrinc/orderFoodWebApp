@@ -55,8 +55,8 @@ class RestaurantPage extends React.Component {
       //when modal with sidedish foods opens , we create container for whole user's input
       modalContainer: [],
       sameRestaurant: false,
-      basketToState:{},
-      basketObjItems:{}
+      basketToState: {},
+      basketObjItems: {}
     };
   }
 
@@ -71,60 +71,60 @@ class RestaurantPage extends React.Component {
       console.log('=========fetchBasket==================');
       console.log(response);
       console.log('====================================');
-    
+
       this.setState({
-        basketObjItems:response.result.items,
-        basketObj:response.result,
-      },()=>{
+        basketObjItems: response.result.items,
+        basketObj: response.result,
+      }, () => {
 
         let basketToArray = Object.keys(this.state.basketObjItems);
         let basketStoreObjItems = this.props.basket.items;
         let basketStoreObj = this.props.basket;
-    
-    
-        if(basketToArray.length > 0){
-          if( JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems) ) {
-              this.setState({
-                basketToState:basketStoreObj,
-              },()=>{
-                console.log('========= server full from current =================');
-                console.log('basketToState from store');
-                console.log(this.state.basketToState);
-                console.log('====================================');
-              })
-          }else{
-              this.props.addToBasket(this.state.basketObj);
-              console.log('============= server full from current ==============');
-              console.log('setBasketToStore from server');
+
+
+        if (basketToArray.length > 0) {
+          if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
+            this.setState({
+              basketToState: basketStoreObj,
+            }, () => {
+              console.log('========= server full from current =================');
+              console.log('basketToState from store');
+              console.log(this.state.basketToState);
               console.log('====================================');
+            })
+          } else {
+            this.props.addToBasket(this.state.basketObj);
+            console.log('============= server full from current ==============');
+            console.log('setBasketToStore from server');
+            console.log('====================================');
           }
 
-        }else{
-          if( this.state.basketObj.id === basketStoreObj.id ) {
+        } else {
+          if (this.state.basketObj.id === basketStoreObj.id) {
             this.setState({
-              basketToState:basketStoreObj,
-            },()=>{
+              basketToState: basketStoreObj,
+            }, () => {
               console.log('========== server null from current ================');
               console.log('basketToState from store');
               console.log(this.state.basketToState);
               console.log('====================================');
             })
-          }else{
-              this.props.addToBasket(this.state.basketObj);
-              console.log('============ server null from other =================');
-              console.log('setBasketToStore from server');
-              console.log('====================================');
+          } else {
+            this.props.addToBasket(this.state.basketObj);
+            console.log('============ server null from other =================');
+            console.log('setBasketToStore from server');
+            console.log('====================================');
           }
         }
       })
-  
+
     }).catch((err) => {
       console.log(err)
     });
 
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     changeBasketPost(this.props.basket).then(
       response => {
         console.log('========changeBasketPost===============');
@@ -140,77 +140,6 @@ class RestaurantPage extends React.Component {
     )
   }
 
-  // stepper = (id, count, role, item) => { // it takes 4 arguments
-  //   console.log('Stepper ===>', id, count, role);
-  //   const data = this.state.restaurant;
-  //   const menu = data.menuSections;
-  //   const newMenu = menu.map(group => {
-  //     const newFoods = group.foods.map(food => {
-  //       if (food.id === id) {
-  //         const key = food.id;
-  //         const basket = {};
-
-  //         if (food.itemCount) { // if we have this food in the basket
-  //           let itemCount = null;
-  //           if (role === 'add') itemCount = food.itemCount + 1;
-  //           else if (role === 'remove') itemCount = food.itemCount - 1;
-  //           else itemCount = food.itemCount;
-  //           const data = { ...food, itemCount, foodPrice: food.price };
-
-  //           if (itemCount === 0) {  // to remove item from basket
-  //             delete basketTempData[key];
-  //           } else {
-  //             basket[key] = data; // to add the itemCount info
-
-  //             this.assignDataToBasket(basketTempData, basket);
-  //           }
-
-  //           if (this.state.modalData) {
-  //             this.setState({ modalData: { ...this.state.modalData, itemCount } });
-  //           }
-  //           return data;
-  //         }
-  //         const data = { ...food, itemCount: 1, foodPrice: food.price };
-  //         basket[key] = data;
-
-  //         this.assignDataToBasket(basketTempData, basket);
-
-  //         if (this.state.modalData)
-  //           this.setState({
-  //             modalData: { ...this.state.modalData, count: 1 },
-  //           });
-  //         return data;
-  //       }
-  //       if (food.count && food.count > 0) {
-  //         return food;
-  //       }
-  //       return { ...food, count: 0 };
-  //     });
-  //     return { ...group, foods: newFoods };
-  //   });
-  //   console.log('newMenu ===>', newMenu);
-
-  //   // update restaurant store
-  //   this.setState({
-  //     restaurant: {
-  //       ...this.props.restaurant,
-  //       menuSections: newMenu
-  //     }
-  //   });
-
-  //   // update basket
-  //   const dataForBasket = {
-  //     ...this.props.basket,
-  //     items: basketTempData,
-  //   };
-
-  //   this.props.addToBasket(dataForBasket);
-
-  //   console.log('NEW RESTAURANT DATA ===>', this.props.restaurant);
-  //   console.log('MODAL DATA ===>', this.state.modalData);
-  //   console.log('BASKET_TEMP_DATA', basketTempData);
-  // };
-
   tabClick = slug => {
     switch (slug) {
       case 'tabOne':
@@ -218,7 +147,7 @@ class RestaurantPage extends React.Component {
           tabOne: true,
           tabTwo: false,
           tabThree: false,
-          activeTab:'tabOne'
+          activeTab: 'tabOne'
         })
         break;
       case 'tabTwo':
@@ -226,7 +155,7 @@ class RestaurantPage extends React.Component {
           tabOne: false,
           tabTwo: true,
           tabThree: false,
-          activeTab:'tabTwo'
+          activeTab: 'tabTwo'
         })
         break;
       case 'tabThree':
@@ -234,7 +163,7 @@ class RestaurantPage extends React.Component {
           tabOne: false,
           tabTwo: false,
           tabThree: true,
-          activeTab:'tabThree'
+          activeTab: 'tabThree'
         })
         break;
 
@@ -271,14 +200,14 @@ class RestaurantPage extends React.Component {
       );
       requiredCategories.map(category =>
         this.state.modalRequiredGroupIds.push(category.groupId),
-      );      
+      );
       if (!this.state.modalData.count) {
         // for the first time increasing from inside of the modal
         this.setState({ modalData: { ...this.state.modalData, count: 0 } });
         this.setState({ checkboxValidation: true });
         this.setState({ checkboxValidation: true });
         this.setState({ radioValidation: true });
-        this.setState({ modalContainer: [] }); 
+        this.setState({ modalContainer: [] });
       }
       this.toggleModal();
     });
@@ -341,7 +270,7 @@ class RestaurantPage extends React.Component {
   };
 
   checkModalButtonDisable = () => {
-    console.log(this.state.radioValidation && this.state.checkboxValidation);    
+    console.log(this.state.radioValidation && this.state.checkboxValidation);
     if (this.state.radioValidation && this.state.checkboxValidation) {
       this.setState({
         modalButton: true,
@@ -349,7 +278,7 @@ class RestaurantPage extends React.Component {
     } else {
       this.setState({
         modalButton: false,
-      });      
+      });
     }
   };
 
@@ -465,19 +394,7 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  
 
-  assignDataToBasket(basketTempData, basket) {
-    if(this.state.sameRestaurant) {
-      console.log('STPPER SAME RESTAURANT', this.state.sameRestaurant)
-      Object.assign(basketTempData, basket);
-    } else {
-      this.setState({ sameRestaurant: true }, () => {
-        basketTempData = basket;
-        console.log('STPPER SAME RESTAURANT', this.state.sameRestaurant);
-      })
-    }
-  }
 
   modalPrice = () => {
     let sum = 0;
@@ -575,6 +492,7 @@ class RestaurantPage extends React.Component {
                       {group.foods.map(food => (
                         <RestaurantFoodCard
                           onClick={() => this.openFoodModal(food)}
+                          restaurantId={this.state.id}
                           key={food.id}
                           id={food.id}
                           name={food.name}
@@ -589,6 +507,7 @@ class RestaurantPage extends React.Component {
                           lastPrice={food.lastPrice}
                           // stepper={this.stepper}
                           item={food} // to get inside Stepper component
+                          data1={food}
                         />
                       ))}
                     </RestaurantFoodGroup>
@@ -597,21 +516,21 @@ class RestaurantPage extends React.Component {
 
 
                 {typeof this.props.basket !== 'undefined' &&
-                typeof this.props.basket.items !== 'undefined' &&
+                  typeof this.props.basket.items !== 'undefined' &&
                   Object.keys(this.props.basket.items).length > 0 && (
-                  <StickyPrice  links='cart' collapseShow={false} />
-                )}
+                    <StickyPrice links='cart' collapseShow={false} />
+                  )}
 
               </React.Fragment>
             )}
 
             {this.state.tabTwo &&
-            <div className="container-fluid">
-              <div>
-                <TabTwo id={data.id}/>
+              <div className="container-fluid">
+                <div>
+                  <TabTwo id={data.id} />
 
+                </div>
               </div>
-            </div>
             }
             {this.state.tabThree &&
               <div className="container-fluid">
@@ -697,13 +616,13 @@ class RestaurantPage extends React.Component {
                           </li>
                         </ul>
                         <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                          <Stepper
+                          {/* <Stepper
                             className="topM20"
                             fontSize="18"
                             parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             stepper={this.stepper}
-                          />
+                          /> */}
                         </div>
                       </div>
                     </div>
@@ -765,13 +684,21 @@ class RestaurantPage extends React.Component {
                     <div className="center i2">
                       <div>
                         <div className="flex hP10 primary text16 center">
+                          {/* 
                           <Stepper
                             className="topM10"
                             fontSize="18"
                             parentId={this.state.modalData.id}
                             value={this.state.modalData.count}
                             // stepper={this.stepper}
+                          /> */}
+
+                          <Stepper
+                            fontSize="18"
+                            restaurantId={this.state.modalData.id}
+                            data={this.state.modalData}
                           />
+
                         </div>
 
                         <div className="flex hCenter bold primary topM5">
@@ -795,10 +722,12 @@ class RestaurantPage extends React.Component {
                 </React.Fragment>
               )}
             </Modal>
+
+
           </div>
         ) : (
-          <Loading />
-        )}
+            <Loading />
+          )}
       </div>
     );
   }

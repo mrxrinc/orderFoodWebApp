@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './style.scss';
-import Stepper from '../Stepper';
+import Stepper from '../../components/ChiliStepper';
 import { rateColor } from '../GeneralFunctions';
 import RestaurantSelectSideDish from '../RestaurantSelectSideDish';
 
@@ -70,10 +70,13 @@ class RestaurantFoodCard extends React.Component {
               {!props.hasOption && (
                 <Stepper
                   fontSize="18"
-                  parentId={props.id}
-                  stepper={props.stepper}
-                  value={props.count}
-                  item={props.item}
+                  restaurantId = {this.props.restaurantId}
+                  // parentId={props.id}
+                  // stepper={props.stepper}
+                  // value={props.count}
+                  // item={props.item}
+                  data={props}
+                  data1={this.props.data1}
                 />
               )}
               {props.hasOption && (
