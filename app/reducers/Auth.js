@@ -29,7 +29,8 @@ const user = (state = {}, action) => {
             return Object.assign({}, state, action.payload);
        
         case SIGNOUT_USER:
-            return Object.assign({}, state, {});
+            // localStorage.removeItem("token");
+            return {};
 
         default:
             return state;
