@@ -126,6 +126,7 @@ export const refundTicket = (params) => {
   return deRequest(account.refund_ticket(), "POST", params );
 }
 
-export const getGuestPhoneNumber = (params) => {
-  return deRequest(account.get_guest_phone_number(params.guestId), "GET")
+export const bankGetways = (params) => {
+  return deRequest(account.bank_getways_get (params), "GET")
 }
+

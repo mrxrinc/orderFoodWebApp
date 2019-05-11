@@ -30,6 +30,7 @@ import Filters from '../Filters';
 import PageProfileNewAddress from '../PageProfileNewAddress';
 import PageProfileEditAddress from '../PageProfileEditAddress';
 import PageProfileEdit from '../PageProfile/PageProfileEdit';
+import PageProfileWallet from '../PageProfile/PageProfileWallet';
 import ActivationCode from '../ActivationCode';
 import ProfileChangePass from '../PageProfile/PageProfileChangePass';
 import ChiliIntroduce from '../PageProfile/ChiliIntroduce';
@@ -82,6 +83,7 @@ export default function App() {
           <Route exact path="/profile/Order" component={Order} />
           <Route exact path="/profile/Order-Empty" component={OrderEmpty} />
           <Route exact path="/profile/My-Comments" component={MyComments} />
+          <Route exact path="/profile/wallet" component={PageProfileWallet} />
           <Route exact path="/activation-code" component={ActivationCode} />
           <Route component={NotFoundPage} />
         </Switch>
