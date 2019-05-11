@@ -58,7 +58,7 @@ class StickyPrice extends React.PureComponent {
   };
 
   componentDidMount() {
-    // this.calculationsFunction()
+    this.calculationsFunction()
     const {links,basket} = this.props;
     this.validationAddress();
     if (links=== "cart" && !basket.addressId) {
@@ -84,7 +84,7 @@ class StickyPrice extends React.PureComponent {
     if(basket.accCharge) {
       total = total - user.cacheBalance;
     }
-    if(basket.accCharge) {
+    if(basket.discountAmount) {
       total = total - basket.discountAmount;
     }
     if(total <= 0) {

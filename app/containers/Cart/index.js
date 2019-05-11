@@ -35,20 +35,6 @@ export class cart extends React.PureComponent {
     };
   }
 
-  getOrderItem = () => {
-    const {basket} = this.props;
-    // getOrderitems({
-    //   orderId:basket.id
-    // }).then(response => {
-    //   if(response.status) {
-    //     this.setState({
-    //       orderItems:response.result
-    //     },() => {
-    //       // this.props.addToBasket(basketResp.result);
-    //     })
-    //   }
-    // });
-  };
 
   getAddress = () => {
     const {basket} = this.props;
@@ -73,21 +59,11 @@ export class cart extends React.PureComponent {
     dataSample.result.items.map((item) => {
       count += item.count;
     })
-    this.getOrderItem();
     this.getAddress();
     const restaurantId = { restaurantId :  this.props.basket.restaurantId};
     this.props.getBasketItems(restaurantId);
-    // createBasket(this.props.basket.restaurantId).then(response => {
-    //   this.props.addToBasket(response.result);
-    // })
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log()
-    // createBasket(this.props.basket.restaurantId).then(response => {
-    //   this.props.addToBasket(response.result);
-    // })
-  }
 
   toggle(tab) {
     if(tab === "1") {
@@ -120,7 +96,7 @@ export class cart extends React.PureComponent {
 
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {Object.keys(this.props.basket.items).length > 0 && <CheckoutCardItem items={this.props.basket.items}/>}
+          {Object.keys(this.props.basket.items).length > 0 && <CheckoutCardItem basket={this.props.basket}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
