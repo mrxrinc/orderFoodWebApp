@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 // import thunk from 'redux-thunk';
 // 1
 import { persistStore, persistReducer } from 'redux-persist';
@@ -38,7 +40,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const configureStore = createStore(
   persistedReducer,
-  compose(applyMiddleware(...middlewares)),
+  composeWithDevTools(applyMiddleware(...middlewares)),
 );
 
 sagaMiddleware.run(rootSaga);

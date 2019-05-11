@@ -33,3 +33,6 @@ export const user_delete_address_post = () => `${API_URL_ROOT}/userAddress/delet
 export const comment_for_Restaurant = id => `${API_URL_ROOT}/comment/commentForRestaurant?restaurantId=${id}`;
 export const comment_by_user = () => `${API_URL_ROOT}/comment/commentByUser`;
 export const add_comment_post = () => `${API_URL_ROOT}/comment/addComment`;
+
+// autocomplete
+export const autocomplete_ResFood = (cityId,query) => `${API_URL_ROOT}/autocomplete/query?city=${cityId}&q=${query}`;

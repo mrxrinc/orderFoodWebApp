@@ -170,10 +170,10 @@ class MyAddress extends React.PureComponent {
             deleteAddress = { () => this.deleteAddress(this.state.deleteId)}
           />
           <div id="demo" className="owl-carousel owl-theme zIndex0">
-          <div className="AddAddress">
+          <Link to="/profile/add-new-address" className="AddAddress">
             <span className="chilivery-add"> </span>
             <p>‌آدرس جدید</p>
-          </div>
+          </Link>
             {this.state.fullAddress.length > 0 &&
               <React.Fragment>
                 {ChiliOwlDemoItems}

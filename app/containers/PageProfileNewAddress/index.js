@@ -12,6 +12,9 @@ import ChiliAlert from '../../components/ChiliAlert';
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 import './style.scss';
 import icon from '../../images/icons/edit_profile.png'
+import { history } from '../../store';
+import {addToast} from '../../actions/Notifications';
+
 
 class ProfileNewAddress extends React.Component {
 	constructor(props) {
@@ -76,22 +79,31 @@ class ProfileNewAddress extends React.Component {
 			},
 		}).then(
 			response => {
-
+				if(response.status){
+					this.props.showAlert({
+						text: response.message_fa,
+						color: "success",
+					});
+					history.push("/profile")
+				}else{		
+					this.props.showAlert({
+						text: response.message_fa,
+						color: "danger",
+					});
+				}
 			}
 		).catch(
 			error => {
 				if(error.status === 401){
-					this.setState({
-						alertShow:true,
-						alertType:"danger",
-						alertMessage:"لظفا لاگین نمایید"
-					})
+					this.props.showAlert({
+						text: error.message_fa,
+						color: "danger",
+					});
 				}else{
-					this.setState({
-						alertShow:true,
-						alertType:"danger",
-						alertMessage:error.data.message_fa
-					})
+					this.props.showAlert({
+						text: error.message_fa,
+						color: "danger",
+					});
 				}
 			}
 		)
@@ -246,6 +258,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	showModal: (showStatus) => {
 		dispatch(showModal(showStatus))
+	},
+	showAlert: (showStatus) => {
+    dispatch(addToast(showStatus));
 	},
 	addNeighborhood: showStatus => {
 		dispatch(addNeighborhood(showStatus));

@@ -6,7 +6,8 @@ import {
   DELIVERY_TYPE_CHANGED,
   CAMPAGIN_CODE_CHANGED,
   BASKET_CHANGED,
-  GET_BASKET_ITEMS
+  GET_BASKET_ITEMS,
+  CHANGE_BASKET
 } from '../constants/Basket';
 
 export const accChargedChanged = value => ({
@@ -49,3 +50,8 @@ export const putChangeBasket = value => ({
   type: BASKET_CHANGED,
   payload: value,
 });
+
+export const changeBasket = data => ({//data: {restaurantId, food, itemCount}
+  type: CHANGE_BASKET,
+  payload: data,
+}) 

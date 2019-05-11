@@ -107,7 +107,7 @@ class TabThree extends React.Component {
           </div>
         </div>
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="restaurant-detail__more-restaurant center padd15 round20 topM20">
             <i className="icon chilivery-filter-restaurant-type text40 flex"></i>
             <div className="restaurant-detail__item-box rightP10">
@@ -117,18 +117,18 @@ class TabThree extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="restaurant-detail__about topM20">
             <h2 className="restaurant-detail__about-title text16 gray6">درباره رستوران</h2>
             <div className="restaurant-detail__about-box topP10">
               <div className="restaurant-detail__about-desc bottomP15">این رستوران دارای شعب دیگری هم می‌باشداین رستوران دارای شعب دیگری هم می‌باشد</div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="restaurant-detail__about topM20">
             <h2 className="restaurant-detail__about-title text16 gray6">گالری تصاویر رستوران</h2>
             <div className="restaurant-detail__about-box topP10">
@@ -139,7 +139,7 @@ class TabThree extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         
         <div className="col-12">
           <div className="restaurant-detail__about topM20">
