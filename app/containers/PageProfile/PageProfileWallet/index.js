@@ -81,7 +81,7 @@ class ProfileWallet extends React.Component{
           delay:3000
         })
         this.props.onUpdateBalance({
-          payAmount:response.data.new_balance
+          cacheBalance:response.result.new_balance
         });
         this.setState({userCreditGift:''});
       }else{
@@ -147,7 +147,7 @@ class ProfileWallet extends React.Component{
             delay:3000
           })
           this.props.onUpdateBalance({
-            payAmount:response.data.new_balance
+            cacheBalance:response.result.new_balance
           });
         }else{
           this.props.showAlert({

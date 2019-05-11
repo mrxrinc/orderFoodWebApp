@@ -20,7 +20,7 @@ export const bank_getways_get = () => API_URL_ROOT+'/user/bankGetways';
 export const profileChangePass_post= () => API_URL_ROOT+'/user/changePassword';
 
 export const city_get= () => API_URL_ROOT+'/business/api/city/list';
-export const balance_get= () => API_URL_ROOT+'/payment/api/wallet/balance';
+export const balance_get= () => API_URL_ROOT+'/user/current';
 export const walletIncreace_post= () => API_URL_ROOT+'/payment/increasePay';
 export const walletIncreaceGift_post= () => API_URL_ROOT+'/payment/increaseByGift';
 export const endIncrease_get= (token) => API_URL_ROOT+'/payment/api/wallet/endIncrease/' + token;
