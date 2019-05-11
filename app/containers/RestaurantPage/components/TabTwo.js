@@ -31,6 +31,13 @@ class TabTwo extends React.Component {
 
   componentDidMount() {
 
+    this.fetchComments();
+    this.props.showModal({
+      yourCommentModal: true,
+    });
+  }
+
+  fetchComments = () => {
     commentForRestaurant(this.props.id).then(
       response => {
         this.setState({
@@ -43,12 +50,13 @@ class TabTwo extends React.Component {
       }
     )
   }
-
+  
   yourCommentModal = () => {
     this.props.showModal({
       yourCommentModal: true,
     });
   }
+
 
   orderReviewModal = () => {
     this.props.showModal({
@@ -187,6 +195,7 @@ class TabTwo extends React.Component {
                   headerAlign="center"
                   headerColor="#eaeaea"
                   bodyColor="#f5f5f5"
+                  onSuccess={this.fetchComments}
                 /> : null
               }
             </div>
