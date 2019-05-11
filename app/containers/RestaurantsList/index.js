@@ -3,6 +3,7 @@ import RestaurantsListItem from '../../components/RestaurantsListItem/index';
 import { restaurantSearch } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import NavigationBar from '../../components/NavigationBar';
+import ChiliLoading from '../../components/ChiliLoading';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */

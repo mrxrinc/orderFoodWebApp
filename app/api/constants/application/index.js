@@ -44,3 +44,5 @@ export const payments_list = () => `${API_URL_ROOT}/payment/paymentsList`;
 
 
 
+// autocomplete
+export const autocomplete_ResFood = (cityId,query) => `${API_URL_ROOT}/autocomplete/query?city=${cityId}&q=${query}`;

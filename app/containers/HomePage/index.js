@@ -10,6 +10,7 @@ import UserPositionChili from '../../components/ChiliModal/components/UserPositi
 import {getNeighborhood} from '../../api/application/region';
 import { addNeighborhood } from '../../actions/UserPosition';
 import {history} from '../../store';
+import ChiliAutocomplete from '../../components/ChiliAutocomplete';
 import './style.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 
@@ -148,7 +149,7 @@ class HomePage extends React.Component {
             </div>
           </div>
 
-          <div className="searchInput topM30 wFull hP20">
+          {/* <div className="searchInput topM30 wFull hP20">
             <AnimateField
               className="input"
               icon="chilivery-filter-food-type text25"
@@ -156,10 +157,12 @@ class HomePage extends React.Component {
               placeholder="نام غذا یا رستوران..."
               name="homeSearch"
             />
-          </div>
+          </div> */}
 
-          <div className="searchBtn topM40 wFull hP20 center">
-            <Button color="success">مشاهده رستوران ها</Button>
+          <div className="panigale-suggestion-search topM30 hP20 wFull searchInput">
+            <div className="card_white">
+              <ChiliAutocomplete/>
+            </div>
           </div>
 
           <div className="wFull hP20 vM30 center">
