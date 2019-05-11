@@ -11,7 +11,8 @@ import {
 } from './Auth';
 
 import {
-  ChangeBasket
+  ChangeBasket,
+  GetBasketItems
 } from  './Basket'
 
 export default function* rootSaga(getState) {
@@ -26,6 +27,7 @@ export default function* rootSaga(getState) {
         UserVerifyPass(),
         UserUpdate(),
         updateUserBalance(),
-        ChangeBasket()
+        ChangeBasket(),
+        GetBasketItems()
     ]);
 }

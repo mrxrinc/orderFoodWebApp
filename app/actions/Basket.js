@@ -6,6 +6,7 @@ import {
   DELIVERY_TYPE_CHANGED,
   CAMPAGIN_CODE_CHANGED,
   BASKET_CHANGED,
+  GET_BASKET_ITEMS,
   CHANGE_BASKET
 } from '../constants/Basket';
 
@@ -21,6 +22,11 @@ export const gatewayChanged = value => ({
 
 export const addToBasket = value => ({
   type: ADD_TO_BASKET,
+  payload: value,
+});
+
+export const getBasketItems = value => ({
+  type: GET_BASKET_ITEMS,
   payload: value,
 });
 

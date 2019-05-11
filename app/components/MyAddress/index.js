@@ -88,7 +88,8 @@ class MyAddress extends React.PureComponent {
       let fullAddress = this.props.data.userOrganizationAddress.concat(this.props.data.addresses);
       this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:'',deliveryZoneId:''})
       this.setState({
-        fullAddress
+        fullAddress,
+        addressId:''
       },()=>{
         $(document).ready(function () {
           $('#demo').owlCarousel({
