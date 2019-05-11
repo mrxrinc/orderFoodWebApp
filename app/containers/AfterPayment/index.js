@@ -55,14 +55,12 @@ export class AfterPayment extends React.PureComponent {
             {/*</div>*/}
           {/*</div>*/}
         {/*</div>*/}
-        {data.restaurant &&
         <div className="afterpayment__header">
           <div className="afterpayment__header__status">
             <div className="afterpayment__header__status-img" style={{ backgroundImage: `url(${status02})`}}></div>
-            <div className="afterpayment__header__status-profile" style={{ backgroundImage: `url(${data.restaurant.profile})`}}></div>
+            {data.restaurant && <div className="afterpayment__header__status-profile" style={{ backgroundImage: `url('${data.restaurant.profile}')`}}></div>}
           </div>
         </div>
-        }
         <div className="afterpayment__body">
           <div className="afterpayment__body-status">
             <span>{data.restaurant && data.restaurant.name}</span>
