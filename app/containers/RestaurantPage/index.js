@@ -23,7 +23,7 @@ import {
 import { changeBasketPost } from '../../api/account';
 
 import Loading from '../../components/ChiliLoading';
-import { addToBasket } from '../../actions/Basket';
+import { accChargedChanged, addToBasket } from '../../actions/Basket';
 import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
@@ -48,7 +48,7 @@ class RestaurantPage extends React.Component {
     };
   }
 
-  openFoodModal = food => {    
+  openFoodModal = food => {
     this.setState({ modalData: food }, () => {
       console.log('=============modalData=================');
       console.log(this.state.modalData);
@@ -67,6 +67,7 @@ class RestaurantPage extends React.Component {
   };
 
   componentDidMount() {
+    this.props.accChargeChanged({accCharge:false})
     restaurantDetail(this.state.id).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result });
     });
@@ -314,6 +315,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addToBasket(value));
   },
   storeRestaurant: value => dispatch(storeRestaurant(value)),
+  accChargeChanged: value => {
+    dispatch(accChargedChanged(value));
+  }
 });
 export default connect(
   mapStateToProps,

@@ -78,10 +78,11 @@ class StickyPrice extends React.PureComponent {
   }
 
   totalPrice() {
+    const {data,basket,user} = this.props;
     let discountAmount;
     let amountToPay;
     let useGateway;
-    const {data,basket,user} = this.props;
+    let tax = data ? data.tax : 0;
     let amountWithDelivery = this.state.totalPrice + parseInt(basket.deliveryZonePrice ? basket.deliveryZonePrice : 0);
 
     // var total = this.state.totalPrice;
@@ -98,7 +99,7 @@ class StickyPrice extends React.PureComponent {
     //   total = parseInt(total) + parseInt(basket.deliveryZonePrice) + parseInt(data.tax) + parseInt(data.pack)
     // }
     var howMuchWithCash = basket.accCharge ? user.cacheBalance : 0;
-    var tempAmountToPay = amountWithDelivery + parseInt(data.tax ? data.tax : 0);
+    var tempAmountToPay = amountWithDelivery + parseInt(tax);
     if(basket.discountAmount){
       discountAmount = basket.discountAmount;
       tempAmountToPay = tempAmountToPay - discountAmount;
@@ -154,7 +155,7 @@ class StickyPrice extends React.PureComponent {
       "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
       "campaginCode":basket.campaginCode,
-      "paymentType": this.totalPrice().amountToPay == 0 ? 'bank':'account',
+      "paymentType": this.totalPrice().amountToPay == 0 ? 'account':'bank',
       "bankgate": basket.gateway,
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
