@@ -19,9 +19,23 @@ class StickyPrice extends React.PureComponent {
     };
   }
 
+  validationAddress = () => {
+    if (this.props.links == "checkout" && !this.props.basket.addressId ) {
+      this.setState({
+        validAddress:true
+      })
+    } else {
+      this.setState({
+        validAddress:false
+      })
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.basket !== this.props.basket) {
       this.calculationsFunction()
+      console.log(this.props.basket)
+      this.validationAddress();
     }
   }
 
@@ -44,11 +58,18 @@ class StickyPrice extends React.PureComponent {
   };
 
   componentDidMount() {
-    // this.calculationsFunction()
+    this.calculationsFunction()
+    const {links,basket} = this.props;
+    this.validationAddress();
+    if (links=== "cart" && !basket.addressId) {
+      this.setState({
+        validAddress : false
+      })
+    }
   }
 
   componentWillUnmount() {
-    // this.changeBasket()
+    this.changeBasket(true)
   }
 
 
@@ -63,7 +84,7 @@ class StickyPrice extends React.PureComponent {
     if(basket.accCharge) {
       total = total - user.cacheBalance;
     }
-    if(basket.accCharge) {
+    if(basket.discountAmount) {
       total = total - basket.discountAmount;
     }
     if(total <= 0) {
@@ -75,30 +96,27 @@ class StickyPrice extends React.PureComponent {
     return total;
   }
 
-  changeBasket = () => {
-    // const {basket,link} = this.props;
-    // const items = Object.keys(basket.items).map((item) =>{
-    //   var updateData = {
-    //     "orderItemFoodId" : item,
-    //     "itemCount" : basket.items[item].itemCount
-    //   };
-    //   return updateData;
-    // });
-    // putChangeBasket(
-    //   {
-    //     "id":basket.id,
-    //     "deliveryType":basket.deliveryType ? basket.deliveryType:false,
-    //     "restaurantId":basket.restaurantId,
-    //     "items":items
-    //   }
-    // ).then(response => {
-    //   if(response.status) {
-    //     // link ? history.push(link) : history.push("/checkout");
-    //     if (link !== '/cart') history.push(link)
-    //     this.setState({
-    //     })
-    //   }
-    // });
+  changeBasket = (preventRedirect) => {
+    const {basket,link} = this.props;
+    const items = Object.keys(basket.items).map((item) =>{
+      var updateData = {
+        "orderItemFoodId" : item,
+        "itemCount" : basket.items[item].itemCount
+      };
+      return updateData;
+    });
+    const basketData =
+      {
+        data : {
+          id:basket.id,
+          deliveryType:basket.deliveryType ? basket.deliveryType:false,
+          restaurantId:basket.restaurantId,
+          items:items ,
+        },
+        nextPage : this.props.links,
+        preventRedirect: preventRedirect
+      };
+      this.props.changeBasketData(basketData);
   };
 
   payOrder = () => {
@@ -128,14 +146,13 @@ class StickyPrice extends React.PureComponent {
   }
 
   pushLink = () => {
-    const {links} = this.props;
+    const {links,basket} = this.props;
     if (links=== "cart") {
       this.changeBasket();
-      history.push("/cart");
     }
-    if (link === "/checkout") {
-      // this.changeBasket();
-      link ? history.push(link) : history.push("/checkout");
+    if (links === "checkout") {
+      this.changeBasket();
+      // history.push("/checkout");
     }
     if (links === "bank") {
       this.payOrder()
@@ -144,7 +161,7 @@ class StickyPrice extends React.PureComponent {
 
   render() {
     const {data,basket,user,collapseShow} = this.props;
-    const {totalCount,totalPrice} = this.state;
+    const {totalCount,totalPrice,validAddress} = this.state;
 
     return (
 
@@ -211,13 +228,18 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
-              <span className="text-price">{this.totalPrice()} تومان</span>
+              <span className="text-price">{this.state.totalPrice && this.totalPrice()} تومان</span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
+            {!validAddress ?
             <button onClick={this.pushLink} type="button">تایید سفارش
               <span className="chilivery-arrow-left"> </span>
             </button>
+              :
+            <button onClick={this.pushLink} type="button" disabled="disabled">انتخاب آدرس
+              <span className="chilivery-arrow-left"> </span>
+            </button>}
           </div>
         </div>
       </div>
@@ -229,7 +251,7 @@ class StickyPrice extends React.PureComponent {
 const mapDispatchToProps = dispatch => {
   return {
     changeBasketData: data => {
-      dispatch(putChangeBasket(data.basketData));
+      dispatch(putChangeBasket(data));
     },
   };
 };
