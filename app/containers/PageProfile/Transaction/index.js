@@ -13,15 +13,15 @@ class Transaction extends React.Component{
 	constructor(props){
 		super(props)
 		this.state={
-            title1: 'برداشت از موجودی برای خرید از شیلا(ساعی) به شماره سفارش ۴۹۴۱۱۶۲',
-            title2:'افزایش موجودی با کد تخفیف mmohseni برای خرید ازشیلا (ساعی) به شماره سفارش 4941162',
-            title3:'افزایش موجودی حساب از طریق درگاه پرداخت بانکی برای خرید از شیلا (ساعی) به شماره سفارش 4941162',
-            title4: 'برداشت از موجودی برای خرید از نون و ماست (مطهری) به شماره سفارش ۴۹۴۱۱۶۲',
-            title5: 'افزایش موجودی حساب از طریق درگاه پرداخت بانکی برای خرید از نون و ماست (مطهری) به شماره سفارش 4941162',
-            time: '۱۹:۵۳',
-            date: '۹۶/۷/۲۲',
-            remnant:'باقیمانده : ',
-            cost:  ' تومان ' ,
+            // title1: 'برداشت از موجودی برای خرید از شیلا(ساعی) به شماره سفارش ۴۹۴۱۱۶۲',
+            // title2:'افزایش موجودی با کد تخفیف mmohseni برای خرید ازشیلا (ساعی) به شماره سفارش 4941162',
+            // title3:'افزایش موجودی حساب از طریق درگاه پرداخت بانکی برای خرید از شیلا (ساعی) به شماره سفارش 4941162',
+            // title4: 'برداشت از موجودی برای خرید از نون و ماست (مطهری) به شماره سفارش ۴۹۴۱۱۶۲',
+            // title5: 'افزایش موجودی حساب از طریق درگاه پرداخت بانکی برای خرید از نون و ماست (مطهری) به شماره سفارش 4941162',
+            // time: '۱۹:۵۳',
+            // date: '۹۶/۷/۲۲',
+            remnant:'باقیمانده :',
+            cost: ' تومان' ,
 
             paymentsItems: [],
             
@@ -51,15 +51,17 @@ class Transaction extends React.Component{
                                     <div className="transaction-box__detail">
                                         <div className="transaction-box__main-detail flex">
                                             <span className="transaction-box__title">{item.description}</span>
-                                            <span className="transaction-box__dcost">{item.amount}</span>
+                                            <span className="transaction-box__dcost">{item.amount} </span>
+                                            <span className="transaction-box__cost">{this.state.cost}</span>
                                         </div>
                                         
                                         <div className="transaction-detail flex">
                                             <div className="transaction-detail__right">
                                                 <span className="transaction-box__date">{item.created}</span>
-                                                {/* <span className="transaction-box__time">{item.time}</span> */}
+                                                
                                             </div>
                                             <div className="transaction-detail__left">
+                                                <span className="transaction-box__remnant">{this.state.remnant}</span>
                                                 <span className="transaction-box__remnant">{item.remaining}</span>
                                                 <span className="transaction-box__cost">{this.state.cost}</span>
                                             </div>
