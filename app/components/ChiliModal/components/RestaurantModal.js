@@ -250,7 +250,7 @@ class AlertBody extends Component {
   };
 
   checkAllCheckboxes = cb => {
-    const findExtraCheckbox = this.props.modalData.options.find(
+    const findExtraCheckbox = this.props.modalData.item.options.find(
       option => !option.canAddOptions,
     );
     let validation = true;
@@ -270,7 +270,7 @@ class AlertBody extends Component {
     return (
       <ChiliModal
         className="modal-restaurant__detail"
-        toggle={this.props.toggleLogin}
+        toggle={this.props.toggleModal}
         modal={classes.modals.RestaurantPageModal}
         // // alert
         // headerAlign="right"
@@ -362,8 +362,8 @@ class AlertBody extends Component {
 
             {this.props.modalData.hasOption && (
               <div>
-                {this.props.modalData.options.map(category => (
-                  <div className="modal-restaurant__detail-sideDishes topM30">
+                {this.props.modalData.item.options.map((category,index) => (
+                  <div key={index} className="modal-restaurant__detail-sideDishes topM30">
                     <RestaurantSideDishGroup
                       title={this.createTitle(category)}
                       key={category.groupId}

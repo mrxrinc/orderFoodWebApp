@@ -56,6 +56,12 @@ class RestaurantPage extends React.Component {
       console.log('=============modalData=================');
       console.log(this.state.modalData);
       console.log('====================================');
+      if(typeof this.props.basket.items[this.state.modalData.id] != "undefined"){
+        this.state.modalData.item['itemCount'] = this.props.basket.items[this.state.modalData.id].itemCount;
+        console.log('==============itemsCount============');
+        console.log(this.state.modalData);
+        console.log('====================================');
+      }
       this.setState({
         showResModal: true
       })
@@ -256,7 +262,7 @@ class RestaurantPage extends React.Component {
                       {group.foods.map(food => {
 
                         const _data = {
-                          restaurantId: food.id,
+                          restaurantId: this.state.id,
                           id: food.id,
                           name: food.name,
                           hasPic: food.hasPic,

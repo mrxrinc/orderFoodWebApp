@@ -22,13 +22,7 @@ class ChiliStepper extends React.Component {
   }
 
   componentDidMount() {
-    console.log('===========this.props.data===============');
-    console.log(this.props.data);
-    console.log('====================================');
     let food = this.props.data;
-    console.log('========food====================');
-    console.log(food);
-    console.log('====================================');
     const foodId = food.id;
     let basketToArray = [];
     const basketFromStore = this.props.basket;
