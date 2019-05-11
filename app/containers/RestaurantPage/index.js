@@ -29,8 +29,6 @@ import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
 
-// let basketTempData = {};
-
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -69,6 +67,7 @@ class RestaurantPage extends React.Component {
   componentDidMount() {
     this.props.accChargeChanged({accCharge:false})
     restaurantDetail(this.state.id).then(restaurantResp => {
+      console.log('RESTAURANT DETAIL FROM API ===>> ', restaurantResp.result);
       this.setState({ restaurant: restaurantResp.result });
     });
 
@@ -253,9 +252,9 @@ class RestaurantPage extends React.Component {
                             voteCount={food.voteCount}
                             price={food.price}
                             lastPrice={food.lastPrice}
-                            // stepper={this.stepper}
                             item={food} // to get inside Stepper component
-                            cartPage
+                            restaurantIsOpen={data.isOpen}
+                            foodIsOpen={food.isOpen}
                           />
                         )
                         })

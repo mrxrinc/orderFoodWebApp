@@ -29,7 +29,7 @@ class RestaurantFoodCard extends React.Component {
               </span>
             </div>
             <div className="leftHand relative">
-              <h2 className="font bold largeText primary bottomM10 text-truncate w80">{props.name}</h2>
+              <h2 className="font bold largeText primary bottomM10 text-truncate w60">{props.name}</h2>
 
               <p className="description gray5 overhide bottomM5">
                 {props.description}
@@ -66,19 +66,25 @@ class RestaurantFoodCard extends React.Component {
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
             </ul>
-            <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-              {!props.hasOption && (
-                <Stepper
-                  fontSize="18"
-                  restaurantId = {this.props.restaurantId}
-                  data={props}
-                  cartPage={props.cartPage}
-                />
-              )}
-              {props.hasOption && (
-                <RestaurantSelectSideDish onClick={props.onClick} />
-              )}
-            </div>
+            {!props.foodIsOpen ? (
+              <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                {!props.hasOption && (
+                  <Stepper
+                    fontSize="18"
+                    restaurantId = {this.props.restaurantId}
+                    data={props}
+                    cartPage={props.cartPage}
+                  />
+                )}
+                {props.hasOption && (
+                  <RestaurantSelectSideDish onClick={props.onClick} />
+                )}
+              </div>
+            ) : (
+              <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                {props.restaurantIsOpen && <span className="text14 bold leftM10">تمام شد</span> }
+              </div>
+            )}
           </div>
         </div>
     )

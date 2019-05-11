@@ -26,7 +26,7 @@ class AlertDeleteCartItem extends Component {
         <AlertBody
           alertTitle="حذف غذا"
           toggle={this.hideModal}
-          verifyClick={classes.deleteItem}
+          verifyClick={classes.confirm}
         >
         آیا مطمن هستید؟
         </AlertBody>
