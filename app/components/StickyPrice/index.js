@@ -116,7 +116,7 @@ class StickyPrice extends React.PureComponent {
     // useGateway = amountToPay !== 0; // set either use bank gateway or not
 
 
-    return amountToPay;
+    return {amountToPay,tempAmountToPay};
   }
 
   changeBasket = (preventRedirect) => {
@@ -148,13 +148,13 @@ class StickyPrice extends React.PureComponent {
       "accCharge": basket.accCharge ? basket.accCharge : false,
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
-      "gateway":  true,
+      "gateway":  this.totalPrice().amountToPay == 0 ? true : false,
       "orderDeliveryType":  false,
       "orderId":  basket.id,
-      "payAmount":  "200",
+      "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
       "campaginCode":basket.campaginCode,
-      "paymentType": "bank",
+      "paymentType": this.totalPrice().amountToPay == 0 ? 'bank':'account',
       "bankgate": basket.gateway,
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
@@ -230,7 +230,7 @@ class StickyPrice extends React.PureComponent {
               {basket.accCharge &&
               (<li>
                 <span>استفاده از کیف پول</span>
-                <span className="pull-left">{user.cacheBalance}- تومان</span>
+                <span className="pull-left">{this.totalPrice().amountToPay == 0 ? this.totalPrice().tempAmountToPay : user.cacheBalance}- تومان</span>
               </li>)
               }
 
@@ -251,7 +251,7 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
-              <span className="text-price">{this.state.totalPrice && this.totalPrice()} تومان</span>
+              <span className="text-price">{this.totalPrice().amountToPay == 0 ? 'رایگان':this.totalPrice().amountToPay + ' تومان' } </span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
