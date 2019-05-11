@@ -19,9 +19,23 @@ class StickyPrice extends React.PureComponent {
     };
   }
 
+  validationAddress = () => {
+    if (this.props.links == "checkout" && !this.props.basket.addressId ) {
+      this.setState({
+        validAddress:true
+      })
+    } else {
+      this.setState({
+        validAddress:false
+      })
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.basket !== this.props.basket) {
       this.calculationsFunction()
+      console.log(this.props.basket)
+      this.validationAddress();
     }
   }
 
@@ -45,6 +59,13 @@ class StickyPrice extends React.PureComponent {
 
   componentDidMount() {
     // this.calculationsFunction()
+    const {links,basket} = this.props;
+    this.validationAddress();
+    if (links=== "cart" && !basket.addressId) {
+      this.setState({
+        validAddress : false
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -125,13 +146,13 @@ class StickyPrice extends React.PureComponent {
   }
 
   pushLink = () => {
-    const {links} = this.props;
+    const {links,basket} = this.props;
     if (links=== "cart") {
       this.changeBasket();
     }
-    if (link === "/checkout") {
-      // this.changeBasket();
-      link ? history.push(link) : history.push("/checkout");
+    if (links === "checkout") {
+      this.changeBasket();
+      // history.push("/checkout");
     }
     if (links === "bank") {
       this.payOrder()
@@ -140,7 +161,7 @@ class StickyPrice extends React.PureComponent {
 
   render() {
     const {data,basket,user,collapseShow} = this.props;
-    const {totalCount,totalPrice} = this.state;
+    const {totalCount,totalPrice,validAddress} = this.state;
 
     return (
 
@@ -211,9 +232,14 @@ class StickyPrice extends React.PureComponent {
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
+            {!validAddress ?
             <button onClick={this.pushLink} type="button">تایید سفارش
               <span className="chilivery-arrow-left"> </span>
             </button>
+              :
+            <button onClick={this.pushLink} type="button" disabled="disabled">انتخاب آدرس
+              <span className="chilivery-arrow-left"> </span>
+            </button>}
           </div>
         </div>
       </div>

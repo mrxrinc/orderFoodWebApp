@@ -94,7 +94,7 @@ export class cart extends React.PureComponent {
       this.props.changeDeliveryType({deliveryType:false})
     } else {
       this.props.changeDeliveryType({deliveryType:true})
-      this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:0,deliveryZoneId:''})
+      // this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:0,deliveryZoneId:''})
     }
     if (this.state.activeTabAddress !== tab) {
       this.setState({
@@ -125,7 +125,9 @@ export class cart extends React.PureComponent {
         <div className="food-delivery">
           <div className="food-delivery__rbox">
             <span>تحویل غذا </span>
-            {activeTabAddress == "1" && basket.deliveryZonePrice && <span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice} تومان)</span>}
+            {activeTabAddress == "1" &&
+            <span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice && basket.deliveryZonePrice} تومان)</span>
+            }
           </div>
           <div className="food-delivery__lbox">
             <div className="tab-box">
