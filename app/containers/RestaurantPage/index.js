@@ -48,8 +48,7 @@ class RestaurantPage extends React.Component {
     };
   }
 
-  openFoodModal = food => {
-    this.setState({ modalRequiredGroupIds: [] });
+  openFoodModal = food => {    
     this.setState({ modalData: food }, () => {
       console.log('=============modalData=================');
       console.log(this.state.modalData);
@@ -63,54 +62,16 @@ class RestaurantPage extends React.Component {
       this.setState({
         showResModal: true
       })
-      console.log('MODAL DATA ==>', this.state.modalData.item.options);
-      // const options  = this.state.modalData.item.options;
-      // if (options.length > 0) {
-      //   this.setState({ modalButton: false });
-      // } else {
-      //   this.setState({ modalButton: true });
-      // }
-      // const addedOptionValidationArray = options.map(option => ({
-      //   ...option,
-      //   canAddOptions: true,
-      // }));
-      // if (this.state.modalData.item.options.length > 1) {
-      //   const copyOfModalData = this.state.modalData.item;
-      //   copyOfModalData.options = addedOptionValidationArray;
-      //   this.setState(copyOfModalData);
-      // }
-
-      // const requiredCategories = options.filter(
-      //   category =>
-      //     category.groupRequired && category.groupMaxSelectionLimit === 1,
-      // );
-      // requiredCategories.map(category =>
-      //   this.state.modalRequiredGroupIds.push(category.groupId),
-      // );
-      // if (!this.state.modalData.item.count) {
-      //   // for the first time increasing from inside of the modal
-      //   this.setState({ modalData: { ...this.state.modalData, count: 0 } });
-      //   this.setState({ checkboxValidation: true });
-      //   this.setState({ checkboxValidation: true });
-      //   this.setState({ radioValidation: true });
-      //   this.setState({ modalContainer: [] });
-      // }
       this.toggleModal();
     });
   };
 
-
   componentDidMount() {
-
     restaurantDetail(this.state.id).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result });
-    })
+    });
 
     createBasket(this.state.id).then((response) => {
-      console.log('=========fetchBasket==================');
-      console.log(response);
-      console.log('====================================');
-
       this.setState({
         basketObjItems: response.result.items,
         basketObj: response.result,
