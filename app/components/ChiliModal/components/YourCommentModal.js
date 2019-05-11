@@ -102,7 +102,9 @@ class YourCommentModal extends Component {
             text: response.message_fa,
             color: "success",
           });
+          () => this.props.onSuccess()
         }else{
+          () => this.props.onSuccess()
           this.props.showAlert({
             text: response.message_fa,
             color: "danger",

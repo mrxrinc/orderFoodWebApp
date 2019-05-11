@@ -17,12 +17,13 @@ class MyAddress extends React.PureComponent {
     super(props);
     this.state = {
       addressId: this.props.basket.addressId ? this.props.basket.addressId : '',
-      addresses:this.props.data.addresses || [],
-      organizationAddress:this.props.data.userOrganizationAddress || [],
+      addresses:this.props.data.addresses?this.props.data.addresses: [],
+      organizationAddress:this.props.data.userOrganizationAddress?this.props.data.userOrganizationAddress:[],
       fullAddress:[],
       deleteId:'',
       organid:'',
-      deliveryZoneId:null
+      deliveryZoneId:null,
+      deliveryZonePrice: this.props.basket.deliveryZonePrice ? this.props.basket.deliveryZonePrice : 0
     };
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
@@ -85,8 +86,10 @@ class MyAddress extends React.PureComponent {
 
   componentDidMount(){
       let fullAddress = this.props.data.userOrganizationAddress.concat(this.props.data.addresses);
+      this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:'',deliveryZoneId:''})
       this.setState({
-        fullAddress
+        fullAddress,
+        addressId:''
       },()=>{
         $(document).ready(function () {
           $('#demo').owlCarousel({
@@ -144,7 +147,7 @@ class MyAddress extends React.PureComponent {
               <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
               </Link>
-              <span 
+              <span
                 className="leftM10"
                 style={{float:"left"}}
                 onClick={() => this.alertExpToggle(item.id)}
@@ -167,10 +170,10 @@ class MyAddress extends React.PureComponent {
             deleteAddress = { () => this.deleteAddress(this.state.deleteId)}
           />
           <div id="demo" className="owl-carousel owl-theme zIndex0">
-          <div className="AddAddress">
+          <Link to="/profile/add-new-address" className="AddAddress">
             <span className="chilivery-add"> </span>
             <p>‌آدرس جدید</p>
-          </div>
+          </Link>
             {this.state.fullAddress.length > 0 &&
               <React.Fragment>
                 {ChiliOwlDemoItems}

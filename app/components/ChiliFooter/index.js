@@ -54,7 +54,13 @@ class ChiliFooter extends React.Component {
   };
 
   componentDidUpdate(){
-
+    if(!localStorage.getItem("token")){
+      getAppInit().then(
+        response => {
+          localStorage.setItem("token",response.result.session.token)
+        }
+      )
+    }
   }
 
   render() {

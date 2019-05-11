@@ -14,11 +14,12 @@ import NavigationBar from '../../components/NavigationBar';
 
 import dataSample from '../data.json';
 import addressSample from '../address.json';
-import { deliveryTypeChanged } from '../../actions/Basket';
+import { addressIdChanged, addToBasket, deliveryTypeChanged , getBasketItems } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { Checkout } from '../Checkout';
 import { getOrderitems,getUserAddress } from '../../api/account';
 import ProfileAddress from '../PageProfile';
+import { createBasket } from '../../api/application/restaurant';
 
 export class cart extends React.PureComponent {
 
@@ -34,18 +35,6 @@ export class cart extends React.PureComponent {
     };
   }
 
-  getOrderItem = () => {
-    const {basket} = this.props;
-    getOrderitems({
-      orderId:basket.id
-    }).then(response => {
-      if(response.status) {
-        this.setState({
-          orderItems:response.result
-        })
-      }
-    });
-  };
 
   getAddress = () => {
     const {basket} = this.props;
@@ -70,15 +59,18 @@ export class cart extends React.PureComponent {
     dataSample.result.items.map((item) => {
       count += item.count;
     })
-    this.getOrderItem();
     this.getAddress();
+    const restaurantId = { restaurantId :  this.props.basket.restaurantId};
+    this.props.getBasketItems(restaurantId);
   }
+
 
   toggle(tab) {
     if(tab === "1") {
       this.props.changeDeliveryType({deliveryType:false})
     } else {
       this.props.changeDeliveryType({deliveryType:true})
+      // this.props.changeAddressId({addressId:'',organizationAddressId:'',deliveryZonePrice:0,deliveryZoneId:''})
     }
     if (this.state.activeTabAddress !== tab) {
       this.setState({
@@ -96,20 +88,22 @@ export class cart extends React.PureComponent {
     const {basket} = this.props;
     return (
       <div className="cart bottomP50">
-        <NavigationBar 
+        <NavigationBar
           back
           title="سبد خرید"
-          // background
+          background
         />
 
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {orderItems.items && <CheckoutCardItem data={dataSample.result.items} datas={basket.items} items={orderItems.items}/>}
+          {Object.keys(this.props.basket.items).length > 0 && <CheckoutCardItem basket={this.props.basket}/>}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
             <span>تحویل غذا </span>
-            {activeTabAddress == "1" &&<span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice} تومان)</span>}
+            {activeTabAddress == "1" &&
+            <span className="cost-sending">(هزینه ارسال: {basket.deliveryZonePrice && basket.deliveryZonePrice} تومان)</span>
+            }
           </div>
           <div className="food-delivery__lbox">
             <div className="tab-box">
@@ -163,7 +157,7 @@ export class cart extends React.PureComponent {
             onKeyPress={this.handleKeyPressUpdate}
           />
         </div>
-        <StickyPrice links='checkout' data={dataSample.result.amount}  collapseShow={true}/>
+        <StickyPrice links='checkout' data={orderItems.amount}  collapseShow={true}/>
       </div>
     );
   }
@@ -174,6 +168,11 @@ const mapDispatchToProps = dispatch => {
     changeDeliveryType: value => {
       dispatch(deliveryTypeChanged(value));
     },
+    changeAddressId: value => {
+      dispatch(addressIdChanged(value));
+    },
+    getBasketItems: restaurantId => dispatch(getBasketItems(restaurantId)),
+    addToBasket: value => dispatch(addToBasket(value))
   };
 };
 

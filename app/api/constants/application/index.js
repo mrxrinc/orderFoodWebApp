@@ -1,6 +1,6 @@
 import {API_URL_ROOT} from '../global';
 
-//HOME
+//HOMEgetOrderitems
 // export const home_get= () => API_URL_ROOT+'/application/home/get';
 
 //NEWS LIST
@@ -17,13 +17,13 @@ export const get_region_by_city = (id) => `${API_URL_ROOT}/region/byCity?cityId=
 export const get_region_by_slug = (slug) => `${API_URL_ROOT}/region/bySlug?region_slug=${slug}`
 export const get_find_Neighborhood = (location) => `${API_URL_ROOT}/userAddress/findNeighborhood?region_center=${location}`
 
-//RESTAURANT 
+//RESTAURANT
 export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}&point=${point}`;
 export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaurantId=${id}`;
 export const create_basket= id => `${API_URL_ROOT}/order/basket?restaurant=${id}`;
 
 
-//USER ADDRESS 
+//USER ADDRESS
 export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
 export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
 export const user_update_address_post = () => `${API_URL_ROOT}/userAddress/updateAddress`;
@@ -33,3 +33,6 @@ export const user_delete_address_post = () => `${API_URL_ROOT}/userAddress/delet
 export const comment_for_Restaurant = id => `${API_URL_ROOT}/comment/commentForRestaurant?restaurantId=${id}`;
 export const comment_by_user = () => `${API_URL_ROOT}/comment/commentByUser`;
 export const add_comment_post = () => `${API_URL_ROOT}/comment/addComment`;
+
+// autocomplete
+export const autocomplete_ResFood = (cityId,query) => `${API_URL_ROOT}/autocomplete/query?city=${cityId}&q=${query}`;
