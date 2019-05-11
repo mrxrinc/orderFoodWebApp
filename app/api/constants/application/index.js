@@ -39,5 +39,8 @@ export const get_user = () => `https://jsonplaceholder.typicode.com/users`;
 // order
 export const user_order = () => `${API_URL_ROOT}/order/`;
 
+// payment
+export const payments_list = () => `${API_URL_ROOT}/payment/paymentsList`;
+
 
 

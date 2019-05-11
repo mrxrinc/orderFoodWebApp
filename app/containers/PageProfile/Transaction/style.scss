@@ -55,6 +55,7 @@
                                 position: absolute;
                                 top: 20px;
                                 right: 54px;
+                                display: none;
                             }
                         }
                     }
@@ -63,7 +64,7 @@
                     &__plus-min{
                         width: 50px;
                         height: 40px;
-                        background-color: $color-success;
+                        // background-color: $color-success;
                         position: absolute;
                         right: -28px;
                         bottom: 5px;
