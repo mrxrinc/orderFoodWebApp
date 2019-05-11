@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-
-import { Modal } from 'reactstrap';
-import RestaurantSideDishGroup from '../../../components/RestaurantSideDishGroup';
-import RestaurantSideDishRow from '../../../components/RestaurantSideDishRow';
-import ChiliModal from '../../../components/ChiliModal';
 import { Button } from 'reactstrap';
-import { rateColor } from '../../../components/GeneralFunctions';
-import Stepper from '../../../components/ChiliStepper';
-class AlertBody extends Component {
+import RestaurantSideDishGroup from '../../RestaurantSideDishGroup';
+import RestaurantSideDishRow from '../../RestaurantSideDishRow';
+import ChiliModal from '..';
+import { rateColor } from '../../GeneralFunctions';
+import Stepper from '../../ChiliStepper';
+import { showModal } from '../../../actions/Modals';
+
+class RestaurantModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,14 +20,43 @@ class AlertBody extends Component {
       checkboxValidation: true,
       //when modal with sidedish foods opens , we create container for whole user's input
       modalButton: false,
-
     };
   }
 
-  componentDidMount(){
-    console.log('===========moda==================');
-    console.log(this.props);
-    console.log('====================================');
+  componentDidMount() {
+    this.setState({
+      modalRequiredGroupIds: [],
+      modalContainer: [],
+      radioValidation: false,
+      checkboxValidation: true,
+    });
+    const { options } = this.state.modalData;
+    if (options.length > 0) {
+      this.setState({ modalButton: false });
+    } else {
+      this.setState({ modalButton: true });
+    }
+    const addedOptionValidationArray = options.map(option => ({
+      ...option,
+      canAddOptions: true,
+    }));
+    if (this.state.modalData.options.length > 1) {
+      const copyOfModalData = this.state.modalData;
+      copyOfModalData.options = addedOptionValidationArray;
+      this.setState(copyOfModalData);
+    }
+    const requiredCategories = options.filter(
+      category =>
+        category.groupRequired && category.groupMaxSelectionLimit === 1,
+    );
+    requiredCategories.map(category =>
+      this.setState(previousState => ({
+        modalRequiredGroupIds: [
+          ...previousState.modalRequiredGroupIds,
+          category.groupId,
+        ],
+      })),
+    );
   }
 
   modalPrice = () => {
@@ -84,14 +113,12 @@ class AlertBody extends Component {
     };
   };
 
-
   onChangeSideDish = (optionId, group) => {
-    this.state.modalContainer.push(group.groupId);
     const newObj = {
       options: [],
     };
     let groupIndexOf;
-    let selectedCategory;
+    let selectedCategory;    
     const { modalContainer } = this.state;
     selectedCategory = modalContainer.find(
       category => category.groupId === group.groupId,
@@ -142,7 +169,6 @@ class AlertBody extends Component {
   };
 
   checkModalButtonDisable = () => {
-    console.log(this.state.radioValidation && this.state.checkboxValidation);
     if (this.state.radioValidation && this.state.checkboxValidation) {
       this.setState({
         modalButton: true,
@@ -178,7 +204,6 @@ class AlertBody extends Component {
       group => group.groupRequired,
     );
     const modalRequiredGroupIdsLength = this.state.modalRequiredGroupIds.length;
-    console.log(333);
     if (radioCount.length < modalRequiredGroupIdsLength) {
       validation = false;
     }
@@ -250,7 +275,7 @@ class AlertBody extends Component {
   };
 
   checkAllCheckboxes = cb => {
-    const findExtraCheckbox = this.props.modalData.item.options.find(
+    const findExtraCheckbox = this.props.modalData.options.find(
       option => !option.canAddOptions,
     );
     let validation = true;
@@ -261,9 +286,6 @@ class AlertBody extends Component {
   };
 
   makeTempName = (id, name) => id + name;
-
-
-
 
   render() {
     const classes = this.props;
@@ -276,186 +298,177 @@ class AlertBody extends Component {
         // headerAlign="right"
         // title="نظر و امتیاز دهید"
       >
-      {this.props.modalData && (
-        <React.Fragment>
-          <div className="scroll modal-restaurant__detail-body lightBg">
-            <div
-              className="modal-restaurant__detail-head centerBg cover gray4Bg"
-              style={{
-                backgroundImage: `url(${this.props.modalData.image})`,
-              }}
-            >
-              <ul className="flex spaceBetween reset">
-                <li className="center">
-                  <span
-                    className="chilivery-close text28 gray6"
-                    onClick={this.toggleModal}
-                  />
-                </li>
-                <li className="center">
-                  <span className="chilivery-fav-full text25 red" />
-                </li>
-              </ul>
-            </div>
-
-            <div className="modal-restaurant__detail-content padd10">
-              <h3 className="text18 bold centerText primary">
-                {this.props.modalData.name}
-              </h3>
-
-              <div className="center vM30 relative">
-                <div className="fullLine" />
-
-                <div className="reviews absolute flex hP20 lightBg">
-                  <div className="flex i2 center gray">
-                    <span className="text14 leftM3 topM3">
-                      {this.props.modalData.voteCount}
-                    </span>
-                    <span className="chilivery-user text12" />
-                  </div>
-
-                  <div
-                    className={`flex i2 center round5 ${rateColor(
-                      this.props.modalData.vote,
-                    )}`}
-                  >
-                    <span className="white text14 leftM3 topM3">
-                      {this.props.modalData.vote}
-                    </span>
-                    <span className="chilivery-smiley-good2 white text12" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="text12 gray5 hP5">
-                <p>{this.props.modalData.description}</p>
-              </div>
-
-              <div className="flex primary">
-                <ul className="flex reset hInherit">
-                  {this.props.modalData.lastPrice && (
-                    <li className="moto flex hCenter rightP10 overLine danger">
-                      <span className="text12">
-                        {this.props.modalData.lastPrice}
-                      </span>
-                      <span className="text8 topM3 rightM3">تومان</span>
-                    </li>
-                  )}
-                  <li className="moto flex hCenter rightP10 bold primary">
-                    <span className="text16">
-                      {this.props.modalData.price}
-                    </span>
-                    <span className="text10 topM3 rightM3">تومان</span>
+        {this.props.modalData && (
+          <React.Fragment>
+            <div className="scroll modal-restaurant__detail-body lightBg">
+              <div
+                className="modal-restaurant__detail-head centerBg cover gray4Bg"
+                style={{
+                  backgroundImage: `url(${this.props.modalData.image})`,
+                }}
+              >
+                <ul className="flex spaceBetween reset">
+                  <li className="center">
+                    <span
+                      className="chilivery-close text28 gray6"
+                      onClick={this.toggleModal}
+                    />
+                  </li>
+                  <li className="center">
+                    <span className="chilivery-fav-full text25 red" />
                   </li>
                 </ul>
-                <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                  {/* <Stepper
+              </div>
+
+              <div className="modal-restaurant__detail-content padd10">
+                <h3 className="text18 bold centerText primary">
+                  {this.props.modalData.name}
+                </h3>
+
+                <div className="center vM30 relative">
+                  <div className="fullLine" />
+
+                  <div className="reviews absolute flex hP20 lightBg">
+                    <div className="flex i2 center gray">
+                      <span className="text14 leftM3 topM3">
+                        {this.props.modalData.voteCount}
+                      </span>
+                      <span className="chilivery-user text12" />
+                    </div>
+
+                    <div
+                      className={`flex i2 center round5 ${rateColor(
+                        this.props.modalData.vote,
+                      )}`}
+                    >
+                      <span className="white text14 leftM3 topM3">
+                        {this.props.modalData.vote}
+                      </span>
+                      <span className="chilivery-smiley-good2 white text12" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text12 gray5 hP5">
+                  <p>{this.props.modalData.description}</p>
+                </div>
+
+                <div className="flex primary">
+                  <ul className="flex reset hInherit">
+                    {this.props.modalData.lastPrice && (
+                      <li className="moto flex hCenter rightP10 overLine danger">
+                        <span className="text12">
+                          {this.props.modalData.lastPrice}
+                        </span>
+                        <span className="text8 topM3 rightM3">تومان</span>
+                      </li>
+                    )}
+                    <li className="moto flex hCenter rightP10 bold primary">
+                      <span className="text16">
+                        {this.props.modalData.price}
+                      </span>
+                      <span className="text10 topM3 rightM3">تومان</span>
+                    </li>
+                  </ul>
+                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                    {/* <Stepper
                     className="topM20"
                     fontSize="18"
                     parentId={this.props.modalData.id}
                     value={this.props.modalData.count}
                     stepper={this.stepper}
                   /> */}
-                </div>
-              </div>
-            </div>
-
-            {this.props.modalData.hasOption && (
-              <div>
-                {this.props.modalData.item.options.map((category,index) => (
-                  <div key={index} className="modal-restaurant__detail-sideDishes topM30">
-                    <RestaurantSideDishGroup
-                      title={this.createTitle(category)}
-                      key={category.groupId}
-                      isValid={category.canAddOptions}
-                    >
-                      {category.options.map(option => (
-                        <Fragment>
-                          <input
-                            value={this.name}
-                            onChange={this.handleChange}
-                          />
-                          <RestaurantSideDishRow
-                            type={this.calculateFinalSideDishPrice(
-                              category,
-                            )}
-                            price={this.checkWithDisplayType(
-                              option.foodOptionPrice,
-                              category.groupPriceDisplayType,
-                              this.props.modalData.price,
-                            )}
-                            discount={this.defineSideDishDiscount(
-                              option.foodOptionPrice,
-                              option.foodOptionLastPrice,
-                              category.groupPriceDisplayType,
-                              this.props.modalData.price,
-                            )}
-                            name={option.foodOptionName}
-                            tempName={this.makeTempName(
-                              option.foodOptionId,
-                              option.foodOptionName,
-                            )}
-                            onClick={() =>
-                              this.onChangeSideDish(
-                                option.foodOptionId,
-                                category,
-                              )
-                            }
-                            groupId={category.groupId}
-                            key={option.foodOptionId}
-                          />
-                        </Fragment>
-                      ))}
-                    </RestaurantSideDishGroup>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="modal-restaurant__detail-footer wFull flex bgWhite">
-            <div className="center i2">
-              <div>
-                <div className="flex hP10 primary text16 center">
-                  {/* 
-                  <Stepper
-                    className="topM10"
-                    fontSize="18"
-                    parentId={this.props.modalData.id}
-                    value={this.props.modalData.count}
-                    // stepper={this.stepper}
-                  /> */}
-
-                  <Stepper
-                    fontSize="18"
-                    restaurantId={this.props.modalData.id}
-                    data={this.props.modalData}
-                    type={this.props.type}
-                  />
-
-                </div>
-
-                <div className="flex hCenter bold primary topM5">
-                  <span className="text12 leftM5">مبلغ کل :</span>
-                  <span className="text22">{this.modalPrice()}</span>
-                  <span className="text12 topM5 rightM3">تومان</span>
                 </div>
               </div>
+
+              {this.props.modalData.hasOption && (
+                <div>
+                  {this.props.modalData.options.map((category, index) => (
+                    <div
+                      key={index}
+                      className="modal-restaurant__detail-sideDishes topM30"
+                    >
+                      <RestaurantSideDishGroup
+                        title={this.createTitle(category)}
+                        key={category.groupId}
+                        isValid={category.canAddOptions}
+                      >
+                        {category.options.map(option => (
+                          <Fragment>
+                            <input
+                              value={this.name}
+                              onChange={this.handleChange}
+                            />
+                            <RestaurantSideDishRow
+                              type={this.calculateFinalSideDishPrice(category)}
+                              price={this.checkWithDisplayType(
+                                option.foodOptionPrice,
+                                category.groupPriceDisplayType,
+                                this.props.modalData.price,
+                              )}
+                              discount={this.defineSideDishDiscount(
+                                option.foodOptionPrice,
+                                option.foodOptionLastPrice,
+                                category.groupPriceDisplayType,
+                                this.props.modalData.price,
+                              )}
+                              name={option.foodOptionName}
+                              tempName={this.makeTempName(
+                                option.foodOptionId,
+                                option.foodOptionName,
+                              )}
+                              onClick={() =>
+                                this.onChangeSideDish(
+                                  option.foodOptionId,
+                                  category,
+                                )
+                              }
+                              groupId={category.groupId}
+                              key={option.foodOptionId}
+                            />
+                          </Fragment>
+                        ))}
+                      </RestaurantSideDishGroup>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="i2 center">
-              <Button
-                color="success w80"
-                disabled={!this.state.modalButton}
-                onClick={this.toggleModal}
-              >
-                تایید
-              </Button>
+            <div className="modal-restaurant__detail-footer wFull flex bgWhite">
+              <div className="center i2">
+                <div>
+                  <div className="flex hP10 primary text16 center">
+                    <Stepper
+                      fontSize="18"
+                      restaurantId={this.props.modalData.id}
+                      data={this.props.modalData}
+                      type={this.props.type}
+                    />
+                  </div>
+
+                  <div className="flex hCenter bold primary topM5">
+                    <span className="text12 leftM5">مبلغ کل :</span>
+                    <span className="text22">{this.modalPrice()}</span>
+                    <span className="text12 topM5 rightM3">تومان</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="i2 center">
+                <Button
+                  color="success w80"
+                  disabled={!this.state.modalButton}
+                  onClick={this.toggleModal}
+                >
+                  تایید
+                </Button>
+              </div>
             </div>
-          </div>
-        </React.Fragment>
-      )}
-    </ChiliModal>
+          </React.Fragment>
+        )}
+      </ChiliModal>
     );
   }
 }
@@ -464,7 +477,7 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
-  basket: state.Basket
+  basket: state.Basket,
 });
 const mapDispatchToProps = dispatch => ({
   showModal: showStatus => dispatch(showModal(showStatus)),
@@ -472,4 +485,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AlertBody);
+)(RestaurantModal);

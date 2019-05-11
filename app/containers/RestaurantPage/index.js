@@ -20,12 +20,10 @@ import {
   restaurantDetail,
   createBasket,
 } from '../../api/application/restaurant';
-import {
-  changeBasketPost,
-} from '../../api/account';
+import { changeBasketPost } from '../../api/account';
 
 import Loading from '../../components/ChiliLoading';
-import { addToBasket } from '../../actions/Basket';
+import { accChargedChanged, addToBasket } from '../../actions/Basket';
 import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
@@ -51,7 +49,6 @@ class RestaurantPage extends React.Component {
   }
 
   openFoodModal = food => {
-    this.setState({ modalRequiredGroupIds: [] });
     this.setState({ modalData: food }, () => {
       console.log('=============modalData=================');
       console.log(this.state.modalData);
@@ -65,54 +62,17 @@ class RestaurantPage extends React.Component {
       this.setState({
         showResModal: true
       })
-      console.log('MODAL DATA ==>', this.state.modalData.item.options);
-      const options  = this.state.modalData.item.options;
-      if (options.length > 0) {
-        this.setState({ modalButton: false });
-      } else {
-        this.setState({ modalButton: true });
-      }
-      const addedOptionValidationArray = options.map(option => ({
-        ...option,
-        canAddOptions: true,
-      }));
-      if (this.state.modalData.item.options.length > 1) {
-        const copyOfModalData = this.state.modalData.item;
-        copyOfModalData.options = addedOptionValidationArray;
-        this.setState(copyOfModalData);
-      }
-
-      const requiredCategories = options.filter(
-        category =>
-          category.groupRequired && category.groupMaxSelectionLimit === 1,
-      );
-      requiredCategories.map(category =>
-        this.state.modalRequiredGroupIds.push(category.groupId),
-      );
-      if (!this.state.modalData.item.count) {
-        // for the first time increasing from inside of the modal
-        this.setState({ modalData: { ...this.state.modalData, count: 0 } });
-        this.setState({ checkboxValidation: true });
-        this.setState({ checkboxValidation: true });
-        this.setState({ radioValidation: true });
-        this.setState({ modalContainer: [] });
-      }
       this.toggleModal();
     });
   };
 
-
   componentDidMount() {
-
+    this.props.accChargeChanged({accCharge:false})
     restaurantDetail(this.state.id).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result });
-    })
+    });
 
     createBasket(this.state.id).then((response) => {
-      console.log('=========fetchBasket==================');
-      console.log(response);
-      console.log('====================================');
-
       this.setState({
         basketObjItems: response.result.items,
         basketObj: response.result,
@@ -331,7 +291,7 @@ class RestaurantPage extends React.Component {
 
             {this.state.showResModal &&  <RestaurantModal
               toggleModal={this.toggleModal}
-              modalData={this.state.modalData}
+              modalData={this.state.modalData.item}
               type="modal"
             />}
 
@@ -356,6 +316,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addToBasket(value));
   },
   storeRestaurant: value => dispatch(storeRestaurant(value)),
+  accChargeChanged: value => {
+    dispatch(accChargedChanged(value));
+  }
 });
 export default connect(
   mapStateToProps,
