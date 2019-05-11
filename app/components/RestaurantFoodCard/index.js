@@ -72,6 +72,7 @@ class RestaurantFoodCard extends React.Component {
                   fontSize="18"
                   restaurantId = {this.props.restaurantId}
                   data={props}
+                  cartPage={props.cartPage}
                 />
               )}
               {props.hasOption && (

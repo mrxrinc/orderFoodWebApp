@@ -291,10 +291,11 @@ class RestaurantPage extends React.Component {
                             discount={food.salePercentage}
                             vote={food.vote}
                             voteCount={food.voteCount}
-                            price={food.foodPrice}
+                            price={food.price}
                             lastPrice={food.lastPrice}
                             // stepper={this.stepper}
                             item={food} // to get inside Stepper component
+                            cartPage
                           />
                         )
                         })
