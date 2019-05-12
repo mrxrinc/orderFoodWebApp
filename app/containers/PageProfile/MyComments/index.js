@@ -105,24 +105,10 @@ class MyComments extends React.Component {
 {/* 
 				<div className="mycomment-box">
 					<div className="mycomment-box__main flex padd10">
-						{this.props.type === "profile" ?
-							<div className="mycomment-box__icon leftP5">
-								<img className="mycomment-box__img" src={png} alt="" />
-							</div> : null
-						}
+					
 						<div className="mycomment-box__detail overhide">
-							{this.props.type === "profile" ?
-								<React.Fragment>
-									<div className="mycomment__detail-main">
-										<span className="mycomment-box__title">{this.state.title1}</span>
-										<span className="icon chilivery-star chili-star rightMauto"> </span>
-									</div>
-
-									<div className="mycomment-detail">
-										<span className="mycomment-box__date">{this.state.date}</span>
-										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
-									</div>
-								</React.Fragment> :
+							
+								
 								<React.Fragment>
 									<div className="mycomment__detail-main">
 										<span className="icon chilivery-star chili-star leftP10"> </span>
@@ -134,7 +120,7 @@ class MyComments extends React.Component {
 										<span className="mycomment-box__text bottomP10 topP10">{this.state.text}</span>
 									</div>
 								</React.Fragment>
-							}
+							
 						</div>
 					</div>
 				</div> */}

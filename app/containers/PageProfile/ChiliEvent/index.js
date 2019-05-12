@@ -36,8 +36,6 @@ class ChiliEvent extends React.Component{
 						</div>
 					</div>
 				</div>
-
-				
 			</div>
 		);
 	}

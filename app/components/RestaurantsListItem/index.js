@@ -6,7 +6,7 @@ import './style.scss';
 import { financialLevel, rateColor } from '../GeneralFunctions';
 
 const RestaurantsListItem = props => (
-  <Link to={`/restaurant-page/${props.id}`} className="listItem dblock">
+  <Link to={`/${props.neighborhood.citySlug}/${props.slug}`} className="listItem dblock">
     <div className="head center">
       <div className="right center relative">
         <div

@@ -3,16 +3,25 @@ body{
   padding: 0px;
   margin: 0px;
 }
+#app {
+  max-width: 576px;
+  position: relative;
+  width: 100%;
+}
 ul {
   padding: 0px;
   margin: 0px;
 }
 #app{
   padding-bottom: 60px;
+  .container-fluid{
+    max-width: 567px;
+  }
 }
 .main-container{
   height: calc(100vh - 60px);
   overflow-y: auto;
+  position: relative;
 }
 .fullLine {
   width: 100%;

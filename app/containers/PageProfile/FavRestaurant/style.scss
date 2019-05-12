@@ -16,7 +16,6 @@
                     width: 90px;
                     height: 90px;
                 }
-                // background-image: url(../../../images/restaurant-profileبرگرستان.png);
                 .fav-restaurant__discount{
                     width: 35px;
                     height: 35px;
@@ -36,7 +35,7 @@
                         font-weight: bold;;
                     }
                     .icon{
-                        color: #E41D36;
+                        color: $red-11;
                         margin-right: auto;
                         font-size: 22px;
                     }
@@ -55,7 +54,7 @@
                                 height: 5px;
                                 width: 5px;
                                 border-radius: 50px;
-                                background-color: #F2C930;
+                                background-color: $color-secondary;
                                 position: absolute;
                                 top: 10px;
                                 right: 6px;
