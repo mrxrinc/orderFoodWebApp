@@ -11,9 +11,10 @@ import AlertExp from '../ChiliModal/components/AlertExample';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
 import {getAppInit} from '../../api/global';
+import {balanceGet} from '../../api/account';
 import {addToast} from '../../actions/Notifications';
 import ChiliNotification from '../../components/ChiliNotification';
-
+import {updateUserBalance} from '../../actions/Auth';
 
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
@@ -45,6 +46,10 @@ class ChiliFooter extends React.Component {
         localStorage.setItem("token",response.result.session.token)
       }
     )
+
+    if(this.props.Auth.mobileNumber && localStorage.getItem('token')){
+      this.props.updateUserBalance();
+    }
   }
 
   alertExpToggle = () => {
@@ -82,7 +87,7 @@ class ChiliFooter extends React.Component {
               </div>
 
               <div className="col">
-                <Link to="/restaurants-list/2/35.758367199999995,51.399477499999996" className="chili-footer__list-item">
+                <Link to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-filter-restaurant-type" />
                   </div>
@@ -145,7 +150,8 @@ class ChiliFooter extends React.Component {
 
 const mapStateToProps = state => ({
   Notification:state.Notification,
-  Auth:state.auth
+  Auth:state.auth,
+  UserPosition:state.UserPosition.neighborhood
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
@@ -153,7 +159,10 @@ const mapDispatchToProps = dispatch => ({
   },
   showAlert: (showStatus) => {
     dispatch(addToast(showStatus));
-},
+  },
+  updateUserBalance: () => {
+    dispatch(updateUserBalance());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChiliFooter);
