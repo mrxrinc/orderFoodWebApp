@@ -44,7 +44,7 @@ import TransactionEmpty from '../PageProfile/TransactionEmpty';
 import Order from '../PageProfile/Order';
 import OrderEmpty from '../PageProfile/OrderEmpty';
 import MyComments from '../PageProfile/MyComments/myComments';
-
+import NoAddress from '../PageProfile/NoAddress';
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
@@ -83,6 +83,7 @@ export default function App() {
           <Route exact path="/profile/Order" component={Order} />
           <Route exact path="/profile/Order-Empty" component={OrderEmpty} />
           <Route exact path="/profile/My-Comments" component={MyComments} />
+          <Route exact path="/profile/No-Address" component={NoAddress} />
           <Route exact path="/profile/wallet" component={PageProfileWallet} />
           <Route exact path="/activation-code" component={ActivationCode} />
           <Route component={NotFoundPage} />
