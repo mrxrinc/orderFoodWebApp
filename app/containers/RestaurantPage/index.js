@@ -36,7 +36,7 @@ class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.params.id,
+      id: null,
       citySlug:this.props.match.params.citySlug,
       restaurantSlug:this.props.match.params.restaurantSlug,
       restaurant: null,
@@ -173,21 +173,21 @@ class RestaurantPage extends React.Component {
   }
 
 
-  componentWillUnmount() {
-    changeBasketPost(this.props.basket).then(
-      response => {
-        console.log('========changeBasketPost===============');
-        console.log(response);
-        console.log('====================================');
-      }
-    ).catch(
-      err => {
-        console.log('===========err==================');
-        console.log(err.response);
-        console.log('====================================');
-      }
-    )
-  }
+  // componentWillUnmount() {
+  //   changeBasketPost(this.props.basket).then(
+  //     response => {
+  //       console.log('========changeBasketPost===============');
+  //       console.log(response);
+  //       console.log('====================================');
+  //     }
+  //   ).catch(
+  //     err => {
+  //       console.log('===========err==================');
+  //       console.log(err.response);
+  //       console.log('====================================');
+  //     }
+  //   )
+  // }
 
   tabClick = slug => {
     switch (slug) {
@@ -442,7 +442,7 @@ class RestaurantPage extends React.Component {
                       {group.foods.map(food => {
 
                         const _data = {
-                          restaurantId: this.state.id,
+                          restaurantId: this.state.restaurant.id,
                           id: food.id,
                           name: food.name,
                           hasPic: food.hasPic,
@@ -460,7 +460,7 @@ class RestaurantPage extends React.Component {
                         return (
                           <RestaurantFoodCard
                             onClick={() => this.openFoodModal(_data)}
-                            restaurantId={this.state.id}
+                            restaurantId={this.state.restaurant.id}
                             key={food.id}
                             id={food.id}
                             name={food.name}
