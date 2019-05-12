@@ -79,21 +79,45 @@ class StickyPrice extends React.PureComponent {
 
   totalPrice() {
     const {data,basket,user} = this.props;
+    let discountAmount;
+    let amountToPay;
+    let useGateway;
+    let tax = data ? data.tax : 0;
+    let amountWithDelivery = this.state.totalPrice + parseInt(basket.deliveryZonePrice ? basket.deliveryZonePrice : 0);
 
-    var total = this.state.totalPrice;
-    if(basket.accCharge) {
-      total = total - user.cacheBalance;
+    // var total = this.state.totalPrice;
+    // if(basket.accCharge) {
+    //   total = total - user.cacheBalance;
+    // }
+    // if(basket.discountAmount) {
+    //   total = total - basket.discountAmount;
+    // }
+    // if(total <= 0) {
+    //   total = 0;
+    // }
+    // if(data) {
+    //   total = parseInt(total) + parseInt(basket.deliveryZonePrice) + parseInt(data.tax) + parseInt(data.pack)
+    // }
+    var howMuchWithCash = basket.accCharge ? user.cacheBalance : 0;
+    var tempAmountToPay = amountWithDelivery + parseInt(tax);
+    if(basket.discountAmount){
+      discountAmount = basket.discountAmount;
+      tempAmountToPay = tempAmountToPay - discountAmount;
     }
-    if(basket.discountAmount) {
-      total = total - basket.discountAmount;
+    else {
+      discountAmount = 0;
     }
-    if(total <= 0) {
-      total = 0;
+    if(tempAmountToPay > howMuchWithCash){
+      amountToPay = tempAmountToPay - howMuchWithCash;
     }
-    if(data) {
-      total = parseInt(total) + parseInt(basket.deliveryZonePrice) + parseInt(data.tax) + parseInt(data.pack)
+    else{
+      amountToPay = 0;
     }
-    return total;
+
+    // useGateway = amountToPay !== 0; // set either use bank gateway or not
+
+
+    return {amountToPay,tempAmountToPay};
   }
 
   changeBasket = (preventRedirect) => {
@@ -125,13 +149,13 @@ class StickyPrice extends React.PureComponent {
       "accCharge": basket.accCharge ? basket.accCharge : false,
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
-      "gateway":  true,
+      "gateway":  this.totalPrice().amountToPay == 0 ? true : false,
       "orderDeliveryType":  false,
       "orderId":  basket.id,
-      "payAmount":  "200",
+      "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
       "campaginCode":basket.campaginCode,
-      "paymentType": "bank",
+      "paymentType": this.totalPrice().amountToPay == 0 ? 'account':'bank',
       "bankgate": basket.gateway,
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
@@ -207,7 +231,7 @@ class StickyPrice extends React.PureComponent {
               {basket.accCharge &&
               (<li>
                 <span>استفاده از کیف پول</span>
-                <span className="pull-left">{user.cacheBalance}- تومان</span>
+                <span className="pull-left">{this.totalPrice().amountToPay == 0 ? this.totalPrice().tempAmountToPay : user.cacheBalance}- تومان</span>
               </li>)
               }
 
@@ -228,7 +252,7 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
-              <span className="text-price">{this.state.totalPrice && this.totalPrice()} تومان</span>
+              <span className="text-price">{this.totalPrice().amountToPay == 0 ? 'رایگان':this.totalPrice().amountToPay + ' تومان' } </span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">

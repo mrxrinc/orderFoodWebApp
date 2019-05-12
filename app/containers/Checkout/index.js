@@ -67,6 +67,7 @@ export class Checkout extends React.PureComponent {
       console.log("ok")
     }
     this.getOrderItem();
+    this.props.accChargeChanged({accCharge:false})
   }
 
 
@@ -79,7 +80,7 @@ export class Checkout extends React.PureComponent {
           title="سبد خرید"
           // background
         />
-        <RestaurantHeaderCheckout data={dataSample.result.restaurant} cover={cover} logo={logo} />
+        {orderItems && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
       <Container className="checkout">
         <div className="padd5">
           <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>

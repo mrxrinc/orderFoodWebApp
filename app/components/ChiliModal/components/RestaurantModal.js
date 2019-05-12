@@ -6,9 +6,10 @@ import RestaurantSideDishRow from '../../RestaurantSideDishRow';
 import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
+import { SaveSideDishService } from '../../../containers/RestaurantPage/services/SaveSideDish';
 
 class RestaurantModal extends Component {
-  constructor(props) {    
+  constructor(props) {
     super(props);
     this.state = {
       modalData: props.modalData,
@@ -35,9 +36,9 @@ class RestaurantModal extends Component {
       () => {
         const { options } = this.props.modalData;
         if (options.length > 0) {
-          this.setState({ modalButton: false });
+          this.setState({ modalButton: false, hasSidedish: true });
         } else {
-          this.setState({ modalButton: true });
+          this.setState({ modalButton: true, hasSidedish: false });
         }
         const addedOptionValidationArray = options.map(option => ({
           ...option,
@@ -279,6 +280,10 @@ class RestaurantModal extends Component {
     return foodOptionPrice;
   };
 
+  saveItems () {
+
+  }
+
   defineSideDishDiscount = (
     foodOptionPrice,
     foodOptionLastPrice,
@@ -462,7 +467,9 @@ class RestaurantModal extends Component {
                 <Button
                   color="success w80"
                   disabled={!this.state.modalButton}
-                  onClick={this.props.toggleModal}
+                  onClick={
+                    !this.hasSidedish ? this.props.toggleModal : this.saveItems
+                  }
                 >
                   تایید
                 </Button>
