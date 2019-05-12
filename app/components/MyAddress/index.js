@@ -79,7 +79,12 @@ class MyAddress extends React.PureComponent {
         deliveryZonePrice:e.target.getAttribute('deliveryprice'),
         deliveryZoneId:e.target.getAttribute('deliveryzoneid'),
       }, ()=>
-        this.props.changeAddressId({addressId:this.state.addressId,organizationAddressId:this.state.organid,deliveryZonePrice:this.state.deliveryZonePrice,deliveryZoneId:this.state.deliveryZoneId})
+        this.props.changeAddressId({
+          addressId:this.state.addressId,
+          organizationAddressId:this.state.organid,
+          deliveryZonePrice:this.state.deliveryZonePrice,
+          deliveryZoneId:this.state.deliveryZoneId
+        })
     );
   }
 
