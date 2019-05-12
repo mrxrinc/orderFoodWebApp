@@ -86,14 +86,16 @@ class ChiliFooter extends React.Component {
                 </Link>
               </div>
 
-              <div className="col">
-                <Link to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item">
-                  <div className="chili-footer__list-icon">
-                    <i className="icon chilivery-filter-restaurant-type" />
-                  </div>
-                  <div className="chili-footer__list-title">رستوران</div>
-                </Link>
-              </div>
+              { typeof this.props.UserPosition !== "undefined" ?
+                <div className="col">
+                  <Link to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item">
+                    <div className="chili-footer__list-icon">
+                      <i className="icon chilivery-filter-restaurant-type" />
+                    </div>
+                    <div className="chili-footer__list-title">رستوران</div>
+                  </Link>
+                </div>:null
+              }
 
               <div className="col">
                 <Link to="/kit" className="chili-footer__list-item active">
