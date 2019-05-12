@@ -285,7 +285,8 @@ class RestaurantPage extends React.Component {
             {this.props.modals.RestaurantPageModal && <RestaurantModal
               toggleModal={this.toggleModal}
               onChangeSideDish={this.onChangeSideDish}
-              modalData={this.state.modalData.item}              
+              modalData={this.state.modalData.item}
+              restaurantId={this.state.restaurant.id}           
               key={this.state.modalData.item.id}                       
               type="modal"
             />}
