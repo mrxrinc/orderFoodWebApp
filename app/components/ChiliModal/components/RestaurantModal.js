@@ -250,9 +250,9 @@ class RestaurantModal extends Component {
   modalPrice = () => {
     let sum = 0;
     if (this.props.modalData) {
-      const { count } = this.props.modalData;
+      const { itemCount } = this.props.modalData;
       const itemPrice = this.props.modalData.price;
-      sum = itemPrice * count;
+      sum = itemPrice * itemCount;
     }
     return sum;
   };
