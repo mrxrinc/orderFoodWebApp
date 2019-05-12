@@ -19,6 +19,7 @@ import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket,
+  restaurantDetailBySlug
 } from '../../api/application/restaurant';
 import { changeBasketPost } from '../../api/account';
 
@@ -36,6 +37,8 @@ class RestaurantPage extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
+      citySlug:this.props.match.params.citySlug,
+      restaurantSlug:this.props.match.params.restaurantSlug,
       restaurant: null,
       basket: null,
       tabOne: true,
@@ -68,60 +71,61 @@ class RestaurantPage extends React.Component {
 
   componentDidMount() {
     this.props.accChargeChanged({accCharge:false})
-    restaurantDetail(this.state.id).then(restaurantResp => {
-      this.setState({ restaurant: restaurantResp.result });
+    restaurantDetailBySlug(this.state.citySlug,this.state.restaurantSlug).then(restaurantResp => {
+      this.setState({ restaurant: restaurantResp.result },()=>{
+        createBasket(this.state.restaurant.id).then((response) => {
+          this.setState({
+            basketObjItems: response.result.items,
+            basketObj: response.result,
+          }, () => {
+    
+            let basketToArray = Object.keys(this.state.basketObjItems);
+            let basketStoreObjItems = this.props.basket.items;
+            let basketStoreObj = this.props.basket;
+    
+    
+            if (basketToArray.length > 0) {
+              if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
+                this.setState({
+                  basketToState: basketStoreObj,
+                }, () => {
+                  console.log('========= server full from current =================');
+                  console.log('basketToState from store');
+                  console.log(this.state.basketToState);
+                  console.log('====================================');
+                })
+              } else {
+                this.props.addToBasket(this.state.basketObj);
+                console.log('============= server full from current ==============');
+                console.log('setBasketToStore from server');
+                console.log('====================================');
+              }
+    
+            } else {
+              if (this.state.basketObj.id === basketStoreObj.id) {
+                this.setState({
+                  basketToState: basketStoreObj,
+                }, () => {
+                  console.log('========== server null from current ================');
+                  console.log('basketToState from store');
+                  console.log(this.state.basketToState);
+                  console.log('====================================');
+                })
+              } else {
+                this.props.addToBasket(this.state.basketObj);
+                console.log('============ server null from other =================');
+                console.log('setBasketToStore from server');
+                console.log('====================================');
+              }
+            }
+          })
+    
+        }).catch((err) => {
+          console.log(err)
+        });
+      });
     });
 
-    createBasket(this.state.id).then((response) => {
-      this.setState({
-        basketObjItems: response.result.items,
-        basketObj: response.result,
-      }, () => {
-
-        let basketToArray = Object.keys(this.state.basketObjItems);
-        let basketStoreObjItems = this.props.basket.items;
-        let basketStoreObj = this.props.basket;
-
-
-        if (basketToArray.length > 0) {
-          if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
-            this.setState({
-              basketToState: basketStoreObj,
-            }, () => {
-              console.log('========= server full from current =================');
-              console.log('basketToState from store');
-              console.log(this.state.basketToState);
-              console.log('====================================');
-            })
-          } else {
-            this.props.addToBasket(this.state.basketObj);
-            console.log('============= server full from current ==============');
-            console.log('setBasketToStore from server');
-            console.log('====================================');
-          }
-
-        } else {
-          if (this.state.basketObj.id === basketStoreObj.id) {
-            this.setState({
-              basketToState: basketStoreObj,
-            }, () => {
-              console.log('========== server null from current ================');
-              console.log('basketToState from store');
-              console.log(this.state.basketToState);
-              console.log('====================================');
-            })
-          } else {
-            this.props.addToBasket(this.state.basketObj);
-            console.log('============ server null from other =================');
-            console.log('setBasketToStore from server');
-            console.log('====================================');
-          }
-        }
-      })
-
-    }).catch((err) => {
-      console.log(err)
-    });
 
   }
 

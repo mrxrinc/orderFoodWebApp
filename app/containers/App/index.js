@@ -10,18 +10,18 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import RestaurantsList from 'containers/RestaurantsList/Loadable';
+import HomePage from '../../containers/HomePage/';
+import NotFoundPage from '../../containers/NotFoundPage';
+import RestaurantsList from '../../containers/RestaurantsList';
 import RestaurantPage from '../RestaurantPage';
-import Kit from 'containers/Kit';
-import Checkout from 'containers/Checkout';
-import Cart from 'containers/Cart';
-import Login from 'containers/Login';
-import Authentication from 'containers/Authentication';
-import AfterPayment from 'containers/AfterPayment';
-import SuccessPayment from 'containers/SuccessPayment';
-import ChiliFooter from '../../components/ChiliFooter/Loadable';
+import Kit from '../../containers/Kit';
+import Checkout from '../../containers/Checkout';
+import Cart from '../../containers/Cart';
+import Login from '../../containers/Login';
+import Authentication from '../../containers/Authentication';
+import AfterPayment from '../../containers/AfterPayment';
+import SuccessPayment from '../../containers/SuccessPayment';
+import ChiliFooter from '../../components/ChiliFooter';
 import PageAboutMotochili from '../PageAboutMotochili';
 import PageMoreMenu from '../PageMoreMenu';
 import ForgotPassword from '../ForgotPassword';
@@ -54,8 +54,8 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
-          <Route exact path="/restaurants-list/:cityId/:point" component={RestaurantsList} />
-          <Route exact path="/restaurant-page/:id" component={RestaurantPage} />
+          <Route exact path="/restaurants/:citySlug/:pointSlug" component={RestaurantsList} />
+          <Route exact path="/:citySlug/:restaurantSlug" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />

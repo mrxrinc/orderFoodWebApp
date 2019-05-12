@@ -87,7 +87,7 @@ class ChiliFooter extends React.Component {
               </div>
 
               <div className="col">
-                <Link to="/restaurants-list/2/35.758367199999995,51.399477499999996" className="chili-footer__list-item">
+                <Link to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-filter-restaurant-type" />
                   </div>
@@ -150,7 +150,8 @@ class ChiliFooter extends React.Component {
 
 const mapStateToProps = state => ({
   Notification:state.Notification,
-  Auth:state.auth
+  Auth:state.auth,
+  UserPosition:state.UserPosition.neighborhood
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {
