@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from "react-redux";
 import { AnimateField } from '../../../components/ChiliForm';
-import './editprofile.scss';
+import './style.scss';
 import {history} from '../../../store';
 import BankList from '../../../components/ChiliBankList';
 import { walletIncreace,walletIncreaceGift,endIncrease } from '../../../api/account/';
@@ -176,61 +176,51 @@ class ProfileWallet extends React.Component{
     const classes = this.props;
 		return(
 			<div className="profile-edit">
+        <div className="header-bank">
+          <div className="header-bank-acount center">
+            <span className="header-acount__save center">موجودی فعلی شما :</span>
+          </div>
+          <div className="header-bank-number center">
+            <span className="header-acount__number center">۵۰/۰۰۰ تومان</span>
+          </div>
+        </div>
 				<div className="container">
         <div className="panigale-page-profile__credit">
           <div className="row">
-            <AnimateField
-              className="col-12"
-              placeholder="وارد نمایید"
-              name="userCredit"
-              type="text"
-              label=" مبلغ افزایش موجودی (تومان)"
-              value={userCredit}
-              onChange={this.onChangeNumber}
-              onKeyPress={this.handleKeyPressBalance}
-              validation={
-                typeof classes.validation.wallet.payAmount === "undefined"?
-                false:classes.validation.wallet.payAmount
-              }
-              required={true}
-            />
-
             <div className="panigale-animate-field form-group col-sm-8 mt-3">
+              {gatewayId &&
+                <label>انتخاب درگاه بانکی</label>
+              }
               <div className="panigale-page-profile__credit-list">
                 <BankList
                   gatewayId={gatewayId}
                   onChange={this.handleChangeGateway}
                 />
               </div>
-              {gatewayId &&
-                <label>انتخاب درگاه بانکی</label>
-              }
             </div>
 
-            {gatewayId &&
+            {/* {gatewayId &&
               <div className="form-group col-sm-4">
                 <button className={!classes.loading.walletIncLoading?"btn btn-danger ml-0":"btn ml-0 btn-loading btn-disable disabled-link"}
                     onClick={this.submitBalance}>ثبت
                 </button>
               </div>
-            }
+            } */}
 
 
           </div>
         </div>
 
-        <h2 className="panigale-page-profile__title panigale-page-profile__password mt-4">
-          <i className="icon icon-present mr-2"></i>
-          افزایش موجودی با کد هدیه
-        </h2>
+        
         <div className="panigale-page-profile__user-edit">
           <div className="row">
-            <AnimateField
+
+          <AnimateField
               className="col"
               placeholder="وارد نمایید"
               name="userCreditGift"
               type="text"
-              label="کد افزایش موجودی"
+              label="مبلغ مورد نظر(تومان) ..."
               value={userCreditGift}
               onChange={this.onChange}
               onKeyPress={this.handleKeyPressGift}
@@ -241,8 +231,40 @@ class ProfileWallet extends React.Component{
               required={true}
             />
             <div className="panigale-page-profile__credit-gift form-group col-auto">
-              <button className={!classes.loading.walletIncGiftLoading?"btn btn-danger":"btn btn-loading btn-disable disabled-link"}
-								onClick={this.submitGift}>ثبت
+              <button className={!classes.loading.walletIncGiftLoading?"btn btn-success":"btn btn-loading btn-disable disabled-link"}
+								onClick={this.submitGift}>تایید مبلغ
+							</button>
+            </div>
+
+            {/* <h5 className="panigale-page-profile__title panigale-page-profile__password mt-4 count-save">
+              <span class="chilivery-forget-pass-1 icon"> </span>
+              افزایش موجودی با کد هدیه
+            </h5> */}
+
+            <div className="panigale-page-profile__title panigale-page-profile__password mt-4 count-save">
+              <span className="chilivery-forget-pass-1 icon"></span>
+              <span className="increase-count">افزایش موجودی با کد هدیه</span> 
+            </div>
+
+            <AnimateField
+              className="col"
+              placeholder="وارد نمایید"
+              name="userCreditGift"
+              type="text"
+              label=" کد افزایش موجودی حساب ..."
+              color="#929292"
+              value={userCreditGift}
+              onChange={this.onChange}
+              onKeyPress={this.handleKeyPressGift}
+              validation={
+                typeof classes.validation.gift.gift_code === "undefined"?
+                false:classes.validation.gift.gift_code
+              }
+              required={true}
+            />
+            <div className="panigale-page-profile__credit-gift form-group col-auto danger__btn">
+              <button className={!classes.loading.walletIncGiftLoading?"btn btn-danger tayid-btn":"btn btn-loading btn-disable disabled-link"}
+								onClick={this.submitGift}>تایید کد
 							</button>
             </div>
           </div>

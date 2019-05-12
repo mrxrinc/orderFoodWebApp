@@ -35,5 +35,15 @@ export const comment_for_Restaurant = id => `${API_URL_ROOT}/comment/commentForR
 export const comment_by_user = () => `${API_URL_ROOT}/comment/commentByUser`;
 export const add_comment_post = () => `${API_URL_ROOT}/comment/addComment`;
 
+export const get_user = () => `https://jsonplaceholder.typicode.com/users`;
+
+// order
+export const user_order = () => `${API_URL_ROOT}/order/`;
+
+// payment
+export const payments_list = () => `${API_URL_ROOT}/payment/paymentsList`;
+
+
+
 // autocomplete
 export const autocomplete_ResFood = (cityId,query) => `${API_URL_ROOT}/autocomplete/query?city=${cityId}&q=${query}`;
