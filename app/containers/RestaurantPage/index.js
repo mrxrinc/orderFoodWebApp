@@ -46,71 +46,17 @@ class RestaurantPage extends React.Component {
       activeTab: 'tabOne',
       basketToState: {},
       basketObjItems: {},
-      showResModal: false,
-      modalRequiredGroupIds: [],
-      checkboxValidation: true,
-      radioValidation: false,      
-      modalContainer: [],
-      //when modal with sidedish foods opens , we create collection for Id's of radio buttons
-      modalRequiredGroupIds: [],
-      //when modal with sidedish foods opens , we create flag for whole checkbox validation
-      checkboxValidation: true,
-      //when modal with sidedish foods opens , we create container for whole user's input
-      modalButton: false,      
     };
   }
 
-  openFoodModal = food => {
-    this.setState({ modalData: food }, () => {
-      this.resetModal();
+  openFoodModal = food => {    
+    this.setState({ modalData: food }, () => {      
       if(typeof this.props.basket.items[this.state.modalData.id] != "undefined"){
         this.state.modalData.item['itemCount'] = this.props.basket.items[this.state.modalData.id].itemCount;
       }            
       this.toggleModal();
     });
   };
-
-
-  resetModal() {
-    this.setState(
-      {
-        modalRequiredGroupIds: [],
-        modalContainer: [],
-        radioValidation: false,
-        checkboxValidation: true,
-      },
-      () => {
-        const { options } = this.state.modalData.item;
-        if (options.length > 0) {
-          this.setState({ modalButton: false });
-        } else {
-          this.setState({ modalButton: true });
-        }
-        const addedOptionValidationArray = options.map(option => ({
-          ...option,
-          canAddOptions: true,
-        }));
-        if (options.length > 1) {
-          const copyOfModalData = this.state.modalData;
-          copyOfModalData.item.options = addedOptionValidationArray;
-          this.setState(copyOfModalData, () => {
-            const requiredCategories = options.filter(
-              category =>
-                category.groupRequired && category.groupMaxSelectionLimit === 1,
-            );
-            requiredCategories.map(category =>
-              this.setState(previousState => ({
-                modalRequiredGroupIds: [
-                  ...previousState.modalRequiredGroupIds,
-                  category.groupId,
-                ],
-              })),
-            );            
-          });
-        }
-      },
-    );
-  }
 
   componentDidMount() {
     this.props.accChargeChanged({accCharge:false})
@@ -227,178 +173,6 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  //modals
-  onChangeSideDish = (optionId, group) => {
-    const newObj = {
-      options: [],
-    };
-    let groupIndexOf;
-    let selectedCategory;
-    const { modalContainer } = this.state;
-    selectedCategory = modalContainer.find(
-      category => category.groupId === group.groupId,
-    );
-    if (
-      modalContainer.length === 0 ||
-      typeof selectedCategory === 'undefined'
-    ) {
-      newObj.groupId = group.groupId;
-      newObj.groupMaxSelectionLimit = group.groupMaxSelectionLimit;
-      newObj.groupRequired = group.groupRequired;
-      newObj.options.push(optionId);
-      this.setState(
-        {
-          modalContainer: [...this.state.modalContainer, newObj],
-        },
-        () => {
-          selectedCategory = this.state.modalContainer.find(
-            category => category.groupId === group.groupId,
-          );
-          groupIndexOf = this.state.modalContainer.indexOf(selectedCategory);
-          if (group.groupRequired) {
-            this.checkRadio(optionId, groupIndexOf, () => {
-              this.checkModalButtonDisable();
-            });
-          }
-        },
-      );
-    } else {
-      groupIndexOf = modalContainer.indexOf(selectedCategory);
-      // CHECKBOX VALIDATION
-      if (!group.groupRequired) {
-        this.validateCheckBox(
-          optionId,
-          group.groupId,
-          selectedCategory,
-          groupIndexOf,
-          () => {
-            this.checkModalButtonDisable();
-          },
-        );
-      } else {
-        this.checkRadio(optionId, groupIndexOf, () => {
-          this.checkModalButtonDisable();
-        });
-      }
-    }
-  };
-
-  checkModalButtonDisable = () => {    
-    if (this.state.radioValidation && this.state.checkboxValidation) {
-      this.setState({
-        modalButton: true,
-      });
-    } else {
-      this.setState({
-        modalButton: false,
-      });
-    }
-  };
-
-  checkRadio = (optionId, groupIndexOf, cb) => {
-    const copyOfModalContainer = this.state.modalContainer;
-    copyOfModalContainer[groupIndexOf].options = [];
-    this.setState(copyOfModalContainer, () => {
-      this.setState(
-        () => {
-          const list = this.state.modalContainer[groupIndexOf].options.push(
-            optionId,
-          );
-          return list;
-        },
-        () => {
-          this.checkAllRadioButtons(cb);
-        },
-      );
-    });
-  };
-
-  checkAllRadioButtons = cb => {
-    let validation = true;
-    const radioCount = this.state.modalContainer.filter(
-      group => group.groupRequired,
-    );
-    const modalRequiredGroupIdsLength = this.state.modalRequiredGroupIds.length;
-    if (radioCount.length < modalRequiredGroupIdsLength) {
-      validation = false;
-    }
-    this.setState({ radioValidation: validation }, cb);
-  };
-
-  validateCheckBox = (
-    optionId,
-    groupId,
-    selectedCategory,
-    groupIndexOf,
-    cb,
-  ) => {
-    const { modalContainer } = this.state;
-    // checkbox checking
-    const optionIndex = selectedCategory.options.indexOf(optionId);
-    const copyOfModalData = this.state.modalData.item;
-    const optionObject = copyOfModalData.options.find(
-      option => option.groupId === groupId,
-    );
-    const indexOfOption = copyOfModalData.options.indexOf(optionObject);
-    // whenever option currently is in state.modalContainer and we want to remove it
-    if (optionIndex > -1) {
-      modalContainer[groupIndexOf].options.splice(optionIndex, 1);
-      this.setState(
-        () => {
-          const list = this.state.modalContainer[groupIndexOf].options.filter(
-            item => item !== optionId,
-          );
-          return list;
-        },
-        () => {
-          this.completeValidation(groupIndexOf, indexOfOption, cb);
-        },
-      );
-    } else {
-      // check to adding and validation
-      this.setState(
-        () => {
-          const list = this.state.modalContainer[groupIndexOf].options.push(
-            optionId,
-          );
-          return list;
-        },
-        () => {
-          this.completeValidation(groupIndexOf, indexOfOption, cb);
-        },
-      );
-    }
-  };
-
-  completeValidation = (groupIndexOf, indexOfOption, cb) => {
-    this.checkCurrentGroup(groupIndexOf, indexOfOption);
-    this.checkAllCheckboxes(cb);
-  };
-
-  checkCurrentGroup = (groupIndexOf, indexOfOption) => {
-    const copyOfModalData = this.state.modalData.item;    
-    if (
-      this.state.modalContainer[groupIndexOf].options.length >
-      this.state.modalContainer[groupIndexOf].groupMaxSelectionLimit
-    ) {
-      copyOfModalData.options[indexOfOption].canAddOptions = false;
-      this.setState(copyOfModalData);
-    } else {
-      copyOfModalData.options[indexOfOption].canAddOptions = true;
-      this.setState(copyOfModalData);
-    }
-  };
-
-  checkAllCheckboxes = cb => {
-    const findExtraCheckbox = this.state.modalData.item.options.find(
-      option => !option.canAddOptions,
-    );
-    let validation = true;
-    if (typeof findExtraCheckbox !== 'undefined') {
-      validation = false;
-    }
-    this.setState({ checkboxValidation: validation }, cb);
-  };
 
   render() {
     const data = this.state.restaurant;
@@ -512,8 +286,7 @@ class RestaurantPage extends React.Component {
               toggleModal={this.toggleModal}
               onChangeSideDish={this.onChangeSideDish}
               modalData={this.state.modalData.item}              
-              key={this.state.modalData.item.id}        
-              modalButton={this.state.modalButton}      
+              key={this.state.modalData.item.id}                       
               type="modal"
             />}
 

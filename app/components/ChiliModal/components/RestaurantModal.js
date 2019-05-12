@@ -6,8 +6,247 @@ import RestaurantSideDishRow from '../../RestaurantSideDishRow';
 import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
+import { SaveSideDishService } from '../../../containers/RestaurantPage/services/SaveSideDish';
 
 class RestaurantModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalData: props.modalData,
+      modalRequiredGroupIds: [],
+      checkboxValidation: true,
+      radioValidation: false,
+      modalContainer: [],
+      modalButton: false,
+    };
+  }
+
+  componentDidMount() {
+    this.resetModal();
+  }
+
+  resetModal() {
+    this.setState(
+      {
+        modalRequiredGroupIds: [],
+        modalContainer: [],
+        radioValidation: false,
+        checkboxValidation: true,
+      },
+      () => {
+        const { options } = this.props.modalData;
+        if (options.length > 0) {
+          this.setState({ modalButton: false, hasSidedish: true });
+        } else {
+          this.setState({ modalButton: true, hasSidedish: false });
+        }
+        const addedOptionValidationArray = options.map(option => ({
+          ...option,
+          canAddOptions: true,
+        }));
+        if (options.length > 1) {
+          const copyOfModalData = this.state.modalData;
+          copyOfModalData.options = addedOptionValidationArray;
+          this.setState(copyOfModalData, () => {
+            const requiredCategories = options.filter(
+              category =>
+                category.groupRequired && category.groupMaxSelectionLimit === 1,
+            );
+            requiredCategories.map(category =>
+              this.setState(previousState => ({
+                modalRequiredGroupIds: [
+                  ...previousState.modalRequiredGroupIds,
+                  category.groupId,
+                ],
+              })),
+            );
+          });
+        }
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      modalRequiredGroupIds: [],
+      modalContainer: [],
+      radioValidation: false,
+      checkboxValidation: true,
+    });
+  }
+
+  onChangeSideDish = (optionId, group) => {
+    const newObj = {
+      options: [],
+    };
+    let groupIndexOf;
+    let selectedCategory;
+    const { modalContainer } = this.state;
+    selectedCategory = modalContainer.find(
+      category => category.groupId === group.groupId,
+    );
+    if (
+      modalContainer.length === 0 ||
+      typeof selectedCategory === 'undefined'
+    ) {
+      newObj.groupId = group.groupId;
+      newObj.groupMaxSelectionLimit = group.groupMaxSelectionLimit;
+      newObj.groupRequired = group.groupRequired;
+      newObj.options.push(optionId);
+      this.setState(
+        {
+          modalContainer: [...this.state.modalContainer, newObj],
+        },
+        () => {
+          selectedCategory = this.state.modalContainer.find(
+            category => category.groupId === group.groupId,
+          );
+          groupIndexOf = this.state.modalContainer.indexOf(selectedCategory);
+          if (group.groupRequired) {
+            this.checkRadio(optionId, groupIndexOf, () => {
+              this.checkModalButtonDisable();
+            });
+          }
+        },
+      );
+    } else {
+      groupIndexOf = modalContainer.indexOf(selectedCategory);
+      // CHECKBOX VALIDATION
+      if (!group.groupRequired) {
+        this.validateCheckBox(
+          optionId,
+          group.groupId,
+          selectedCategory,
+          groupIndexOf,
+          () => {
+            this.checkModalButtonDisable();
+          },
+        );
+      } else {
+        this.checkRadio(optionId, groupIndexOf, () => {
+          this.checkModalButtonDisable();
+        });
+      }
+    }
+  };
+
+  checkModalButtonDisable = () => {
+    if (this.state.radioValidation && this.state.checkboxValidation) {
+      this.setState({
+        modalButton: true,
+      });
+    } else {
+      this.setState({
+        modalButton: false,
+      });
+    }
+  };
+
+  checkRadio = (optionId, groupIndexOf, cb) => {
+    const copyOfModalContainer = this.state.modalContainer;
+    copyOfModalContainer[groupIndexOf].options = [];
+    this.setState(copyOfModalContainer, () => {
+      this.setState(
+        () => {
+          const list = this.state.modalContainer[groupIndexOf].options.push(
+            optionId,
+          );
+          return list;
+        },
+        () => {
+          this.checkAllRadioButtons(cb);
+        },
+      );
+    });
+  };
+
+  checkAllRadioButtons = cb => {
+    let validation = true;
+    const radioCount = this.state.modalContainer.filter(
+      group => group.groupRequired,
+    );
+    const modalRequiredGroupIdsLength = this.state.modalRequiredGroupIds.length;
+    if (radioCount.length < modalRequiredGroupIdsLength) {
+      validation = false;
+    }
+    this.setState({ radioValidation: validation }, cb);
+  };
+
+  validateCheckBox = (
+    optionId,
+    groupId,
+    selectedCategory,
+    groupIndexOf,
+    cb,
+  ) => {
+    const { modalContainer } = this.state;
+    // checkbox checking
+    const optionIndex = selectedCategory.options.indexOf(optionId);
+    const copyOfModalData = this.state.modalData;
+    const optionObject = copyOfModalData.options.find(
+      option => option.groupId === groupId,
+    );
+    const indexOfOption = copyOfModalData.options.indexOf(optionObject);
+    // whenever option currently is in state.modalContainer and we want to remove it
+    if (optionIndex > -1) {
+      modalContainer[groupIndexOf].options.splice(optionIndex, 1);
+      this.setState(
+        () => {
+          const list = this.state.modalContainer[groupIndexOf].options.filter(
+            item => item !== optionId,
+          );
+          return list;
+        },
+        () => {
+          this.completeValidation(groupIndexOf, indexOfOption, cb);
+        },
+      );
+    } else {
+      // check to adding and validation
+      this.setState(
+        () => {
+          const list = this.state.modalContainer[groupIndexOf].options.push(
+            optionId,
+          );
+          return list;
+        },
+        () => {
+          this.completeValidation(groupIndexOf, indexOfOption, cb);
+        },
+      );
+    }
+  };
+
+  completeValidation = (groupIndexOf, indexOfOption, cb) => {
+    this.checkCurrentGroup(groupIndexOf, indexOfOption);
+    this.checkAllCheckboxes(cb);
+  };
+
+  checkCurrentGroup = (groupIndexOf, indexOfOption) => {
+    const copyOfModalData = this.state.modalData;
+    if (
+      this.state.modalContainer[groupIndexOf].options.length >
+      this.state.modalContainer[groupIndexOf].groupMaxSelectionLimit
+    ) {
+      copyOfModalData.options[indexOfOption].canAddOptions = false;
+      this.setState(copyOfModalData);
+    } else {
+      copyOfModalData.options[indexOfOption].canAddOptions = true;
+      this.setState(copyOfModalData);
+    }
+  };
+
+  checkAllCheckboxes = cb => {
+    const findExtraCheckbox = this.state.modalData.options.find(
+      option => !option.canAddOptions,
+    );
+    let validation = true;
+    if (typeof findExtraCheckbox !== 'undefined') {
+      validation = false;
+    }
+    this.setState({ checkboxValidation: validation }, cb);
+  };
+
   modalPrice = () => {
     let sum = 0;
     if (this.props.modalData) {
@@ -41,6 +280,10 @@ class RestaurantModal extends Component {
     return foodOptionPrice;
   };
 
+  saveItems () {
+
+  }
+
   defineSideDishDiscount = (
     foodOptionPrice,
     foodOptionLastPrice,
@@ -63,7 +306,6 @@ class RestaurantModal extends Component {
   };
 
   makeTempName = (id, name) => id + name;
-
 
   render() {
     const classes = this.props;
@@ -148,8 +390,7 @@ class RestaurantModal extends Component {
                       <span className="text10 topM3 rightM3">تومان</span>
                     </li>
                   </ul>
-                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                  </div>
+                  <div className="flex price hP10 leftContent primary text16 wFull hCenter" />
                 </div>
               </div>
 
@@ -186,12 +427,12 @@ class RestaurantModal extends Component {
                                 option.foodOptionName,
                               )}
                               onClick={() =>
-                                this.props.onChangeSideDish(
+                                this.onChangeSideDish(
                                   option.foodOptionId,
                                   category,
                                 )
                               }
-                              groupId={category.groupId}                              
+                              groupId={category.groupId}
                             />
                           </Fragment>
                         ))}
@@ -225,8 +466,10 @@ class RestaurantModal extends Component {
               <div className="i2 center">
                 <Button
                   color="success w80"
-                  disabled={!this.props.modalButton}
-                  onClick={this.props.toggleModal}
+                  disabled={!this.state.modalButton}
+                  onClick={
+                    !this.hasSidedish ? this.props.toggleModal : this.saveItems
+                  }
                 >
                   تایید
                 </Button>
