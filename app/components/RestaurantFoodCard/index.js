@@ -10,8 +10,8 @@ class RestaurantFoodCard extends React.Component {
     const props = this.props;
     return (
       <div className="foodCard">
-          <div className="head center" onClick={props.onClick}>
-            <div className="rightHand center relative">
+          <div className="head center relative" onClick={props.onClick}>
+            <div className="rightHand center absolute right">
               <div
                 className="imageBox cover gray4Bg"
                 style={{ backgroundImage: `url(${props.foodImg})` }}
@@ -28,8 +28,9 @@ class RestaurantFoodCard extends React.Component {
                 <span className="chilivery-zoom text18" />
               </span>
             </div>
-            <div className="leftHand relative">
-              <h2 className="font bold largeText primary bottomM10 text-truncate w60">{props.name}</h2>
+
+            <div className="leftHand relative wFull">
+              <h2 className="font bold largeText primary bottomM10 text-truncate w80">{props.name}</h2>
 
               <p className="description gray5 overhide bottomM5">
                 {props.description}
@@ -66,7 +67,7 @@ class RestaurantFoodCard extends React.Component {
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
             </ul>
-            {!props.foodIsOpen ? (
+            {props.foodIsOpen ? (
               <div className="flex price hP10 leftContent primary text16 wFull hCenter">
                 {!props.hasOption && (
                   <Stepper

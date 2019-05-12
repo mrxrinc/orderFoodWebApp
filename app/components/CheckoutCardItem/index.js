@@ -97,6 +97,7 @@ class CheckoutCardItem extends React.PureComponent {
               fontSize="18"
               restaurantId = {basket.restaurantId}
               data={_data}
+              cartPage
             />
           </div>
         </div>

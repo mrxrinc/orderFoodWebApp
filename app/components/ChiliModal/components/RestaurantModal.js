@@ -311,7 +311,7 @@ class RestaurantModal extends Component {
                   <li className="center">
                     <span
                       className="chilivery-close text28 gray6"
-                      onClick={this.toggleModal}
+                      onClick={this.props.toggleModal}
                     />
                   </li>
                   <li className="center">
@@ -354,6 +354,15 @@ class RestaurantModal extends Component {
                 </div>
 
                 <div className="flex primary">
+                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                    {/* <Stepper
+                    className="topM20"
+                    fontSize="18"
+                    parentId={this.props.modalData.id}
+                    value={this.props.modalData.count}
+                    stepper={this.stepper}
+                  /> */}
+                  </div>
                   <ul className="flex reset hInherit">
                     {this.props.modalData.lastPrice && (
                       <li className="moto flex hCenter rightP10 overLine danger">
@@ -370,15 +379,6 @@ class RestaurantModal extends Component {
                       <span className="text10 topM3 rightM3">تومان</span>
                     </li>
                   </ul>
-                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                    {/* <Stepper
-                    className="topM20"
-                    fontSize="18"
-                    parentId={this.props.modalData.id}
-                    value={this.props.modalData.count}
-                    stepper={this.stepper}
-                  /> */}
-                  </div>
                 </div>
               </div>
 
@@ -460,7 +460,7 @@ class RestaurantModal extends Component {
                 <Button
                   color="success w80"
                   disabled={!this.state.modalButton}
-                  onClick={this.toggleModal}
+                  onClick={this.props.toggleModal}
                 >
                   تایید
                 </Button>
