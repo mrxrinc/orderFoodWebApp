@@ -122,7 +122,7 @@ class StickyPrice extends React.PureComponent {
 
   changeBasket = (preventRedirect) => {
     const {basket,link} = this.props;
-    const items = Object.keys(basket.items).map((item) =>{
+    const items = basket.items && Object.keys(basket.items).map((item) =>{
       var updateData = {
         "orderItemFoodId" : item,
         "itemCount" : basket.items[item].itemCount
@@ -160,6 +160,8 @@ class StickyPrice extends React.PureComponent {
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user'
     }).then(response => {
       if(response.status) {
+        // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
+        // window.location = response.result.url;
         if (response.go_to === 'app.success-pay') {
           history.push('/success-payment')
         }

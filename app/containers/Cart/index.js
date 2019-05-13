@@ -93,7 +93,6 @@ export class cart extends React.PureComponent {
           title="سبد خرید"
           background
         />
-
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
           {this.props.basket.items && 

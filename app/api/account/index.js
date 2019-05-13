@@ -130,3 +130,11 @@ export const bankGetways = (params) => {
   return deRequest(account.bank_getways_get (params), "GET")
 }
 
+export const getProfileDetails = () => {
+  return deRequest(account.get_profile_details(), "GET")
+}
+
+export const editProfile = params => {
+  return deRequest(account.edit_profile(), "PUT", params, false)
+}
+

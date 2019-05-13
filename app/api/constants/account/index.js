@@ -36,4 +36,6 @@ export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
 export const order_review_get= (orderId) => API_URL_ROOT+'/order/toReview?orderId='+orderId;
 export const userAddress= () => API_URL_ROOT+'/userAddress';
 export const payOrder= () => API_URL_ROOT+'/payment/action';
+export const get_profile_details= () => API_URL_ROOT+'/user/current';
+export const edit_profile= () => API_URL_ROOT+'/user/update';
 
