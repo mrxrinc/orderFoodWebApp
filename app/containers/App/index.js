@@ -55,7 +55,6 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
           <Route exact path="/restaurants/:citySlug/:pointSlug" component={RestaurantsList} />
-          <Route exact path="/:citySlug/:restaurantSlug" component={RestaurantPage} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />
@@ -86,6 +85,7 @@ export default function App() {
           <Route exact path="/profile/No-Address" component={NoAddress} />
           <Route exact path="/profile/wallet" component={PageProfileWallet} />
           <Route exact path="/activation-code" component={ActivationCode} />
+          <Route exact path="/:citySlug/:restaurantSlug" component={RestaurantPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </main>
