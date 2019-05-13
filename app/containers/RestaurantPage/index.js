@@ -126,19 +126,19 @@ class RestaurantPage extends React.Component {
   }
 
   componentWillUnmount() {
-    changeBasketPost(this.props.basket).then(
-      response => {
-        console.log('========changeBasketPost===============');
-        console.log(response);
-        console.log('====================================');
-      }
-    ).catch(
-      err => {
-        console.log('===========err==================');
-        console.log(err.response);
-        console.log('====================================');
-      }
-    )
+    // changeBasketPost(this.props.basket).then(
+    //   response => {
+    //     console.log('========changeBasketPost===============');
+    //     console.log(response);
+    //     console.log('====================================');
+    //   }
+    // ).catch(
+    //   err => {
+    //     console.log('===========err==================');
+    //     console.log(err.response);
+    //     console.log('====================================');
+    //   }
+    // )
   }
 
   tabClick = slug => {
