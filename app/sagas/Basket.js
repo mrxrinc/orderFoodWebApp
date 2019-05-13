@@ -25,7 +25,7 @@ function* basketChange({ payload }) {
   try {
     console.log("payload",payload.data);
     const res = yield putChangeBasket(payload.data);
-    if(res && !payload.preventRedirect) {
+    if(res.status && !payload.preventRedirect) {
       yield put(push("/" + payload.nextPage));
     }
   } catch (e) {
@@ -34,7 +34,9 @@ function* basketChange({ payload }) {
 }
 
 export function* GetBasketItems() {
-  yield takeLatest(GET_BASKET_ITEMS, getBasket);
+  // const getToken = (state) => state.Basket
+  // debugger
+  yield take(GET_BASKET_ITEMS, getBasket);
 }
 
 function* getBasket({ payload }) {
@@ -43,7 +45,6 @@ function* getBasket({ payload }) {
     const res = yield createBasket(payload.restaurantId);
     if (res.status) {
       yield put(addToBasket(res.result));
-      console.log(223222);
     }
   }catch (e) {
     console.log(e);

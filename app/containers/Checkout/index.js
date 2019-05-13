@@ -21,7 +21,7 @@ export class Checkout extends React.PureComponent {
       description: '',
       gateway: this.props.basket.gateway ? this.props.basket.gateway : '1',
       accCharge: false,
-      showGetway:false
+      showGetway:true
     };
   }
 
@@ -46,20 +46,33 @@ export class Checkout extends React.PureComponent {
     });
   };
 
-  ChangeAccCharge = e => {
-    console.log("omid")
-    this.setState({accCharge: !this.state.accCharge},()=>
-      this.props.accChargeChanged({accCharge:this.state.accCharge})
-    );
-    if(this.state.accCharge && (this.props.basket.totalPrice <= this.props.user.cacheBalance)) {
-      this.setState({
-        showGetway:false
-      })
-    } else  {
+  showBankGetway () {
+    let discountAmount = this.props.basket.discountAmount ? this.props.basket.discountAmount : 0;
+    let totalPrice = this.state.orderItems.amount.total ;
+    console.log(this.state.accCharge);
+    if(this.state.accCharge && (totalPrice + discountAmount > this.props.user.cacheBalance)) {
+
       this.setState({
         showGetway:true
       })
+    } else if (!this.state.accCharge) {
+      this.setState({
+        showGetway:true
+      })
+    } else if (this.state.accCharge && (totalPrice + discountAmount <= this.props.user.cacheBalance)) {
+      this.setState({
+        showGetway:false
+      })
     }
+  }
+
+  ChangeAccCharge = e => {
+    this.setState({accCharge: !this.state.accCharge},()=> {
+      this.showBankGetway();
+      this.props.accChargeChanged({accCharge:this.state.accCharge});
+      }
+    );
+
   };
 
   componentDidMount() {
@@ -86,7 +99,7 @@ export class Checkout extends React.PureComponent {
           <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>
           <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
           <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge}/>
-          {!this.state.showGetway &&
+          {this.state.showGetway &&
           <Row className="banks-row" >
             {orderItems && orderItems.bankgateways.map((value,index) =>
               <Col xs="6">
