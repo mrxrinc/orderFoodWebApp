@@ -184,9 +184,32 @@ class ProfileWallet extends React.Component{
             <span className="header-acount__number center">۵۰/۰۰۰ تومان</span>
           </div>
         </div>
+
 				<div className="container">
-        <div className="panigale-page-profile__credit">
+        
+        <div className="panigale-page-profile__user-edit">
           <div className="row">
+
+            <AnimateField
+              className="col"
+              placeholder="وارد نمایید"
+              name="userCredit"
+              type="text"
+              label=" مبلغ افزایش موجودی (تومان)"
+              value={userCredit}
+              onChange={this.onChangeNumber}
+              onKeyPress={this.handleKeyPressBalance}
+              validation={
+                typeof classes.validation.wallet.payAmount === "undefined"?
+                false:classes.validation.wallet.payAmount
+              }
+              required={true}
+            />
+            <div className="panigale-page-profile__credit-gift form-group col-auto">
+                <button className={!classes.loading.walletIncLoading?"btn btn-danger ml-0":"btn ml-0 btn-loading btn-disable disabled-link"}
+                    onClick={this.submitBalance}>ثبت
+                </button>
+            </div>
             <div className="panigale-animate-field form-group col-sm-8 mt-3">
               {gatewayId &&
                 <label>انتخاب درگاه بانکی</label>
@@ -197,43 +220,6 @@ class ProfileWallet extends React.Component{
                   onChange={this.handleChangeGateway}
                 />
               </div>
-            </div>
-
-            {/* {gatewayId &&
-              <div className="form-group col-sm-4">
-                <button className={!classes.loading.walletIncLoading?"btn btn-danger ml-0":"btn ml-0 btn-loading btn-disable disabled-link"}
-                    onClick={this.submitBalance}>ثبت
-                </button>
-              </div>
-            } */}
-
-
-          </div>
-        </div>
-
-        
-        <div className="panigale-page-profile__user-edit">
-          <div className="row">
-
-          <AnimateField
-              className="col"
-              placeholder="وارد نمایید"
-              name="userCreditGift"
-              type="text"
-              label="مبلغ مورد نظر(تومان) ..."
-              value={userCreditGift}
-              onChange={this.onChange}
-              onKeyPress={this.handleKeyPressGift}
-              validation={
-                typeof classes.validation.gift.gift_code === "undefined"?
-                false:classes.validation.gift.gift_code
-              }
-              required={true}
-            />
-            <div className="panigale-page-profile__credit-gift form-group col-auto">
-              <button className={!classes.loading.walletIncGiftLoading?"btn btn-success":"btn btn-loading btn-disable disabled-link"}
-								onClick={this.submitGift}>تایید مبلغ
-							</button>
             </div>
 
             {/* <h5 className="panigale-page-profile__title panigale-page-profile__password mt-4 count-save">
