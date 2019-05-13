@@ -19,7 +19,7 @@ class OrderEmpty extends React.Component{
 			<div className="order-empty hFull center">
 				<div className="order-empty__icon">
 					<img className="order-empty__img" src={icon} alt=""/>
-                    <span className="order-empty__title">{this.state.title}</span>
+					<span className="order-empty__title">{this.state.title}</span>
 				</div>
 			</div>
 		);
