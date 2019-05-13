@@ -65,7 +65,7 @@ class HomePage extends React.Component {
       ).then(
           response => {
               let neighborhood = response.result.neighbourhood;
-              history.push(`/restaurants-list/${neighborhood.cityId}/${neighborhood.mapCenter.lat},${neighborhood.mapCenter.lon}`)
+              history.push(`/restaurants/${neighborhood.citySlug}/${neighborhood.slug}`)
           }
       );
     }
