@@ -3,7 +3,7 @@ ARG ADMIN_BACKEND
 
 RUN apk update && apk add g++ make gcc zlib-dev
 
-RUN  npm install -g npm@6.3.0
+RUN  npm install -g npm@6.4.0
 
 WORKDIR /var/www/html
 
@@ -13,12 +13,9 @@ COPY internals ./internals
 
 RUN sed -i -e 's,APP_URL=,APP_URL='"$ADMIN_BACKEND"',g' .env
 
-COPY . .
-
 RUN yarn install
 
-RUN yarn
-
+COPY . .
 
 RUN yarn build
 
