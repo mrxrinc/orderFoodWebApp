@@ -7,6 +7,7 @@ import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
 import { SaveSideDishService } from '../../../containers/RestaurantPage/services/SaveSideDish';
+import { accChargedChanged, addToBasket } from '../../../actions/Basket';
 
 class RestaurantModal extends Component {
   constructor(props) {
@@ -18,10 +19,15 @@ class RestaurantModal extends Component {
       radioValidation: false,
       modalContainer: [],
       modalButton: false,
+      cloneBasketItem: {},
+      sideConfirm:false,
     };
   }
 
   componentDidMount() {
+    const cloneBasketItem = { ...this.props.basket }
+    this.setState({cloneBasketItem});
+
     this.resetModal();
   }
 
@@ -250,9 +256,9 @@ class RestaurantModal extends Component {
   modalPrice = () => {
     let sum = 0;
     if (this.props.modalData) {
-      const { count } = this.props.modalData;
+      const { itemCount } = this.props.modalData;
       const itemPrice = this.props.modalData.price;
-      sum = itemPrice * count;
+      sum = itemPrice * itemCount;
     }
     return sum;
   };
@@ -306,6 +312,21 @@ class RestaurantModal extends Component {
   };
 
   makeTempName = (id, name) => id + name;
+
+  sideDishConfirm = () => {
+    !this.hasSidedish ? this.props.toggleModal : this.saveItems;
+    this.setState({sideConfirm:true},()=>{
+      this.props.toggleModal()
+    })
+    
+    
+  }
+
+  componentWillUnmount(){
+    if(this.state.sideConfirm === false){
+      this.props.addToBasket(this.state.cloneBasketItem);
+    }
+  }
 
   render() {
     const classes = this.props;
@@ -458,7 +479,7 @@ class RestaurantModal extends Component {
                   <div className="flex hP10 primary text16 center">
                     <Stepper
                       fontSize="18"
-                      restaurantId={this.props.modalData.id}
+                      restaurantId={this.props.restaurantId}
                       data={this.props.modalData}
                       type={this.props.type}
                     />
@@ -476,9 +497,7 @@ class RestaurantModal extends Component {
                 <Button
                   color="success w80"
                   disabled={!this.state.modalButton}
-                  onClick={
-                    !this.hasSidedish ? this.props.toggleModal : this.saveItems
-                  }
+                  onClick={()=> this.sideDishConfirm()}
                 >
                   تایید
                 </Button>
@@ -495,9 +514,15 @@ const mapStateToProps = state => ({
   modals: {
     RestaurantPageModal: state.Modals.RestaurantPageModal,
   },
+  basket: state.Basket,
+});
+const mapDispatchToProps = dispatch => ({
+  addToBasket: value => {
+    dispatch(addToBasket(value));
+  },
 });
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(RestaurantModal);
