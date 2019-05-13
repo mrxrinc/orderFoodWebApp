@@ -124,10 +124,12 @@ module.exports = require('./webpack.base.babel')({
       name: 'Chilivery',
       short_name: 'Chilivery',
       description: '',
-      background_color: '#dd3d4e',
-      theme_color: '#dd3d4e',
+      background_color: '#fff',
+      theme_color: '#fff',
       inject: true,
       ios: true,
+      display: "fullscreen",
+      orientation: "portrait",
       icons: [
         {
           // src: path.resolve('app/images/icon-512x512.png'),

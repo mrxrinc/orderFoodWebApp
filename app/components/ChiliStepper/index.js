@@ -48,12 +48,21 @@ class ChiliStepper extends React.Component {
     });
   }
 
-  decrease = () => {
-    this.props.changeBasket({
-      restaurantId: this.props.restaurantId,
-      food: this.props.data,
-      itemCount: -1
-    });
+  decrease = (food_basket) => {
+    if(this.props.type === "modal" && food_basket.itemCount > 1){
+      this.props.changeBasket({
+        restaurantId: this.props.restaurantId,
+        food: this.props.data,
+        itemCount: -1
+      });
+    }
+    if(this.props.type == null || this.props.type !== "modal"){
+      this.props.changeBasket({
+        restaurantId: this.props.restaurantId,
+        food: this.props.data,
+        itemCount: -1
+      });
+    }
   }
 
   render() {
@@ -90,7 +99,7 @@ class ChiliStepper extends React.Component {
           <button
             className="stepper__remove center"
             type="button"
-            onClick={() => this.decrease()}
+            onClick={() => this.decrease(food_basket)}
           >
             <span className="chilivery-remove" />
           </button>
