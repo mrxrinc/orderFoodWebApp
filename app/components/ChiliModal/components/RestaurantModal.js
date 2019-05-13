@@ -253,7 +253,10 @@ class RestaurantModal extends Component {
     this.setState({ checkboxValidation: validation }, cb);
   };
 
-  modalPrice = () => {
+  modalPrice = (modalData) => {
+    console.log('========this.props.modalData====================');
+    console.log(modalData);
+    console.log('====================================');
     let sum = 0;
     if (this.props.modalData) {
       const { itemCount } = this.props.modalData;
@@ -395,15 +398,6 @@ class RestaurantModal extends Component {
                 </div>
 
                 <div className="flex primary">
-                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                    {/* <Stepper
-                    className="topM20"
-                    fontSize="18"
-                    parentId={this.props.modalData.id}
-                    value={this.props.modalData.count}
-                    stepper={this.stepper}
-                  /> */}
-                  </div>
                   <ul className="flex reset hInherit">
                     {this.props.modalData.lastPrice && (
                       <li className="moto flex hCenter rightP10 overLine danger">
@@ -481,15 +475,18 @@ class RestaurantModal extends Component {
                       fontSize="18"
                       restaurantId={this.props.restaurantId}
                       data={this.props.modalData}
+                      full={this.props}
                       type={this.props.type}
                     />
                   </div>
 
-                  <div className="flex hCenter bold primary topM5">
-                    <span className="text12 leftM5">مبلغ کل :</span>
-                    <span className="text22">{this.modalPrice()}</span>
-                    <span className="text12 topM5 rightM3">تومان</span>
-                  </div>
+                  {/* {this.props.modalData.itemCount &&
+                    <div className="flex hCenter bold primary topM5">
+                      <span className="text12 leftM5">مبلغ کل :</span>
+                        <span className="text22">{this.modalPrice(this.props.modalData)}</span>
+                      <span className="text12 topM5 rightM3">تومان</span>
+                    </div>
+                  } */}
                 </div>
               </div>
 

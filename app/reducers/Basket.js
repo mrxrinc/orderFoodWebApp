@@ -30,8 +30,9 @@ const Basket = (state = initState, action) => {
         case CHANGE_BASKET:
           let {restaurantId, food, itemCount} = action.payload;
           let items = JSON.parse(JSON.stringify(state.items));
-          console.log('=======items==================');
-          console.log(typeof items[food.id]);
+          let totalCount = JSON.parse(JSON.stringify(state.totalCount));
+          console.log('=======totalCount==================');
+          console.log(totalCount);
           console.log('====================================');
           if( state.restaurantId != restaurantId){
             items = {};
@@ -42,14 +43,17 @@ const Basket = (state = initState, action) => {
             console.log("+= itemCount");
             console.log('====================================');
           }else{
+            console.log('====================================');
+            console.log(food);
+            console.log('====================================');
             items[food.id] = {
               orderItemFoodId : food.id,
               foodLastPrice : null,
-              foodName : food.item.name, 
-              basketOrderItemKey : food.item.id,
-              itemCount : itemCount,
-              foodPrice: food.item.price,
-              image: food.item.image,
+              foodName : food.name, 
+              basketOrderItemKey : food.id,
+              itemCount : 1,
+              foodPrice: food.price,
+              image: food.image,
               options: [],
             };
             console.log('====================================');
