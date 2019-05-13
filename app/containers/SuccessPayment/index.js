@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router';
 import Countdown from 'react-countdown-now';
 import './style.scss';
 import status01 from '../../images/after-payment-status/after-payment-status-01.png';
