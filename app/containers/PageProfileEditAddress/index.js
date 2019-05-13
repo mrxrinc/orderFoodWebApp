@@ -11,6 +11,7 @@ import {addToast} from '../../actions/Notifications';
 
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 import {userAddressList} from '../../api/application/userAddress';
+import NavigationBar from '../../components/NavigationBar';
 
 import './style.scss';
 import icon from '../../images/icons/edit_profile.png'
@@ -157,7 +158,12 @@ class ProfileEditAddress extends React.Component {
 
 	render() {
 		return (
-			<div className="profile profile-add-new-adress">
+			<div className="profile profile-add-new-adress bottomP50">
+				<NavigationBar 
+					back
+					background
+					title="ویرایش آدرس"
+				/>
 				{ this.state.alertShow &&
 					<ChiliAlert type={this.state.alertType}>
 						{this.state.alertMessage}

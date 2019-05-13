@@ -14,6 +14,7 @@ import './style.scss';
 import icon from '../../images/icons/edit_profile.png'
 import { history } from '../../store';
 import {addToast} from '../../actions/Notifications';
+import NavigationBar from '../../components/NavigationBar';
 
 
 class ProfileNewAddress extends React.Component {
@@ -151,7 +152,12 @@ class ProfileNewAddress extends React.Component {
 
 	render() {
 		return (
-			<div className="profile profile-add-new-adress">
+			<div className="profile profile-add-new-adress bottomP50">
+				<NavigationBar 
+					back
+					background
+					title="افزودن آدرس جدید"
+				/>
 				{ this.state.alertShow &&
 					<ChiliAlert type={this.state.alertType}>
 						{this.state.alertMessage}

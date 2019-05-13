@@ -30,8 +30,6 @@ import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
 
-// let basketTempData = {};
-
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -230,10 +228,11 @@ class RestaurantPage extends React.Component {
                             discount={food.salePercentage}
                             vote={food.vote}
                             voteCount={food.voteCount}
-                            price={food.foodPrice}
+                            price={food.price}
                             lastPrice={food.lastPrice}
-                            // stepper={this.stepper}
                             item={food} // to get inside Stepper component
+                            restaurantIsOpen={data.isOpen}
+                            foodIsOpen={food.isOpen}
                           />
                         )
                         })

@@ -171,7 +171,6 @@ class HomePage extends React.Component {
           </div>
 
           <div className="wFull topM30 column center">
-          
             <span className="chilivery-compass" onClick={this.myLocation}/>
             <p className="primary text14 bold topM10">رستوران های اطراف من</p>
           </div>

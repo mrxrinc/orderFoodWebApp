@@ -1,0 +1,16 @@
+@import '../../../style/sass/variable';
+
+.order-empty{
+    .order-empty__icon{
+        text-align: center;
+        .order-empty__img{
+            width: 90px;
+            height: 90px;
+        }
+        .order-empty__title{
+            display: block;
+            padding-top: 12px;
+            color: $grey-15;
+        }
+    }
+}

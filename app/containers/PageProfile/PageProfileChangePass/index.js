@@ -7,6 +7,7 @@ import icon from '../../../images/icons/change_password.png';
 import { profileChangePass } from '../../../api/account';
 import {addToast} from '../../../actions/Notifications';
 import { connect } from 'react-redux';
+import NavigationBar from '../../../components/NavigationBar';
 class ProfileChangePass extends React.Component{
 	constructor(props){
 		super(props)
@@ -51,6 +52,11 @@ class ProfileChangePass extends React.Component{
 	render(){
 		return(
 			<div className="profile-edit">
+				<NavigationBar 
+					back
+					background
+					title="تغییر رمز عبور"
+				/>
 				<div className="container">
 					<div className="profile-edit__icon center">
 						<img className="edit__img" src={icon} alt="change_password"/>

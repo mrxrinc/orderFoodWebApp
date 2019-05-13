@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
 import './editprofile.scss';
-import icon from '../../../images/icons/edit_profile.png'
+import icon from '../../../images/icons/edit_profile.png';
+import NavigationBar from '../../../components/NavigationBar';
 
 class ProfileEdit extends React.Component{
 	constructor(props){
@@ -28,6 +29,11 @@ class ProfileEdit extends React.Component{
 		const {signUpGender} = this.state
 		return(
 			<div className="profile-edit">
+				<NavigationBar 
+					back
+					background
+					title="ویرایش پروفایل"
+				/>
 				<div className="container">
 					<div className="profile-edit__icon center">
 						<img className="edit-img" src={icon} alt="edit_profile"/>
