@@ -32,7 +32,7 @@ build_develop:
 develop:
   stage: develop
   script:
-    - kubectl set image deployment/chili-pwa chilivery-pwa=${IMAGE_URL}:${DEVELOP_IMAGE_TAG} -n chili-develop
+    - kubectl set image deployment/chili-pwa chili-pwa=${IMAGE_URL}:${DEVELOP_IMAGE_TAG} -n chili-develop
     - kubectl rollout status deploy/chili-pwa -n chili-develop
   only:
     - develop
