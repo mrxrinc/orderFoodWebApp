@@ -56,10 +56,6 @@
   }
   &__footer {
     margin-top: 75px;
-    .countdown {
-      text-align: center;
-      position: relative;
-    }
     p {
       color:$grey-6;
       font-size: 12px;
@@ -67,6 +63,8 @@
   }
 }
 .countdown {
+  text-align: center;
+  position: relative;
   span {
     position: relative;
     display: inline-block;

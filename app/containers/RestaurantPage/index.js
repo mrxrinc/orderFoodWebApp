@@ -30,8 +30,6 @@ import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
 
-// let basketTempData = {};
-
 class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
@@ -49,11 +47,11 @@ class RestaurantPage extends React.Component {
     };
   }
 
-  openFoodModal = food => {    
-    this.setState({ modalData: food }, () => {      
+  openFoodModal = food => {
+    this.setState({ modalData: food }, () => {
       if(typeof this.props.basket.items[this.state.modalData.id] != "undefined"){
         this.state.modalData.item['itemCount'] = this.props.basket.items[this.state.modalData.id].itemCount;
-      }            
+      }
       this.toggleModal();
     });
   };
@@ -67,12 +65,12 @@ class RestaurantPage extends React.Component {
             basketObjItems: response.result.items,
             basketObj: response.result,
           }, () => {
-    
+
             let basketToArray = Object.keys(this.state.basketObjItems);
             let basketStoreObjItems = this.props.basket.items;
             let basketStoreObj = this.props.basket;
-    
-    
+
+
             if (basketToArray.length > 0) {
               if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
                 this.setState({
@@ -89,7 +87,7 @@ class RestaurantPage extends React.Component {
                 console.log('setBasketToStore from server');
                 console.log('====================================');
               }
-    
+
             } else {
               if (this.state.basketObj.id === basketStoreObj.id) {
                 this.setState({
@@ -108,7 +106,7 @@ class RestaurantPage extends React.Component {
               }
             }
           })
-    
+
         }).catch((err) => {
           console.log(err)
         });
@@ -119,21 +117,6 @@ class RestaurantPage extends React.Component {
   }
 
 
-  // componentWillUnmount() {
-  //   changeBasketPost(this.props.basket).then(
-  //     response => {
-  //       console.log('========changeBasketPost===============');
-  //       console.log(response);
-  //       console.log('====================================');
-  //     }
-  //   ).catch(
-  //     err => {
-  //       console.log('===========err==================');
-  //       console.log(err.response);
-  //       console.log('====================================');
-  //     }
-  //   )
-  // }
 
   tabClick = slug => {
     switch (slug) {
@@ -167,7 +150,7 @@ class RestaurantPage extends React.Component {
     }
   };
 
-  toggleModal = () => {    
+  toggleModal = () => {
     this.props.showModal({
       RestaurantPageModal: !this.props.modals.RestaurantPageModal,
     });
@@ -245,10 +228,11 @@ class RestaurantPage extends React.Component {
                             discount={food.salePercentage}
                             vote={food.vote}
                             voteCount={food.voteCount}
-                            price={food.foodPrice}
+                            price={food.price}
                             lastPrice={food.lastPrice}
-                            // stepper={this.stepper}
                             item={food} // to get inside Stepper component
+                            restaurantIsOpen={data.isOpen}
+                            foodIsOpen={food.isOpen}
                           />
                         )
                         })
@@ -286,8 +270,8 @@ class RestaurantPage extends React.Component {
               toggleModal={this.toggleModal}
               onChangeSideDish={this.onChangeSideDish}
               modalData={this.state.modalData.item}
-              restaurantId={this.state.restaurant.id}           
-              key={this.state.modalData.item.id}                       
+              restaurantId={this.state.restaurant.id}
+              key={this.state.modalData.item.id}
               type="modal"
             />}
 

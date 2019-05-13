@@ -61,11 +61,32 @@
         font-size: 14px;
       }
     }
+    &-action {
+      .btn {
+        width: 160px;
+        font-size: 13px;
+        padding: 0;
+        margin: 10px 5px 30px;
+      }
+    }
+    &__map {
+      height: 300px;
+      margin: 0 10px;
+
+      &-box {
+        overflow: hidden;
+        height: 100%;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+      }
+    }
   }
   &__details {
     &__box {
       padding: 5px 10px;
       border-left: 1px solid $grey-4;
+      width: 25%;
       &:last-child {
         border-left: none;
       }

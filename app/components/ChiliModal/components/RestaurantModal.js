@@ -395,6 +395,15 @@ class RestaurantModal extends Component {
                 </div>
 
                 <div className="flex primary">
+                  <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                    {/* <Stepper
+                    className="topM20"
+                    fontSize="18"
+                    parentId={this.props.modalData.id}
+                    value={this.props.modalData.count}
+                    stepper={this.stepper}
+                  /> */}
+                  </div>
                   <ul className="flex reset hInherit">
                     {this.props.modalData.lastPrice && (
                       <li className="moto flex hCenter rightP10 overLine danger">

@@ -17,6 +17,7 @@ import RestaurantPage from '../RestaurantPage';
 import Kit from '../../containers/Kit';
 import Checkout from '../../containers/Checkout';
 import Cart from '../../containers/Cart';
+import WebViewPage from '../../containers/WebViewPage';
 import Authentication from '../../containers/Authentication';
 import AfterPayment from '../../containers/AfterPayment';
 import SuccessPayment from '../../containers/SuccessPayment';
@@ -41,8 +42,7 @@ import Transaction from '../PageProfile/Transaction';
 import TransactionEmpty from '../PageProfile/TransactionEmpty';
 import Order from '../PageProfile/Order';
 import OrderEmpty from '../PageProfile/OrderEmpty';
-import MyComments from '../PageProfile/MyComments/myComments';
-import WebViewPage from '../../containers/WebViewPage';
+import MyComments from '../PageProfile/MyComments';
 import NoAddress from '../PageProfile/NoAddress';
 import GlobalStyle from '../../global-styles';
 

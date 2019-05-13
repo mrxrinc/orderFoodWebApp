@@ -1,10 +1,9 @@
 @import '../../style/sass/variable';
 
-$height: 85px;
+$height: 60px;
 
 .navWrapper {
   height: $height;
-  padding-top: 25px;
   position: fixed;
   z-index: 5;
   margin-bottom: $height;

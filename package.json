@@ -95,7 +95,8 @@
     "sanitize.css": "4.1.0",
     "sass-loader": "^7.1.0",
     "styled-components": "4.0.2",
-    "warning": "4.0.2"
+    "warning": "4.0.2",
+    "recompose": "latest"
   },
   "devDependencies": {
     "@babel/cli": "7.1.2",

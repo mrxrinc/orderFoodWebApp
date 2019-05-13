@@ -7,6 +7,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addToBasket, changeBasket } from '../../actions/Basket';
+import AlertDeleteCartItem from '../ChiliModal/components/AlertDeleteCartItem';
+import { showModal } from '../../actions/Modals';
 
 
 import './style.scss';
@@ -18,6 +20,7 @@ class ChiliStepper extends React.Component {
     this.state = {
       itemCount:0,
       selectionKey:null,
+      lastItem: false
     };
   }
 
@@ -73,35 +76,34 @@ class ChiliStepper extends React.Component {
       this.props.basket.items[this.props.data.id]:{itemCount: 0};
     return (
       <div
-      className={`stepper hCenter rRowReverse spaceBetween ${
-        this.props.className
-      }`}
-    >
-      <button
-        className="stepper__add center"
-        type="button"
-        onClick={() => this.increase()}
+        className={`stepper hCenter rRowReverse spaceBetween ${
+          this.props.className
+        }`}
       >
-        <span className="chilivery-add" />
-      </button>
-  
-      {food_basket.itemCount > 0 && (
-        <React.Fragment>
-          <span className="stepper__count">
-            <h2
-              className="reset centerText hM5"
-              style={{ fontSize: `${this.props.fontSize}px` }}
+        <button
+          className="stepper__add center"
+          type="button"
+          onClick={() => this.increase()}
+        >
+          <span className="chilivery-add" />
+        </button>
+    
+        {food_basket.itemCount > 0 && (
+          <React.Fragment>
+            <span className="stepper__count">
+              <h2
+                className="reset centerText hM5"
+                style={{ fontSize: `${this.props.fontSize}px` }}
+              >
+                {food_basket.itemCount}
+              </h2>
+            </span>
+    
+            <button
+              className="stepper__remove center"
+              type="button"
+              onClick={() => this.decrease(food_basket.itemCount)}
             >
-              {food_basket.itemCount}
-            </h2>
-          </span>
-  
-          <button
-            className="stepper__remove center"
-            type="button"
-            onClick={() => this.decrease(food_basket)}
-          >
-            <span className="chilivery-remove" />
           </button>
         </React.Fragment>
       )}
@@ -114,7 +116,10 @@ class ChiliStepper extends React.Component {
 
 const mapStateToProps = state => ({
   basket:state.Basket,
-  Auth:state.auth
+  Auth:state.auth,
+  modals: {
+    alertExp: state.Modals.alertExp,
+  }
 });
 const mapDispatchToProps = dispatch => ({
   addToBasket: value => {
@@ -122,7 +127,10 @@ const mapDispatchToProps = dispatch => ({
   },
   changeBasket: value => {
     dispatch(changeBasket(value));
-  }
+  },
+  showModal: showStatus => {
+    dispatch(showModal(showStatus));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChiliStepper);

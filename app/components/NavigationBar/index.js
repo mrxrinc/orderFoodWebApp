@@ -29,7 +29,7 @@ export default props => (
         <div className="navButtonsWrapper center">
           {props.back && (
             <div className={`whFull center ${iconsColor(props)}`} onClick={goBack} >
-            <span className="chilivery-back text25" />
+            <span className="chilivery-back text22" />
           </div>
           )}
           {props.map && (

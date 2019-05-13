@@ -96,7 +96,10 @@ export class cart extends React.PureComponent {
 
         {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
         <div className="cart__card-item">
-          {Object.keys(this.props.basket.items).length > 0 && <CheckoutCardItem basket={this.props.basket}/>}
+          {this.props.basket.items && 
+            Object.keys(this.props.basket.items).length > 0 && (
+            <CheckoutCardItem basket={this.props.basket}/>
+          )}
         </div>
         <div className="food-delivery">
           <div className="food-delivery__rbox">
