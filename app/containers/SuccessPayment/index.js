@@ -8,21 +8,13 @@ import restaurantProfile from '../../images/test/restaurantProfile.jpg';
 import { getDataAfterPayment } from '../../api/account';
 import { connect } from 'react-redux';
 import Food from '../../images/test/food.jpg';
+import { history } from '../../store';
 
 const divStyle = {
   backgroundImage: `url(${Food})`,
 };
 
-// Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
-  if (completed) {
-    // Render a completed state
-    return <Redirect to='/after-payment' />
-  } else {
-    // Render a countdown
-    return <span>{minutes}:{seconds}</span>;
-  }
-};
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class SuccessPayment extends React.PureComponent {
@@ -37,6 +29,17 @@ export class SuccessPayment extends React.PureComponent {
   componentDidMount() {
     this.dataAfterPayment();
   }
+// Renderer callback with condition
+  renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      // history.listen('/after-payment')
+      return <Redirect to="/after-payment" />
+    } else {
+      // Render a countdown
+      return <span>{minutes}:{seconds}</span>;
+    }
+  };
 
   dataAfterPayment = () => {
     getDataAfterPayment({
@@ -66,7 +69,7 @@ export class SuccessPayment extends React.PureComponent {
         <div className="SuccessPayment__footer">
           <div className="countdown seconds">
             <div className="line"></div>
-            {showCountDown && <Countdown date={Date.now() + 10000} renderer={renderer}/>}
+            {showCountDown && <Countdown date={Date.now() + 1000} renderer={this.renderer}/>}
             <p>لطفا شکیبا باشید...</p>
           </div>
         </div>
