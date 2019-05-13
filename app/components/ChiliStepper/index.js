@@ -51,28 +51,21 @@ class ChiliStepper extends React.Component {
     });
   }
 
-  decrease = count => {
-    if(count > 1) { this.handleDecrease(); } // decreases the count
-    else if(count === 1) {
-      if(this.props.cartPage) { 
-        this.props.showModal({ alertExp: true }); //shows the confirmation to delete modal
-      } else {
-        this.handleDecrease(); // remove last count if its not cart page
-      }
+  decrease = (food_basket) => {
+    if(this.props.type === "modal" && food_basket.itemCount > 1){
+      this.props.changeBasket({
+        restaurantId: this.props.restaurantId,
+        food: this.props.data,
+        itemCount: -1
+      });
     }
-  }
-
-  removeLastItem = () => {
-    this.handleDecrease(); // suppose to make the count 0 
-    this.props.showModal({ alertExp: false });
-  }
-
-  handleDecrease = () => {
-    this.props.changeBasket({
-      restaurantId: this.props.restaurantId,
-      food: this.props.data,
-      itemCount: -1
-    });
+    if(this.props.type == null || this.props.type !== "modal"){
+      this.props.changeBasket({
+        restaurantId: this.props.restaurantId,
+        food: this.props.data,
+        itemCount: -1
+      });
+    }
   }
 
   render() {
@@ -111,13 +104,10 @@ class ChiliStepper extends React.Component {
               type="button"
               onClick={() => this.decrease(food_basket.itemCount)}
             >
-              <span className="chilivery-remove" />
-            </button>
-          </React.Fragment>
-        )}
-
-          <AlertDeleteCartItem confirm={() => this.removeLastItem()} />
-      </div>
+          </button>
+        </React.Fragment>
+      )}
+    </div>
     );
   }
 }

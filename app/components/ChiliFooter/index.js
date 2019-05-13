@@ -113,7 +113,7 @@ class ChiliFooter extends React.Component {
 
               <div className="col">
                 <NavLink 
-                  to={`${(typeof this.props.basket !== "undefined" && Object.keys(this.props.basket.items).length > 0) ? "/cart":"/"}`}
+                  to="/cart"
                   className="chili-footer__list-item"
                 >
                   <span className="chili-footer__list-icon">
