@@ -98,7 +98,7 @@ class ChiliFooter extends React.Component {
               }
 
               <div className="col">
-                <Link to="/kit" className="chili-footer__list-item active">
+                <Link to="/cart" className="chili-footer__list-item active">
                   <span className="chili-footer__list-icon">
                     <span className="chili-footer__badge badge badge-success">
                       <span>9</span>
