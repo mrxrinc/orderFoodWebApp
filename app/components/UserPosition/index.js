@@ -368,7 +368,7 @@ class UserPosition extends React.Component {
                   <i className="icon chilivery-group-pins text22" />
                   <span className="text16 rightM5">سایر محله‌ها</span>
                 </span>
-                <Link to="" color="success" className="btn btn-success rightMauto flex">همه رستوران‌های شهر تهران</Link>
+                {/* <Link to="" color="success" className="btn btn-success rightMauto flex">همه رستوران‌های شهر تهران</Link> */}
               </div>
               <div className="location__user-position-wrapper">
                 {filteredDistrict.length == 0 ?
