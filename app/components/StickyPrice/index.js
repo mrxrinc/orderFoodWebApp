@@ -163,6 +163,9 @@ class StickyPrice extends React.PureComponent {
         if (response.go_to === 'app.success-pay') {
           history.push('/success-payment')
         }
+        if(response.result.url) {
+          window.location.href = response.result.url
+        }
       }
     })
   }
