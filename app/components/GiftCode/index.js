@@ -73,6 +73,9 @@ class GiftCode extends React.PureComponent {
       })
     }
   }
+  componentWillUnmount() {
+    this.props.changeCampaginCode({campaginCode:'',discountAmount:''})
+  }
 
   render() {
     const {giftCode,data} = this.state;
