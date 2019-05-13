@@ -14,14 +14,15 @@ export const logout_get= () => API_URL_ROOT+'/user/logout';
 export const user_update= (id) => API_URL_ROOT+'/api/user/update/' + id;
 export const forgot_post= () => API_URL_ROOT+'/api/user/forgotPassword/';
 export const resetPass_post= () => API_URL_ROOT+'/api/user/resetPassword/';
+export const bank_getways_get = () => API_URL_ROOT+'/user/bankGetways';
 
 
 export const profileChangePass_post= () => API_URL_ROOT+'/user/changePassword';
 
 export const city_get= () => API_URL_ROOT+'/business/api/city/list';
-export const balance_get= () => API_URL_ROOT+'/payment/api/wallet/balance';
-export const walletIncreace_post= () => API_URL_ROOT+'/payment/api/wallet/increase';
-export const walletIncreaceGift_post= () => API_URL_ROOT+'/payment/api/wallet/increaseByGiftCode';
+export const balance_get= () => API_URL_ROOT+'/user/current';
+export const walletIncreace_post= () => API_URL_ROOT+'/payment/increasePay';
+export const walletIncreaceGift_post= () => API_URL_ROOT+'/payment/increaseByGift';
 export const endIncrease_get= (token) => API_URL_ROOT+'/payment/api/wallet/endIncrease/' + token;
 export const listWithTransactions_get= () => API_URL_ROOT+'/payment/api/order/listWithTransactions/';
 
@@ -35,3 +36,4 @@ export const orderitems= (orderId) => API_URL_ROOT+'/order/orderitems/'+orderId;
 export const order_review_get= (orderId) => API_URL_ROOT+'/order/toReview?orderId='+orderId;
 export const userAddress= () => API_URL_ROOT+'/userAddress';
 export const payOrder= () => API_URL_ROOT+'/payment/action';
+

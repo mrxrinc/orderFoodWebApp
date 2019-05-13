@@ -57,7 +57,11 @@ class ChiliStepper extends React.Component {
   }
 
   render() {
-    const food_basket = (this.props.data && this.props.basket && this.props.basket.items[this.props.data.id])?this.props.basket.items[this.props.data.id]:{itemCount: 0};
+    const food_basket = (
+      this.props.data &&
+      typeof this.props.basket.items !== "undefined" &&
+      this.props.basket.items[this.props.data.id]) ? 
+      this.props.basket.items[this.props.data.id]:{itemCount: 0};
     return (
       <div
       className={`stepper hCenter rRowReverse spaceBetween ${

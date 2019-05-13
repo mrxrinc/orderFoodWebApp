@@ -62,7 +62,7 @@ class RestaurantFoodCard extends React.Component {
                 </li>
               )}
               <li className="moto flex hCenter rightP10 bold primary">
-                <span className="text16">{props.price}</span>
+                <span className="text16">{props.item.price}</span>
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
             </ul>

@@ -18,22 +18,19 @@
                     border-radius: 10px;
                 }
             }
-            .transaction-box__bord{
-                width: 82px;
-                // height: 0;
-                border-top: 68px solid red;
-                border-right: 68px solid transparent;
-                // &:before{
-                //     content: "ثبت سفارش";
-                // }
-                border-top-left-radius: 14px;
-                } 
+            // .transaction-box__bord{
+            //     width: 82px;
+            //     // height: 0;
+            //     border-top: 68px solid red;
+            //     border-right: 68px solid transparent;
+            //     border-top-left-radius: 14px;
+            //     } 
             .transaction-box__detail{
                 padding-right: 8px;
                 .transaction-box__main-detail{
                     font-size: 14px;
                     .transaction-box__title{
-                        color: #434343;
+                        color: $color-primary;
                     }
                     .transaction-box__dcost{
                         padding-right: 24px;
@@ -44,7 +41,7 @@
                     position: relative;
                     padding-top: 8px;
                     .transaction-detail__right{
-                        color: #929292;
+                        color: $grey-6;
                         padding-top: 6px;
                         .transaction-box__date{
                             padding-right: 10px;
@@ -54,10 +51,11 @@
                                 height: 5px;
                                 width: 5px;
                                 border-radius: 50px;
-                                background-color: #F2C930;
+                                background-color: $color-secondary;
                                 position: absolute;
                                 top: 20px;
                                 right: 54px;
+                                display: none;
                             }
                         }
                     }
@@ -66,7 +64,7 @@
                     &__plus-min{
                         width: 50px;
                         height: 40px;
-                        background-color: #1CBD2F;
+                        // background-color: $color-success;
                         position: absolute;
                         right: -28px;
                         bottom: 5px;
@@ -83,12 +81,12 @@
                             font-size: 10px;
                             font-weight: bold;
                             width: 50px;
-                            color: #fff;
+                            color: $color-white;
                         }
                     }
                 }
                 .transaction-detail__left{
-                    color: #929292;
+                    color: $grey-6;
                     padding-top: 6px;
                     margin-right: auto;
                     .transaction-box__remnant{
@@ -98,64 +96,53 @@
                         font-size: 12px;
                     }
                 }
-
-                .transaction-box__btn{
-                    width: 130px;
-                    height: 34px;
-                    font-size: 14px;
-                    font-weight: bold;
-                    margin-right: 18px;
-                    padding: 0;
-                    background: #1CBD2F;
-                    border-color: #1CBD2F;
-                }
             }
         }
-        .transaction-box__dmain{
-            color: #888787;
-            padding-top: 10px;
-            padding-left: 12px;
-            border-top: 1px solid gray;
-            .transaction-dmain__img{
-                border: 1px solid #e6e3e3;
-                width: 40px;
-                height: 40px;
-                color: rgb(124, 86, 86);
-                border-radius: 14px;
-                padding: 10px;
-                .transaction-dmain__icon{
-                    font-size: 30px;
-                }
-            }
-            .transaction-dmain__box{
-                padding-right: 18px;
-                border-radius: 14px 0 14px 0;
-                background: #eeeaea;
-                border: 1px solid #eeeaea;
-                margin-right: 10px;
-                padding: 10px;
-                .transaction-box__title{
-                    font-size: 14px;
-                    display: block;
-                    color: #434343;
-                }
-                .transaction-box__date{
-                    display: block;
-                    font-size: 12px;
-                }
-                .transaction-dmain__answer{
-                    display: block;
-                    font-size: 14px;
-                    color: #434343;
-                }
-            }
-            .transaction-dmain__text{
-                color: #888787;
-                text-align: left;
-                padding-top: 10px;
-                padding-left: 12px;
-            }
+        // .transaction-box__dmain{
+        //     color: #888787;
+        //     padding-top: 10px;
+        //     padding-left: 12px;
+        //     border-top: 1px solid gray;
+        //     .transaction-dmain__img{
+        //         border: 1px solid #e6e3e3;
+        //         width: 40px;
+        //         height: 40px;
+        //         color: rgb(124, 86, 86);
+        //         border-radius: 14px;
+        //         padding: 10px;
+        //         .transaction-dmain__icon{
+        //             font-size: 30px;
+        //         }
+        //     }
+        //     .transaction-dmain__box{
+        //         padding-right: 18px;
+        //         border-radius: 14px 0 14px 0;
+        //         background: #eeeaea;
+        //         border: 1px solid #eeeaea;
+        //         margin-right: 10px;
+        //         padding: 10px;
+        //         .transaction-box__title{
+        //             font-size: 14px;
+        //             display: block;
+        //             color: #434343;
+        //         }
+        //         .transaction-box__date{
+        //             display: block;
+        //             font-size: 12px;
+        //         }
+        //         // .transaction-dmain__answer{
+        //         //     display: block;
+        //         //     font-size: 14px;
+        //         //     color: #434343;
+        //         // }
+        //     }
+        //     .transaction-dmain__text{
+        //         color: #888787;
+        //         text-align: left;
+        //         padding-top: 10px;
+        //         padding-left: 12px;
+        //     }
             
-        }
+        // }
     }
 }

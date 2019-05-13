@@ -457,13 +457,14 @@ function* userForGot({ payload }) {
     }
   }
 }
+
 export function* updateUserBalance() {
   yield takeEvery(UPDATE_USER_BALANCE, updateUserBalanceHandler);
 }
 function* updateUserBalanceHandler() {
   const response = yield balanceGet();
-  if (response.status === 'success') {
-    yield put(getUserBalance(response.data));
+  if (response.status) {
+    yield put(getUserBalance({"cacheBalance":response.result.user.cacheBalance}));
   }
 }
 // export function* CheckExistToken() {

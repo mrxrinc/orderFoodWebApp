@@ -19,6 +19,7 @@ import NavigationBar from '../../components/NavigationBar';
 import {
   restaurantDetail,
   createBasket,
+  restaurantDetailBySlug
 } from '../../api/application/restaurant';
 import { changeBasketPost } from '../../api/account';
 
@@ -35,111 +36,89 @@ class RestaurantPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.match.params.id,
+      id: null,
+      citySlug:this.props.match.params.citySlug,
+      restaurantSlug:this.props.match.params.restaurantSlug,
       restaurant: null,
-      basket: null,
       tabOne: true,
       tabTwo: false,
       tabThree: false,
       activeTab: 'tabOne',
       basketToState: {},
       basketObjItems: {},
-      showResModal: false
     };
   }
 
   openFoodModal = food => {
     this.setState({ modalData: food }, () => {
-      console.log('=============modalData=================');
-      console.log(this.state.modalData);
-      console.log('====================================');
       if(typeof this.props.basket.items[this.state.modalData.id] != "undefined"){
         this.state.modalData.item['itemCount'] = this.props.basket.items[this.state.modalData.id].itemCount;
-        console.log('==============itemsCount============');
-        console.log(this.state.modalData);
-        console.log('====================================');
       }
-      this.setState({
-        showResModal: true
-      })
       this.toggleModal();
     });
   };
 
   componentDidMount() {
     this.props.accChargeChanged({accCharge:false})
-    restaurantDetail(this.state.id).then(restaurantResp => {
-      this.setState({ restaurant: restaurantResp.result });
+    restaurantDetailBySlug(this.state.citySlug,this.state.restaurantSlug).then(restaurantResp => {
+      this.setState({ restaurant: restaurantResp.result },()=>{
+        createBasket(this.state.restaurant.id).then((response) => {
+          this.setState({
+            basketObjItems: response.result.items,
+            basketObj: response.result,
+          }, () => {
+
+            let basketToArray = Object.keys(this.state.basketObjItems);
+            let basketStoreObjItems = this.props.basket.items;
+            let basketStoreObj = this.props.basket;
+
+
+            if (basketToArray.length > 0) {
+              if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
+                this.setState({
+                  basketToState: basketStoreObj,
+                }, () => {
+                  console.log('========= server full from current =================');
+                  console.log('basketToState from store');
+                  console.log(this.state.basketToState);
+                  console.log('====================================');
+                })
+              } else {
+                this.props.addToBasket(this.state.basketObj);
+                console.log('============= server full from current ==============');
+                console.log('setBasketToStore from server');
+                console.log('====================================');
+              }
+
+            } else {
+              if (this.state.basketObj.id === basketStoreObj.id) {
+                this.setState({
+                  basketToState: basketStoreObj,
+                }, () => {
+                  console.log('========== server null from current ================');
+                  console.log('basketToState from store');
+                  console.log(this.state.basketToState);
+                  console.log('====================================');
+                })
+              } else {
+                this.props.addToBasket(this.state.basketObj);
+                console.log('============ server null from other =================');
+                console.log('setBasketToStore from server');
+                console.log('====================================');
+              }
+            }
+          })
+
+        }).catch((err) => {
+          console.log(err)
+        });
+      });
     });
 
-    createBasket(this.state.id).then((response) => {
-      this.setState({
-        basketObjItems: response.result.items,
-        basketObj: response.result,
-      }, () => {
-
-        let basketToArray = Object.keys(this.state.basketObjItems);
-        let basketStoreObjItems = this.props.basket.items;
-        let basketStoreObj = this.props.basket;
-
-
-        if (basketToArray.length > 0) {
-          if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
-            this.setState({
-              basketToState: basketStoreObj,
-            }, () => {
-              console.log('========= server full from current =================');
-              console.log('basketToState from store');
-              console.log(this.state.basketToState);
-              console.log('====================================');
-            })
-          } else {
-            this.props.addToBasket(this.state.basketObj);
-            console.log('============= server full from current ==============');
-            console.log('setBasketToStore from server');
-            console.log('====================================');
-          }
-
-        } else {
-          if (this.state.basketObj.id === basketStoreObj.id) {
-            this.setState({
-              basketToState: basketStoreObj,
-            }, () => {
-              console.log('========== server null from current ================');
-              console.log('basketToState from store');
-              console.log(this.state.basketToState);
-              console.log('====================================');
-            })
-          } else {
-            this.props.addToBasket(this.state.basketObj);
-            console.log('============ server null from other =================');
-            console.log('setBasketToStore from server');
-            console.log('====================================');
-          }
-        }
-      })
-
-    }).catch((err) => {
-      console.log(err)
-    });
 
   }
 
-  componentWillUnmount() {
-    // changeBasketPost(this.props.basket).then(
-    //   response => {
-    //     console.log('========changeBasketPost===============');
-    //     console.log(response);
-    //     console.log('====================================');
-    //   }
-    // ).catch(
-    //   err => {
-    //     console.log('===========err==================');
-    //     console.log(err.response);
-    //     console.log('====================================');
-    //   }
-    // )
-  }
+
 
   tabClick = slug => {
     switch (slug) {
@@ -222,7 +201,7 @@ class RestaurantPage extends React.Component {
                       {group.foods.map(food => {
 
                         const _data = {
-                          restaurantId: this.state.id,
+                          restaurantId: this.state.restaurant.id,
                           id: food.id,
                           name: food.name,
                           hasPic: food.hasPic,
@@ -240,7 +219,7 @@ class RestaurantPage extends React.Component {
                         return (
                           <RestaurantFoodCard
                             onClick={() => this.openFoodModal(_data)}
-                            restaurantId={this.state.id}
+                            restaurantId={this.state.restaurant.id}
                             key={food.id}
                             id={food.id}
                             name={food.name}
@@ -288,9 +267,12 @@ class RestaurantPage extends React.Component {
               </div>
             }
 
-            {this.state.showResModal &&  <RestaurantModal
+            {this.props.modals.RestaurantPageModal && <RestaurantModal
               toggleModal={this.toggleModal}
+              onChangeSideDish={this.onChangeSideDish}
               modalData={this.state.modalData.item}
+              restaurantId={this.state.restaurant.id}
+              key={this.state.modalData.item.id}
               type="modal"
             />}
 

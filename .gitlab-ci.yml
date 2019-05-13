@@ -1,0 +1,38 @@
+stages:
+  - build_develop
+  - develop
+
+variables:
+  IMAGE_URL: registry.imbco.ir/chilivery/pwa
+  DEVELOP_IMAGE_TAG: develop_${CI_COMMIT_SHA}
+  KUBECONF: /tmp/kubeconfig-$CI_COMMIT_SHA
+
+before_script:
+  - docker login -u="chilivery" -p=$DOCKER_LOGIN registry.imbco.ir
+  - cp /home/gitlab-runner/.config_runner $KUBECONF
+  - sed -i -e "s/certificate-authority-data:/certificate-authority-data:\ '$CERTIFICATE_AUTHORITY_DATA'/g" $KUBECONF
+  - sed -i -e "s/server:/server:\ '$SERVER'/g" $KUBECONF
+  - sed -i -e "s/client-certificate-data:/client-certificate-data:\ '$CLIENT_CERTIFICATE_DATA'/g" $KUBECONF
+  - sed -i -e "s/client-key-data:/client-key-data:\ '$CLIENT_KEY_DATA'/g" $KUBECONF
+  - export KUBECONFIG=$KUBECONF
+
+after_script:
+  - rm $KUBECONF
+
+build_develop:
+  stage: build_develop
+  script:
+    - docker build --build-arg ADMIN_BACKEND=https://chilivery.net/mobile-api/v2 -t ${IMAGE_URL}:${DEVELOP_IMAGE_TAG} .
+    - docker tag ${IMAGE_URL}:${DEVELOP_IMAGE_TAG} ${IMAGE_URL}:develop-latest
+    - docker push ${IMAGE_URL}:${DEVELOP_IMAGE_TAG}
+    - docker push ${IMAGE_URL}:develop-latest
+  only:
+    - develop
+
+develop:
+  stage: develop
+  script:
+    - kubectl set image deployment/chili-pwa chili-pwa=${IMAGE_URL}:${DEVELOP_IMAGE_TAG} -n chili-develop
+    - kubectl rollout status deploy/chili-pwa -n chili-develop
+  only:
+    - develop
