@@ -29,6 +29,7 @@ import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
+import { object } from 'prop-types';
 
 // let basketTempData = {};
 
@@ -47,6 +48,7 @@ class RestaurantPage extends React.Component {
       basketToState: {},
       basketObjItems: {},
       isRestaurant: true,
+      StickyPriceShow:false
     };
   }
 
@@ -64,76 +66,84 @@ class RestaurantPage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.accChargeChanged({ accCharge: false });
-    restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(
-      restaurantResp => {
-        this.setState({ restaurant: restaurantResp.result }, () => {
-          if (restaurantResp.status) {
-            createBasket(this.state.restaurant.id)
-              .then(response => {
-                this.setState(
-                  {
-                    basketObjItems: response.result.items,
-                    basketObj: response.result,
-                  },
-                  () => {
-                    const basketToArray = Object.keys(this.state.basketObjItems);
-                    const basketStoreObjItems = this.props.basket.items;
-                    const basketStoreObj = this.props.basket;
+    this.props.accChargeChanged({ accCharge: false })
+    restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(restaurantResp => {
+      this.setState({ restaurant: restaurantResp.result }, () => {
+        if (restaurantResp.status) {
+          createBasket(this.state.restaurant.id).then((response) => {
+            this.setState({
+              basketObjItems: response.result.items,
+              basketObj: response.result,
+            }, () => {
 
-                    if (basketToArray.length > 0) {
-                      if (
-                        JSON.stringify(this.state.basketObjItems) ===
-                        JSON.stringify(basketStoreObjItems)
-                      ) {
-                        this.setState(
-                          {
-                            basketToState: basketStoreObj,
-                          },
-                          () => {
-                            console.log(
-                              '========= server full from current =================',
-                            );
-                            console.log('basketToState from store');
-                            console.log(this.state.basketToState);
-                            console.log('====================================');
-                          },
-                        );
-                      } else {
-                        this.props.addToBasket(this.state.basketObj);
-                        console.log(
-                          '============= server full from current ==============',
-                        );
-                        console.log('setBasketToStore from server');
-                        console.log('====================================');
-                      }
-                    } else if (this.state.basketObj.id === basketStoreObj.id) {
+              let basketToArray = Object.keys(this.state.basketObjItems);
+              let basketStoreObjItems = this.props.basket.items;
+              let basketStoreObj = this.props.basket;
+
+
+              if (basketToArray.length > 0) {
+                if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
                   this.setState({
                     basketToState: basketStoreObj,
                   }, () => {
-                    console.log('========== server null from current ================');
+                    console.log('========= server full from current =================');
                     console.log('basketToState from store');
                     console.log(this.state.basketToState);
                     console.log('====================================');
+                    // this.setState({
+                    //   StickyPriceShow:true
+                    // })
                   })
                 } else {
                   this.props.addToBasket(this.state.basketObj);
-                  console.log('============ server null from other =================');
+                  console.log('============= server full from current ==============');
                   console.log('setBasketToStore from server');
                   console.log('====================================');
                 }
-                  },
-                );
+
+              } else {
+                if (this.state.basketObj.id === basketStoreObj.id) {
+                  this.setState({
+                    basketToState: basketStoreObj,
+                    }, () => {
+                      console.log('========== server null from current ================');
+                      console.log('basketToState from store');
+                      console.log(this.state.basketToState);
+                      console.log('====================================');
+                    })
+                  } else {
+                    this.props.addToBasket(this.state.basketObj);
+                    console.log('============ server null from other =================');
+                    console.log('setBasketToStore from server');
+                    console.log('====================================');
+                  }
+                }
               })
-              .catch(err => {
-                console.log(err);
-              });
-          } else {
-            this.setState({ isRestaurant: false });
-          }
-        });
-      },
-    );
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        } else {
+          this.setState({ isRestaurant: false });
+        }
+      });
+    });
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.basket !== this.props.basket){
+      console.log()
+      if(Object.keys(this.props.basket.items).length == 0){
+        this.setState({
+          StickyPriceShow:false
+        })
+      }else{
+        this.setState({
+          StickyPriceShow:true
+        })
+      }
+      
+    }
   }
 
   tabClick = slug => {
@@ -258,11 +268,15 @@ class RestaurantPage extends React.Component {
                         ))}
                       </div>
 
-                      {typeof this.props.basket !== 'undefined' &&
+
+                      {/* {typeof this.props.basket !== 'undefined' &&
                         typeof this.props.basket.items !== 'undefined' &&
                         Object.keys(this.props.basket.items).length > 0 && (
-                        <StickyPrice links="cart" collapseShow={false} />
-                      )}
+                          )} */}
+                        {this.state.StickyPriceShow &&
+                          <StickyPrice links='cart' collapseShow={false} />
+                        }
+
                     </React.Fragment>
                   )}
 

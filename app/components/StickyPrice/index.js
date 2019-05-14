@@ -15,7 +15,8 @@ class StickyPrice extends React.PureComponent {
     this.toggle = this.toggle.bind(this);
     this.state = {
       collapse: false,
-      collaoseShow:false
+      collaoseShow:false,
+      totalPrice:0
     };
   }
 
@@ -34,7 +35,6 @@ class StickyPrice extends React.PureComponent {
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.basket !== this.props.basket) {
       this.calculationsFunction()
-      console.log(this.props.basket)
       this.validationAddress();
     }
   }
@@ -108,9 +108,15 @@ class StickyPrice extends React.PureComponent {
     }
     if(tempAmountToPay > howMuchWithCash){
       amountToPay = tempAmountToPay - howMuchWithCash;
+      this.setState({
+        totalPrice:amountToPay
+      })
     }
     else{
       amountToPay = 0;
+      this.setState({
+        totalPrice:0
+      })
     }
 
     // useGateway = amountToPay !== 0; // set either use bank gateway or not
@@ -231,7 +237,10 @@ class StickyPrice extends React.PureComponent {
               {basket.accCharge &&
               (<li>
                 <span>استفاده از کیف پول</span>
-                <span className="pull-left">{this.totalPrice().amountToPay == 0 ? this.totalPrice().tempAmountToPay : user.cacheBalance}- تومان</span>
+                <span className="pull-left">{
+                  this.totalPrice().amountToPay == 0 ?
+                  this.totalPrice().tempAmountToPay :
+                  user.cacheBalance}- تومان</span>
               </li>)
               }
 
@@ -252,7 +261,11 @@ class StickyPrice extends React.PureComponent {
           <div className="StickyPrice__price-rbox">
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
-              <span className="text-price">{this.totalPrice().amountToPay == 0 ? 'رایگان':this.totalPrice().amountToPay + ' تومان' } </span>
+              <span className="text-price">{
+                this.state.totalPrice == 0 ? 'رایگان':
+                this.state.totalPrice + ' تومان'
+                }
+              </span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
