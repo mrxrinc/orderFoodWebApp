@@ -33,7 +33,8 @@ export class SuccessPayment extends React.PureComponent {
   renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      history.listen('/after-payment')
+      // history.listen('/after-payment')
+      return window.location = ('/after-payment')
       // return <Redirect to="/after-payment" />
     } else {
       // Render a countdown
@@ -69,7 +70,7 @@ export class SuccessPayment extends React.PureComponent {
         <div className="SuccessPayment__footer">
           <div className="countdown seconds">
             <div className="line"></div>
-            {showCountDown && <Countdown date={Date.now() + 1000} renderer={this.renderer}/>}
+            {showCountDown && <Countdown date={Date.now() + 5000} renderer={this.renderer}/>}
             <p>لطفا شکیبا باشید...</p>
           </div>
         </div>
