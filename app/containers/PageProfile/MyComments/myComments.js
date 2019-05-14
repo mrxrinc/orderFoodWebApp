@@ -24,12 +24,12 @@ class MyComments extends React.Component {
 	render() {
 		const data = this.props.data;
 		return (
-			<div className="mycomment">
+			<div className={`mycomment ${this.props.type !== "restaurant" ? "col":""}`}>
 				{data.map((item, index) =>
 					<div className="mycomment-box" key={index}>
-						<div className="mycomment-box__main flex padd10">
+						<div className="mycomment-box__main flex padd10 bgWhite">
 
-							{this.props.type === "profile" ?
+							{this.props.type !== "restaurant" ?
 								<React.Fragment>
 									{ item.logo && 
 										<div className="mycomment-box__icon leftP5">
@@ -41,7 +41,7 @@ class MyComments extends React.Component {
 							}
 
 							<div className="mycomment-box__detail overhide wFull">
-								{this.props.type === "profile" ?
+								{this.props.type !== "restaurant" ?
 									<React.Fragment>
 										<div className="mycomment__detail-main">
 											<span className="mycomment-box__title">{item.restaurantName}</span>

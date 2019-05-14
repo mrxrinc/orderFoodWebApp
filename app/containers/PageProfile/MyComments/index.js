@@ -50,12 +50,10 @@ class Comments extends React.Component {
 			return (
 				<React.Fragment>
 					{this.state.commentData.length > 0 ? (
-						<div className="col-12">
 							<div className="">
-								<MyComments data={this.state.commentData} type="profile" />
+								<MyComments data={this.state.commentData} type={this.props.type}/>
 							</div>
-						</div>
-					 ) : null
+						) : null
 					}
 				</React.Fragment>
 			)
@@ -65,11 +63,13 @@ class Comments extends React.Component {
 	render() {
 		return (
 			<div className="mycomment whFull">
-				<NavigationBar 
-					back
-					background
-					title="نظرات من"
-				/>
+				{this.props.type !== "restaurant" ?
+					<NavigationBar 
+						back
+						background
+						title="نظرات من"
+					/>:null
+				}
 				{this.state.loading ? (
 					<div className="whFull center">
 						<Loading />

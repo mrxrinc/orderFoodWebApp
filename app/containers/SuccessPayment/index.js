@@ -33,8 +33,8 @@ export class SuccessPayment extends React.PureComponent {
   renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      // history.listen('/after-payment')
-      return <Redirect to="/after-payment" />
+      history.listen('/after-payment')
+      // return <Redirect to="/after-payment" />
     } else {
       // Render a countdown
       return <span>{minutes}:{seconds}</span>;
