@@ -36,7 +36,7 @@ function* basketChange({ payload }) {
 export function* GetBasketItems() {
   // const getToken = (state) => state.Basket
   // debugger
-  yield take(GET_BASKET_ITEMS, getBasket);
+  yield takeLatest(GET_BASKET_ITEMS, getBasket);
 }
 
 function* getBasket({ payload }) {
