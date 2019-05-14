@@ -145,7 +145,7 @@ export class cart extends React.PureComponent {
                 <h4>آدرس های ذخیره شده</h4>
                 <p>تمامی آدرس های ذخیره شده شما خارح از محدوده رستوران است. برای ادامه آدرس جدید در محدوده رستوران ثبت نمایید:</p>
                 {this.state.AddressShow &&
-                <MyAddress data={this.state.userAddressList} />
+                <MyAddress data={this.state.userAddressList} type={"cart"} />
                 }
               </div>
             </TabPane>
