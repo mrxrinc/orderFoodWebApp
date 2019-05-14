@@ -5,8 +5,8 @@ import './style.scss';
 
 const scrollValue = 200;
 
-const goBack = () => {
-  history.goBack()
+const goBack = (back) => {
+    history.goBack()
 }
 const hasBackground = props => {
   if(props.background) return 'hasBackground';
@@ -28,7 +28,7 @@ export default props => (
         
         <div className="navButtonsWrapper center">
           {props.back && (
-            <div className={`whFull center ${iconsColor(props)}`} onClick={goBack} >
+            <div className={`whFull center ${iconsColor(props)}`} onClick={goBack(props.back)} >
             <span className="chilivery-back text22" />
           </div>
           )}
