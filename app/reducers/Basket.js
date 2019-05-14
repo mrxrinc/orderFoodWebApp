@@ -52,9 +52,9 @@ const Basket = (state = initState, action) => {
               foodName : food.name, 
               basketOrderItemKey : food.id,
               itemCount : 1,
-              foodPrice: food.price,
+              foodPrice: food.item.price,
               image: food.image,
-              options: [],
+              options: food.item.options,
             };
             console.log('====================================');
             console.log(" itemCount == 1");

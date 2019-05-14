@@ -56,6 +56,9 @@ class ChiliStepper extends React.Component {
       food: this.props.data,
       itemCount: 1
     });
+    console.log('====================================');
+    console.log(this.props);
+    console.log('====================================');
   }
 
   decrease = (food_basket) => {

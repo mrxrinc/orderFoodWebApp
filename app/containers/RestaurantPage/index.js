@@ -29,6 +29,7 @@ import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
+import { object } from 'prop-types';
 
 // let basketTempData = {};
 
@@ -46,7 +47,8 @@ class RestaurantPage extends React.Component {
       activeTab: 'tabOne',
       basketToState: {},
       basketObjItems: {},
-      isRestaurant: true
+      isRestaurant: true,
+      StickyPriceShow:false
     };
   }
 
@@ -84,6 +86,9 @@ class RestaurantPage extends React.Component {
                     console.log('basketToState from store');
                     console.log(this.state.basketToState);
                     console.log('====================================');
+                    // this.setState({
+                    //   StickyPriceShow:true
+                    // })
                   })
                 } else {
                   this.props.addToBasket(this.state.basketObj);
@@ -121,6 +126,22 @@ class RestaurantPage extends React.Component {
     });
 
 
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.basket !== this.props.basket){
+      console.log()
+      if(Object.keys(this.props.basket.items).length == 0){
+        this.setState({
+          StickyPriceShow:false
+        })
+      }else{
+        this.setState({
+          StickyPriceShow:true
+        })
+      }
+      
+    }
   }
 
   tabClick = slug => {
@@ -249,11 +270,13 @@ class RestaurantPage extends React.Component {
                       </div>
 
 
-                      {typeof this.props.basket !== 'undefined' &&
+                      {/* {typeof this.props.basket !== 'undefined' &&
                         typeof this.props.basket.items !== 'undefined' &&
                         Object.keys(this.props.basket.items).length > 0 && (
+                          )} */}
+                        {this.state.StickyPriceShow &&
                           <StickyPrice links='cart' collapseShow={false} />
-                        )}
+                        }
 
                     </React.Fragment>
                   )}
