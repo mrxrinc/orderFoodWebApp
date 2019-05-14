@@ -181,7 +181,7 @@ class ProfileWallet extends React.Component{
             <span className="header-acount__save center">موجودی فعلی شما :</span>
           </div>
           <div className="header-bank-number center">
-            <span className="header-acount__number center">۵۰/۰۰۰ تومان</span>
+            <span className="header-acount__number center">{this.props.user.cacheBalance} تومان</span>
           </div>
         </div>
 
