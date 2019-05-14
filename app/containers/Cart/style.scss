@@ -3,8 +3,23 @@
 .cart {
   background-color: #f5f5f5;
   //padding: 10px;
+  height: 100%;
   &__card-item {
     padding: 10px;
+  }
+  &__login {
+    clear: both;
+    border-top: 1px solid $color-border-input;
+    text-align: center;
+    padding: 20px 10px;
+    p {
+      color: $grey-7;
+      font-size: 13px;
+    }
+    .btn {
+      width: 100px;
+      margin: 0 5px;
+    }
   }
   .food-delivery {
     clear: both;

@@ -102,7 +102,7 @@ export class MapContainer extends React.Component {
 
     goToListPage = () => {
         let typeMapItem = typeMap[this.props.type];
-        history.push(`/restaurants-list/${this.props[typeMapItem].cityId}/${this.state.userLocation.lat},${this.state.userLocation.lng}`)
+        history.push(`/restaurants/${this.props[typeMapItem].citySlug}/${this.props[typeMapItem].slug}`)
     }
 
     componentDidMount(){

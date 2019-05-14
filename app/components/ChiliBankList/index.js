@@ -39,7 +39,7 @@ class BankList extends Component {
             <div className="row banks-row">
                 {this.state.gatewayList.map(gateway => (
                     <div key={gateway.id} 
-                        className="col-xl-4 col-lg-4 col-sm-4 col-xs-6">
+                        className="col-6">
                         <label className="radio-wrapper">
                             <div className="label-parent">
                                 <input

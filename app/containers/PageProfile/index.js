@@ -12,9 +12,13 @@ import { logOutGet } from '../../api/account';
 import { logOutUser } from '../../actions/Auth';
 import {addToast} from '../../actions/Notifications';
 import {history} from '../../store';
+import { showModal } from '../../actions/Modals';
+import YourWallet from '../../components/ChiliModal/components/YourWallet';
+
 
 
 class PageProfile extends React.Component{
+  
   constructor(props){
     super(props)
     this.state = {
@@ -23,6 +27,11 @@ class PageProfile extends React.Component{
       AddressShow:false
     }
   }
+  walletModal = () => {
+    this.props.showModal({
+      walletModal: true,
+    });
+  };
   componentDidMount(){
     if (typeof this.props.auth.id === "undefined") {
       history.push("/");
@@ -108,7 +117,7 @@ class PageProfile extends React.Component{
               </div>
 
               <div className="profile-gain">
-                <button type="button" className="btn btn-success">افزایش موجودی</button>
+                <button type="button" className="btn btn-success" onClick={this.walletModal}>افزایش موجودی</button>
               </div>
             </div>
           </div>
@@ -127,6 +136,8 @@ class PageProfile extends React.Component{
             <ProfileMenu userLogOut={this.userLogOut} />
           </div>
         </div>
+        <YourWallet headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
+
       </div>
     );
   }
@@ -136,6 +147,9 @@ class PageProfile extends React.Component{
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  modals: {
+    walletModal: state.Modals.walletModal,
+  },
 });
 
 const mapDispatchToProps = dispatch => {
@@ -149,6 +163,9 @@ const mapDispatchToProps = dispatch => {
     onLogOut: (user) => {
       dispatch(logOutUser(user));
     },
+    showModal: (showStatus) => {
+      dispatch(showModal(showStatus))
+  },
   };
 };
 

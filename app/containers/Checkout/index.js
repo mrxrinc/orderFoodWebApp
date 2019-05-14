@@ -72,7 +72,6 @@ export class Checkout extends React.PureComponent {
       this.props.accChargeChanged({accCharge:this.state.accCharge});
       }
     );
-
   };
 
   componentDidMount() {
@@ -80,6 +79,10 @@ export class Checkout extends React.PureComponent {
       console.log("ok")
     }
     this.getOrderItem();
+    this.props.accChargeChanged({accCharge:false})
+  }
+
+  componentWillUnmount() {
     this.props.accChargeChanged({accCharge:false})
   }
 

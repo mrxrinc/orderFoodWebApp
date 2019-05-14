@@ -5,14 +5,12 @@ import {
   ADDRESS_ID_CHANGED,
   DELIVERY_TYPE_CHANGED,
   CAMPAGIN_CODE_CHANGED,
-  CHANGE_BASKET
+  CHANGE_BASKET,
+  CHANGE_GENERATED_FOOD_ID,
 } from '../constants/Basket';
 const initState = {
-  chili_basket: {
-    restaurantId: '',
-    items: {}
-  }
-}
+  items: {},
+};
 const Basket = (state = initState, action) => {
     switch (action.type) {
         case ACC_CHARGED_CHANGED:
@@ -27,11 +25,59 @@ const Basket = (state = initState, action) => {
           return Object.assign({}, state, action.payload);
         case CAMPAGIN_CODE_CHANGED:
           return Object.assign({}, state, action.payload);
+        
+        case CHANGE_GENERATED_FOOD_ID:
+          console.log('@#@#@#', action.payload);
+          const { restaurant, foodData, optionGroup } = action.payload;
+          const itemData = JSON.parse(JSON.stringify(state.items));
+          debugger;
+          if (state.restaurantId != restaurant) {
+            items = {};
+          }
+          if (typeof itemData[foodData.id] !== 'undefined') {
+            const tempCount = itemData[foodData.id].itemCount;
+            delete items[foodData.id];
+            items[action.payload.foodGeneratedId] = {
+              orderItemFoodId: foodData.id,
+              foodLastPrice: null,
+              foodName: foodData.name,
+              basketOrderItemKey: foodData.id,
+              itemCount: tempCount,
+              foodPrice: foodData.price,
+              image: foodData.image,
+              options: optionGroup,
+            };
+          } else if (typeof itemData[foodData.foodGeneratedId] !== 'undefined') {
+            items[action.payload.foodGeneratedId] = {
+              orderItemFoodId: foodData.id,
+              foodLastPrice: null,
+              foodName: foodData.name,
+              basketOrderItemKey: foodData.id,
+              itemCount: 2,
+              foodPrice: foodData.price,
+              image: foodData.image,
+              options: optionGroup,
+            };
+          } else {
+            items[action.payload.foodGeneratedId] = {
+              orderItemFoodId: foodData.id,
+              foodLastPrice: null,
+              foodName: foodData.name,
+              basketOrderItemKey: foodData.id,
+              itemCount: 1,
+              foodPrice: foodData.price,
+              image: foodData.image,
+              options: optionGroup,
+            };          
+          }
+          return Object.assign({}, state, { items, restaurant });
+    
         case CHANGE_BASKET:
           let {restaurantId, food, itemCount} = action.payload;
           let items = JSON.parse(JSON.stringify(state.items));
-          console.log('=======items==================');
-          console.log(typeof items[food.id]);
+          let totalCount = JSON.parse(JSON.stringify(state.totalCount));
+          console.log('=======totalCount==================');
+          console.log(totalCount);
           console.log('====================================');
           if( state.restaurantId != restaurantId){
             items = {};
@@ -42,15 +88,18 @@ const Basket = (state = initState, action) => {
             console.log("+= itemCount");
             console.log('====================================');
           }else{
+            console.log('====================================');
+            console.log(food);
+            console.log('====================================');
             items[food.id] = {
               orderItemFoodId : food.id,
               foodLastPrice : null,
-              foodName : food.item.name, 
-              basketOrderItemKey : food.item.id,
-              itemCount : itemCount,
+              foodName : food.name, 
+              basketOrderItemKey : food.id,
+              itemCount : 1,
               foodPrice: food.item.price,
-              image: food.item.image,
-              options: [],
+              image: food.image,
+              options: food.item.options,
             };
             console.log('====================================');
             console.log(" itemCount == 1");
