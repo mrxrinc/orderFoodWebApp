@@ -130,9 +130,9 @@ class MyAddress extends React.PureComponent {
     const ChiliOwlDemoItems = this.state.fullAddress.map((item, i) =>
       <div
         key={i}
-        className={`item item-${item.id}`}
+        className={`item item-${item.id} ${this.props.type === "cart"? (!item.deliveryZoneId?"address-disable":""):""}`}
       >
-        <div className="MyAddress">
+        <div className="MyAddress overhide">
           <div className="MyAddress-radio">
             <input
               type="radio"
@@ -147,7 +147,7 @@ class MyAddress extends React.PureComponent {
               deliveryzoneid={item.deliveryZoneId}
             />
           </div>
-          <div className="MyAddress__details">
+          <div className="MyAddress__details relative">
             <div className="MyAddress__details-action">
               <Link to={`/profile/edit-address/${item.id}`}>
                 <span className="chilivery-edit"> </span>
@@ -159,12 +159,14 @@ class MyAddress extends React.PureComponent {
               >
                 <span className="chilivery-delete text20"> </span>
               </span>
-              <label className="pull-right">{item.name}</label>
+              <label className={`pull-right ${item.organizationAddressId?"dangerBg":""}`}>{item.name}</label>
             </div>
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">
               <span>{item.organAddressComplete?item.organAddressComplete:item.complete}</span>
             </div>
+            <div class="MyAddress-detail__plus-min gray6Bg">
+              <span class="icon"></span></div>
           </div>
         </div>
       </div>
