@@ -1,12 +1,13 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import { AnimateField, AnimateFieldSheba,CheckBox } from '../../../components/ChiliForm';
 import './editprofile.scss';
 import icon from '../../../images/icons/edit_profile.png';
 import NavigationBar from '../../../components/NavigationBar';
 import Loading from '../../../components/ChiliLoading';
 import { getProfileDetails, editProfile, userUpdate } from '../../../api/account';
+import { addToast } from '../../../actions/Notifications';
 
 class ProfileEdit extends React.Component{
 	constructor(props){
@@ -42,7 +43,13 @@ class ProfileEdit extends React.Component{
 		}
 
 		editProfile(data).then(resp => {
-			console.log('USER UPDATE RESULT', resp.result)
+			console.log('USER UPDATE RESULT', resp);
+			if(resp.status === false) {
+				this.props.showAlert({
+					text: resp.message_fa,
+					color: "danger",
+				});
+			}
 		})
 		.catch(err => console.log(err))
 	}
@@ -212,4 +219,15 @@ class ProfileEdit extends React.Component{
 	}
 }
 
-export default ProfileEdit;
+const mapStateToProps = state => ({
+  
+});
+const mapDispatchToProps = dispatch => ({
+  showAlert: (showStatus) => {
+    dispatch(addToast(showStatus));
+	},
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProfileEdit);
