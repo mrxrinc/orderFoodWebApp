@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showModal } from '../../../actions/Modals';
 import ChiliModal from '../index';
-import AfterPaymentCardItem from '../../../components/AfterPaymentCardItem';
+import AfterPaymentCardItem from '../../../components/AfterPaymentCardItem/profile';
 
 class OrderReviewModal extends Component {
   constructor(props) {
@@ -30,15 +30,27 @@ class OrderReviewModal extends Component {
         title="جزییات سفارش"
         className="chili-modal__alert"
       >
-        <div>
-          <AfterPaymentCardItem data={this.props.data.items} type="orderReview" />
+        <div className="padd10">
+          <AfterPaymentCardItem data={this.props.data[0].items} />
         </div>
         <div className="clearfix"></div>
         <div className="afterpayment__factor p-3">
           <ul>
+            {(this.props.type === "profile" && this.props.data[0].amount.tax > 0 ) ?  <li>
+              <span className="bold total">مالیات</span>
+              <span className="pull-left bold total">{
+                this.props.data[0].amount.tax        
+                } تومان</span>
+            </li>:null
+            }
             <li>
               <span className="bold total">مبلغ کل</span>
-              <span className="pull-left bold total">{this.props.data.totalPrice} تومان</span>
+              <span className="pull-left bold total">{
+                this.props.type === "profile" ?
+                this.props.data[0].amount.total:
+                this.props.data.totalPrice
+                
+                } تومان</span>
             </li>
           </ul>
         </div>
