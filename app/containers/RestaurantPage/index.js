@@ -287,7 +287,8 @@ class RestaurantPage extends React.Component {
               onChangeSideDish={this.onChangeSideDish}
               modalData={this.state.modalData.item}
               restaurantId={this.state.restaurant.id}           
-              key={this.state.modalData.item.id}                       
+              key={this.state.modalData.item.id}                      
+              restaurantId={this.state.restaurant.id} 
               type="modal"
             />}
 
