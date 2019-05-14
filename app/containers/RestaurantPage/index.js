@@ -203,7 +203,7 @@ class RestaurantPage extends React.Component {
     console.log('CAT', `#${cat.iconSlug}`);
     this.setState({ activeSticky: cat.iconSlug });
   }
-  
+
   render() {
     const data = this.state.restaurant;
     return (
@@ -212,10 +212,10 @@ class RestaurantPage extends React.Component {
           <div>
             <NavigationBar
               back
-              fixTitle={data && data.name}
-              like
-              share
-              scroll={199}
+              title={data && data.name}
+              // like
+              // share
+              background
             />
             {data ? (
               <React.Fragment>
