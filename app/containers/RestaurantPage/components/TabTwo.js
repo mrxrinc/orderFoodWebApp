@@ -38,11 +38,15 @@ class TabTwo extends React.Component {
   }
 
   fetchComments = () => {
+  
     commentForRestaurant(this.props.id).then(
       response => {
         this.setState({
           commentData: response.result
         }, () => {
+          console.log('============commentData===============');
+          console.log(this.state.commentData);
+          console.log('====================================');
           this.setState({
             orderRate: true
           })
@@ -119,7 +123,6 @@ class TabTwo extends React.Component {
 
   render() {
 
-    const { commentData } = this.state
     return (
       <React.Fragment>
         {this.state.orderRate ?
@@ -131,13 +134,13 @@ class TabTwo extends React.Component {
                   <span className="text14 leftP10">سرعت ارسال</span>
 
                   <div className="rightMauto">
-                    {this.rateStar(commentData.deliverySpeed)}
+                    {this.rateStar(this.state.commentData.deliverySpeed)}
                   </div>
                 </div>
                 <div className="flex center">
                   <span className="text14 leftP10">کیفیت غذا</span>
                   <div className="rightMauto">
-                    {this.rateStar(commentData.foodQuality)}
+                    {this.rateStar(this.state.commentData.foodQuality)}
                   </div>
                 </div>
               </div>
@@ -149,33 +152,33 @@ class TabTwo extends React.Component {
                   <RateFace
                     iconStar="chilivery-star green"
                     color="#1CBD2F"
-                    end={commentData.rateCount[3].avg}
+                    end={this.state.commentData.rateCount[3].avg}
                   />
                   <RateFace
                     iconStar="chilivery-smiley-average yellow"
                     color="#f79e40"
-                    end={commentData.rateCount[2].avg}
+                    end={this.state.commentData.rateCount[2].avg}
                   />
                   <RateFace
                     iconStar="chilivery-smiley-bad red"
                     color="#e1373c"
-                    end={commentData.rateCount[1].avg}
+                    end={this.state.commentData.rateCount[1].avg}
                   />
 
                 </div>
               </div>
             </div>
 
-            {(commentData.canWriteComment !== null && commentData.canWriteComment !== false) ?
+            {(this.state.commentData.canWriteComment !== null) ?
               <div className="col-12">
-                {this.submitYourComment(commentData.canWriteComment.id)}
+                {this.submitYourComment(this.state.commentData.canWriteComment.id)}
               </div> : null
             }
 
-            {commentData.comments.length > 0 ?
+            {this.state.commentData.comments.length > 0 ?
               <div className="col-12">
                 <div className="topP40">
-                  <MyComments data={commentData.comments} />
+                  <MyComments data={this.state.commentData.comments} type="restaurant"/>
                 </div>
               </div> :
               <div className="col-12">
@@ -189,13 +192,13 @@ class TabTwo extends React.Component {
                 <OrderReviewModal data={this.state.orderReview} headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5" />
               }
 
-              {(commentData.canWriteComment !== null && commentData.canWriteComment !== false) ?
+              {(this.state.commentData.canWriteComment !== null) ?
                 <YourCommentModal
-                  data={commentData.canWriteComment}
+                  data={this.state.commentData.canWriteComment}
                   headerAlign="center"
                   headerColor="#eaeaea"
                   bodyColor="#f5f5f5"
-                  onSuccess={this.fetchComments}
+                  onSuccess={()=>this.fetchComments()}
                 /> : null
               }
             </div>

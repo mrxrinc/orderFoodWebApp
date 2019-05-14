@@ -15,25 +15,36 @@ class Comments extends React.Component {
 	}
   componentDidMount() {
 
-    commentByUser().then(
-      response => {
-        this.setState({
-					commentData: response.result.comments,
+		if(this.props.type !== "restaurant"){
+			commentByUser().then(
+				response => {
+					this.setState({
+						commentData: response.result.comments,
+						orderRate: true,
+						loading: false
+					})
+				}
+			)
+		}else{
+			this.setState({
+				commentData:this.props.data
+			},()=>{
+				this.setState({
 					orderRate: true,
 					loading: false
-        })
-      }
-		)
+				})
+			})
+		}
 		
 
-		getUser().then(
-			response => {
-				console.log(response)
-				this.setState({
-					userData:response
-				})
-			}
-		)
+		// getUser().then(
+		// 	response => {
+		// 		console.log(response)
+		// 		this.setState({
+		// 			userData:response
+		// 		})
+		// 	}
+		// )
 	}
 
 	content = () => {
@@ -50,12 +61,10 @@ class Comments extends React.Component {
 			return (
 				<React.Fragment>
 					{this.state.commentData.length > 0 ? (
-						<div className="col-12">
 							<div className="">
-								<MyComments data={this.state.commentData} type="profile" />
+								<MyComments data={this.state.commentData} type={this.props.type}/>
 							</div>
-						</div>
-					 ) : null
+						) : null
 					}
 				</React.Fragment>
 			)
@@ -65,11 +74,13 @@ class Comments extends React.Component {
 	render() {
 		return (
 			<div className="mycomment whFull">
-				<NavigationBar 
-					back
-					background
-					title="نظرات من"
-				/>
+				{this.props.type !== "restaurant" ?
+					<NavigationBar 
+						back
+						background
+						title="نظرات من"
+					/>:null
+				}
 				{this.state.loading ? (
 					<div className="whFull center">
 						<Loading />
