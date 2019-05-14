@@ -109,7 +109,7 @@ export class cart extends React.PureComponent {
                   background
                 />
 
-                {orderItems.restaurant && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
+                {basket.profile && <RestaurantHeaderCheckout data={basket} cover={cover} logo={logo} />}
                 <div className="cart__card-item">
 
                   {this.props.basket.items && Object.keys(this.props.basket.items).length > 0 &&
@@ -166,7 +166,7 @@ export class cart extends React.PureComponent {
                         <div className="address__inplace">
                 <span className="address__inplace__header">
                   <span className="address__inplace__header-icon chilivery-restaurant"> </span>
-                  <span className="address__inplace__header-text">{orderItems.restaurant && orderItems.restaurant.name}</span>
+                  <span className="address__inplace__header-text">{basket && basket.restaurantAddress}</span>
                 </span>
                           <p>{orderItems.restaurant && orderItems.restaurant.address}</p>
                         </div>
