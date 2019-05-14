@@ -54,11 +54,11 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
           <Route exact path="/restaurants/:citySlug/:pointSlug" component={RestaurantsList} />
-          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/checkout/:id" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
-          <Route exact path="/after-payment" component={AfterPayment} />
+          <Route exact path="/after-payment/:id" component={AfterPayment} />
           <Route exact path="/success-payment" component={SuccessPayment} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
