@@ -6,27 +6,26 @@ import RestaurantSideDishRow from '../../RestaurantSideDishRow';
 import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
-import { SaveSideDishService } from '../../../containers/RestaurantPage/services/SaveSideDish';
-import { accChargedChanged, addToBasket } from '../../../actions/Basket';
+import SaveSideDishService from '../../../containers/RestaurantPage/services/SaveSideDishService';
+import { changeToGeneratedFoodId, addToBasket } from '../../../actions/Basket';
 
 class RestaurantModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalData: props.modalData,
       modalRequiredGroupIds: [],
       checkboxValidation: true,
       radioValidation: false,
       modalContainer: [],
       modalButton: false,
-      cloneBasketItem: {},
-      sideConfirm:false,
+      // cloneBasketItem: {},
+      sideConfirm: false,
     };
   }
 
   componentDidMount() {
-    const cloneBasketItem = { ...this.props.basket }
-    this.setState({cloneBasketItem});
+    // const cloneBasketItem = { ...this.props.basket };
+    // this.setState({ cloneBasketItem });
 
     this.resetModal();
   }
@@ -51,7 +50,7 @@ class RestaurantModal extends Component {
           canAddOptions: true,
         }));
         if (options.length > 1) {
-          const copyOfModalData = this.state.modalData;
+          const copyOfModalData = this.props.modalData;
           copyOfModalData.options = addedOptionValidationArray;
           this.setState(copyOfModalData, () => {
             const requiredCategories = options.filter(
@@ -70,15 +69,6 @@ class RestaurantModal extends Component {
         }
       },
     );
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      modalRequiredGroupIds: [],
-      modalContainer: [],
-      radioValidation: false,
-      checkboxValidation: true,
-    });
   }
 
   onChangeSideDish = (optionId, group) => {
@@ -188,7 +178,7 @@ class RestaurantModal extends Component {
     const { modalContainer } = this.state;
     // checkbox checking
     const optionIndex = selectedCategory.options.indexOf(optionId);
-    const copyOfModalData = this.state.modalData;
+    const copyOfModalData = this.props.modalData;
     const optionObject = copyOfModalData.options.find(
       option => option.groupId === groupId,
     );
@@ -229,7 +219,7 @@ class RestaurantModal extends Component {
   };
 
   checkCurrentGroup = (groupIndexOf, indexOfOption) => {
-    const copyOfModalData = this.state.modalData;
+    const copyOfModalData = this.props.modalData;
     if (
       this.state.modalContainer[groupIndexOf].options.length >
       this.state.modalContainer[groupIndexOf].groupMaxSelectionLimit
@@ -243,7 +233,7 @@ class RestaurantModal extends Component {
   };
 
   checkAllCheckboxes = cb => {
-    const findExtraCheckbox = this.state.modalData.options.find(
+    const findExtraCheckbox = this.props.modalData.options.find(
       option => !option.canAddOptions,
     );
     let validation = true;
@@ -253,10 +243,7 @@ class RestaurantModal extends Component {
     this.setState({ checkboxValidation: validation }, cb);
   };
 
-  modalPrice = (modalData) => {
-    console.log('========this.props.modalData====================');
-    console.log(modalData);
-    console.log('====================================');
+  modalPrice = () => {
     let sum = 0;
     if (this.props.modalData) {
       const { itemCount } = this.props.modalData;
@@ -289,8 +276,20 @@ class RestaurantModal extends Component {
     return foodOptionPrice;
   };
 
-  saveItems () {
-
+  saveItems() {
+    const beautiferSidedish = SaveSideDishService.sortMethod(
+      this.state.modalContainer,
+      this.props.modalData.id,
+    );
+    debugger;
+    const { finalItem, optionGroup } = beautiferSidedish;
+    const data = {
+      foodData: this.props.modalData,
+      restaurant: this.props.restaurantId,
+      foodGeneratedId: finalItem,
+      optionGroup,
+    };
+    this.props.changeToGeneratedFoodId(data);
   }
 
   defineSideDishDiscount = (
@@ -317,18 +316,26 @@ class RestaurantModal extends Component {
   makeTempName = (id, name) => id + name;
 
   sideDishConfirm = () => {
-    !this.hasSidedish ? this.props.toggleModal : this.saveItems;
-    this.setState({sideConfirm:true},()=>{
-      this.props.toggleModal()
-    })
-    
-    
-  }
-
-  componentWillUnmount(){
-    if(this.state.sideConfirm === false){
-      this.props.addToBasket(this.state.cloneBasketItem);
+    if (this.state.hasSidedish) {
+      this.saveItems();
+    } else {
+      this.props.toggleModal;
     }
+    this.setState({ sideConfirm: true }, () => {
+      this.props.toggleModal();
+    });
+  };
+
+  componentWillUnmount() {
+    if (this.state.sideConfirm === false) {
+      this.props.addToBasket(this.props.cloneBasketItem);
+    }
+    this.setState({
+      modalRequiredGroupIds: [],
+      modalContainer: [],
+      radioValidation: false,
+      checkboxValidation: true,
+    });
   }
 
   render() {
@@ -398,6 +405,7 @@ class RestaurantModal extends Component {
                 </div>
 
                 <div className="flex primary">
+                  <div className="flex price hP10 leftContent primary text16 wFull hCenter" />
                   <ul className="flex reset hInherit">
                     {this.props.modalData.lastPrice && (
                       <li className="moto flex hCenter rightP10 overLine danger">
@@ -475,18 +483,15 @@ class RestaurantModal extends Component {
                       fontSize="18"
                       restaurantId={this.props.restaurantId}
                       data={this.props.modalData}
-                      full={this.props}
                       type={this.props.type}
                     />
                   </div>
 
-                  {/* {this.props.modalData.itemCount &&
-                    <div className="flex hCenter bold primary topM5">
-                      <span className="text12 leftM5">مبلغ کل :</span>
-                        <span className="text22">{this.modalPrice(this.props.modalData)}</span>
-                      <span className="text12 topM5 rightM3">تومان</span>
-                    </div>
-                  } */}
+                  {/* <div className="flex hCenter bold primary topM5">
+                    <span className="text12 leftM5">مبلغ کل :</span>
+                    <span className="text22">{this.modalPrice()}</span>
+                    <span className="text12 topM5 rightM3">تومان</span>
+                  </div> */}
                 </div>
               </div>
 
@@ -494,7 +499,7 @@ class RestaurantModal extends Component {
                 <Button
                   color="success w80"
                   disabled={!this.state.modalButton}
-                  onClick={()=> this.sideDishConfirm()}
+                  onClick={() => this.sideDishConfirm()}
                 >
                   تایید
                 </Button>
@@ -516,6 +521,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addToBasket: value => {
     dispatch(addToBasket(value));
+  },
+  changeToGeneratedFoodId: value => {
+    dispatch(changeToGeneratedFoodId(value));
   },
 });
 
