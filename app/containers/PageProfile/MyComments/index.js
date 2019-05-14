@@ -15,25 +15,36 @@ class Comments extends React.Component {
 	}
   componentDidMount() {
 
-    commentByUser().then(
-      response => {
-        this.setState({
-					commentData: response.result.comments,
+		if(this.props.type !== "restaurant"){
+			commentByUser().then(
+				response => {
+					this.setState({
+						commentData: response.result.comments,
+						orderRate: true,
+						loading: false
+					})
+				}
+			)
+		}else{
+			this.setState({
+				commentData:this.props.data
+			},()=>{
+				this.setState({
 					orderRate: true,
 					loading: false
-        })
-      }
-		)
+				})
+			})
+		}
 		
 
-		getUser().then(
-			response => {
-				console.log(response)
-				this.setState({
-					userData:response
-				})
-			}
-		)
+		// getUser().then(
+		// 	response => {
+		// 		console.log(response)
+		// 		this.setState({
+		// 			userData:response
+		// 		})
+		// 	}
+		// )
 	}
 
 	content = () => {
