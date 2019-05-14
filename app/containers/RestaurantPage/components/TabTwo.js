@@ -33,7 +33,7 @@ class TabTwo extends React.Component {
 
     this.fetchComments();
     this.props.showModal({
-      yourCommentModal: false,
+      yourCommentModal: true,
     });
   }
 
@@ -44,6 +44,9 @@ class TabTwo extends React.Component {
         this.setState({
           commentData: response.result
         }, () => {
+          console.log('============commentData===============');
+          console.log(this.state.commentData);
+          console.log('====================================');
           this.setState({
             orderRate: true
           })

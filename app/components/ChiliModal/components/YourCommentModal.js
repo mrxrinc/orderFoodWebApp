@@ -85,7 +85,7 @@ class YourCommentModal extends Component {
         "buyExperience": this.state.buyExperience,
         "deliverySpeed":this.state.deliverySpeed,
         "foodOverall":this.state.foodOverall,
-        "text":  "good",
+        "text":  this.state.text,
         "foodQuality":foods.reduce((prev, curr) => {
                         prev[curr] = this.state[curr];
                         return prev;
@@ -102,9 +102,9 @@ class YourCommentModal extends Component {
             text: response.message_fa,
             color: "success",
           });
-          () => this.props.onSuccess()
+          this.props.onSuccess()
         }else{
-          () => this.props.onSuccess()
+          this.props.onSuccess()
           this.props.showAlert({
             text: response.message_fa,
             color: "danger",
