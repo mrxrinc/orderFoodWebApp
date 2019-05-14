@@ -46,7 +46,7 @@ class YourCommentModal extends Component {
     });
   };
   
-  toggleLogin = () => {
+  toggleCommentModal = () => {
     this.props.showModal({
       yourCommentModal: false,
     });
@@ -96,7 +96,7 @@ class YourCommentModal extends Component {
 
     addComment(yourComment).then(
       response => {
-        this.toggleLogin();
+        this.toggleCommentModal();
         if(response.status){
           this.props.showAlert({
             text: response.message_fa,
@@ -113,7 +113,7 @@ class YourCommentModal extends Component {
       }
       ).catch(
         error => {
-          this.toggleLogin();
+          this.toggleCommentModal();
           this.props.showAlert({
             text: error.message_fa,
             color: "danger",
@@ -128,7 +128,7 @@ class YourCommentModal extends Component {
     const classes = this.props;
     return (
       <ChiliModal
-        toggle={this.toggleLogin}
+        toggle={this.toggleCommentModal}
         modal={classes.modals.yourCommentModal}
         headerAlign={classes.headerAlign}
         headerColor={classes.headerColor}
