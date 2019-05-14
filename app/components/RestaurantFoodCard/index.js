@@ -48,9 +48,9 @@ class RestaurantFoodCard extends React.Component {
                 </div>
               </div>
 
-              <div className="absolute top left center favorite">
+              {/* <div className="absolute top left center favorite">
                 <span className="chilivery-fav-full black red" />
-              </div>
+              </div> */}
             </div>
           </div>
 

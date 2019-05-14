@@ -355,9 +355,9 @@ class RestaurantModal extends Component {
                       onClick={this.props.toggleModal}
                     />
                   </li>
-                  <li className="center">
+                  {/* <li className="center">
                     <span className="chilivery-fav-full text25 red" />
-                  </li>
+                  </li> */}
                 </ul>
               </div>
 

@@ -13,15 +13,6 @@ class ProfileEdit extends React.Component{
 	constructor(props){
 		super(props)
 		this.state={
-			// loginUserName: 'معصومه حسنی',
-			// loginPhoneNumber: '09197117631',
-			// loginUserEmail: 'masihhasani98@gmail.com',
-			// loginBirthday:'77/03/10',
-			// organizationCode:'',
-			// signUpSheba: '',
-			// signUpCity: '',
-			// loginPass: '',
-			// signUpGender: 'male',
 			user: null,
 			loading: true
 		}
@@ -63,13 +54,12 @@ class ProfileEdit extends React.Component{
 				registerCode: e.target.value 
 			}
 		} else {
-			user = { 
+			user = {
 				...this.state.user, 
 				[e.target.name]: e.target.value 
 			}
 		}
-		console.log(user)
-    this.setState({ user }, () => console.log(this.state.user));
+    this.setState({ user });
   };
 
 	render(){
@@ -105,6 +95,7 @@ class ProfileEdit extends React.Component{
 									placeholder="وارد نمایید"
 									name="mobileNumber"
 									type="text"
+									disabled
 									onClick=""
 									label="موبایل*"
 									value={this.state.user.mobileNumber}
@@ -219,15 +210,13 @@ class ProfileEdit extends React.Component{
 	}
 }
 
-const mapStateToProps = state => ({
-  
-});
+const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   showAlert: (showStatus) => {
     dispatch(addToast(showStatus));
 	},
 });
 export default connect(
-  mapStateToProps,
+	mapStateToProps,
   mapDispatchToProps,
 )(ProfileEdit);

@@ -29,6 +29,13 @@ import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
+import $ from 'jquery';
+
+// window.onscroll(() => {
+//   console.log('yoyo')
+// })
 
 class RestaurantPage extends React.Component {
   constructor(props) {
@@ -44,6 +51,7 @@ class RestaurantPage extends React.Component {
       activeTab: 'tabOne',
       basketToState: {},
       basketObjItems: {},
+      activeSticky: null
     };
   }
 
@@ -60,12 +68,41 @@ class RestaurantPage extends React.Component {
     this.props.accChargeChanged({accCharge:false})
     restaurantDetailBySlug(this.state.citySlug,this.state.restaurantSlug).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result },()=>{
+        console.log('RESTAURANT DETAIL ====>>>> ', this.state.restaurant);
+
+        $(document).ready(function () {
+          $('#owl').owlCarousel({
+            rtl: true,
+            loop: false,
+            margin: 10,
+            nav: false,
+            dots: false,
+            autoWidth: true,
+            // responsive: {
+            //   0: {
+            //     items: 3,
+            //   },
+            //   768: {
+            //     items: 3,
+            //   },
+            //   992: {
+            //     items: 4,
+            //   },
+            //   1200: {
+            //     items: 5,
+            //   },
+            //   1440: {
+            //     items: 6,
+            //   },
+            // },
+          });
+        })
+
         createBasket(this.state.restaurant.id).then((response) => {
           this.setState({
             basketObjItems: response.result.items,
             basketObj: response.result,
           }, () => {
-
             let basketToArray = Object.keys(this.state.basketObjItems);
             let basketStoreObjItems = this.props.basket.items;
             let basketStoreObj = this.props.basket;
@@ -156,17 +193,21 @@ class RestaurantPage extends React.Component {
     });
   };
 
+  scrollPointer = cat => {
+    console.log('CAT', `#${cat.iconSlug}`);
+    this.setState({ activeSticky: cat.iconSlug });
+  }
 
   render() {
     const data = this.state.restaurant;
     return (
-      <div>
+      <div id="ScrollView">
         <NavigationBar
           back
-          fixTitle={data && data.name}
-          like
-          share
-          scroll={199}
+          title={data && data.name}
+          // like
+          // share
+          background
         />
         {data ? (
           <div className="lightBg rtl">
@@ -185,7 +226,24 @@ class RestaurantPage extends React.Component {
               activeTab={this.state.activeTab}
             />
 
-            {/* <div className="stickyMenu wFull" /> */}
+            <div className="stickyMenu wFull ">
+              <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
+                {Object.values(data.menuSections).map(cat => (
+                  <div key={cat.id} className="hInherit">
+                    <div 
+                      className={`stickyMenu-item center hP20 text14 
+                        ${this.state.activeSticky === cat.iconSlug && ' stickyMenu-item_active'}`
+                      }
+                      onClick={() => this.scrollPointer(cat)}
+                    >
+                      <a href={`#${cat.iconSlug}`}>
+                        {cat.name}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             {this.state.tabOne && (
               <React.Fragment>
@@ -194,10 +252,10 @@ class RestaurantPage extends React.Component {
                     <RestaurantFoodGroup
                       key={group.id}
                       title={group.name}
-                      icon="italian" // Fix these iconssssssss
+                      tag={group.iconSlug}
+                      icon={group.iconSlug} // Fix these iconssssssss
                     >
                       {group.foods.map(food => {
-
                         const _data = {
                           restaurantId: this.state.restaurant.id,
                           id: food.id,

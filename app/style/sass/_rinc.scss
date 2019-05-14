@@ -109,6 +109,7 @@
 .center { display: flex; justify-content: center; align-items: center };
 .vCenter { display: flex; justify-content: center };
 .hCenter { display: flex; align-items: center };
+.hInherit { height: inherit };
 .column { display: flex; flex-direction: column };
 .rightContent { display: flex; justify-content: flex-start };
 .leftContent { display: flex; justify-content: flex-end };
