@@ -84,7 +84,6 @@ class StickyPrice extends React.PureComponent {
     let useGateway;
     let tax = data ? data.tax : 0;
     let amountWithDelivery = this.state.totalPrice + parseInt(basket.deliveryZonePrice ? basket.deliveryZonePrice : 0);
-
     // var total = this.state.totalPrice;
     // if(basket.accCharge) {
     //   total = total - user.cacheBalance;
