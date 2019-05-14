@@ -48,3 +48,15 @@
     }
   }
 }
+
+@media(max-width: 399px)  {
+  .home {
+    background-position: center 35px;
+  }
+}
+
+@media(min-width: 350px) and (max-width: 375px) {
+  .home {
+    background-position: center 10px;
+  }
+}

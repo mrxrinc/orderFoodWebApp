@@ -29,9 +29,11 @@ import { storeRestaurant } from '../../actions/restaurant';
 import './style.scss';
 import TabThree from './components/TabThree';
 import TabTwo from './components/TabTwo';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
+import $ from 'jquery';
 import { object } from 'prop-types';
 
-// let basketTempData = {};
 
 class RestaurantPage extends React.Component {
   constructor(props) {
@@ -47,6 +49,7 @@ class RestaurantPage extends React.Component {
       activeTab: 'tabOne',
       basketToState: {},
       basketObjItems: {},
+      activeSticky: null,
       isRestaurant: true,
       StickyPriceShow:false
     };
@@ -69,6 +72,18 @@ class RestaurantPage extends React.Component {
     this.props.accChargeChanged({ accCharge: false })
     restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result }, () => {
+        console.log('RESTAURANT DETAIL ====>>>> ', this.state.restaurant);
+
+        $(document).ready(function () {
+          $('#owl').owlCarousel({
+            rtl: true,
+            loop: false,
+            margin: 10,
+            nav: false,
+            dots: false,
+            autoWidth: true
+          });
+        })
         if (restaurantResp.status) {
           createBasket(this.state.restaurant.id).then((response) => {
             this.setState({
@@ -184,6 +199,11 @@ class RestaurantPage extends React.Component {
     });
   };
 
+  scrollPointer = cat => {
+    console.log('CAT', `#${cat.iconSlug}`);
+    this.setState({ activeSticky: cat.iconSlug });
+  }
+
   render() {
     const data = this.state.restaurant;
     return (
@@ -192,10 +212,10 @@ class RestaurantPage extends React.Component {
           <div>
             <NavigationBar
               back
-              fixTitle={data && data.name}
-              like
-              share
-              scroll={199}
+              title={data && data.name}
+              // like
+              // share
+              background
             />
             {data ? (
               <React.Fragment>
@@ -216,7 +236,24 @@ class RestaurantPage extends React.Component {
                   />
 
                   {/* <div className="stickyMenu wFull" /> */}
-
+                  <div className="stickyMenu wFull ">
+              <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
+                {Object.values(data.menuSections).map(cat => (
+                  <div key={cat.id} className="hInherit">
+                    <div 
+                      className={`stickyMenu-item center hP20 text14 
+                        ${this.state.activeSticky === cat.iconSlug && ' stickyMenu-item_active'}`
+                      }
+                      onClick={() => this.scrollPointer(cat)}
+                    >
+                      <a href={`#${cat.iconSlug}`}>
+                        {cat.name}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
                   {this.state.tabOne && (
                     <React.Fragment>
                       <div className="hP10 vM10">
@@ -224,7 +261,8 @@ class RestaurantPage extends React.Component {
                           <RestaurantFoodGroup
                             key={group.id}
                             title={group.name}
-                            icon="italian" // Fix these iconssssssss
+                            icon={group.iconSlug} // Fix these iconssssssss
+                            tag={group.iconSlug}
                           >
                             {group.foods.map(food => {
                               const _data = {

@@ -25,12 +25,12 @@ const Basket = (state = initState, action) => {
           return Object.assign({}, state, action.payload);
         case CAMPAGIN_CODE_CHANGED:
           return Object.assign({}, state, action.payload);
-        
+
         case CHANGE_GENERATED_FOOD_ID:
           console.log('@#@#@#', action.payload);
           const { restaurant, foodData, optionGroup } = action.payload;
           const itemData = JSON.parse(JSON.stringify(state.items));
-          debugger;
+          // debugger;
           if (state.restaurantId != restaurant) {
             items = {};
           }
@@ -68,33 +68,25 @@ const Basket = (state = initState, action) => {
               foodPrice: foodData.price,
               image: foodData.image,
               options: optionGroup,
-            };          
+            };
           }
           return Object.assign({}, state, { items, restaurant });
-    
+
         case CHANGE_BASKET:
           let {restaurantId, food, itemCount} = action.payload;
           let items = JSON.parse(JSON.stringify(state.items));
           let totalCount = JSON.parse(JSON.stringify(state.totalCount));
-          console.log('=======totalCount==================');
-          console.log(totalCount);
-          console.log('====================================');
           if( state.restaurantId != restaurantId){
             items = {};
           }
           if(typeof items[food.id] != "undefined"){
             items[food.id].itemCount += itemCount;
-            console.log('====================================');
-            console.log("+= itemCount");
-            console.log('====================================');
+
           }else{
-            console.log('====================================');
-            console.log(food);
-            console.log('====================================');
             items[food.id] = {
               orderItemFoodId : food.id,
               foodLastPrice : null,
-              foodName : food.name, 
+              foodName : food.name,
               basketOrderItemKey : food.id,
               itemCount : 1,
               foodPrice: food.item.price,

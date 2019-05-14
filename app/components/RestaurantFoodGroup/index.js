@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss';
 
 const RestaurantFoodGroup = props => (
-  <div className="foodGroup bottomM40">
+  <div className="foodGroup" id={props.tag}>
     <div className="head bottomM10">
       <div className="flex hCenter rightP10 vM5 primary">
         <span

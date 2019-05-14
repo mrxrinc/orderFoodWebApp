@@ -281,7 +281,6 @@ class RestaurantModal extends Component {
       this.state.modalContainer,
       this.props.modalData.id,
     );
-    debugger;
     const { finalItem, optionGroup } = beautiferSidedish;
     const data = {
       foodData: this.props.modalData,
@@ -365,9 +364,9 @@ class RestaurantModal extends Component {
                       onClick={this.props.toggleModal}
                     />
                   </li>
-                  <li className="center">
+                  {/* <li className="center">
                     <span className="chilivery-fav-full text25 red" />
-                  </li>
+                  </li> */}
                 </ul>
               </div>
 

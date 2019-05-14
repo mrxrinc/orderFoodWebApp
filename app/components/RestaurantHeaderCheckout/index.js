@@ -30,7 +30,7 @@ export class RestaurantHeaderCheckout extends React.PureComponent {
         </div>
 
         <div className="details relative column hCenter wFull">
-          <h2 className="text18 bold centerText primary">{data.name}</h2>
+          <h2 className="text18 bold centerText primary">{data.restaurantName}</h2>
         </div>
       </div>
     )
