@@ -156,7 +156,7 @@ class StickyPrice extends React.PureComponent {
       "paymentType": this.totalPrice().amountToPay == 0 ? 'account':'bank',
       "bankgate": basket.gateway,
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user',
-      "isPWA": true      
+      "isPWA": true
     }).then(response => {
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
@@ -164,6 +164,7 @@ class StickyPrice extends React.PureComponent {
         if (response.go_to === 'app.success-pay') {
           history.push('/success-payment')
         }
+        console.log(response);
         if(response.result.url) {
           window.location.href = response.result.url
         }
