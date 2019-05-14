@@ -46,6 +46,11 @@ class StickyPrice extends React.PureComponent {
     const items = Object.keys(basket.items).map((item) =>{
       totalCount += basket.items[item].itemCount;
       totalPrice += basket.items[item].foodPrice * basket.items[item].itemCount;
+      if (basket.items[item].options.length > 0) {
+        const optionItem = basket.items[item].options.map((item) => {
+          totalPrice += item.foodOptionPrice
+        })
+      }
       return {
         "orderItemFoodId" : basket.items[item].id,
         "itemCount" : basket.items[item].itemCount,
@@ -53,7 +58,8 @@ class StickyPrice extends React.PureComponent {
       }
     });
     this.setState({
-      items,totalCount,totalPrice
+      items:basket.items,
+      totalCount,totalPrice
     })
   };
 
@@ -122,7 +128,7 @@ class StickyPrice extends React.PureComponent {
   changeBasket = (preventRedirect) => {
     const {basket,link} = this.props;
     const items = Object.keys(basket.items).map((item) =>{
-      var updateData = {
+      const updateData = {
         "orderItemFoodId" : item,
         "itemCount" : basket.items[item].itemCount
       };
@@ -134,7 +140,7 @@ class StickyPrice extends React.PureComponent {
           id:basket.id,
           deliveryType:basket.deliveryType ? basket.deliveryType:false,
           restaurantId:basket.restaurantId,
-          items:items ,
+          items:basket.items ,
         },
         nextPage : this.props.links,
         preventRedirect: preventRedirect

@@ -31,7 +31,6 @@ const Basket = (state = initState, action) => {
       console.log('@#@#@#', action.payload);
       const { restaurant, foodData, optionGroup } = action.payload;
       const itemData = JSON.parse(JSON.stringify(state.items));
-      debugger;
       if (state.restaurantId != restaurant) {
         items = {};
       }
@@ -69,7 +68,7 @@ const Basket = (state = initState, action) => {
           foodPrice: foodData.price,
           image: foodData.image,
           options: optionGroup,
-        };          
+        };
       }
       return Object.assign({}, state, { items, restaurant });
 
@@ -87,9 +86,9 @@ const Basket = (state = initState, action) => {
           foodName: food.name,
           basketOrderItemKey: food.id,
           itemCount: 1,
-          foodPrice: food.price,
+          foodPrice: food.item.price,
           image: food.image,
-          options: [],
+          options: food.item.options,
         };
       }
       if (items[food.id].itemCount == 0) {
