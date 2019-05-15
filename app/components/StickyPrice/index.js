@@ -135,7 +135,7 @@ class StickyPrice extends React.PureComponent {
           restaurantId:basket.restaurantId,
           items:basket.items ,
         },
-        nextPage : this.props.links,
+        nextPage : this.props.redirect?this.props.redirect:this.props.links,
         preventRedirect: preventRedirect
       };
       this.props.changeBasketData(basketData);
@@ -158,6 +158,7 @@ class StickyPrice extends React.PureComponent {
       "userAddressModel" : basket.organizationAddressId ? 'organ':'user',
       "isPWA": true
     }).then(response => {
+      //FIXME
       if(response.status) {
         // https://payment.iiventures.com/pay/1obnZDyB5ZN8qiNV4hRTnTQrQEXjm5
         // window.location = response.result.url;

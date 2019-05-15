@@ -91,6 +91,7 @@ export class cart extends React.PureComponent {
   };
 
   render() {
+    const winLocation = this.p
     const {description,orderItems,activeTabAddress,showLoginForm} = this.state;
     const {basket} = this.props;
     return (
@@ -188,8 +189,8 @@ export class cart extends React.PureComponent {
                   </div>
                 </React.Fragment>
                 }
-
-                <StickyPrice links='checkout' data={orderItems.amount}  collapseShow={true}/>
+                {/* FIXME */}
+                <StickyPrice links='checkout' redirect={`checkout/${this.props.basket.id}`} data={orderItems.amount}  collapseShow={true}/>
               </div>
             </React.Fragment>
           )}
