@@ -181,13 +181,13 @@ export class cart extends React.PureComponent {
                     <AnimateField
                       placeholder=" "
                       icon="chilivery-speech"
-                      name="signUpPhone"
+                      name="description"
                       type="text"
                       onClick=""
                       label="توضیحات و موارد بیشتر در مورد این سفارش"
                       value={description}
                       onChange={this.onChange}
-                      onKeyPress={this.handleKeyPressUpdate}
+                      // onKeyPress={this.handleKeyPressUpdate}
                     />
                   </div>
                 </React.Fragment>

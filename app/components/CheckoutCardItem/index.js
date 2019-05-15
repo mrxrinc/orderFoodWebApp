@@ -93,7 +93,7 @@ class CheckoutCardItem extends React.PureComponent {
         }
 
         return(
-          <div className="checkout-carditem">
+          <div className="checkout-carditem" key={index}>
         <div className="checkout-carditem__rbox" style={{ backgroundImage: `url(${food.image})`}}>
           {/*<img src={Food} alt="" />*/}
         </div>

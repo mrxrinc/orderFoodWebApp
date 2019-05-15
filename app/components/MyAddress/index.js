@@ -168,8 +168,8 @@ class MyAddress extends React.PureComponent {
                 <span className="dblock">{item.userDescription}</span>
               }
             </div>
-            <div class="MyAddress-detail__plus-min gray6Bg">
-              <span class="icon"></span></div>
+            <div className="MyAddress-detail__plus-min gray6Bg">
+              <span className="icon"></span></div>
           </div>
         </div>
       </div>
