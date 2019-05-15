@@ -35,7 +35,7 @@ export class MapContainer extends React.Component {
         };
     }
 
-    UserPositionModal = () => {
+    showModal = () => {
 		this.props.showModal({
 			UserPositionModal: false,
 		});
@@ -101,6 +101,7 @@ export class MapContainer extends React.Component {
     }
 
     goToListPage = () => {
+        this.showModal();
         let typeMapItem = typeMap[this.props.type];
         history.push(`/restaurants/${this.props[typeMapItem].citySlug}/${this.props[typeMapItem].slug}`)
     }

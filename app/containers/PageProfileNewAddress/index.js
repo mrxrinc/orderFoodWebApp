@@ -90,22 +90,16 @@ class ProfileNewAddress extends React.Component {
 					this.props.showAlert({
 						text: response.message_fa,
 						color: "danger",
+						delay:3000
 					});
 				}
 			}
 		).catch(
 			error => {
-				if(error.status === 401){
-					this.props.showAlert({
-						text: error.message_fa,
-						color: "danger",
-					});
-				}else{
-					this.props.showAlert({
-						text: error.message_fa,
-						color: "danger",
-					});
-				}
+				this.props.showAlert({
+					text: error.message_fa,
+					color: "danger",
+				});
 			}
 		)
 	}
