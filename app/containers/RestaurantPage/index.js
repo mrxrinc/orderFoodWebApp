@@ -74,17 +74,6 @@ class RestaurantPage extends React.Component {
     restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(restaurantResp => {
       this.setState({ restaurant: restaurantResp.result }, () => {
         console.log('RESTAURANT DETAIL ====>>>> ', this.state.restaurant);
-
-        $(document).ready(function () {
-          $('#owl').owlCarousel({
-            rtl: true,
-            loop: false,
-            margin: 10,
-            nav: false,
-            dots: false,
-            autoWidth: true
-          });
-        })
         if (restaurantResp.status) {
           createBasket(this.state.restaurant.id).then((response) => {
             this.setState({
@@ -207,6 +196,17 @@ class RestaurantPage extends React.Component {
 
   render() {
     const data = this.state.restaurant;
+    $(document).ready(function () {
+      $('#owl').owlCarousel({
+        rtl: true,
+        loop: false,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoWidth: true
+      });
+    })
+    
     return (
       <React.Fragment>
         {this.state.isRestaurant ? (
@@ -236,27 +236,27 @@ class RestaurantPage extends React.Component {
                     activeTab={this.state.activeTab}
                   />
 
-                  {/* <div className="stickyMenu wFull" /> */}
-                  <div className="stickyMenu wFull ">
-              <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
-                {Object.values(data.menuSections).map(cat => (
-                  <div key={cat.id} className="hInherit">
-                    <div 
-                      className={`stickyMenu-item center hP20 text14 
-                        ${this.state.activeSticky === cat.iconSlug && ' stickyMenu-item_active'}`
-                      }
-                      onClick={() => this.scrollPointer(cat)}
-                    >
-                      <a href={`#${cat.iconSlug}`}>
-                        {cat.name}
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
                   {this.state.tabOne && (
                     <React.Fragment>
+                      <div className="stickyMenu wFull ">
+                        <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
+                          {Object.values(data.menuSections).map(cat => (
+                            <div key={cat.id} className="hInherit">
+                              <div 
+                                className={`stickyMenu-item center hP20 text14 
+                                  ${this.state.activeSticky === cat.iconSlug && ' stickyMenu-item_active'}`
+                                }
+                                onClick={() => this.scrollPointer(cat)}
+                              >
+                                <a href={`#${cat.iconSlug}`}>
+                                  {cat.name}
+                                </a>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      
                       <div className="hP10 vM10">
                         {this.state.restaurant.menuSections.map(group => (
                           <RestaurantFoodGroup
