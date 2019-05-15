@@ -35,8 +35,9 @@ class UserCacheBalance extends React.PureComponent {
         <div className="UserCacheBalance__details">
           <span>پرداخت از طریق موجودی حساب</span>
           <p>موجودی شما: {user.cacheBalance} تومان</p>
-          <span>موجودی شما برای پرداخت هزینه این سفارش کافی است.</span>
+          {!this.props.showGetway && <span>موجودی شما برای پرداخت هزینه این سفارش کافی است.</span>}
         </div>
+        {user.cacheBalance === 0  && <div className="mask"></div> }
       </div>
       </React.Fragment>
     );

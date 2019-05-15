@@ -8,12 +8,14 @@
   display: table;
   width: 100%;
   margin-bottom: 30px;
+  position: relative;
   &-checkbox {
     border-left: 1px solid #EEEEEE;
     display: table-cell;
     vertical-align: middle;
-    padding: 0 10px 0 8px;
+    padding: 0 10px 2px 6px;
     text-align: center;
+    width: 30px;
   }
   &__details {
     display: table-cell;
@@ -28,5 +30,15 @@
       color: #434343;
       font-weight: bold;
     }
+  }
+  .mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    background-color: $grey-7;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
   }
 }
