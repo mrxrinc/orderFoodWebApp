@@ -72,19 +72,22 @@ class RestaurantPage extends React.Component {
   componentDidMount() {
     this.props.accChargeChanged({ accCharge: false })
     restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(restaurantResp => {
-      this.setState({ restaurant: restaurantResp.result }, () => {
+      this.setState({ 
+        restaurant: restaurantResp.result,
+        StickyPriceShow:false
+      }, () => {
         console.log('RESTAURANT DETAIL ====>>>> ', this.state.restaurant);
         if (restaurantResp.status) {
           createBasket(this.state.restaurant.id).then((response) => {
             this.setState({
               basketObjItems: response.result.items,
               basketObj: response.result,
+              
             }, () => {
 
               let basketToArray = Object.keys(this.state.basketObjItems);
               let basketStoreObjItems = this.props.basket.items;
               let basketStoreObj = this.props.basket;
-
 
               if (basketToArray.length > 0) {
                 if (JSON.stringify(this.state.basketObjItems) === JSON.stringify(basketStoreObjItems)) {
