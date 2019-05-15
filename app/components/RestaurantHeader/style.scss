@@ -41,10 +41,11 @@
         background-color: $color-success;
         border-radius: 50%;
         box-shadow: 0 0 15px #1CBD2Fcc;
-      }
-      .dot {
-        background-color: $color-danger;
-        box-shadow: 0 0 15px $color-danger;
+        &.dotRed{
+          background-color: $color-danger;
+          box-shadow: 0 0 15px $color-danger;
+  
+        }
       }
       .deliveryIcon {
         width: 25px;
