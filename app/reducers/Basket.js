@@ -27,6 +27,7 @@ const Basket = (state = initState, action) => {
           return Object.assign({}, state, action.payload);
 
         case CHANGE_GENERATED_FOOD_ID:
+          console.log('@#@#@#', action.payload);
           const { restaurant, foodData, optionGroup } = action.payload;
           const itemData = JSON.parse(JSON.stringify(state.items));
           // debugger;
@@ -35,8 +36,8 @@ const Basket = (state = initState, action) => {
           }
           if (typeof itemData[foodData.id] !== 'undefined') {
             const tempCount = itemData[foodData.id].itemCount;
-            delete itemData[foodData.id];
-            itemData[action.payload.foodGeneratedId] = {
+            delete items[foodData.id];
+            items[action.payload.foodGeneratedId] = {
               orderItemFoodId: foodData.id,
               foodLastPrice: null,
               foodName: foodData.name,
@@ -47,7 +48,7 @@ const Basket = (state = initState, action) => {
               options: optionGroup,
             };
           } else if (typeof itemData[foodData.foodGeneratedId] !== 'undefined') {
-            itemData[action.payload.foodGeneratedId] = {
+            items[action.payload.foodGeneratedId] = {
               orderItemFoodId: foodData.id,
               foodLastPrice: null,
               foodName: foodData.name,
@@ -58,7 +59,7 @@ const Basket = (state = initState, action) => {
               options: optionGroup,
             };
           } else {
-            itemData[action.payload.foodGeneratedId] = {
+            items[action.payload.foodGeneratedId] = {
               orderItemFoodId: foodData.id,
               foodLastPrice: null,
               foodName: foodData.name,
@@ -69,12 +70,12 @@ const Basket = (state = initState, action) => {
               options: optionGroup,
             };
           }
-          items = itemData;
           return Object.assign({}, state, { items, restaurant });
 
         case CHANGE_BASKET:
           let {restaurantId, food, itemCount} = action.payload;
           let items = JSON.parse(JSON.stringify(state.items));
+          let totalCount = JSON.parse(JSON.stringify(state.totalCount));
           if( state.restaurantId != restaurantId){
             items = {};
           }
@@ -88,9 +89,9 @@ const Basket = (state = initState, action) => {
               foodName : food.name,
               basketOrderItemKey : food.id,
               itemCount : 1,
-              foodPrice: !food.options ? food.item.price : food.price,
+              foodPrice: food.item.price,
               image: food.image,
-              options: !food.options ? food.item.options : food.options,
+              options: food.item.options,
             };
             console.log('====================================');
             console.log(" itemCount == 1");
