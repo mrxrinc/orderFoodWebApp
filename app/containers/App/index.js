@@ -44,6 +44,7 @@ import Order from '../PageProfile/Order';
 import OrderEmpty from '../PageProfile/OrderEmpty';
 import MyComments from '../PageProfile/MyComments';
 import NoAddress from '../PageProfile/NoAddress';
+import Page404 from '../Page404';
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
@@ -84,7 +85,7 @@ export default function App() {
           <Route exact path="/activation-code" component={ActivationCode} />
           <Route exact path="/static/:slug" component={WebViewPage} />
           <Route exact path="/:citySlug/:restaurantSlug" component={RestaurantPage} />
-          <Route component={NotFoundPage} />
+          <Route component={Page404} />
         </Switch>
       </main>
       <GlobalStyle />
