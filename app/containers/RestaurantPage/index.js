@@ -190,8 +190,8 @@ class RestaurantPage extends React.Component {
   };
 
   scrollPointer = cat => {
-    console.log('CAT', `#${cat.iconSlug}`);
-    this.setState({ activeSticky: cat.iconSlug });
+    console.log('CAT', `cat-${cat.id}`);
+    this.setState({ activeSticky: `cat-${cat.id}` });
   }
 
   render() {
@@ -206,6 +206,7 @@ class RestaurantPage extends React.Component {
         autoWidth: true
       });
     })
+    
     return (
       <React.Fragment>
         {this.state.isRestaurant ? (
@@ -227,8 +228,8 @@ class RestaurantPage extends React.Component {
                     name={data.name}
                     deliveryName={data.deliveryName}
                     deliveryIcon={data.deliveryIcon}
-                    deliveryPrice={12000}
-                    isOpen
+                    deliveryTime={data.deliveryZoneList}
+                    isOpen={data.isOpen}
                     commentCount={data.commentCount}
                     rateAverage={data.rateAverage}
                     tabClick={this.tabClick}
@@ -243,11 +244,11 @@ class RestaurantPage extends React.Component {
                             <div key={cat.id} className="hInherit">
                               <div 
                                 className={`stickyMenu-item center hP20 text14 
-                                  ${this.state.activeSticky === cat.iconSlug && ' stickyMenu-item_active'}`
+                                  ${this.state.activeSticky === `cat-${cat.id}` && ' stickyMenu-item_active'}`
                                 }
                                 onClick={() => this.scrollPointer(cat)}
                               >
-                                <a href={`#${cat.iconSlug}`}>
+                                <a href={`#cat-${cat.id}`}>
                                   {cat.name}
                                 </a>
                               </div>
@@ -255,13 +256,14 @@ class RestaurantPage extends React.Component {
                           ))}
                         </div>
                       </div>
+                      
                       <div className="hP10 vM10">
                         {this.state.restaurant.menuSections.map(group => (
                           <RestaurantFoodGroup
                             key={group.id}
                             title={group.name}
                             icon={group.iconSlug} // Fix these iconssssssss
-                            tag={group.iconSlug}
+                            tag={`cat-${group.id}`}
                           >
                             {group.foods.map(food => {
                               const _data = {

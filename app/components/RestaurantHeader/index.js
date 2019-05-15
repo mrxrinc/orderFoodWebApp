@@ -3,6 +3,26 @@ import React from 'react';
 import './style.scss';
 import StarsRating from '../StarsRating';
 
+const deliveryTime = time => {
+  if (Object.keys(time) &&
+  Object.keys(time).length > 0 ) {
+    const item = Object.values(time)[0];
+    const equalTime = item.minTime === item.maxTime
+    return (
+      <React.Fragment>
+        {equalTime ? (
+
+          <span>{item.minTime} دقیقه</span>
+        ) : (
+          <React.Fragment>
+           <span>{item.minTime}</span> تا <span>{item.maxTime}</span> <span>دقیقه</span>
+          </React.Fragment>
+        )}
+      </React.Fragment>
+    )
+  }
+}
+
 const RestaurantHeader = props => (
   <div className="header wFull bgWhite">
     <div
@@ -48,11 +68,14 @@ const RestaurantHeader = props => (
           <div className="onOrder flex center vM10 primary">
             {props.isOpen ? (
               <React.Fragment>
-                <span className="dot leftM5" />
+                <span className="dot dotRed leftM5" />
                 <span className="text14">در حال پذیرش سفارش</span>
               </React.Fragment>
             ) : (
-              <span className="text14 gray6">رستوران بسته است</span>
+              <React.Fragment>
+                <span className="dot leftM5 redBg" />
+                <span className="text14 red">رستوران بسته است</span>
+              </React.Fragment>
             )}
           </div>
 
@@ -64,11 +87,7 @@ const RestaurantHeader = props => (
             />
             <span className="text12">
               <span className="leftM5">{props.deliveryName}</span>
-              {props.deliveryPrice && (
-                <React.Fragment>
-                  <span>{props.deliveryPrice}</span> <span>تومان</span>
-                </React.Fragment>
-              )}
+              {deliveryTime(props.deliveryTime)}
             </span>
           </div>
 

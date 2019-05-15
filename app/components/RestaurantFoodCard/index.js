@@ -67,6 +67,9 @@ class RestaurantFoodCard extends React.Component {
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
             </ul>
+
+
+            {props.foodIsOpen ? (
             <div className="flex price hP10 leftContent primary text16 wFull hCenter">
               {!props.hasOption && (
                 <Stepper
@@ -78,9 +81,15 @@ class RestaurantFoodCard extends React.Component {
               {props.hasOption && (
                 <RestaurantSelectSideDish onClick={props.onClick} />
               )}
+              </div>
+              )
+              : (
+                <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                  {props.restaurantIsOpen && <span className="text14 bold leftM10">تمام شد</span> }
+                </div>
+              )}
             </div>
           </div>
-        </div>
     )
   }
 
