@@ -68,12 +68,12 @@ const RestaurantHeader = props => (
           <div className="onOrder flex center vM10 primary">
             {props.isOpen ? (
               <React.Fragment>
-                <span className="dot dotRed leftM5" />
+                <span className="dot leftM5" />
                 <span className="text14">در حال پذیرش سفارش</span>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <span className="dot leftM5 redBg" />
+                <span className="dot dotRed leftM5 redBg" />
                 <span className="text14 red">رستوران بسته است</span>
               </React.Fragment>
             )}

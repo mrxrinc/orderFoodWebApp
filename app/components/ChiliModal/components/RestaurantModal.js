@@ -18,14 +18,14 @@ class RestaurantModal extends Component {
       radioValidation: false,
       modalContainer: [],
       modalButton: false,
-      // cloneBasketItem: {},
+      cloneBasketItem: {},
       sideConfirm: false,
     };
   }
 
   componentDidMount() {
-    // const cloneBasketItem = { ...this.props.basket };
-    // this.setState({ cloneBasketItem });
+    const cloneBasketItem = { ...this.props.basket };
+    this.setState({ cloneBasketItem });
 
     this.resetModal();
   }
@@ -327,7 +327,7 @@ class RestaurantModal extends Component {
 
   componentWillUnmount() {
     if (this.state.sideConfirm === false) {
-      this.props.addToBasket(this.props.cloneBasketItem);
+      this.props.addToBasket(this.state.cloneBasketItem);
     }
     this.setState({
       modalRequiredGroupIds: [],

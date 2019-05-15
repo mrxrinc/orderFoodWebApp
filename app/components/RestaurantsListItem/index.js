@@ -57,6 +57,7 @@ const RestaurantsListItem = props => (
               <span className="white text12 centerText hP10">پیشنهادی</span>
             </div>
           )}
+
         </div>
 
         {/* <div className="absolute top left center favorite">
@@ -70,18 +71,28 @@ const RestaurantsListItem = props => (
         <span className="chilivery-location text18" />
         <span className="text12 rightM5">{props.neighborhood.name}</span>
       </div>
-      <div className="reviews flex leftM10 vM3">
-        <div className="flex i2 center gray">
-          <span className="text16 leftM3 topM5">{props.commentCount}</span>
-          <span className="chilivery-user text14" />
-        </div>
 
-        <div
-          className={`flex i2 center round5 ${rateColor(props.rateAverage)}`}
-        >
-          <span className="white text16 leftM3 topM5">{props.rateAverage}</span>
-          <span className="chilivery-smiley-good2 white text14" />
-        </div>
+
+      <div className="reviews flex leftM10 vM3">
+        {props.isNew ? (
+          <div className="new wFull flex hCenter">
+            <span className="white text12 centerText hP10">جدید</span>
+          </div>
+        ) : (
+          <React.Fragment>
+            <div className="flex i2 center gray">
+              <span className="text16 leftM3 topM5">{props.commentCount}</span>
+              <span className="chilivery-user text14" />
+            </div>
+
+            <div
+              className={`flex i2 center round5 ${rateColor(props.rateAverage)}`}
+            >
+              <span className="white text16 leftM3 topM5">{props.rateAverage}</span>
+              <span className="chilivery-smiley-good2 white text14" />
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
 
