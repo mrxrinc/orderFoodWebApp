@@ -218,7 +218,7 @@ class ProfileEditAddress extends React.Component {
 							<div className="chili-animate-field form-group">
 								<div className="form-control">
 									{this.state.organization ? 
-										<p style={{backgroundColor:"#ccc"}}>{this.state.regionComplete}</p>:
+										<p className="padd5" style={{backgroundColor:"#ccc"}}>{this.state.regionComplete}</p>:
 										null
 									}
 									<textarea
