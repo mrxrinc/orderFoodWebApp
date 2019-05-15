@@ -106,7 +106,7 @@ class Order extends React.Component {
 															<span className={`icon text22 ${
 																(item.voteRate === 3 ? "chilivery-star green" :
 																	item.voteRate === 2 ? "chilivery-smiley-average yellow" :
-																		"chilivery-smiley-bad red")
+																	item.voteRate === 1 ? "chilivery-smiley-bad red" : "")
 																}`
 															}
 															> </span>

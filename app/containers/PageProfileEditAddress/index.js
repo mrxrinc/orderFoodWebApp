@@ -12,7 +12,7 @@ import {addToast} from '../../actions/Notifications';
 import UserPositionChili from '../../components/ChiliModal/components/UserPositionChili';
 import {userAddressList} from '../../api/application/userAddress';
 import NavigationBar from '../../components/NavigationBar';
-
+import { history } from '../../store';
 import './style.scss';
 import icon from '../../images/icons/edit_profile.png'
 
