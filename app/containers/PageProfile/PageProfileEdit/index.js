@@ -125,7 +125,7 @@ class ProfileEdit extends React.Component{
 									type="text"
 									onClick=""
 									label="کد سازمانی"
-									value={this.state.user.organization.registerCode}
+									value={this.state.user.organization && this.state.user.organization.registerCode}
 									onChange={this.onChange}
 									icon="chilivery-organization-code"
 									iconColor="#929292"
