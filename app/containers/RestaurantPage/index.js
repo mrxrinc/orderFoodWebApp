@@ -150,7 +150,7 @@ class RestaurantPage extends React.Component {
           StickyPriceShow:true
         })
       }
-      
+
     }
   }
 
@@ -209,7 +209,7 @@ class RestaurantPage extends React.Component {
         autoWidth: true
       });
     })
-    
+
     return (
       <React.Fragment>
         {this.state.isRestaurant ? (
@@ -245,8 +245,8 @@ class RestaurantPage extends React.Component {
                         <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
                           {Object.values(data.menuSections).map(cat => (
                             <div key={cat.id} className="hInherit">
-                              <div 
-                                className={`stickyMenu-item center hP20 text14 
+                              <div
+                                className={`stickyMenu-item center hP20 text14
                                   ${this.state.activeSticky === `cat-${cat.id}` && ' stickyMenu-item_active'}`
                                 }
                                 onClick={() => this.scrollPointer(cat)}
@@ -259,7 +259,7 @@ class RestaurantPage extends React.Component {
                           ))}
                         </div>
                       </div>
-                      
+
                       <div className="hP10 vM10">
                         {this.state.restaurant.menuSections.map(group => (
                           <RestaurantFoodGroup
@@ -317,7 +317,7 @@ class RestaurantPage extends React.Component {
                         Object.keys(this.props.basket.items).length > 0 && (
                           )} */}
                         {this.state.StickyPriceShow &&
-                          <StickyPrice links='cart' collapseShow={false} />
+                          <StickyPrice links='cart' collapseShow={false} minPriceSendLimit={this.state.restaurant && this.state.restaurant.minPriceSendLimit}/>
                         }
 
                     </React.Fragment>

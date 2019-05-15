@@ -90,11 +90,11 @@ export class Checkout extends React.PureComponent {
   render() {
     const {orderItems,showGetway} =this.state;
     return (
-      <div className="checkout hFull bottomM50">
+      <div className="checkout hFull">
         <NavigationBar
           back
           title="سبد خرید"
-          // background
+          background
         />
         {orderItems && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
       <Container className="checkout">
