@@ -7,8 +7,7 @@ import RestaurantSelectSideDish from '../RestaurantSelectSideDish';
 
 class RestaurantFoodCard extends React.Component {  
   render(){    
-    const props = this.props;
-    console.log("%%%%",props);
+    const props = this.props;    
     return (
       <div className="foodCard">
           <div className="head center" onClick={props.onClick}>
