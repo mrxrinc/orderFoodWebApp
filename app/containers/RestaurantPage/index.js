@@ -210,7 +210,7 @@ class RestaurantPage extends React.Component {
     return (
       <React.Fragment>
         {this.state.isRestaurant ? (
-          <div>
+          <div className="bottomP50">
             <NavigationBar
               back
               title={data && data.name}
