@@ -32,7 +32,8 @@ export default class RestaurantsList extends React.PureComponent {
             cityId, 
             `${mapCenter.lat},${mapCenter.lon}`,
             this.state.tag).then(
-            response => {
+              response => {
+              console.log('LIST ===>>> ', response.result.data);
               const restaurantList = response.result.data;
               this.setState({ restaurantList, loading: false });
             }

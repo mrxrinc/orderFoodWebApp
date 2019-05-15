@@ -19,6 +19,13 @@ const RestaurantsListItem = props => (
             <span className="text12 topM3 leftM3">%</span>
           </span>
         )}
+        
+        {props.labels && props.labels.length > 0 && (
+          <div className="tagLabel white text12 flex center absolute f">
+            <span>{props.labels[0]}</span>
+          </div>
+        )}
+        
       </div>
       <div className="left relative">
         <h2 className="font bold largeText primary text-truncate w80">{props.name}</h2>
