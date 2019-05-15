@@ -40,7 +40,7 @@ class ChiliStepper extends React.Component {
     }
   }
 
-  modalPrice = (modalData) => {
+  modalPrice = modalData => {
     let sum = 0;
     if (modalData) {
       const { itemCount } = modalData;
@@ -56,9 +56,6 @@ class ChiliStepper extends React.Component {
       food: this.props.data,
       itemCount: 1
     });
-    console.log('====================================');
-    console.log(this.props);
-    console.log('====================================');
   }
 
   decrease = (food_basket) => {
@@ -78,7 +75,7 @@ class ChiliStepper extends React.Component {
     }
   }
 
-  render() {
+  render() {    
     const food_basket = (
       this.props.data &&
       typeof this.props.basket.items !== "undefined" &&
