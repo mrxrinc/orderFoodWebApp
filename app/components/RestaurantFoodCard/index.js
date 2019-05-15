@@ -70,20 +70,19 @@ class RestaurantFoodCard extends React.Component {
 
 
             {props.foodIsOpen ? (
-            <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-              {!props.hasOption && (
-                <Stepper
-                  fontSize="18"
-                  restaurantId = {this.props.restaurantId}
-                  data={props}
-                />
-              )}
-              {props.hasOption && (
-                <RestaurantSelectSideDish onClick={props.onClick} />
-              )}
+              <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+                {!props.hasOption && (
+                  <Stepper
+                    fontSize="18"
+                    restaurantId = {this.props.restaurantId}
+                    data={props}
+                  />
+                )}
+                {props.hasOption && (
+                  <RestaurantSelectSideDish onClick={props.onClick} />
+                )}
               </div>
-              )
-              : (
+              ) : (
                 <div className="flex price hP10 leftContent primary text16 wFull hCenter">
                   {props.restaurantIsOpen && <span className="text14 bold leftM10">تمام شد</span> }
                 </div>
