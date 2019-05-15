@@ -21,7 +21,7 @@ class StickyPrice extends React.PureComponent {
   }
 
   validationAddress = () => {
-    if (this.props.links == "checkout" && !this.props.basket.addressId ) {
+    if (this.props.links == "checkout" && !this.props.basket.addressId && !this.props.basket.deliveryType) {
       this.setState({
         validAddress:true
       })
