@@ -84,6 +84,7 @@
             background-color: $color-secondary;
           }
         }
+
       }
 
       .favorite {
@@ -103,6 +104,19 @@
 
     .reviews {
       width: 150px;
+
+      .new {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        span {
+          height: 23px;
+          line-height: 21px;
+          border-radius: 5px;
+          background-color: $color-danger;
+
+        }
+      }
     }
   }
 
