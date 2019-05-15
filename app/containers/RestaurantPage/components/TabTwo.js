@@ -107,7 +107,7 @@ class TabTwo extends React.Component {
         <div className="restauran-comment__submit-title bottomP15">
           <span className="dInlineBlock">نظر شما درباره سفارش</span>
           <span className="dInlineBlock rightP5 leftP5">{order}</span>
-          <span className="info" onClick={() => this.getOrderReview(order)}> (جزئیات سفارش)</span>
+          <span className="dInlineBlock info" onClick={() => this.getOrderReview(order)}> (جزئیات سفارش)</span>
         </div>
         <div className="restauran-comment__submit-title padd10 round10 purple5Bg white">
           <i className="icon chilivery-forget-pass-1 text18 leftP5"></i>

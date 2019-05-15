@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import icon from '../../images/icons/search_no_result.png';
 const Page404 = () => (
-  <div className="page-component-order-failed page-404">
-    <div className="card_white page-component-order-failed-card">
-      <div className="of-title">404</div>
-      <div>
-        <div className="of-global-message">صفحه مورد نظر یافت نشد!</div>
+  <div className="order-empty hFull center">
+    <div className="order">
+      <div className="order-empty__icon bottomP15">
+        <img className="order-empty__img" src={icon} alt=""/>
+        <span className="order-empty__title">سبد خرید شما خالی است!</span>
       </div>
-
-      <div>
-        <Link to="/" className="btn btn-danger">
-          بازگشت به صفحه اصلی
-        </Link>
-      </div>
+      <Link to="/" className="btn btn-danger">
+        بازگشت به صفحه اصلی
+      </Link>
     </div>
   </div>
+
 );
 
 export default Page404;

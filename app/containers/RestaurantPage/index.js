@@ -33,6 +33,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 import $ from 'jquery';
 import { object } from 'prop-types';
+import icon from '../../images/icons/no_address.png'
 
 
 class RestaurantPage extends React.Component {
@@ -349,7 +350,12 @@ class RestaurantPage extends React.Component {
             )}
           </div>
         ) : (
-          <span>"رستورانی در این محل یافت نشد"</span>
+          <div className="order-empty hFull center">
+            <div className="order-empty__icon">
+              <img className="order-empty__img" src={icon} alt=""/>
+              <span className="order-empty__title">"رستورانی در این محل یافت نشد"</span>
+            </div>
+          </div>
         )}
       </React.Fragment>
     );
