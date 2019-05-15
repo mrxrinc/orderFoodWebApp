@@ -72,6 +72,10 @@
           padding-right: 10px;
           font-weight: bold;
         }
+        .text-limit {
+          font-size: 10px;
+          font-weight: bold;
+        }
       }
     }
     &-lbox {
@@ -84,8 +88,11 @@
         height: 50px;
         font-weight: bold;
         font-size: 14px;
+        &.disabled {
+          background-color: $grey-7;
+        }
         span {
-          font-size: 12px;
+          font-size: 10px;
           padding-right: 2px;
           font-weight: bold;
         }
