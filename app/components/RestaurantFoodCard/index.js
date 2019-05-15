@@ -5,9 +5,9 @@ import Stepper from '../../components/ChiliStepper';
 import { rateColor } from '../GeneralFunctions';
 import RestaurantSelectSideDish from '../RestaurantSelectSideDish';
 
-class RestaurantFoodCard extends React.Component {
-  render(){
-    const props = this.props;
+class RestaurantFoodCard extends React.Component {  
+  render(){    
+    const props = this.props;    
     return (
       <div className="foodCard">
           <div className="head center" onClick={props.onClick}>
@@ -66,23 +66,22 @@ class RestaurantFoodCard extends React.Component {
                 <span className="text16">{props.item.price}</span>
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
-            </ul>
-
-
-            {props.foodIsOpen && props.restaurantIsOpen ? (
-              <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-                {!props.hasOption && (
-                  <Stepper
-                    fontSize="18"
-                    restaurantId = {this.props.restaurantId}
-                    data={props}
-                  />
-                )}
-                {props.hasOption && (
-                  <RestaurantSelectSideDish onClick={props.onClick} />
-                )}
+            </ul>                        
+            {props.foodIsOpen ? (
+            <div className="flex price hP10 leftContent primary text16 wFull hCenter">
+              {!props.hasOption && (
+                <Stepper
+                  fontSize="18"
+                  restaurantId = {this.props.restaurantId}
+                  data={props.item}
+                />
+              )}
+              {props.hasOption && (
+                <RestaurantSelectSideDish onClick={props.onClick} />
+              )}
               </div>
-              ) : (
+              )
+              : (
                 <div className="flex price hP10 leftContent primary text16 wFull hCenter">
                   {props.restaurantIsOpen && <span className="text14 bold leftM10">تمام شد</span> }
                 </div>
