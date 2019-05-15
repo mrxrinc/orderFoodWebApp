@@ -31,7 +31,13 @@ class OrderReviewModal extends Component {
         className="chili-modal__alert"
       >
         <div className="padd10">
-          <AfterPaymentCardItem data={this.props.data[0].items} />
+          <AfterPaymentCardItem
+            data={
+              this.props.type === "profile" ? 
+              this.props.data[0].items:
+              this.props.data.items
+            }
+          />
         </div>
         <div className="clearfix"></div>
         <div className="afterpayment__factor p-3">
@@ -40,6 +46,20 @@ class OrderReviewModal extends Component {
               <span className="bold total">مالیات</span>
               <span className="pull-left bold total">{
                 this.props.data[0].amount.tax        
+                } تومان</span>
+            </li>:null
+            }
+            {(this.props.type === "profile" && this.props.data[0].amount.pack > 0 ) ?  <li>
+              <span className="bold total">بسته بندی</span>
+              <span className="pull-left bold total">{
+                this.props.data[0].amount.pack        
+                } تومان</span>
+            </li>:null
+            }
+            {(this.props.type === "profile" && this.props.data[0].amount.carry > 0 ) ?  <li>
+              <span className="bold total">ارسال</span>
+              <span className="pull-left bold total">{
+                this.props.data[0].amount.carry        
                 } تومان</span>
             </li>:null
             }

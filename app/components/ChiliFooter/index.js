@@ -141,7 +141,7 @@ class ChiliFooter extends React.Component {
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-user" />
                   </div>
-                  <div className="chili-footer__list-title">ورود/ثبتنام</div>
+                  <div className="chili-footer__list-title">ورود/ثبت‌نام</div>
                 </NavLink>
                 }
               </div>

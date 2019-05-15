@@ -26,8 +26,7 @@ const Basket = (state = initState, action) => {
         case CAMPAGIN_CODE_CHANGED:
           return Object.assign({}, state, action.payload);
 
-        case CHANGE_GENERATED_FOOD_ID:
-          console.log('@#@#@#', action.payload);
+        case CHANGE_GENERATED_FOOD_ID:          
           const { restaurant, foodData, optionGroup } = action.payload;
           const itemData = JSON.parse(JSON.stringify(state.items));
           // debugger;
@@ -72,7 +71,7 @@ const Basket = (state = initState, action) => {
           }
           return Object.assign({}, state, { items, restaurant });
 
-        case CHANGE_BASKET:
+        case CHANGE_BASKET:        
           let {restaurantId, food, itemCount} = action.payload;
           let items = JSON.parse(JSON.stringify(state.items));
           let totalCount = JSON.parse(JSON.stringify(state.totalCount));
@@ -89,13 +88,10 @@ const Basket = (state = initState, action) => {
               foodName : food.name,
               basketOrderItemKey : food.id,
               itemCount : 1,
-              foodPrice: food.item.price,
+              foodPrice: food.price,
               image: food.image,
-              options: food.item.options,
+              options: food.options,
             };
-            console.log('====================================');
-            console.log(" itemCount == 1");
-            console.log('====================================');
           }
           if(items[food.id].itemCount == 0){
             delete items[food.id];
