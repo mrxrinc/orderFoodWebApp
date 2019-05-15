@@ -88,9 +88,9 @@ export class Checkout extends React.PureComponent {
 
 
   render() {
-    const {orderItems} =this.state
+    const {orderItems,showGetway} =this.state;
     return (
-      <div className="checkout hFull">
+      <div className="checkout hFull bottomM50">
         <NavigationBar
           back
           title="سبد خرید"
@@ -101,8 +101,8 @@ export class Checkout extends React.PureComponent {
         <div className="padd5">
           <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization && this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>
           <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
-          <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge}/>
-          {this.state.showGetway &&
+          <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge} showGetway={showGetway}/>
+          {showGetway &&
           <Row className="banks-row" >
             {orderItems && orderItems.bankgateways.map((value,index) =>
               <Col xs="6">
