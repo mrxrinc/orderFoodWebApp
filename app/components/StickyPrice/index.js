@@ -148,7 +148,7 @@ class StickyPrice extends React.PureComponent {
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  this.totalPrice().amountToPay == 0 ? false : true,
-      "orderDeliveryType":  false,
+      "orderDeliveryType":  basket.deliveryType,
       "orderId":  basket.id,
       "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
