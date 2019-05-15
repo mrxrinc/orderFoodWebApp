@@ -75,7 +75,7 @@ class ChiliStepper extends React.Component {
     }
   }
 
-  render() {    
+  render() {        
     const food_basket = (
       this.props.data &&
       typeof this.props.basket.items !== "undefined" &&
