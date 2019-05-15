@@ -164,6 +164,9 @@ class MyAddress extends React.PureComponent {
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">
               <span>{item.organAddressComplete?item.organAddressComplete:item.complete}</span>
+              {!!item.userDescription &&
+                <span className="dblock">{item.userDescription}</span>
+              }
             </div>
             <div class="MyAddress-detail__plus-min gray6Bg">
               <span class="icon"></span></div>
