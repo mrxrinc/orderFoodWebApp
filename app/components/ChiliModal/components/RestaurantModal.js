@@ -7,7 +7,7 @@ import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
 import SaveSideDishService from '../../../containers/RestaurantPage/services/SaveSideDishService';
-import { changeToGeneratedFoodId, addToBasket } from '../../../actions/Basket';
+import { changeToGeneratedFoodId, changeBasket } from '../../../actions/Basket';
 
 class RestaurantModal extends Component {
   constructor(props) {
@@ -25,9 +25,15 @@ class RestaurantModal extends Component {
 
   componentDidMount() {
     // const cloneBasketItem = { ...this.props.basket };
-    // this.setState({ cloneBasketItem });
-
+    // this.setState({ cloneBasketItem });    
+    const initialData = {
+      itemCount: 1,
+      restaurantId: this.props.restaurantId,
+      food: this.props.modalData,      
+    };
     this.resetModal();
+    this.props.changeBasket(initialData);    
+    console.log(this.props.basket);
   }
 
   resetModal() {
@@ -518,8 +524,8 @@ const mapStateToProps = state => ({
   basket: state.Basket,
 });
 const mapDispatchToProps = dispatch => ({
-  addToBasket: value => {
-    dispatch(addToBasket(value));
+  changeBasket: value => {
+    dispatch(changeBasket(value));
   },
   changeToGeneratedFoodId: value => {
     dispatch(changeToGeneratedFoodId(value));
