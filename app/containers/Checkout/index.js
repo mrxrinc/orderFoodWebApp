@@ -99,7 +99,7 @@ export class Checkout extends React.PureComponent {
         {orderItems && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
       <Container className="checkout">
         <div className="padd5">
-          <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>
+          <GiftCode organid={this.props.basket.organizationAddressId} organCode={this.props.user.organization && this.props.user.organization.discount.code} userAddressId={this.props.basket.addressId} orderId={this.props.basket.id}/>
           <p className="checkout-cacheTitle">پرداخت آنلاین با کارت های بانکی عضو شتاب</p>
           <UserCacheBalance onChange={this.ChangeAccCharge} accCharge={this.state.accCharge}/>
           {this.state.showGetway &&
