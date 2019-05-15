@@ -68,7 +68,10 @@ export class cart extends React.PureComponent {
     })
     this.getAddress();
     const restaurantId = { restaurantId :  this.props.basket.restaurantId};
-    this.props.getBasketItems(restaurantId);
+
+    setTimeout(
+      () => this.props.getBasketItems(restaurantId),100
+    )
   }
 
 
