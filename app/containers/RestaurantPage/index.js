@@ -298,8 +298,8 @@ class RestaurantPage extends React.Component {
                                   voteCount={food.voteCount}
                                   price={food.foodPrice}
                                   lastPrice={food.lastPrice}
-                                  foodIsOpen={this.state.restaurant.isOpen}
-                                  // stepper={this.stepper}
+                                  foodIsOpen={food.isOpen}
+                                  restaurantIsOpen={this.state.restaurant.isOpen}
                                   item={food} // to get inside Stepper component
                                 />
                               );
