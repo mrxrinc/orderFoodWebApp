@@ -25,7 +25,8 @@ class RestaurantsList extends React.Component {
       searchTerm: '',
       filters:[],
       restaurantListTag:{},
-      filterShow:false
+      filterShow:false,
+      filterValidation:false,
     };
   }
 
@@ -98,28 +99,65 @@ class RestaurantsList extends React.Component {
     return tagsString;
   }
 
+  onFilterValidation = (value) =>{
+    const {cityId,mapCenter} = this.state;
+    if(value){
+      this.setState({filterValidation:true},()=>{
+        this.fetchRestauranList(cityId,mapCenter);
+        this.toggleModal();
+      })
+    }else{
+      this.setState({
+        filterValidation:false,
+        filters: []
+      },()=>{
+        this.fetchRestauranList(cityId,mapCenter);
+        this.toggleModal();
+      })
+    }
+  }
+
   handleFilterSelect = (event)=> {
     const {cityId,mapCenter} = this.state;
-
     let filter_list = this.state.filters;
     let check = event.target.checked;
     let checked_filter = event.target.value;
+    let check_type = event.target.type;
+
     if(check){
+
+      if(check_type !== "radio"){
+        this.setState({filters: [...this.state.filters, checked_filter]})
+      }else{
+        let cloneFilters = [...this.state.filters];
+        cloneFilters.forEach(radio => {
+          if(
+            radio === "newest" ||
+            radio === "deliveryTime" ||
+            radio === "rating" ||
+            radio === "financialCategory"
+          ){
+            let index = cloneFilters.indexOf(radio);
+            if (index > -1) {
+              cloneFilters.splice(index, 1);
+            }
+          }
+        });
         this.setState({
-            filters: [...this.state.filters, checked_filter]
-        },()=>{
-          this.fetchRestauranList(cityId,mapCenter)
+          filters: [...cloneFilters, checked_filter]
         })
-    }else{ 
-        var index = filter_list.indexOf(checked_filter);
-        if (index > -1) {
-            filter_list.splice(index, 1);
-            this.setState({
-                filters: filter_list
-            },()=>{
-              this.fetchRestauranList(cityId,mapCenter)
-            })
-        } 
+      }
+
+    }else{
+
+      var index = filter_list.indexOf(checked_filter);
+      if (index > -1) {
+          filter_list.splice(index, 1);
+          this.setState({
+              filters: filter_list
+          })
+      }
+
     }
   }
 
@@ -136,6 +174,7 @@ class RestaurantsList extends React.Component {
           // like
           background
         />
+
         {!this.state.loading &&
           <div className="restaurant-list__search-input bgWhite">
             <SearchInput
@@ -145,34 +184,7 @@ class RestaurantsList extends React.Component {
             />
           </div>
         }
-        <div>
 
-          <ul>
-            <li>
-              A:<input 
-                type="checkbox"
-                name="A"
-                value="709"
-                onChange={this.handleFilterSelect}
-              />
-            </li>
-            <li>
-              B:<input type="checkbox" name="B" value="714"
-                  onChange={this.handleFilterSelect}
-              />
-            </li>
-            <li>
-              C:<input type="checkbox" name="C" value="692"
-                  onChange={this.handleFilterSelect}
-              />
-            </li>
-          </ul>
-
-          
-
-        
-          
-        </div>
         <div className="padd15 rtl">
           {this.state.loading ? 
             <Loading /> :
@@ -202,6 +214,8 @@ class RestaurantsList extends React.Component {
               toggleModal={this.toggleModal}
               data={this.state.restaurantListTag}
               onChange={this.handleFilterSelect}
+              onFilterValidation={this.onFilterValidation}
+              filters={this.state.filters}
             />:null
           }
 

@@ -14,13 +14,45 @@ import './style.scss';
 class Filters extends React.Component {
   componentDidMount(){
     console.log('==========this.props.data=============');
-    console.log(this.props.data);
+    console.log(this.props.filters);
     console.log('====================================');
   }
   render() {
     return (
       <div>
         <Container fluid className="filters">
+        <label className="radio-wrapper">
+                  <div className="label-parent">
+                    <input
+                      type="radio"
+                      className="radio-input"
+                      name="signUpGender"
+                      onChange={this.props.onChange}
+                      checked={this.props.filters.indexOf('deliveryTime')>-1}
+                      // onKeyPress={this.handleKeyPressUpdate}
+                      value="deliveryTime"
+                    />
+                    <div className="radio-face" />
+                    <i />
+                  </div>
+                  <span>مرد</span>
+                </label>
+        <label className="radio-wrapper">
+                  <div className="label-parent">
+                    <input
+                      type="radio"
+                      className="radio-input"
+                      name="signUpGender"
+                      onChange={this.props.onChange}
+                      checked={this.props.filters.indexOf('newest')>-1}
+                      // onKeyPress={this.handleKeyPressUpdate}
+                      value="newest"
+                    />
+                    <div className="radio-face" />
+                    <i />
+                  </div>
+                  <span>زن</span>
+                </label>
           <Row noGutters className="filters__grey py-4">
             <span className="chilivery-sort d-inline-block topP3 leftP3">
               {' '}
@@ -90,6 +122,7 @@ class Filters extends React.Component {
                 id="checkbox-1"
                 onChange={this.props.onChange}
                 defaultValue="discount"
+                defaultChecked={this.props.filters.indexOf("discount")>-1?"discount":""}
               />
               <label htmlFor="checkbox-1" />
             </div>
@@ -103,6 +136,7 @@ class Filters extends React.Component {
                 id="checkbox-2"
                 onChange={this.props.onChange}
                 defaultValue="deliveryBy"
+                defaultChecked={this.props.filters.indexOf("deliveryBy")>-1?"deliveryBy":""}
               />
               <label htmlFor="checkbox-2" />
             </div>
@@ -126,6 +160,9 @@ class Filters extends React.Component {
                       name={item.slug}
                       onChange={this.props.onChange}
                       defaultValue={item.id}
+                      defaultChecked={
+                        this.props.filters.indexOf((item.id).toString())>-1?"checked":""
+                      }
                       // inputClassName="styled"
                       labelClassName="page-payment__rule"
                       label={item.name}
@@ -153,6 +190,9 @@ class Filters extends React.Component {
                       name={item.slug}
                       onChange={this.props.onChange}
                       defaultValue={item.id}
+                      defaultChecked={
+                        this.props.filters.indexOf((item.id).toString())>-1 ? "checked" : "" 
+                      }
                       // inputClassName="styled"
                       labelClassName="page-payment__rule"
                       label={item.name}
@@ -165,8 +205,16 @@ class Filters extends React.Component {
           </Accordion>
         </div>
         <div className="topM40 wFull hP20 center">
-          <button className="btn big-btn btn-success mr-2">اعمال فیلترها</button>
-          <button className="btn big-btn btn-white">حذف فیلترها</button>
+          <button 
+            className="btn big-btn btn-success mr-2"
+            onClick={() => this.props.onFilterValidation(true)}
+          >اعمال فیلترها</button>
+
+          <button 
+            className="btn big-btn btn-white"
+            onClick={() => this.props.onFilterValidation(false)}
+          >حذف فیلترها</button>
+
         </div>
       </div>
     );

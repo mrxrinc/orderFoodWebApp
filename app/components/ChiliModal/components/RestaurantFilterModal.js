@@ -27,6 +27,8 @@ class RestaurantFilterModal extends Component {
           data={classes.data}
           toggle={classes.toggleModal}
           onChange={this.props.onChange}
+          onFilterValidation={(x)=>this.props.onFilterValidation(x)}
+          filters={this.props.filters}
         />
       </ChiliModal>
     );
