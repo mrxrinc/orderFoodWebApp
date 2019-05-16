@@ -40,6 +40,11 @@ class ProfileEdit extends React.Component{
 					text: resp.message_fa,
 					color: "danger",
 				});
+			} else {
+				this.props.showAlert({
+					text: resp.message_fa,
+					color: "success",
+				});
 			}
 		})
 		.catch(err => console.log(err))

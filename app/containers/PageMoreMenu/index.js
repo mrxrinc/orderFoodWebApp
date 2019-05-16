@@ -8,6 +8,7 @@ import {
   AccordionItemTitle,
   AccordionItemBody,
 } from 'react-accessible-accordion';
+import NavigationBar from '../../components/NavigationBar';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import './style.scss';
 // import moduleName from 'module';
@@ -23,6 +24,10 @@ class PageMoreMenu extends React.PureComponent {
   render() {
     return (
       <div className="chili-more-menu">
+        <NavigationBar
+					background
+					title="بیشتر"
+				/>
         <Accordion className="chili-more-menu__item-wrapper">
             <AccordionItem
               className="chili-more-menu__item"
