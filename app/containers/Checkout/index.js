@@ -94,7 +94,7 @@ export class Checkout extends React.PureComponent {
         <NavigationBar
           back
           title="سبد خرید"
-          // background
+          background
         />
         {orderItems && <RestaurantHeaderCheckout data={orderItems.restaurant} cover={cover} logo={logo} />}
       <Container className="checkout">
