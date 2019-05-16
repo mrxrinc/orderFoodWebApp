@@ -7,6 +7,7 @@ import {
   CAMPAGIN_CODE_CHANGED,
   CHANGE_BASKET,
   CHANGE_GENERATED_FOOD_ID,
+  CHANGE_SIDEDISH_BASKET
 } from '../constants/Basket';
 const initState = {
   items: {},
@@ -74,6 +75,32 @@ const Basket = (state = initState, action) => {
         delete items[food.id];
       }
       return Object.assign({}, state, { items, restaurantId });
+
+    case CHANGE_SIDEDISH_BASKET:
+    debugger;
+      const { sideDishfood, sideDishItemCount, sideDishrestaurantId } = action.payload;      
+      if (state.restaurantId != sideDishrestaurantId) {
+        items = {};
+      }
+      if (typeof items[sideDishfood.key] !== 'undefined') {
+        items[sideDishfood.key].itemCount += sideDishItemCount;
+      } else {
+        items[sideDishfood.key] = {
+          orderItemFoodId: sideDishfood.key,
+          foodLastPrice: null,
+          foodName: food.name,
+          basketOrderItemKey: sideDishfood.key,
+          itemCount: 1,
+          foodPrice: sideDishfood.price,
+          image: sideDishfood.image,
+          options: sideDishfood.options,
+        };
+      }
+      if (items[sideDishfood.key].itemCount == 0) {
+        delete items[sideDishfood.key];
+      }
+      return Object.assign({}, state, { items, sideDishrestaurantId });
+
     default:
       return state;
   }

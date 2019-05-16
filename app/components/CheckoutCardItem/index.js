@@ -3,6 +3,7 @@ import './style.scss';
 import Food from '../../images/test/food.jpg';
 import IncrementDecrease from '../IncrementDecrease';
 import Stepper from '../../components/ChiliStepper';
+import SidedishStepper from '../../components/ChiliSidedishStepper';
 import { addressIdChanged, addToBasket, deliveryTypeChanged, getBasketItems } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { cart } from '../../containers/Cart';
@@ -47,7 +48,7 @@ class CheckoutCardItem extends React.PureComponent {
   createNewData = () => {
     const {basket} =this.props;
     let newData = Object.keys(basket.items).map((id) => {
-      if(basket.items[id].options.length) {
+      if(typeof basket.items[id].options!=="undefined" && basket.items[id].options.length) {
         let newOption = [];
         basket.items[id].options.map((option) => {
           newOption.push(option.foodOptionPrice);
@@ -116,12 +117,25 @@ class CheckoutCardItem extends React.PureComponent {
           <span className="price">{food.options.length > 0 ? food.itemCount * (food.foodPrice + food.optionSum) : food.itemCount * food.foodPrice } تومان</span>
           <div className="counter">
             {/*<IncrementDecrease />*/}
-            <Stepper
+            {
+              food.options.length === 0 &&
+              <Stepper
               fontSize="18"
               restaurantId = {basket.restaurantId}
               data={_data}
               cartPage
             />
+            }
+            {
+              food.options.length > 0 &&
+              <SidedishStepper
+              fontSize="18"
+              restaurantId = {basket.restaurantId}
+              data={_data}
+              cartPage
+            />              
+            }
+
           </div>
         </div>
       </div>
