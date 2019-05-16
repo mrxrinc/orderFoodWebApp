@@ -7,11 +7,16 @@ import {
   AccordionItemBody,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import Switch from 'rc-switch';
+import { CheckBox } from '../../components/ChiliForm';
 import './style.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 class Filters extends React.Component {
+  componentDidMount(){
+    console.log('==========this.props.data=============');
+    console.log(this.props.data);
+    console.log('====================================');
+  }
   render() {
     return (
       <div>
@@ -80,15 +85,25 @@ class Filters extends React.Component {
             <i className="icon filters__icon chilivery-filter-restaurant-type" />
             <span className="bigText ml-3">نمایش رستوران های تخفیف دار</span>
             <div className="filters__checkbox">
-              <input type="checkbox" id="checkbox-1" />
+            <input
+                type="checkbox"
+                id="checkbox-1"
+                onChange={this.props.onChange}
+                defaultValue="discount"
+              />
               <label htmlFor="checkbox-1" />
             </div>
           </Row>
           <Row className="mx-3 py-3 d-block filters__white">
             <i className="icon filters__icon chilivery-filter-restaurant-type" />
-            <span className="bigText ml-3">نمایش رستوران های تخفیف دار</span>
+            <span className="bigText ml-3">ارسال با موتوچیلی</span>
             <div className="filters__checkbox">
-              <input type="checkbox" id="checkbox-2" />
+              <input
+                type="checkbox"
+                id="checkbox-2"
+                onChange={this.props.onChange}
+                defaultValue="deliveryBy"
+              />
               <label htmlFor="checkbox-2" />
             </div>
           </Row>
@@ -102,7 +117,22 @@ class Filters extends React.Component {
                 <span className="accordion__list-text">نوع رستوران</span>
               </AccordionItemTitle>
               <AccordionItemBody>
-                <ul className="accordion__ul" />
+                <ul className="accordion__ul">
+                  {this.props.data.restaurantType.map( (item,index) =>
+                    <li key={index}>
+                      <CheckBox
+                      className="required-chechbox checked"
+                      type="checkbox"
+                      name={item.slug}
+                      onChange={this.props.onChange}
+                      defaultValue={item.id}
+                      // inputClassName="styled"
+                      labelClassName="page-payment__rule"
+                      label={item.name}
+                      />
+                    </li>
+                  )}
+                </ul>
               </AccordionItemBody>
             </AccordionItem>
             <AccordionItem className="filters">
@@ -114,7 +144,22 @@ class Filters extends React.Component {
                 <span className="accordion__list-text">نوع غذا</span>
               </AccordionItemTitle>
               <AccordionItemBody>
-                <ul className="accordion__ul" />
+                <ul className="accordion__ul">
+                  {this.props.data.foodType.map( (item,index) =>
+                    <li key={index}>
+                      <CheckBox
+                      className="required-chechbox checked"
+                      type="checkbox"
+                      name={item.slug}
+                      onChange={this.props.onChange}
+                      defaultValue={item.id}
+                      // inputClassName="styled"
+                      labelClassName="page-payment__rule"
+                      label={item.name}
+                      />
+                    </li>
+                  )}
+                </ul>
               </AccordionItemBody>
             </AccordionItem>
           </Accordion>

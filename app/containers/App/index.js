@@ -11,7 +11,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../../containers/HomePage/';
-import NotFoundPage from '../../containers/NotFoundPage';
 import RestaurantsList from '../../containers/RestaurantsList';
 import RestaurantPage from '../RestaurantPage';
 import Kit from '../../containers/Kit';
@@ -25,7 +24,6 @@ import ChiliFooter from '../../components/ChiliFooter';
 import PageMoreMenu from '../PageMoreMenu';
 import ForgotPassword from '../ForgotPassword';
 import PageProfile from '../PageProfile';
-import Filters from '../Filters';
 import PageProfileNewAddress from '../PageProfileNewAddress';
 import PageProfileEditAddress from '../PageProfileEditAddress';
 import PageProfileEdit from '../PageProfile/PageProfileEdit';
@@ -65,7 +63,6 @@ export default function App() {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/profile" component={PageProfile} />
           <Route exact path="/profile/edit" component={PageProfileEdit} />
-          <Route exact path="/filters" component={Filters} />
           <Route exact path="/profile/add-new-address" component={PageProfileNewAddress} />
           <Route exact path="/profile/edit-address/:id" component={PageProfileEditAddress} />
           <Route exact path="/profile/change-pass" component={ProfileChangePass} />
