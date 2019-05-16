@@ -40,7 +40,7 @@ class ChiliStepper extends React.Component {
     }
   }
 
-  modalPrice = modalData => {
+  modalPrice = modalData => {    
     let sum = 0;
     if (modalData) {
       const { itemCount } = modalData;
