@@ -31,7 +31,6 @@ class RestaurantsList extends React.Component {
   }
 
   componentDidMount() {
-
     getRegionBySlug(this.state.pointSlug).then(
       response => {
         if(response.status){
@@ -41,7 +40,6 @@ class RestaurantsList extends React.Component {
         }
       }
     )
-
     restaurantListTag().then(
       response => {
         if(response.status){
@@ -55,7 +53,6 @@ class RestaurantsList extends React.Component {
         } 
       }
     )
-
   }
 
   fetchRestauranList = (cityId,mapCenter) => {
@@ -65,7 +62,8 @@ class RestaurantsList extends React.Component {
       this.tagGenerator(this.state.filters)).then(
         response => {
         const restaurantList = response.result.data;
-        this.setState({ restaurantList, loading: false });
+        const tagsCount = response.result.tagsCount;
+        this.setState({ restaurantList,tagsCount, loading: false });
       }
     );
   }
@@ -93,9 +91,6 @@ class RestaurantsList extends React.Component {
         tagsString += `&tag[${index}]=${item}`;
       }
     });
-    console.log('=========tagsString==================');
-    console.log(tagsString);
-    console.log('====================================');
     return tagsString;
   }
 
@@ -118,14 +113,12 @@ class RestaurantsList extends React.Component {
   }
 
   handleFilterSelect = (event)=> {
-    const {cityId,mapCenter} = this.state;
     let filter_list = this.state.filters;
     let check = event.target.checked;
     let checked_filter = event.target.value;
     let check_type = event.target.type;
 
     if(check){
-
       if(check_type !== "radio"){
         this.setState({filters: [...this.state.filters, checked_filter]})
       }else{
@@ -147,9 +140,7 @@ class RestaurantsList extends React.Component {
           filters: [...cloneFilters, checked_filter]
         })
       }
-
     }else{
-
       var index = filter_list.indexOf(checked_filter);
       if (index > -1) {
           filter_list.splice(index, 1);
@@ -157,7 +148,6 @@ class RestaurantsList extends React.Component {
               filters: filter_list
           })
       }
-
     }
   }
 
@@ -216,6 +206,7 @@ class RestaurantsList extends React.Component {
               onChange={this.handleFilterSelect}
               onFilterValidation={this.onFilterValidation}
               filters={this.state.filters}
+              tagsCount={this.state.tagsCount}
             />:null
           }
 

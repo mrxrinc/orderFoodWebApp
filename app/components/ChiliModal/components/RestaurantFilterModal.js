@@ -1,34 +1,26 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ChiliFilters from '../../ChiliFilters';
 import ChiliModal from '..';
 
 class RestaurantFilterModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-   
-    };
-  }
-
-
   render() {
-    const classes = this.props;
     return (
       <ChiliModal
         className="modal-restaurant__detail"
-        toggle={classes.toggleModal}
-        modal={classes.modals.RestaurantFilterModal}
+        toggle={this.props.toggleModal}
+        modal={this.props.modals.RestaurantFilterModal}
         // // alert
-        // headerAlign="right"
-        // title="نظر و امتیاز دهید"
+        headerAlign="center"
+        title="فیلتر و مرتب‌سازی رستوران‌ها"
       >
         <ChiliFilters
-          data={classes.data}
-          toggle={classes.toggleModal}
+          data={this.props.data}
+          toggle={this.props.toggleModal}
           onChange={this.props.onChange}
           onFilterValidation={(x)=>this.props.onFilterValidation(x)}
           filters={this.props.filters}
+          tagsCount={this.props.tagsCount}
         />
       </ChiliModal>
     );
