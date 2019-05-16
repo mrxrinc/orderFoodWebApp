@@ -48,8 +48,7 @@ export class Checkout extends React.PureComponent {
 
   showBankGetway () {
     let discountAmount = this.props.basket.discountAmount ? this.props.basket.discountAmount : 0;
-    let totalPrice = this.state.orderItems.amount.total ;
-    console.log(this.state.accCharge);
+    let totalPrice = this.state.orderItems.amount.total ;    
     if(this.state.accCharge && (totalPrice + discountAmount > this.props.user.cacheBalance)) {
 
       this.setState({

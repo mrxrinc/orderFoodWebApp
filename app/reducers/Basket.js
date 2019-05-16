@@ -76,8 +76,7 @@ const Basket = (state = initState, action) => {
       }
       return Object.assign({}, state, { items, restaurantId });
 
-    case CHANGE_SIDEDISH_BASKET:
-    debugger;
+    case CHANGE_SIDEDISH_BASKET:    
       const { sideDishfood, sideDishItemCount, sideDishrestaurantId } = action.payload;      
       if (state.restaurantId != sideDishrestaurantId) {
         items = {};

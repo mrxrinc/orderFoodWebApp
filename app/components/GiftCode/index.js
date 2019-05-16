@@ -42,8 +42,7 @@ class GiftCode extends React.PureComponent {
         "userAddressId":this.state.userAddressId,
         "userAddressModel":this.state.userAddressModel
       }
-    ).then(response => {
-      console.log(response)
+    ).then(response => {      
       if(response.status) {
         this.setState({
           data:response.result,
