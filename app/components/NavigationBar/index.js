@@ -55,7 +55,7 @@ export default props => (
             </div>
           )}
           {props.filter && (
-            <div className={`whFull center navButtons ${iconsColor(props)}`} onClick={props.filter} >
+            <div className={`whFull center navButtons ${iconsColor(props)}`} onClick={props.toggleModal} >
               <span className="chilivery-filter text25" />
             </div>
           )}

@@ -13,8 +13,10 @@ $border: 1px solid #000;
 
 .filters {
     
-    &__boxes {            
-            width: 170px;   
+    &__boxes {  
+            position: relative;
+            z-index: 1;
+            width: 100%;   
             background-color: $color-white;                        
             -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1);
             -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1);
@@ -27,7 +29,45 @@ $border: 1px solid #000;
                     color: $color-white;
                 }
             }
-        
+            padding: 10px 2px;
+            input{
+                display: none;
+            }
+            input[type="radio"]:checked+.box-face{
+                position: absolute;
+                background: $color-warning;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 0;
+                + .filters__boxes-wrapper *{
+                    color: #fff;
+                }
+            }
+            &-wrapper{
+                position: relative;
+                z-index: 1;
+            }
+    }
+    &__items-counter{
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 15px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        background-color: $grey-6;
+        padding-top: 4px;
+        color: #fff;
+    }
+    &__items-wrapper{
+        position: relative;
+        top: -5px;
+    }
+    .checkbox label{
+        font-size: 14px;
+
     }
     &__white {
         background: $color-white;
