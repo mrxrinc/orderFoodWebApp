@@ -72,7 +72,7 @@ class RestaurantPage extends React.Component {
   componentDidMount() {
     this.props.accChargeChanged({ accCharge: false })
     restaurantDetailBySlug(this.state.citySlug, this.state.restaurantSlug).then(restaurantResp => {
-      this.setState({ 
+      this.setState({
         restaurant: restaurantResp.result,
         StickyPriceShow:false
       }, () => {
@@ -82,7 +82,7 @@ class RestaurantPage extends React.Component {
             this.setState({
               basketObjItems: response.result.items,
               basketObj: response.result,
-              
+
             }, () => {
 
               let basketToArray = Object.keys(this.state.basketObjItems);
@@ -98,9 +98,9 @@ class RestaurantPage extends React.Component {
                     console.log('basketToState from store');
                     console.log(this.state.basketToState);
                     console.log('====================================');
-                    // this.setState({
-                    //   StickyPriceShow:true
-                    // })
+                    this.setState({
+                      StickyPriceShow:true
+                    })
                   })
                 } else {
                   this.props.addToBasket(this.state.basketObj);

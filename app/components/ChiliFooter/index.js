@@ -27,7 +27,7 @@ class ChiliFooter extends React.Component {
   }
 
   componentDidMount() {
-    // notification sample 
+    // notification sample
     // this.props.showAlert({
     //   text: 'salam',
     //   color: "success",
@@ -79,6 +79,14 @@ class ChiliFooter extends React.Component {
     //   })
     // }
   }
+  calculationsTotalCount = () => {
+    const {basket} = this.props;
+    let totalCount = 0;
+    const items = Object.keys(basket.items).map((item) =>{
+      totalCount += basket.items[item].itemCount;
+    })
+    return totalCount
+  }
 
   render() {
     return (
@@ -112,16 +120,16 @@ class ChiliFooter extends React.Component {
               }
 
               <div className="col">
-                <NavLink 
+                <NavLink
                   to="/cart"
                   className="chili-footer__list-item"
                 >
                   <span className="chili-footer__list-icon">
-                    {/* {(typeof this.props.basket !== "undefined" && Object.keys(this.props.basket.items).length > 0) &&
+                   {(typeof this.props.basket !== "undefined" && Object.keys(this.props.basket.items).length > 0) &&
                       <span className="chili-footer__badge badge badge-success">
-                        <span>{this.state.totalCount}</span>
+                        <span>{this.calculationsTotalCount()}</span>
                       </span>
-                    } */}
+                    }
 
                     <i className="icon chilivery-basket" />
                   </span>
@@ -158,7 +166,7 @@ class ChiliFooter extends React.Component {
 
             </div>
           </div>
-          
+
         </footer>
         <div className="container-fluid chili-footer__notification mt-3 absolute top">
           <ChiliNotification/>

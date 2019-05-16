@@ -7,7 +7,7 @@ import ChiliModal from '..';
 import { rateColor } from '../../GeneralFunctions';
 import Stepper from '../../ChiliStepper';
 import SaveSideDishService from '../../../containers/RestaurantPage/services/SaveSideDishService';
-import { changeToGeneratedFoodId, addToBasket } from '../../../actions/Basket';
+import { changeToGeneratedFoodId, addToBasket, changeBasket } from '../../../actions/Basket';
 
 class RestaurantModal extends Component {
   constructor(props) {
@@ -26,8 +26,16 @@ class RestaurantModal extends Component {
   componentDidMount() {
     const cloneBasketItem = { ...this.props.basket };
     this.setState({ cloneBasketItem });
+    this.resetModal();     
+    if (this.props.modalData.hasOption) {
+      const initialData = {
+        itemCount: 1,
+        restaurantId: this.props.restaurantId,
+        food: this.props.modalData,      
+      };    
+      this.props.changeBasket(initialData);
+    }
 
-    this.resetModal();
   }
 
   resetModal() {
@@ -71,7 +79,7 @@ class RestaurantModal extends Component {
     );
   }
 
-  onChangeSideDish = (optionId, group) => {
+  onChangeSideDish = (optionId, group, optionPrice) => {
     const newObj = {
       options: [],
     };
@@ -88,7 +96,7 @@ class RestaurantModal extends Component {
       newObj.groupId = group.groupId;
       newObj.groupMaxSelectionLimit = group.groupMaxSelectionLimit;
       newObj.groupRequired = group.groupRequired;
-      newObj.options.push(optionId);
+      newObj.options.push({ optionId, optionPrice });
       this.setState(
         {
           modalContainer: [...this.state.modalContainer, newObj],
@@ -99,7 +107,7 @@ class RestaurantModal extends Component {
           );
           groupIndexOf = this.state.modalContainer.indexOf(selectedCategory);
           if (group.groupRequired) {
-            this.checkRadio(optionId, groupIndexOf, () => {
+            this.checkRadio(optionId, optionPrice, groupIndexOf, () => {
               this.checkModalButtonDisable();
             });
           }
@@ -111,6 +119,7 @@ class RestaurantModal extends Component {
       if (!group.groupRequired) {
         this.validateCheckBox(
           optionId,
+          optionPrice,
           group.groupId,
           selectedCategory,
           groupIndexOf,
@@ -119,7 +128,7 @@ class RestaurantModal extends Component {
           },
         );
       } else {
-        this.checkRadio(optionId, groupIndexOf, () => {
+        this.checkRadio(optionId, optionPrice, groupIndexOf, () => {
           this.checkModalButtonDisable();
         });
       }
@@ -138,15 +147,16 @@ class RestaurantModal extends Component {
     }
   };
 
-  checkRadio = (optionId, groupIndexOf, cb) => {
+  checkRadio = (optionId, optionPrice, groupIndexOf, cb) => {
     const copyOfModalContainer = this.state.modalContainer;
     copyOfModalContainer[groupIndexOf].options = [];
     this.setState(copyOfModalContainer, () => {
       this.setState(
         () => {
-          const list = this.state.modalContainer[groupIndexOf].options.push(
+          const list = this.state.modalContainer[groupIndexOf].options.push({
             optionId,
-          );
+            optionPrice,
+          });
           return list;
         },
         () => {
@@ -170,6 +180,7 @@ class RestaurantModal extends Component {
 
   validateCheckBox = (
     optionId,
+    optionPrice,
     groupId,
     selectedCategory,
     groupIndexOf,
@@ -177,7 +188,10 @@ class RestaurantModal extends Component {
   ) => {
     const { modalContainer } = this.state;
     // checkbox checking
-    const optionIndex = selectedCategory.options.indexOf(optionId);
+    // const optionIndex = selectedCategory.options.indexOf(optionId);    
+    const optionIndex = selectedCategory.options.findIndex(
+      option => option.optionId === optionId,
+    );
     const copyOfModalData = this.props.modalData;
     const optionObject = copyOfModalData.options.find(
       option => option.groupId === groupId,
@@ -189,7 +203,7 @@ class RestaurantModal extends Component {
       this.setState(
         () => {
           const list = this.state.modalContainer[groupIndexOf].options.filter(
-            item => item !== optionId,
+            item => item.optionId !== optionId,
           );
           return list;
         },
@@ -202,7 +216,7 @@ class RestaurantModal extends Component {
       this.setState(
         () => {
           const list = this.state.modalContainer[groupIndexOf].options.push(
-            optionId,
+            { optionId, optionPrice }
           );
           return list;
         },
@@ -461,6 +475,7 @@ class RestaurantModal extends Component {
                                 this.onChangeSideDish(
                                   option.foodOptionId,
                                   category,
+                                  option.foodOptionPrice,
                                 )
                               }
                               groupId={category.groupId}
@@ -485,12 +500,6 @@ class RestaurantModal extends Component {
                       type={this.props.type}
                     />
                   </div>
-
-                  {/* <div className="flex hCenter bold primary topM5">
-                    <span className="text12 leftM5">مبلغ کل :</span>
-                    <span className="text22">{this.modalPrice()}</span>
-                    <span className="text12 topM5 rightM3">تومان</span>
-                  </div> */}
                 </div>
               </div>
 
@@ -523,6 +532,9 @@ const mapDispatchToProps = dispatch => ({
   },
   changeToGeneratedFoodId: value => {
     dispatch(changeToGeneratedFoodId(value));
+  },
+  changeBasket: value => {
+    dispatch(changeBasket(value));
   },
 });
 

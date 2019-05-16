@@ -123,20 +123,14 @@ class RestaurantsList extends React.Component {
     }
   }
 
-  back = () => {
-    console.log('BACK');
-  }
-
   render() {
     const { restaurantList } = this.state;
     const filteredRestaurant = restaurantList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className="lightBg">
         <NavigationBar 
-          back={this.back}
+          back
           title="لیست رستورانها"
-          // titleOnPress
-          // map
           filter
           toggleModal={this.toggleModal}
           // like

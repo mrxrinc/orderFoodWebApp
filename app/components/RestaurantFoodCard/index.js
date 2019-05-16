@@ -67,7 +67,7 @@ class RestaurantFoodCard extends React.Component {
                 <span className="text10 topM3 rightM3">تومان</span>
               </li>
             </ul>                        
-            {props.foodIsOpen ? (
+            {props.foodIsOpen && props.restaurantIsOpen ? (
             <div className="flex price hP10 leftContent primary text16 wFull hCenter">
               {!props.hasOption && (
                 <Stepper

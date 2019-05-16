@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AnimateField } from '../../components/ChiliForm';
 import { signUpUser } from '../../actions/Auth';
@@ -118,9 +119,14 @@ class Register extends Component {
             <span className="ruleAndCondition midText">
               با کلیک بر روی دکمه ثبت نام شما
               <span className="ruleAndCondition__link">
-                {'\u00A0'}
-                قوانین چیلیوری
-                {'\u00A0'}
+                <Link to="/static/law" className="">
+                  <span className="accordion__list-text">
+                    {'\u00A0'}
+                    قوانین چیلیوری
+                    {'\u00A0'}
+                  </span>
+                  {/* https://chilivery.com/staticapp/law/ */}
+                </Link>
               </span>
               را پذیرفته اید
             </span>

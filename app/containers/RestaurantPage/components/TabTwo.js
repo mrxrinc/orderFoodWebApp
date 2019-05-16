@@ -41,6 +41,7 @@ class TabTwo extends React.Component {
   
     commentForRestaurant(this.props.id).then(
       response => {
+        console.log('COMMENT DATA ===>>', response.result)
         this.setState({
           commentData: response.result
         }, () => {
@@ -125,46 +126,49 @@ class TabTwo extends React.Component {
         {this.state.orderRate ?
           <div className="row padd10">
 
-            <div className="col-6 hCenter">
-              <div className="restauran-comment__ratebox flex rCol wFull">
-                <div className="flex center bottomP10">
-                  <span className="text14 leftP10">سرعت ارسال</span>
+            {this.state.commentData.rateCount.length > 0 && (
+              <React.Fragment>
+                <div className="col-6 hCenter">
+                  <div className="restauran-comment__ratebox flex rCol wFull">
+                    <div className="flex center bottomP10">
+                      <span className="text14 leftP10">سرعت ارسال</span>
 
-                  <div className="rightMauto">
-                    {this.rateStar(this.state.commentData.deliverySpeed)}
+                      <div className="rightMauto">
+                        {this.rateStar(this.state.commentData.deliverySpeed)}
+                      </div>
+                    </div>
+                    <div className="flex center">
+                      <span className="text14 leftP10">کیفیت غذا</span>
+                      <div className="rightMauto">
+                        {this.rateStar(this.state.commentData.foodQuality)}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex center">
-                  <span className="text14 leftP10">کیفیت غذا</span>
-                  <div className="rightMauto">
-                    {this.rateStar(this.state.commentData.foodQuality)}
+
+                <div className="col-6 hCenter">
+                  <div className="restauran-comment__rateface flex">
+                    <div className="row">
+                      <RateFace
+                        iconStar="chilivery-star green"
+                        color="#1CBD2F"
+                        end={this.state.commentData.rateCount[3].avg}
+                      />
+                      <RateFace
+                        iconStar="chilivery-smiley-average yellow"
+                        color="#f79e40"
+                        end={this.state.commentData.rateCount[2].avg}
+                      />
+                      <RateFace
+                        iconStar="chilivery-smiley-bad red"
+                        color="#e1373c"
+                        end={this.state.commentData.rateCount[1].avg}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="col-6 hCenter">
-              <div className="restauran-comment__rateface flex">
-                <div className="row">
-                  <RateFace
-                    iconStar="chilivery-star green"
-                    color="#1CBD2F"
-                    end={this.state.commentData.rateCount[3].avg}
-                  />
-                  <RateFace
-                    iconStar="chilivery-smiley-average yellow"
-                    color="#f79e40"
-                    end={this.state.commentData.rateCount[2].avg}
-                  />
-                  <RateFace
-                    iconStar="chilivery-smiley-bad red"
-                    color="#e1373c"
-                    end={this.state.commentData.rateCount[1].avg}
-                  />
-
-                </div>
-              </div>
-            </div>
+            </React.Fragment>
+          )}
 
             {(this.state.commentData.canWriteComment !== null) ?
               <div className="col-12">

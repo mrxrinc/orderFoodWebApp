@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { cart } from '../../containers/Cart';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import { addToast } from '../../actions/Notifications';
 
 /* eslint-disable react/prefer-stateless-function */
 class GiftCode extends React.PureComponent {
@@ -43,7 +44,6 @@ class GiftCode extends React.PureComponent {
         "userAddressModel":this.state.userAddressModel
       }
     ).then(response => {
-      console.log(response)
       if(response.status) {
         this.setState({
           data:response.result,
@@ -51,6 +51,11 @@ class GiftCode extends React.PureComponent {
         },()=>{
           this.props.changeCampaginCode({campaginCode:this.state.campaginCode,discountAmount:this.state.data.discountAmount})
         })
+      } else {
+        this.props.showAlert({
+          text: response.message_fa,
+          color: "danger",
+        });
       }
     });
   };
@@ -113,6 +118,9 @@ const mapDispatchToProps = dispatch => {
     changeCampaginCode: value => {
       dispatch(campaginCodeChanged(value));
     },
+    showAlert: (showStatus) => {
+      dispatch(addToast(showStatus));
+    }
   };
 };
 
