@@ -114,7 +114,6 @@ class StickyPrice extends React.PureComponent {
 
     // useGateway = amountToPay !== 0; // set either use bank gateway or not
 
-    console.log(amountToPay,tempAmountToPay)
     return {amountToPay,tempAmountToPay};
   }
 
