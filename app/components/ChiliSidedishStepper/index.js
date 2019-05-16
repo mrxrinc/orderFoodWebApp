@@ -59,13 +59,12 @@ class SidedishStepper extends React.Component {
   }
 
   decrease = (food_basket) => {
-    if(this.props.type === "modal" && food_basket.itemCount > 1){
       this.props.changeSideDishBasket({
         sideDishrestaurantId: this.props.restaurantId,
         sideDishfood: this.props.data,
         sideDishItemCount: -1
       });
-    }
+    
   };
 
   render() {        
