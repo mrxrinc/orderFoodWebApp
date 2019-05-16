@@ -29,7 +29,7 @@ export default class Authentication extends React.Component {
   render() {
     const addBorderBottom = 'header__border';
     return (
-      <div className="authBg">
+      <div className="authBg topP40">
         <div className="authentication__page">
           <div className="authentication__shadow1" />
           <div className="authentication__shadow2" />
