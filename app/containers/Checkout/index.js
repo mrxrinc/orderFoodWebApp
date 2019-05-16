@@ -90,7 +90,7 @@ export class Checkout extends React.PureComponent {
   render() {
     const {orderItems,showGetway} =this.state;
     return (
-      <div className="checkout hFull bottomM50">
+      <div className="checkout hFull">
         <NavigationBar
           back
           title="سبد خرید"

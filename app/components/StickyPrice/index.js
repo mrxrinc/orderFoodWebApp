@@ -46,7 +46,7 @@ class StickyPrice extends React.PureComponent {
     const items = Object.keys(basket.items).map((item) =>{
       totalCount += basket.items[item].itemCount;
       totalPrice += basket.items[item].foodPrice * basket.items[item].itemCount;
-      if (basket.items[item].options.length > 0) {
+      if (typeof basket.items[item].options !== 'undefined' && basket.items[item].options.length > 0) {
         const optionItem = basket.items[item].options.map((item) => {
           totalPrice += item.foodOptionPrice
         })
@@ -114,7 +114,7 @@ class StickyPrice extends React.PureComponent {
 
     // useGateway = amountToPay !== 0; // set either use bank gateway or not
 
-
+    console.log(amountToPay,tempAmountToPay)
     return {amountToPay,tempAmountToPay};
   }
 
@@ -148,7 +148,7 @@ class StickyPrice extends React.PureComponent {
       "acceptConditions": true,
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  this.totalPrice().amountToPay == 0 ? false : true,
-      "orderDeliveryType":  false,
+      "orderDeliveryType":  basket.deliveryType,
       "orderId":  basket.id,
       "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
@@ -188,7 +188,7 @@ class StickyPrice extends React.PureComponent {
   };
 
   render() {
-    const {data,basket,user,collapseShow} = this.props;
+    const {data,basket,user,collapseShow,minPriceSendLimit} = this.props;
     const {totalCount,totalPrice,validAddress} = this.state;
 
     return (
@@ -260,15 +260,15 @@ class StickyPrice extends React.PureComponent {
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
               <span className="text-price">{
-                this.totalPrice().amountToPay == 0 ? 'رایگان':
-                this.totalPrice().amountToPay + ' تومان'
+                this.totalPrice().amountToPay == 0 ? 'رایگان': this.totalPrice().amountToPay + ' تومان'
                 }
               </span>
+              <span className="text-limit">{(basket.minPriceSendLimit > this.totalPrice().amountToPay) && ' (حداقل سفارش:  '+basket.minPriceSendLimit + ' تومان)'}</span>
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
             {!validAddress ?
-            <button onClick={this.pushLink} type="button">تایید سفارش
+            <button onClick={this.pushLink} type="button" className={basket.minPriceSendLimit > this.totalPrice().tempAmountToPay && 'disabled'} disabled={basket.minPriceSendLimit > this.totalPrice().tempAmountToPay}>تایید سفارش
               <span className="chilivery-arrow-left"> </span>
             </button>
               :
