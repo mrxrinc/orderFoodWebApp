@@ -46,7 +46,7 @@ class StickyPrice extends React.PureComponent {
     const items = Object.keys(basket.items).map((item) =>{
       totalCount += basket.items[item].itemCount;
       totalPrice += basket.items[item].foodPrice * basket.items[item].itemCount;
-      if (basket.items[item].options.length > 0) {
+      if (typeof basket.items[item].options !== 'undefined' && basket.items[item].options.length > 0) {
         const optionItem = basket.items[item].options.map((item) => {
           totalPrice += item.foodOptionPrice
         })

@@ -45,8 +45,7 @@ class ChiliSocial extends React.Component {
 
     const url = `${window.location.origin  }/auth/`;
 
-    const features = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
-    console.log(1111);
+    const features = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;    
     newwindow = window.open(url + "google?referrer=" + JSON.stringify(window.location.referrer), title, features);
     if (window.focus) {
         newwindow.focus()

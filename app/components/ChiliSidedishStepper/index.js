@@ -6,13 +6,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToBasket, changeBasket } from '../../actions/Basket';
+import { addToBasket, changeSideDishBasket } from '../../actions/Basket';
 
 
 import './style.scss';
 
 /* eslint-disable react/prefer-stateless-function */
-class ChiliStepper extends React.Component {
+class SidedishStepper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class ChiliStepper extends React.Component {
 
   componentDidMount() {
     let food = this.props.data;
-    const foodId = food.id;
+    const foodId = food.key;
     let basketToArray = [];
     const basketFromStore = this.props.basket;
 
@@ -51,36 +51,29 @@ class ChiliStepper extends React.Component {
   };
 
   increase = () => {
-    this.props.changeBasket({
-      restaurantId: this.props.restaurantId,
-      food: this.props.data,
-      itemCount: 1
+    this.props.changeSideDishBasket({
+      sideDishrestaurantId: this.props.restaurantId,
+      sideDishfood: this.props.data,
+      sideDishItemCount: 1
     });
   }
 
   decrease = (food_basket) => {
     if(this.props.type === "modal" && food_basket.itemCount > 1){
-      this.props.changeBasket({
-        restaurantId: this.props.restaurantId,
-        food: this.props.data,
-        itemCount: -1
+      this.props.changeSideDishBasket({
+        sideDishrestaurantId: this.props.restaurantId,
+        sideDishfood: this.props.data,
+        sideDishItemCount: -1
       });
     }
-    if(this.props.type == null || this.props.type !== "modal"){
-      this.props.changeBasket({
-        restaurantId: this.props.restaurantId,
-        food: this.props.data,
-        itemCount: -1
-      });
-    }
-  }
+  };
 
   render() {        
     const food_basket = (
       this.props.data &&
       typeof this.props.basket.items !== "undefined" &&
-      this.props.basket.items[this.props.data.id]) ? 
-      this.props.basket.items[this.props.data.id]:{itemCount: 0};
+      this.props.basket.items[this.props.data.key]) ? 
+      this.props.basket.items[this.props.data.key]:{itemCount: 0};
     return (
       <div>
         <React.Fragment>
@@ -142,9 +135,9 @@ const mapDispatchToProps = dispatch => ({
   addToBasket: value => {
     dispatch(addToBasket(value));
   },
-  changeBasket: value => {
-    dispatch(changeBasket(value));
-  }
+  changeSideDishBasket: value => {
+    dispatch(changeSideDishBasket(value));
+  }  
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChiliStepper);
+export default connect(mapStateToProps, mapDispatchToProps)(SidedishStepper);
