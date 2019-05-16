@@ -82,10 +82,11 @@ class RestaurantsList extends React.Component {
     let tagsString = "";
     tags.forEach((item,index) => {
       if(
-        item === "deliveryBy" || item === "discount" ||
-        item === "newest" || item === "deliveryTime" ||
-        item === "rating" || item === "financialCategory"
+        item === "created" || item === "speed" ||
+        item === "rating" || item === "price"
       ){
+        tagsString += `&sort_by_${item}=1`;
+      }else if(item === "deliveryBy" || item === "hasDiscount"){
         tagsString += `&${item}=1`;
       }else{
         tagsString += `&tag[${index}]=${item}`;
@@ -125,10 +126,10 @@ class RestaurantsList extends React.Component {
         let cloneFilters = [...this.state.filters];
         cloneFilters.forEach(radio => {
           if(
-            radio === "newest" ||
-            radio === "deliveryTime" ||
+            radio === "created" ||
+            radio === "speed" ||
             radio === "rating" ||
-            radio === "financialCategory"
+            radio === "price"
           ){
             let index = cloneFilters.indexOf(radio);
             if (index > -1) {

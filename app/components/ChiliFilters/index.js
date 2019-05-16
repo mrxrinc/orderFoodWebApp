@@ -34,8 +34,8 @@ class Filters extends React.Component {
                   className="radio-input"
                   name="sort"
                   onChange={this.props.onChange}
-                  checked={this.props.filters.indexOf('newest') > -1}
-                  value="newest"
+                  checked={this.props.filters.indexOf('created') > -1}
+                  value="created"
                 />
                 <div className="box-face"/>
 
@@ -65,8 +65,8 @@ class Filters extends React.Component {
                     className="radio-input"
                     name="sort"
                     onChange={this.props.onChange}
-                    checked={this.props.filters.indexOf('deliveryTime') > -1}
-                    value="deliveryTime"
+                    checked={this.props.filters.indexOf('speed') > -1}
+                    value="speed"
                   />
                   <div className="box-face"/>
 
@@ -122,8 +122,8 @@ class Filters extends React.Component {
                     className="radio-input"
                     name="sort"
                     onChange={this.props.onChange}
-                    checked={this.props.filters.indexOf('financialCategory') > -1}
-                    value="financialCategory"
+                    checked={this.props.filters.indexOf('price') > -1}
+                    value="price"
                   />
                   <div className="box-face"/>
 
@@ -159,8 +159,8 @@ class Filters extends React.Component {
                 type="checkbox"
                 id="checkbox-1"
                 onChange={this.props.onChange}
-                defaultValue="discount"
-                defaultChecked={this.props.filters.indexOf("discount") > -1 ? "discount" : ""}
+                defaultValue="hasDiscount"
+                defaultChecked={this.props.filters.indexOf("hasDiscount") > -1 ? "hasDiscount" : ""}
               />
               <label htmlFor="checkbox-1" />
             </div>
