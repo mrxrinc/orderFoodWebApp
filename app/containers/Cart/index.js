@@ -70,7 +70,7 @@ export class cart extends React.PureComponent {
     const restaurantId = { restaurantId :  this.props.basket.restaurantId};
 
     setTimeout(
-      () => this.props.getBasketItems(restaurantId),100
+      () => this.props.getBasketItems(restaurantId),1000
     )
   }
 
