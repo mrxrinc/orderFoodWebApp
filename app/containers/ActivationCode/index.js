@@ -95,6 +95,7 @@ class ActivationCode extends React.Component {
         <h4 className="midText text-center my-4">
           برای تأیید حساب کاربری کد 4 رقمی ارسال شده را وارد نمایید:
         </h4>
+
         <form className="activationCode__form" onSubmit={this.sendSubmit}>
           <Container className="text-center">
             <Row>
@@ -127,6 +128,7 @@ class ActivationCode extends React.Component {
             </Row>
           </Container>
         </form>
+        
       </ChiliRainbow>
     );
   }
