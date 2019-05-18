@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
 import RestaurantsListItem from '../../components/RestaurantsListItem/index';
 import RestaurantFilterModal from '../../components/ChiliModal/components/RestaurantFilterModal';
-import { restaurantSearch,restaurantListTag } from '../../api/application/restaurant';
+import { restaurantSearch, restaurantListTag } from '../../api/application/restaurant';
 import Loading from '../../components/ChiliLoading';
 import NavigationBar from '../../components/NavigationBar';
 import { getRegionBySlug } from '../../api/application/region';
@@ -12,12 +12,12 @@ import icon from '../../images/icons/search_no_result.png';
 
 const KEYS_TO_FILTERS = ['name'];
 const otherFilter = {
-  "hasDiscount":"تخفیف دار",
-  "deliveryBy":"موتوچیلی",
-  "created":"جدیدترین ها",
-  "speed":"زمان ارسال",
-  "rating":"بالاترین امتیاز",
-  "price":"سطح اقتصادی"
+  "hasDiscount": "تخفیف دار",
+  "deliveryBy": "موتوچیلی",
+  "created": "جدیدترین ها",
+  "speed": "زمان ارسال",
+  "rating": "بالاترین امتیاز",
+  "price": "سطح اقتصادی"
 
 }
 import './style.scss';
@@ -31,52 +31,52 @@ class RestaurantsList extends React.Component {
       citySlug: props.match.params.citySlug,
       pointSlug: props.match.params.pointSlug,
       searchTerm: '',
-      filters:[],
-      restaurantListTag:{},
-      filterShow:false,
-      filterValidation:false,
-      concatTag:[],
+      filters: [],
+      restaurantListTag: {},
+      filterShow: false,
+      filterValidation: false,
+      concatTag: [],
     };
   }
 
   componentDidMount() {
     getRegionBySlug(this.state.pointSlug).then(
       response => {
-        if(response.status){
-          const {cityId,mapCenter} = response.result;
-          this.setState({cityId,mapCenter});
-          this.fetchRestauranList(cityId,mapCenter)
+        if (response.status) {
+          const { cityId, mapCenter } = response.result;
+          this.setState({ cityId, mapCenter });
+          this.fetchRestauranList(cityId, mapCenter)
         }
       }
     )
     restaurantListTag().then(
       response => {
-        if(response.status){
+        if (response.status) {
           const res = response.result;
           this.setState({
             restaurantListTag: res,
             concatTag: res.restaurantType.concat(res.foodType)
-          },()=>{
+          }, () => {
             this.setState({
-              filterShow:true
+              filterShow: true
             })
           })
-        } 
+        }
       }
     )
   }
 
-  fetchRestauranList = (cityId,mapCenter) => {
+  fetchRestauranList = (cityId, mapCenter) => {
     restaurantSearch(
-      cityId, 
+      cityId,
       `${mapCenter.lat},${mapCenter.lon}`,
       this.tagGenerator(this.state.filters)).then(
         response => {
-        const restaurantList = response.result.data;
-        const tagsCount = response.result.tagsCount;
-        this.setState({ restaurantList,tagsCount, loading: false });
-      }
-    );
+          const restaurantList = response.result.data;
+          const tagsCount = response.result.tagsCount;
+          this.setState({ restaurantList, tagsCount, loading: false });
+        }
+      );
   }
 
   toggleModal = () => {
@@ -85,63 +85,63 @@ class RestaurantsList extends React.Component {
     });
   };
 
-  searchUpdated = (term)=> {
-    this.setState({searchTerm: term})
+  searchUpdated = (term) => {
+    this.setState({ searchTerm: term })
   }
 
   tagGenerator = (tags) => {
     let tagsString = "";
-    tags.forEach((item,index) => {
-      if(
+    tags.forEach((item, index) => {
+      if (
         item === "created" || item === "speed" ||
         item === "rating" || item === "price"
-      ){
+      ) {
         tagsString += `&sort_by_${item}=1`;
-      }else if(item === "deliveryBy" || item === "hasDiscount"){
+      } else if (item === "deliveryBy" || item === "hasDiscount") {
         tagsString += `&${item}=1`;
-      }else{
+      } else {
         tagsString += `&tag[${index}]=${item}`;
       }
     });
     return tagsString;
   }
 
-  onFilterValidation = (value) =>{
-    const {cityId,mapCenter} = this.state;
-    if(value){
-      this.setState({filterValidation:true},()=>{
-        this.fetchRestauranList(cityId,mapCenter);
+  onFilterValidation = (value) => {
+    const { cityId, mapCenter } = this.state;
+    if (value) {
+      this.setState({ filterValidation: true }, () => {
+        this.fetchRestauranList(cityId, mapCenter);
         this.toggleModal();
       })
-    }else{
+    } else {
       this.setState({
-        filterValidation:false,
+        filterValidation: false,
         filters: []
-      },()=>{
-        this.fetchRestauranList(cityId,mapCenter);
+      }, () => {
+        this.fetchRestauranList(cityId, mapCenter);
         this.toggleModal();
       })
     }
   }
 
-  handleFilterSelect = (event)=> {
+  handleFilterSelect = (event) => {
     let filter_list = this.state.filters;
     let check = event.target.checked;
     let checked_filter = event.target.value;
     let check_type = event.target.type;
 
-    if(check){
-      if(check_type !== "radio"){
-        this.setState({filters: [...this.state.filters, checked_filter]})
-      }else{
+    if (check) {
+      if (check_type !== "radio") {
+        this.setState({ filters: [...this.state.filters, checked_filter] })
+      } else {
         let cloneFilters = [...this.state.filters];
         cloneFilters.forEach(radio => {
-          if(
+          if (
             radio === "created" ||
             radio === "speed" ||
             radio === "rating" ||
             radio === "price"
-          ){
+          ) {
             let index = cloneFilters.indexOf(radio);
             if (index > -1) {
               cloneFilters.splice(index, 1);
@@ -152,18 +152,18 @@ class RestaurantsList extends React.Component {
           filters: [...cloneFilters, checked_filter]
         })
       }
-    }else{
+    } else {
       var index = filter_list.indexOf(checked_filter);
       if (index > -1) {
-          filter_list.splice(index, 1);
-          this.setState({
-              filters: filter_list
-          })
+        filter_list.splice(index, 1);
+        this.setState({
+          filters: filter_list
+        })
       }
     }
   }
   deleteFilter = (filter) => {
-    const {cityId,mapCenter} = this.state;
+    const { cityId, mapCenter } = this.state;
     console.log(this.state.filters)
     let filtersClone = [...this.state.filters];
     var index = filtersClone.indexOf(filter);
@@ -171,10 +171,10 @@ class RestaurantsList extends React.Component {
       filtersClone.splice(index, 1);
     }
     this.setState({
-      filters:filtersClone,
-    },()=>{
-      console.log(filtersClone,this.state.filters);
-      this.fetchRestauranList(cityId,mapCenter);
+      filters: filtersClone,
+    }, () => {
+      console.log(filtersClone, this.state.filters);
+      this.fetchRestauranList(cityId, mapCenter);
     })
   }
   render() {
@@ -182,7 +182,7 @@ class RestaurantsList extends React.Component {
     const filteredRestaurant = restaurantList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div className="lightBg">
-        <NavigationBar 
+        <NavigationBar
           back
           title="لیست رستورانها"
           filter
@@ -190,6 +190,7 @@ class RestaurantsList extends React.Component {
           // like
           background
         />
+
 
         {!this.state.loading &&
           <div className="restaurant-list__search-input bgWhite">
@@ -201,9 +202,9 @@ class RestaurantsList extends React.Component {
           </div>
         }
 
-        { this.state.filters.length > 0 ?
+        {this.state.filters.length > 0 ?
           <div className="rightP10 leftP10">
-            { this.state.filters.map((filter,index) => 
+            {this.state.filters.map((filter, index) =>
               <React.Fragment>
                 {(
                   filter === "deliveryBy" ||
@@ -212,64 +213,76 @@ class RestaurantsList extends React.Component {
                   filter === "speed" ||
                   filter === "rating" ||
                   filter === "price"
-                  ) ?
-                        <div className="chip">
-                          {otherFilter[filter]}
-                          <i className="chilivery-close rightP5" onClick={()=>this.deleteFilter(filter)}/>
-                        </div>:null
+                ) ?
+                  <div className="chip">
+                    {otherFilter[filter]}
+                    <i className="chilivery-close rightP5" onClick={() => this.deleteFilter(filter)} />
+                  </div> : null
                 }
-                {this.state.concatTag.map(tag => 
-                    <React.Fragment>
-                      {parseInt(filter) === tag.id? (
-                        <div className="chip">
-                          {tag.name}
-                          <i className="chilivery-close rightP5" onClick={()=>this.deleteFilter(filter)}/>
-                        </div>
-                      ):null
+                {this.state.concatTag.map(tag =>
+                  <React.Fragment>
+                    {parseInt(filter) === tag.id ? (
+                      <div className="chip">
+                        {tag.name}
+                        <i className="chilivery-close rightP5" onClick={() => this.deleteFilter(filter)} />
+                      </div>
+                    ) : null
                     }
-                    </React.Fragment>
-                  )
+                  </React.Fragment>
+                )
                 }
               </React.Fragment>
             )}
           </div>
-          :null
+          : null
 
         }
         <div className="padd15 rtl">
-          {this.state.loading ? 
+          {this.state.loading ?
             <Loading /> :
             <React.Fragment>
               {filteredRestaurant.length == 0 ?
-                  <div className="order-empty center"
-                    style={{ height: 'calc(100vh - 200px)'}}
-                  >
-                    <div className="order">
-                      <div className="order-empty__icon bottomP15">
-                        <img className="order-empty__img" src={icon} alt=""/>
-                        <span className="order-empty__title">این رستوران در این مکان وجود ندارد</span>
-                      </div>
+                <div className="order-empty center"
+                  style={{ height: 'calc(100vh - 200px)' }}
+                >
+                  <div className="order">
+                    <div className="order-empty__icon bottomP15">
+                      <img className="order-empty__img" src={icon} alt="" />
+                      <span className="order-empty__title">این رستوران در این مکان وجود ندارد</span>
                     </div>
-                  </div> :
-                  filteredRestaurant.map((item, index) => (
-                    <RestaurantsListItem key={index} {...item} />
-                  ))
+                  </div>
+                </div> :
+                filteredRestaurant.map((item, index) => (
+                  <RestaurantsListItem key={index} {...item} />
+                ))
               }
 
             </React.Fragment>
           }
         </div>
-          
-          {Object.keys(this.state.restaurantListTag).length > 0 ?
-            <RestaurantFilterModal
-              toggleModal={this.toggleModal}
-              data={this.state.restaurantListTag}
-              onChange={this.handleFilterSelect}
-              onFilterValidation={this.onFilterValidation}
-              filters={this.state.filters}
-              tagsCount={this.state.tagsCount}
-            />:null
-          }
+        {this.state.restaurantList.length > 0 ?
+          <React.Fragment>
+            {Object.keys(this.state.restaurantListTag).length > 0 ?
+              <RestaurantFilterModal
+                toggleModal={this.toggleModal}
+                data={this.state.restaurantListTag}
+                onChange={this.handleFilterSelect}
+                onFilterValidation={this.onFilterValidation}
+                filters={this.state.filters}
+                tagsCount={this.state.tagsCount}
+              /> : null
+            }
+          </React.Fragment> : <div className="order-empty center"
+            style={{ height: 'calc(100vh - 200px)' }}
+          >
+            <div className="order">
+              <div className="order-empty__icon bottomP15">
+                <img className="order-empty__img" src={icon} alt="" />
+                <span className="order-empty__title">این رستوران در این مکان وجود ندارد</span>
+              </div>
+            </div>
+          </div>
+        }
 
       </div>
     );

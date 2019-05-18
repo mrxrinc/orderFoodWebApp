@@ -7,6 +7,7 @@ import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
 import { payOrderPost } from '../../api/account';
 import { putChangeBasket } from '../../actions/Basket';
+import { addToast } from '../../actions/Notifications';
 
 class StickyPrice extends React.PureComponent {
 
@@ -262,7 +263,7 @@ class StickyPrice extends React.PureComponent {
                 this.totalPrice().amountToPay == 0 ? 'رایگان': this.totalPrice().amountToPay + ' تومان'
                 }
               </span>
-              <span className="text-limit">{(basket.minPriceSendLimit > this.totalPrice().amountToPay) && ' (حداقل سفارش:  '+basket.minPriceSendLimit + ' تومان)'}</span>
+              {this.props.showGetway && <span className="text-limit">{(basket.minPriceSendLimit > this.totalPrice().amountToPay) && ' (حداقل سفارش:  '+basket.minPriceSendLimit + ' تومان)'}</span>}
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
@@ -271,7 +272,7 @@ class StickyPrice extends React.PureComponent {
               <span className="chilivery-arrow-left"> </span>
             </button>
               :
-            <button onClick={this.pushLink} type="button" disabled="disabled">انتخاب آدرس
+            <button onClick={() =>this.props.showAlert({text: "لطفا آدرس خود را انتخاب نمایید.",color: "danger",})} type="button" >انتخاب آدرس
               <span className="chilivery-arrow-left"> </span>
             </button>}
           </div>
@@ -286,6 +287,9 @@ const mapDispatchToProps = dispatch => {
   return {
     changeBasketData: data => {
       dispatch(putChangeBasket(data));
+    },
+    showAlert: (showStatus) => {
+      dispatch(addToast(showStatus));
     },
   };
 };

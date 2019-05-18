@@ -70,7 +70,7 @@ export class cart extends React.PureComponent {
     const restaurantId = { restaurantId :  this.props.basket.restaurantId};
 
     setTimeout(
-      () => this.props.getBasketItems(restaurantId),100
+      () => this.props.getBasketItems(restaurantId),1000
     )
   }
 
@@ -193,7 +193,7 @@ export class cart extends React.PureComponent {
                 </React.Fragment>
                 }
                 {/* FIXME */}
-                {!showLoginForm && <StickyPrice links='checkout' redirect={`checkout/${this.props.basket.id}`} data={orderItems.amount}  collapseShow={true}/>}
+                {!showLoginForm && <StickyPrice links='checkout' redirect={`checkout/${this.props.basket.id}`} data={orderItems.amount}  collapseShow={true} showGetway={true}/>}
               </div>
             </React.Fragment>
           )}

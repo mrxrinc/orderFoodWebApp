@@ -317,7 +317,7 @@ class RestaurantPage extends React.Component {
                         Object.keys(this.props.basket.items).length > 0 && (
                           )} */}
                         {this.state.StickyPriceShow &&
-                          <StickyPrice links='cart' collapseShow={false} minPriceSendLimit={this.state.restaurant && this.state.restaurant.minPriceSendLimit}/>
+                          <StickyPrice links='cart' collapseShow={false} minPriceSendLimit={this.state.restaurant && this.state.restaurant.minPriceSendLimit} showGetway={true}/>
                         }
 
                     </React.Fragment>

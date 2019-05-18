@@ -95,13 +95,14 @@ class ActivationCode extends React.Component {
         <h4 className="midText text-center my-4">
           برای تأیید حساب کاربری کد 4 رقمی ارسال شده را وارد نمایید:
         </h4>
+
         <form className="activationCode__form" onSubmit={this.sendSubmit}>
           <Container className="text-center">
             <Row>
-              <Col>
+              <Col xs={12}>
                 <Input
                   className="text-center activationCode__letter-spacing"
-                  maxLength="1"
+                  maxLength="4"
                   type="text"
                   pattern="\d*"
                   id="activationCode__input-fourth"
@@ -110,42 +111,6 @@ class ActivationCode extends React.Component {
                   onChange={this.update}
                 />{' '}
               </Col>
-              <Col>
-                <Input
-                  className="text-center activationCode__letter-spacing"
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-fourth"
-                  disabled={this.state.disabled ? 'disabled' : ''}
-                  bsSize="lg"
-                  onChange={this.update}
-                />{' '}
-              </Col>
-              <Col>
-                <Input
-                  className="text-center activationCode__letter-spacing"
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-fourth"
-                  disabled={this.state.disabled ? 'disabled' : ''}
-                  bsSize="lg"
-                  onChange={this.update}
-                />{' '}
-              </Col>
-              <Col>
-                <Input
-                  className="text-center activationCode__letter-spacing"
-                  maxLength="1"
-                  type="text"
-                  pattern="\d*"
-                  id="activationCode__input-fourth"
-                  disabled={this.state.disabled ? 'disabled' : ''}
-                  bsSize="lg"
-                  onChange={this.update}
-                />{' '}
-              </Col>                                          
             </Row>
 
             <p className="midText mt-4">
@@ -163,6 +128,7 @@ class ActivationCode extends React.Component {
             </Row>
           </Container>
         </form>
+        
       </ChiliRainbow>
     );
   }
