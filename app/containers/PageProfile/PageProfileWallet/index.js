@@ -213,53 +213,56 @@ class ProfileWallet extends React.Component{
               افزایش موجودی با کد هدیه
             </h5> */}
 
+            <div className="row wFull">
 
-              <AnimateField
-              className="col"
-              placeholder="وارد نمایید"
-              name="userCredit"
-              type="text"
-              label=" مبلغ مورد نظر (تومان)"
-              value={userCredit}
-              onChange={this.onChangeNumber}
-              onKeyPress={this.handleKeyPressBalance}
-              validation={
-                typeof classes.validation.wallet.payAmount === "undefined"?
-                false:classes.validation.wallet.payAmount
-              }
-              required={true}
-            />
-            <div className="panigale-page-profile__credit-gift form-group col-auto">
+                <AnimateField
+                className="col"
+                placeholder="وارد نمایید"
+                name="userCredit"
+                type="text"
+                label=" مبلغ مورد نظر (تومان)"
+                value={userCredit}
+                onChange={this.onChangeNumber}
+                onKeyPress={this.handleKeyPressBalance}
+                validation={
+                  typeof classes.validation.wallet.payAmount === "undefined"?
+                  false:classes.validation.wallet.payAmount
+                }
+                required={true}
+              />
+              <div className="panigale-page-profile__credit-gift form-group col-auto">
                 <button className={!classes.loading.walletIncLoading?"btn btn-success ml-0 topM15":"btn ml-0 btn-loading btn-disable disabled-link"}
                     onClick={this.submitBalance}>تایید مبلغ
                 </button>
+              </div>
             </div>
 
-            <div className="panigale-page-profile__title panigale-page-profile__password mt-4 count-save">
+            <div className="panigale-page-profile__title panigale-page-profile__password mt-4 count-save bottomP10">
               <span className="chilivery-forget-pass-1 icon"></span>
               <span className="increase-count">افزایش موجودی با کد هدیه</span> 
             </div>
-
-            <AnimateField
-              className="col"
-              placeholder="وارد نمایید"
-              name="userCreditGift"
-              type="text"
-              label=" کد افزایش موجودی حساب ..."
-              color="#929292"
-              value={userCreditGift}
-              onChange={this.onChange}
-              onKeyPress={this.handleKeyPressGift}
-              validation={
-                typeof classes.validation.gift.gift_code === "undefined"?
-                false:classes.validation.gift.gift_code
-              }
-              required={true}
-            />
-            <div className="panigale-page-profile__credit-gift form-group col-auto danger__btn">
-              <button className={!classes.loading.walletIncGiftLoading?"btn btn-danger tayid-btn topM15":"btn btn-loading btn-disable disabled-link"}
-								onClick={this.submitGift}>تایید کد
-							</button>
+            <div className="row wFull">
+              <AnimateField
+                className="col"
+                placeholder="وارد نمایید"
+                name="userCreditGift"
+                type="text"
+                label=" کد افزایش موجودی حساب ..."
+                color="#929292"
+                value={userCreditGift}
+                onChange={this.onChange}
+                onKeyPress={this.handleKeyPressGift}
+                validation={
+                  typeof classes.validation.gift.gift_code === "undefined"?
+                  false:classes.validation.gift.gift_code
+                }
+                required={true}
+              />
+              <div className="panigale-page-profile__credit-gift form-group col-auto danger__btn">
+                <button className={!classes.loading.walletIncGiftLoading?"btn btn-danger tayid-btn topM15":"btn btn-loading btn-disable disabled-link"}
+                  onClick={this.submitGift}>تایید کد
+                </button>
+              </div>
             </div>
           </div>
         </div>
