@@ -11,7 +11,15 @@ import SearchInput, { createFilter } from 'react-search-input';
 import icon from '../../images/icons/search_no_result.png';
 
 const KEYS_TO_FILTERS = ['name'];
+const otherFilter = {
+  "hasDiscount":"تخفیف دار",
+  "deliveryBy":"موتوچیلی",
+  "created":"جدیدترین ها",
+  "speed":"زمان ارسال",
+  "rating":"بالاترین امتیاز",
+  "price":"سطح اقتصادی"
 
+}
 import './style.scss';
 /* eslint-disable react/prefer-stateless-function */
 class RestaurantsList extends React.Component {
@@ -27,6 +35,7 @@ class RestaurantsList extends React.Component {
       restaurantListTag:{},
       filterShow:false,
       filterValidation:false,
+      concatTag:[],
     };
   }
 
@@ -43,8 +52,10 @@ class RestaurantsList extends React.Component {
     restaurantListTag().then(
       response => {
         if(response.status){
+          const res = response.result;
           this.setState({
-            restaurantListTag: response.result
+            restaurantListTag: res,
+            concatTag: res.restaurantType.concat(res.foodType)
           },()=>{
             this.setState({
               filterShow:true
@@ -151,7 +162,21 @@ class RestaurantsList extends React.Component {
       }
     }
   }
-
+  deleteFilter = (filter) => {
+    const {cityId,mapCenter} = this.state;
+    console.log(this.state.filters)
+    let filtersClone = [...this.state.filters];
+    var index = filtersClone.indexOf(filter);
+    if (index > -1) {
+      filtersClone.splice(index, 1);
+    }
+    this.setState({
+      filters:filtersClone,
+    },()=>{
+      console.log(filtersClone,this.state.filters);
+      this.fetchRestauranList(cityId,mapCenter);
+    })
+  }
   render() {
     const { restaurantList } = this.state;
     const filteredRestaurant = restaurantList.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -176,6 +201,41 @@ class RestaurantsList extends React.Component {
           </div>
         }
 
+        { this.state.filters.length > 0 ?
+          <div className="rightP10 leftP10">
+            { this.state.filters.map((filter,index) => 
+              <React.Fragment>
+                {(
+                  filter === "deliveryBy" ||
+                  filter === "hasDiscount" ||
+                  filter === "created" ||
+                  filter === "speed" ||
+                  filter === "rating" ||
+                  filter === "price"
+                  ) ?
+                        <div className="chip">
+                          {otherFilter[filter]}
+                          <i className="chilivery-close rightP5" onClick={()=>this.deleteFilter(filter)}/>
+                        </div>:null
+                }
+                {this.state.concatTag.map(tag => 
+                    <React.Fragment>
+                      {parseInt(filter) === tag.id? (
+                        <div className="chip">
+                          {tag.name}
+                          <i className="chilivery-close rightP5" onClick={()=>this.deleteFilter(filter)}/>
+                        </div>
+                      ):null
+                    }
+                    </React.Fragment>
+                  )
+                }
+              </React.Fragment>
+            )}
+          </div>
+          :null
+
+        }
         <div className="padd15 rtl">
           {this.state.loading ? 
             <Loading /> :
@@ -216,6 +276,15 @@ class RestaurantsList extends React.Component {
   }
 }
 
+function ListItem(props) {
+  const value = props.value;
+  return (
+    // Wrong! There is no need to specify the key here:
+    <li>
+      {value.name}
+    </li>
+  );
+}
 
 const mapStateToProps = state => ({
   modals: {
