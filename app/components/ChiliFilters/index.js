@@ -206,7 +206,7 @@ class Filters extends React.Component {
                         labelClassName="page-payment__rule"
                         label={
                           <span className="filters__items-wrapper">{item.name}
-                            <span class="filters__items-counter">{this.props.tagsCount.find(food => food.key == item.id).doc_count}
+                            <span className="filters__items-counter">{this.props.tagsCount.find(food => food.key == item.id).doc_count}
                             </span>
                           </span>
                         }
@@ -242,7 +242,7 @@ class Filters extends React.Component {
                         labelClassName="page-payment__rule"
                         label={
                           <span className="filters__items-wrapper">{item.name}
-                            <span class="filters__items-counter">{this.props.tagsCount.find(food => food.key == item.id).doc_count}
+                            <span className="filters__items-counter">{this.props.tagsCount.find(food => food.key == item.id).doc_count}
                             </span>
                           </span>
                         }

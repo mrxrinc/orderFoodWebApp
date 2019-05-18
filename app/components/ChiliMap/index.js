@@ -144,7 +144,7 @@ export class MapContainer extends React.Component {
                     userLocation={this.state.userLocation}
                 />
                 {   this.props.type === "profile" &&
-                    <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.UserPositionModal}>
+                    <span className="location__user-position-all-resaurant btn btn-big btn-success center absolute bottom20" onClick={this.showModal}>
                         <span>ثبت</span>
                     </span>
                 }
