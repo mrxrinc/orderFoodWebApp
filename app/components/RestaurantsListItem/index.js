@@ -115,8 +115,14 @@ const RestaurantsListItem = props => (
         <span className="text14 bold rightM10">{props.deliveryName}</span>
       </div>
       <div className="flex price hP10 leftContent primary text16 wFull hCenter">
-        <span className="leftM5">{props.deliveryPrice}</span>
-        <span>تومان</span>
+        {props.deliveryPrice === 0 ? (
+          <span className="leftM5">رایگان</span>
+        ) : (
+          <React.Fragment>
+            <span className="leftM5">{props.deliveryPrice}</span>
+            <span>تومان</span>
+          </React.Fragment>
+        )}
       </div>
     </div>
   </Link>
