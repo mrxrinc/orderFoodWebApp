@@ -13,15 +13,21 @@ ul {
   margin: 0px;
 }
 #app{
-  padding-bottom: 60px;
   .container-fluid{
     max-width: 567px;
   }
+  & > .container-fluid:first-child{
+    height: 100vh;
+  }
 }
 .main-container{
-  height: calc(100vh - 60px);
-  overflow-y: auto;
+  height: 100%;
   position: relative;
+  & > div:first-child {
+    padding-bottom: 60px;
+    background: $grey-2;
+    min-height: 100%;
+  }
 }
 .fullLine {
   width: 100%;
