@@ -287,7 +287,7 @@ class RestaurantPage extends React.Component {
 
                               return (
                                 <RestaurantFoodCard
-                                  onClick={food.isOpen ? () => this.openFoodModal(_data) : null}
+                                  onClick={food.isOpen && this.state.restaurant.isOpen ? () => this.openFoodModal(_data) : null}
                                   restaurantId={this.state.restaurant.id}
                                   key={food.id}
                                   id={food.id}
