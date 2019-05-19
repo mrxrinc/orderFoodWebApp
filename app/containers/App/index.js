@@ -58,7 +58,7 @@ export default function App() {
           <Route exact path="/authentication" component={Authentication} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/after-payment/:id" component={AfterPayment} />
-          <Route exact path="/success-payment" component={SuccessPayment} />
+          <Route exact path="/success-payment/:id" component={SuccessPayment} />
           <Route exact path="/more-menu" component={PageMoreMenu} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/profile" component={PageProfile} />

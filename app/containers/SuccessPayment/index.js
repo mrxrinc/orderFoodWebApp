@@ -32,10 +32,7 @@ export class SuccessPayment extends React.PureComponent {
 // Renderer callback with condition
   renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
-      // Render a completed state
-      // history.listen('/after-payment')
-      return window.location = ('/after-payment')
-      // return <Redirect to="/after-payment" />
+      return <Redirect to={"/after-payment/"+ this.props.match.params.id} />
     } else {
       // Render a countdown
       return <span>{minutes}:{seconds}</span>;
@@ -44,7 +41,7 @@ export class SuccessPayment extends React.PureComponent {
 
   dataAfterPayment = () => {
     getDataAfterPayment({
-      orderId:this.props.basket.id
+      orderId:this.props.match.params.id
     }).then(response => {
       this.setState({
         data:response.result,
