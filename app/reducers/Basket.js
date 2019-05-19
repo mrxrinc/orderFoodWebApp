@@ -7,7 +7,8 @@ import {
   CAMPAGIN_CODE_CHANGED,
   CHANGE_BASKET,
   CHANGE_GENERATED_FOOD_ID,
-  CHANGE_SIDEDISH_BASKET
+  CHANGE_SIDEDISH_BASKET,
+  RESET_BASKET,
 } from '../constants/Basket';
 const initState = {
   items: {},
@@ -27,7 +28,8 @@ const Basket = (state = initState, action) => {
       return Object.assign({}, state, action.payload);
     case CAMPAGIN_CODE_CHANGED:
       return Object.assign({}, state, action.payload);
-
+    case RESET_BASKET:
+      return initState;
     case CHANGE_GENERATED_FOOD_ID:
       const { foodData, optionGroup, restaurant } = action.payload;
       // let items = JSON.parse(JSON.stringify(state.items))
@@ -76,8 +78,8 @@ const Basket = (state = initState, action) => {
       }
       return Object.assign({}, state, { items, restaurantId });
 
-    case CHANGE_SIDEDISH_BASKET:    
-      const { sideDishfood, sideDishItemCount, sideDishrestaurantId } = action.payload;      
+    case CHANGE_SIDEDISH_BASKET:
+      const { sideDishfood, sideDishItemCount, sideDishrestaurantId } = action.payload;
       if (state.restaurantId != sideDishrestaurantId) {
         items = {};
       }

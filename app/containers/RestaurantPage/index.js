@@ -223,7 +223,7 @@ class RestaurantPage extends React.Component {
             />
             {data ? (
               <React.Fragment>
-                <div className="lightBg rtl">
+                <div className="lightBg rtl bottomP50">
                   <RestaurantHeader
                     cover={data.cover}
                     logo={data.profile}

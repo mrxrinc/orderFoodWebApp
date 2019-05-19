@@ -8,8 +8,7 @@ import AfterPaymentCardItem from '../../components/AfterPaymentCardItem';
 import MapContainer from '../../components/AfterPaymentMap';
 import { getDataAfterPayment } from '../../api/account';
 import status02 from '../../images/after-payment-status/after-payment-status-02.png';
-import restaurantProfile from '../../images/test/restaurantProfile.jpg';
-import { deliveryTypeChanged } from '../../actions/Basket';
+import { campaginCodeChanged, changeBasket, resetBasket } from '../../actions/Basket';
 import { connect } from 'react-redux';
 import { restaurantSearch } from '../../api/application/restaurant';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
@@ -42,8 +41,9 @@ export class AfterPayment extends React.PureComponent {
 
   dataAfterPayment = () => {
     getDataAfterPayment({
-      orderId:this.props.basket.id
+      orderId:this.props.match.params.id
     }).then(response => {
+      this.props.resetBasket();
       this.setState({
         data:response.result
       })
@@ -199,6 +199,14 @@ export class AfterPayment extends React.PureComponent {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    resetBasket: () => {
+      dispatch(resetBasket());
+    }
+  };
+};
+
 
 const mapStateToProps = state => ({
   user: state.auth,
@@ -207,7 +215,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(AfterPayment);
 
 

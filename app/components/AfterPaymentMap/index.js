@@ -20,11 +20,11 @@ export class MapContainer extends React.Component {
       },
       restaurantLocation:{
         lat:this.props.restaurantPoint.lat,
-        lng:this.props.restaurantPoint.lon,
+        lng:this.props.restaurantPoint ? this.props.restaurantPoint.lon : '',
       },
       userLocation:{
         lat:this.props.restaurantPoint.lat,
-        lng:this.props.userPoint.lon,
+        lng:this.props.userPoint ? this.props.userPoint.lon : ''
       },
       cityId:''
     };

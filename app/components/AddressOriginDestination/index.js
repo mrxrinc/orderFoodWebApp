@@ -25,6 +25,7 @@ class AddressOriginDestination extends React.PureComponent {
           <p>{dataRestaurant && dataRestaurant.address}</p>
 
         </div>
+        {dataUser && dataUser.address &&
         <div className="address__box address__box-destination">
           <div className="address__box__header">
             <img src={PinUser}/>
@@ -33,6 +34,8 @@ class AddressOriginDestination extends React.PureComponent {
           <label>{dataUser && dataUser.addressName}</label>
           <p>{dataUser && dataUser.address}</p>
         </div>
+        }
+
       </div>
     );
   }

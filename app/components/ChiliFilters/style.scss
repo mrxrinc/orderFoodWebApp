@@ -2,8 +2,9 @@
 
 
 
-$input-width: 40px;
-$input-height: 20px;
+$input-width: 39px;
+$input-container-height: 20px;
+$input-height: 18px;
 $handle-width: $input-height;
 $handle-height: $handle-width;
 $primary: $color-toggle;
@@ -105,7 +106,7 @@ $border: 1px solid #000;
             }
             &::before {
             width: $input-width;
-            height: $input-height;
+            height: $input-container-height;
             border: $border;
             background-color: $tertiary;
             border-color: $tertiary;
