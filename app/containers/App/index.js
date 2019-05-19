@@ -84,9 +84,9 @@ export default function App() {
           <Route exact path="/:citySlug/:restaurantSlug" component={RestaurantPage} />
           <Route component={Page404} />
         </Switch>
+        <ChiliFooter />
       </main>
       <GlobalStyle />
-      <ChiliFooter />
     </React.Fragment>
   );
 }
