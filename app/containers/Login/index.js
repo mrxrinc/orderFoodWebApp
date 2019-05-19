@@ -52,7 +52,7 @@ class Login extends Component {
             type="text"
             onClick=""
             onChange={this.onChange}
-            label="نام و نام خانوادگی"
+            label="ایمیل یا موبایل"
             onKeyPress={this.handleKeyPress}
             icon="chilivery-user"
             required
