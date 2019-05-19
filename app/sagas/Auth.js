@@ -31,6 +31,7 @@ import {
   getUserUpdateInfo,
   getUserBalance,
   signUpUserResponse,
+  makeUserVerify,
   // getUserIsVerifyInfo,
   // forgotPass,
   // checkExistTokenInfo
@@ -45,7 +46,7 @@ import { addToast } from '../actions/Notifications';
 import { addValidation, removeValidation } from '../actions/Validations';
 
 // watcher saga: watches for actions dispatched to the store, starts worker saga
-export function* UserLogin() {
+export function* watchUserLogin() {
   yield takeLatest(SIGNIN_USER, userLogin);
 }
 
@@ -115,7 +116,7 @@ function* userLogin({ payload }) {
   }
 }
 
-export function* UserSignUP() {
+export function* watchUserSignup() {
   yield takeLatest(SIGNUP_USER, userSignUp);
 }
 
@@ -141,13 +142,13 @@ function* userSignUp({ payload }) {
     } else {
       yield put(disableLoading({ registerLoading: false }));
 
-      // yield put(
-      //   addToast({
-      //     text: signUpUser.message_fa,
-      //     color: 'danger',
-      //     delay: 2000,
-      //   }),
-      // );
+      yield put(
+        addToast({
+          text: signUpUser.message_fa,
+          color: 'danger',
+          delay: 2000,
+        }),
+      );
     }
   } catch (error) {
     yield put(disableLoading({ registerLoading: false }));
@@ -294,9 +295,7 @@ function* userVerify({ payload }) {
     if (verifyUserSignUp.status) {
       // localStorage.setItem('authToken', verifyUserSignUp.data.token);
       yield put(getUserVerifyInfo(verifyUserSignUp.data));
-      yield put(push('/profile'));
-      yield put(disableLoading({ verifyLoading: false }));
-
+      yield put(makeUserVerify())
       yield put(
         addToast({
           text: verifyUserSignUp.message_fa,
@@ -309,9 +308,15 @@ function* userVerify({ payload }) {
           userVerify: {},
         }),
       );
+      yield put(push('/profile'));
+      yield put(disableLoading({ verifyLoading: false }));
     } else {
       yield put(disableLoading({ verifyLoading: false }));
-
+      yield put(
+        removeValidation({
+          userVerify: {},
+        }),
+      );  
       yield put(
         addToast({
           text: verifyUserSignUp.message_fa,
@@ -322,7 +327,6 @@ function* userVerify({ payload }) {
     }
   } catch (error) {
     yield put(disableLoading({ verifyLoading: false }));
-    console.log('%%%%%%%%%%%%%%%', error);
     if (error.status === 422) {
       yield put(
         addValidation({
@@ -361,11 +365,13 @@ function* userVerifyPass({ payload }) {
           resetPassModal: true,
         }),
       );
-      // yield put(addToast({
-      //   text: verifyUserPassWord.message_fa,
-      //   color: "success",
-      //   delay: 2000
-      // }))
+      yield put(
+        addToast({
+          text: verifyUserPassWord.message_fa,
+          color: 'success',
+          delay: 2000,
+        }),
+      );
       yield put(
         removeValidation({
           userVerifyPass: {},
@@ -464,7 +470,9 @@ export function* updateUserBalance() {
 function* updateUserBalanceHandler() {
   const response = yield balanceGet();
   if (response.status) {
-    yield put(getUserBalance({"cacheBalance":response.result.user.cacheBalance}));
+    yield put(
+      getUserBalance({ cacheBalance: response.result.user.cacheBalance }),
+    );
   }
 }
 // export function* CheckExistToken() {

@@ -5,6 +5,7 @@ import Countdown from 'react-countdown-now';
 import { connect } from 'react-redux';
 import { getUserVerify } from '../../actions/Auth';
 import { sendVerifyCodePost } from '../../api/account';
+import { history } from '../../store';
 import ChiliRainbow from '../../components/ChiliRainbow';
 import './style.scss';
 
@@ -13,7 +14,6 @@ class ActivationCode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user,
       code: '',
       disabled: false,
     };
@@ -21,11 +21,15 @@ class ActivationCode extends React.Component {
   }
 
   componentDidMount() {
-    this.sendVerifyCode();
+    if (this.props.user.mobileIsVerified) {
+      history.push('/');
+    } else {
+      this.sendVerifyCode();
+    }
   }
 
   sendVerifyCode = () => {
-    const { user } = this.state;
+    const { user } = this.props;
     sendVerifyCodePost({
       mobileNumber: user.mobileNumber,
       fullName: user.fullName,
@@ -47,6 +51,9 @@ class ActivationCode extends React.Component {
     };
     this.setState({ disabled: !this.state.disabled });
     this.props.onSendVerify({ verification });
+    this.setState({
+      code: '',
+    });
   };
 
   update(e) {
@@ -81,7 +88,6 @@ class ActivationCode extends React.Component {
             </b>
           </p>
           <button
-            disabled={this.state.disabled ? 'disabled' : ''}
             type="submit"
             className="btn btn-success"
           >
@@ -106,8 +112,8 @@ class ActivationCode extends React.Component {
                   type="text"
                   pattern="\d*"
                   id="activationCode__input-fourth"
-                  disabled={this.state.disabled ? 'disabled' : ''}
                   bsSize="lg"
+                  value={this.state.code}
                   onChange={this.update}
                 />{' '}
               </Col>
@@ -120,7 +126,7 @@ class ActivationCode extends React.Component {
             <Countdown date={Date.now() + 120000} renderer={renderer} />
 
             <Row className="activationCode__edit__wrapper">
-              <Link to="/register">
+              <Link to="/authentication">
                 <span className="midText text-center activationCode__edit my-4">
                   ویرایش شماره موبایل
                 </span>
@@ -128,7 +134,6 @@ class ActivationCode extends React.Component {
             </Row>
           </Container>
         </form>
-        
       </ChiliRainbow>
     );
   }
