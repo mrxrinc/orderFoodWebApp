@@ -10,6 +10,7 @@ import {
   CHANGE_BASKET,
   CHANGE_GENERATED_FOOD_ID,
   CHANGE_SIDEDISH_BASKET,
+  RESET_BASKET
 } from '../constants/Basket';
 
 export const accChargedChanged = value => ({
@@ -30,6 +31,11 @@ export const addToBasket = value => ({
 export const getBasketItems = value => ({
   type: GET_BASKET_ITEMS,
   payload: value,
+});
+
+export const resetBasket = () => ({
+  type: RESET_BASKET,
+  payload: {},
 });
 
 export const addressIdChanged = value => ({
