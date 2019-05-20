@@ -6,14 +6,10 @@ import './style.scss';
 import rememberPassword from '../../images/icons/remember_password.png';
 import NavigationBar from '../../components/NavigationBar';
 /* eslint-disable react/prefer-stateless-function */
-export default class Authentication extends React.Component {
-  render() {
+export default class ForgotPassword extends React.Component {
+  render() {    
     return (
-      <React.Fragment>
-        <NavigationBar 
-					back
-					background
-				/>
+      <React.Fragment>        
         <ChiliRainbow title="بازیابی رمزعبور">
           <div className="forgot forgot__imgWrapper">
             <img
