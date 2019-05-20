@@ -9,6 +9,7 @@ import {
   CHANGE_GENERATED_FOOD_ID,
   CHANGE_SIDEDISH_BASKET,
   RESET_BASKET,
+  DESCRIPTION_CHANGED
 } from '../constants/Basket';
 const initState = {
   items: {},
@@ -27,6 +28,8 @@ const Basket = (state = initState, action) => {
     case DELIVERY_TYPE_CHANGED:
       return Object.assign({}, state, action.payload);
     case CAMPAGIN_CODE_CHANGED:
+      return Object.assign({}, state, action.payload);
+    case DESCRIPTION_CHANGED:
       return Object.assign({}, state, action.payload);
     case RESET_BASKET:
       return initState;
