@@ -167,7 +167,7 @@ class ChiliFooter extends React.Component {
           </div>
 
         </footer>
-        <div className="container-fluid chili-footer__notification mt-3 absolute top">
+        <div className="container-fluid chili-footer__notification topM10 top">
           <ChiliNotification/>
         </div>
       </React.Fragment>

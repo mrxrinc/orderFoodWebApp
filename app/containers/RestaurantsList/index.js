@@ -36,19 +36,29 @@ class RestaurantsList extends React.Component {
       filterShow: false,
       filterValidation: false,
       concatTag: [],
+      mapCenter:''
     };
   }
 
   componentDidMount() {
-    getRegionBySlug(this.state.pointSlug).then(
-      response => {
-        if (response.status) {
-          const { cityId, mapCenter } = response.result;
-          this.setState({ cityId, mapCenter });
-          this.fetchRestauranList(cityId, mapCenter)
+    if(this.state.pointSlug){
+      getRegionBySlug(this.state.pointSlug).then(
+        response => {
+          if (response.status) {
+            const { cityId, mapCenter } = response.result;
+            this.setState({ cityId, mapCenter });
+            this.fetchRestauranList(cityId, mapCenter)
+          }
         }
-      }
-    )
+      )
+    }else{
+      this.setState({ 
+        cityId:this.props.userPosition.cityId,
+      },()=>{
+        this.fetchRestauranList(this.state.cityId)
+      });
+    }
+
     restaurantListTag().then(
       response => {
         if (response.status) {
@@ -69,7 +79,7 @@ class RestaurantsList extends React.Component {
   fetchRestauranList = (cityId, mapCenter) => {
     restaurantSearch(
       cityId,
-      `${mapCenter.lat},${mapCenter.lon}`,
+      `${ mapCenter ? mapCenter.lat + ',' + mapCenter.lon : '' }`,
       this.tagGenerator(this.state.filters)).then(
         response => {
           const restaurantList = response.result.data;
@@ -262,7 +272,7 @@ class RestaurantsList extends React.Component {
         </div>
         {this.state.restaurantList.length > 0 ?
           <React.Fragment>
-            {Object.keys(this.state.restaurantListTag).length > 0 ?
+            {/* {Object.keys(this.state.restaurantListTag).length > 0 ? */}
               <RestaurantFilterModal
                 toggleModal={this.toggleModal}
                 data={this.state.restaurantListTag}
@@ -270,8 +280,8 @@ class RestaurantsList extends React.Component {
                 onFilterValidation={this.onFilterValidation}
                 filters={this.state.filters}
                 tagsCount={this.state.tagsCount}
-              /> : null
-            }
+              />
+            {/* } */}
           </React.Fragment> : <div className="order-empty center"
             style={{ height: 'calc(100vh - 200px)' }}
           >
@@ -289,20 +299,11 @@ class RestaurantsList extends React.Component {
   }
 }
 
-function ListItem(props) {
-  const value = props.value;
-  return (
-    // Wrong! There is no need to specify the key here:
-    <li>
-      {value.name}
-    </li>
-  );
-}
-
 const mapStateToProps = state => ({
   modals: {
     RestaurantFilterModal: state.Modals.RestaurantFilterModal,
   },
+  userPosition: state.UserPosition.neighborhood
 });
 
 const mapDispatchToProps = dispatch => ({
