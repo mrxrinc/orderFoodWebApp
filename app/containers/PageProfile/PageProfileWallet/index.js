@@ -24,14 +24,14 @@ class ProfileWallet extends React.Component{
       userCreditGift: '',
       gatewayId: '',
 		}
-	}
-	
+	}	
   submitBalance = (e) => {
     e.preventDefault();
     this.props.enableLoading({walletIncLoading:true});
     walletIncreace({
       payAmount: PanigaleEnNumber(this.state.userCredit),
-			bankgate: this.state.gatewayId,
+      bankgate: this.state.gatewayId,
+      isPWA: true,
 			"acceptConditions": true,
     }).then(response => {
       this.props.disableLoading({walletIncLoading:false});

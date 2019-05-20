@@ -9,7 +9,8 @@ import {
     UserIsVerifyUser,
     updateUserBalance,
     watchUserLogin,
-    watchUserSignup
+    watchUserSignup,
+    watchUpdateUser
 } from './Auth';
 
 import {
@@ -30,6 +31,7 @@ export default function* rootSaga(getState) {
         UserUpdate(),
         updateUserBalance(),
         ChangeBasket(),
-        GetBasketItems()
+        GetBasketItems(),
+        watchUpdateUser()
     ]);
 }

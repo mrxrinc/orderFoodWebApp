@@ -10,6 +10,7 @@ import {
   userUpdate,
   balanceGet,
   isVerifyPost,
+  editProfile,
 } from '../api/account';
 
 import {
@@ -21,6 +22,7 @@ import {
   UPDATE_USER,
   IS_VERIFY_USER,
   UPDATE_USER_BALANCE,
+  EDIT_USER,
   SIGNUP_USER_RESPONSE,
 } from '../constants/actionAuthTypes';
 
@@ -32,6 +34,7 @@ import {
   getUserBalance,
   signUpUserResponse,
   makeUserVerify,
+  updateOrganization,
   // getUserIsVerifyInfo,
   // forgotPass,
   // checkExistTokenInfo
@@ -295,7 +298,7 @@ function* userVerify({ payload }) {
     if (verifyUserSignUp.status) {
       // localStorage.setItem('authToken', verifyUserSignUp.data.token);
       yield put(getUserVerifyInfo(verifyUserSignUp.data));
-      yield put(makeUserVerify())
+      yield put(makeUserVerify());
       yield put(
         addToast({
           text: verifyUserSignUp.message_fa,
@@ -316,7 +319,7 @@ function* userVerify({ payload }) {
         removeValidation({
           userVerify: {},
         }),
-      );  
+      );
       yield put(
         addToast({
           text: verifyUserSignUp.message_fa,
@@ -475,6 +478,33 @@ function* updateUserBalanceHandler() {
     );
   }
 }
+
+export function* watchUpdateUser() {
+  yield takeEvery(EDIT_USER, updateUserHandler);
+}
+
+function* updateUserHandler({payload}) {  
+  const response = yield editProfile(payload);
+  if (response.status) {        
+    yield put(updateOrganization(response.result.user.organization));    
+    yield put(
+      addToast({
+        text: response.message_fa,
+        color: 'success',
+        delay: 2000,
+      }),
+    );
+  } else {
+    yield put(
+      addToast({
+        text: response.message_fa,
+        color: 'danger',
+        delay: 2000,
+      }),
+    );
+  }
+}
+
 // export function* CheckExistToken() {
 //   yield takeLatest(IS_VERIFY_USER, checkExistTokenMain);
 // }

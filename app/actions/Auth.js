@@ -16,6 +16,8 @@ import {
   UPDATE_USER_BALANCE,
   MAKE_USER_VERIFY,
   SIGNUP_USER_RESPONSE,
+  EDIT_USER,
+  EDIT_ORGANIZATION,
 } from '../constants/actionAuthTypes';
 
 export const getUser = user => ({
@@ -91,4 +93,15 @@ export const getUserUpdateInfo = user => ({
 export const updateUserBalance = () => ({
   type: UPDATE_USER_BALANCE,
   payload: {},
+});
+
+export const updateUser = user => ({
+  type: EDIT_USER,
+  payload: user,
+});
+
+
+export const updateOrganization = organization => ({
+  type: EDIT_ORGANIZATION,
+  payload: organization,
 });
