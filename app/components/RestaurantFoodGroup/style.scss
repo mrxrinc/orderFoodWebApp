@@ -1,12 +1,6 @@
 @import '../../style/sass/variable';
 
 .foodGroup {
-  padding-top: 100px;
-
-  &:first-child {
-    padding-top: 10px;
-  }
-
   .head {
     height: 40px;
     border-bottom: 1px solid $color-disable;

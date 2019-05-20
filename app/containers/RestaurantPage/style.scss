@@ -8,7 +8,14 @@
   position: sticky;
   top: 60px;
   z-index: 5;
-
+  .owl-item {
+    .active {
+      div {
+        background-color: $color-secondary !important;
+        color: #fff !important;
+      }
+    }
+  }
   &-item {
     height: 35px;
     border-radius: 20px;
@@ -108,3 +115,4 @@
 .restauran-comment__submit{
   border: 1px dashed $color-success
 }
+
