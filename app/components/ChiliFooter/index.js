@@ -7,11 +7,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import MotoChili from '../ChiliModal/components/MotoChili';
-import AlertExp from '../ChiliModal/components/AlertExample';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
 import {getAppInit} from '../../api/global';
-import {balanceGet} from '../../api/account';
 import {addToast} from '../../actions/Notifications';
 import ChiliNotification from '../../components/ChiliNotification';
 import {updateUserBalance} from '../../actions/Auth';
@@ -27,12 +25,6 @@ class ChiliFooter extends React.Component {
   }
 
   componentDidMount() {
-    // notification sample
-    // this.props.showAlert({
-    //   text: 'salam',
-    //   color: "success",
-
-    // });
     this.props.showModal({
       motochiliModal: false,
       UserPositionModal: false,
@@ -68,16 +60,25 @@ class ChiliFooter extends React.Component {
         }
       )
     }
+    if(prevProps.location !== this.props.location){
+      const getActive = document.querySelectorAll('.chili-footer__list-item.active');
+      const getItemRestaurants = document.querySelector('.chili-footer__list-item-restaurants');
+      if(getActive.length > 1){
+        getActive.forEach((active) => {
+          if(active.getAttribute('href') !== '/'){
+            active.classList.remove('active')
+          }
+        });
+      }
 
-    // if(prevProps.basket !== this.props.basket){
-
-    //   console.log('=========this.props.basket.totalCount===========');
-    //   console.log(this.props.basket.totalCount);
-    //   console.log('====================================');
-    //   this.setState({
-    //     totalCount:this.props.basket.totalCount
-    //   })
-    // }
+      if(getActive.length == 0){
+        const splitLocation = this.props.location.split("/");
+        const index = splitLocation.indexOf('restaurants');
+        if(index > -1){
+          getItemRestaurants.classList.add('active');
+        }
+      }
+    }
   }
   calculationsTotalCount = () => {
     const {basket} = this.props;
@@ -93,12 +94,11 @@ class ChiliFooter extends React.Component {
       <React.Fragment>
         <footer className="chili-footer">
           <MotoChili headerAlign="center" headerColor="#eaeaea" bodyColor="#f5f5f5"/>
-          {/* <AlertExp/> */}
 
           <div className="container-fluid">
             <div className="row chili-footer__list">
               <div className="col">
-                <NavLink exact to="/" className={"chili-footer__list-item" + (this.state.pathname === "/" ? " active" : "")}>
+                <NavLink exact to="/" className={"chili-footer__list-item" + (this.props.location === "/" ? " active" : "")}>
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-yahoo" />
                   </div>
@@ -108,9 +108,8 @@ class ChiliFooter extends React.Component {
 
               { typeof this.props.UserPosition !== "undefined" ?
                 <div className="col">
-                  <NavLink
-                    activeClassName="active"
-                    to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item">
+                  <NavLink exact
+                    to={`/restaurants/${this.props.UserPosition.citySlug}/${this.props.UserPosition.slug}`} className="chili-footer__list-item chili-footer__list-item-restaurants ">
                     <div className="chili-footer__list-icon">
                       <i className="icon chilivery-filter-restaurant-type" />
                     </div>
@@ -120,12 +119,12 @@ class ChiliFooter extends React.Component {
               }
 
               <div className="col">
-                <NavLink
+                <NavLink exact
                   to="/cart"
                   className="chili-footer__list-item"
                 >
                   <span className="chili-footer__list-icon">
-                   {(typeof this.props.basket !== "undefined" && Object.keys(this.props.basket.items).length > 0) &&
+                    {(typeof this.props.basket !== "undefined" && Object.keys(this.props.basket.items).length > 0) &&
                       <span className="chili-footer__badge badge badge-success">
                         <span>{this.calculationsTotalCount()}</span>
                       </span>
@@ -139,13 +138,13 @@ class ChiliFooter extends React.Component {
 
               <div className="col">
                 {this.props.Auth.id ?
-                <NavLink to="/profile" className="chili-footer__list-item">
+                <NavLink exact to="/profile" className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-user" />
                   </div>
                   <div className="chili-footer__list-title">پروفایل</div>
                 </NavLink>:
-                <NavLink to="/authentication" className="chili-footer__list-item">
+                <NavLink exact to="/authentication" className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-user" />
                   </div>
@@ -155,7 +154,7 @@ class ChiliFooter extends React.Component {
               </div>
 
               <div className="col">
-                <NavLink to="/more-menu" className="chili-footer__list-item">
+                <NavLink exact to="/more-menu" className="chili-footer__list-item">
                   <div className="chili-footer__list-icon">
                     <i className="icon chilivery-more" />
                   </div>
@@ -183,6 +182,7 @@ const mapStateToProps = state => ({
   Auth:state.auth,
   UserPosition:state.UserPosition.neighborhood,
   basket:state.Basket,
+  location:state.router.location.pathname
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {

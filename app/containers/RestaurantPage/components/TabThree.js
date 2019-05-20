@@ -2,51 +2,41 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
+import {Link} from 'react-router-dom';
 
 class TabThree extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
 
-    };
-  }
-
-    componentDidMount(){
-      const {data} = this.props;
-      // Object.keys(this.props.data.type).forEach(currentItem => {
-      //   console.log(this.props.data.type[currentItem].name);
-      // });
-    // fow OWL.Carousel
-    $(document).ready(function () {
-      $('#demo').owlCarousel({
-        rtl: true,
-        loop: false,
-        autoplay: true,
-        margin: 15,
-        nav: false,
-        dots: false,
-        items:1,
-      });
-    });
-  }
+  //   componentDidMount(){
+  //   $(document).ready(function () {
+  //     $('#demo').owlCarousel({
+  //       rtl: true,
+  //       loop: false,
+  //       autoplay: true,
+  //       margin: 15,
+  //       nav: false,
+  //       dots: false,
+  //       items:1,
+  //     });
+  //   });
+  // }
 
 
   render() {
-    let ChiliOwlDemo = [1,2,3,4,5,6]
-    let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
-      <div
-        key={i}
-        className="item round20"
-          style={{
-          backgroundColor:"#4DC7A0",
-          padding:"1rem",
-          height:"200px"
-        }}
-      >
-        <h4>{posterItem}</h4>
-      </div>
-    );
+    // let ChiliOwlDemo = [1,2,3,4,5,6]
+    // let ChiliOwlDemoItems = ChiliOwlDemo.map((posterItem, i) =>
+    //   <div
+    //     key={i}
+    //     className="item round20"
+    //       style={{
+    //       backgroundColor:"#4DC7A0",
+    //       padding:"1rem",
+    //       height:"200px"
+    //     }}
+    //   >
+    //     <h4>{posterItem}</h4>
+    //   </div>
+    // );
     const {data} = this.props;
     const dataTypeLenght = Object.keys(data.type).length;
     return (
@@ -107,17 +97,19 @@ class TabThree extends React.Component {
           </div>
         </div>
 
-        {/* <div className="col-12">
-          <div className="restaurant-detail__more-restaurant center padd15 round20 topM20">
-            <i className="icon chilivery-filter-restaurant-type text40 flex"></i>
-            <div className="restaurant-detail__item-box rightP10">
-              <div className="restaurant-detail__type-title bottomP15">این رستوران دارای شعب دیگری هم می‌باشد.</div>
-              <div className="restaurant-detail__type-desc centerText">
-                <a href="" className="btn btn-success">مشاهده لیست شعبه‌ها</a>
+        {!! data.chainData &&
+          <div className="col-12">
+            <div className="restaurant-detail__more-restaurant center padd15 round20 topM20">
+              <i className="icon chilivery-filter-restaurant-type text40 flex"></i>
+              <div className="restaurant-detail__item-box rightP10">
+                <div className="restaurant-detail__type-title bottomP15">این رستوران دارای شعب دیگری هم می‌باشد.</div>
+                <div className="restaurant-detail__type-desc centerText">
+                  <Link to={`/chain/${data.chainData.slug}`} className="btn btn-success">مشاهده لیست شعبه‌ها</Link>
+                </div>
               </div>
             </div>
           </div>
-        </div> */}
+        }
 
         {/* <div className="col-12">
           <div className="restaurant-detail__about topM20">

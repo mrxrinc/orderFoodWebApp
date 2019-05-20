@@ -92,7 +92,7 @@ class ProfileEditAddress extends React.Component {
 						text: response.message_fa,
 						color: "success",
 					});
-					history.push("/profile");
+					window.history.back();
 				}else{
 					this.props.showAlert({
 						text: response.message_fa,

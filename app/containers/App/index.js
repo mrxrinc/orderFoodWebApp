@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../../containers/HomePage/';
 import RestaurantsList from '../../containers/RestaurantsList';
+import RestaurantsListChain from '../../containers/RestaurantsListChain';
 import RestaurantPage from '../RestaurantPage';
 import Kit from '../../containers/Kit';
 import Checkout from '../../containers/Checkout';
@@ -53,6 +54,7 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/kit" component={Kit} />
           <Route exact path="/restaurants/:citySlug/:pointSlug" component={RestaurantsList} />
+          <Route exact path="/chain/:slug/" component={RestaurantsListChain} />
           <Route exact path="/checkout/:id" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/authentication" component={Authentication} />
