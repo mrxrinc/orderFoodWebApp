@@ -76,7 +76,9 @@ class StickyPrice extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.changeBasket(true)
+    if(this.props.links !== "cart") {
+      this.changeBasket(true)
+    }
   }
 
 
@@ -149,6 +151,7 @@ class StickyPrice extends React.PureComponent {
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  this.totalPrice().amountToPay == 0 ? false : true,
       "orderDeliveryType":  basket.deliveryType,
+      "orderDescription":'',
       "orderId":  basket.id,
       "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
@@ -256,14 +259,14 @@ class StickyPrice extends React.PureComponent {
         }
 
         <div className="StickyPrice__price">
-          <div className="StickyPrice__price-rbox">
+          <div className="StickyPrice__price-rbox" onClick={this.toggle} >
             <button type="button">
               <span className="basket-counter">{totalCount}</span>
               <span className="text-price">{
                 this.totalPrice().amountToPay == 0 ? 'رایگان': this.totalPrice().amountToPay + ' تومان'
                 }
               </span>
-              {this.props.showGetway && <span className="text-limit">{(basket.minPriceSendLimit > this.totalPrice().amountToPay) && ' (حداقل سفارش:  '+basket.minPriceSendLimit + ' تومان)'}</span>}
+              {this.props.showGetway && <span className="text-limit">{(basket.minPriceSendLimit > totalPrice) && ' (حداقل سفارش:  '+basket.minPriceSendLimit + ' تومان)'}</span>}
             </button>
           </div>
           <div className="StickyPrice__price-lbox">
