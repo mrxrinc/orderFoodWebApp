@@ -8,6 +8,7 @@ import NavigationBar from '../../components/NavigationBar';
 /* eslint-disable react/prefer-stateless-function */
 export default class ForgotPassword extends React.Component {
   render() {    
+
     return (
       <React.Fragment>        
         <ChiliRainbow title="بازیابی رمزعبور">
@@ -24,7 +25,7 @@ export default class ForgotPassword extends React.Component {
           <p className="forgot forgot__content midText text-center">
             جهت بازیابی رمز عبور ، ایمیل یا شماره موبایل خود را وارد نمایید:
           </p>
-          <form onSubmit={this.onHandleLogin} className="forgot__form">
+          <form className="forgot__form">
             <AnimateField
               className="col-12"
               placeholder=" "
@@ -35,8 +36,8 @@ export default class ForgotPassword extends React.Component {
               icon="chilivery-forget-pass-2"
             />
             <div className="forgot forgot__btn">
-              <button className="btn btn-success">ارسال</button>
-              <button className="btn btn-white">انصراف</button>
+              <button className="btn btn-success" onClick="onSubmit">ارسال</button>
+              <button className="btn btn-white" onClick>انصراف</button>
             </div>
           </form>
         </ChiliRainbow>

@@ -8,6 +8,7 @@ import {
   UPDATE_USER_INFO,
   USER_BALANCE,
   USER_GIFT_BALANCE,
+  EDIT_ORGANIZATION,
 } from '../constants/actionAuthTypes';
 
 const user = (state = {}, action) => {
@@ -17,10 +18,11 @@ const user = (state = {}, action) => {
 
     case VERIFY_USER_INFO:
       return Object.assign({}, state, action.payload);
-
+s
     case MAKE_USER_VERIFY:
       return { ...state, mobileIsVerified: true };
-
+    case EDIT_ORGANIZATION:
+      return { ...state, organization: action.payload };
     case UPDATE_USER_INFO:
       return Object.assign({}, state, action.payload);
 
