@@ -133,20 +133,22 @@ class MyAddress extends React.PureComponent {
         className={`item item-${item.id} ${this.props.type === "cart"? (!item.deliveryZoneId?"address-disable":""):""}`}
       >
         <div className="MyAddress overhide">
-          <div className="MyAddress-radio">
-            <input
-              type="radio"
-              className="radio-input"
-              name="signUpGender"
-              checked={this.state.addressId == item.id}
-              onChange={this.handleOptionChange}
-              // onKeyPress={this.handleKeyPressUpdate}
-              value={item.id}
-              organid={item.organizationAddressId}
-              deliveryprice={item.deliveryZonePrice}
-              deliveryzoneid={item.deliveryZoneId}
-            />
-          </div>
+          {!item.description ?
+            <div className="MyAddress-radio">
+              <input
+                type="radio"
+                className="radio-input"
+                name="signUpGender"
+                checked={this.state.addressId == item.id}
+                onChange={this.handleOptionChange}
+                // onKeyPress={this.handleKeyPressUpdate}
+                value={item.id}
+                organid={item.organizationAddressId}
+                deliveryprice={item.deliveryZonePrice}
+                deliveryzoneid={item.deliveryZoneId}
+              />
+            </div>:null
+          }
           <div className="MyAddress__details relative">
             <div className="MyAddress__details-action">
               <Link to={`/profile/edit-address/${item.id}`}>
@@ -157,9 +159,9 @@ class MyAddress extends React.PureComponent {
                 style={{float:"left"}}
                 onClick={() => this.alertExpToggle(item.id)}
               >
-                <span className="chilivery-delete text20"> </span>
+              {!item.organizationAddressId ? <span className="chilivery-delete text20"> </span>: "" }
               </span>
-              <label className={`pull-right ${item.organizationAddressId?"dangerBg":""}`}>{item.name}</label>
+              <label className={`pull-right ${item.organizationAddressId?"orgBg":""}`}>{item.name}</label>
             </div>
             <div className="clearfix"></div>
             <div className="MyAddress__details-address">

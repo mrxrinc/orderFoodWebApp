@@ -18,7 +18,7 @@ export const get_region_by_slug = (slug) => `${API_URL_ROOT}/region/bySlug?regio
 export const get_find_Neighborhood = (location) => `${API_URL_ROOT}/userAddress/findNeighborhood?region_center=${location}`
 
 //RESTAURANT
-export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}&point=${point}${tag?tag:''}`;
+export const restaurant_search= (cityId,point,tag) => `${API_URL_ROOT}/restaurant/search?cityId=${cityId}${point?'&point='+point:''}${tag?tag:''}`;
 export const restaurant_search_chian= (slug,tag) => `${API_URL_ROOT}/restaurant/search?chainSlug=${slug}${tag?tag:''}`;
 export const restaurant_detail= id => `${API_URL_ROOT}/restaurant/detail?restaurantId=${id}`;
 export const restaurant_detail_by_slug= (citySlug,restaurantSlug) => `${API_URL_ROOT}/restaurant/detail?city=${citySlug}&restaurantSlug=${restaurantSlug}`;
@@ -30,6 +30,7 @@ export const restaurant_list_tag= () => `${API_URL_ROOT}/tag/restaurantListTag`;
 export const add_new_address_post = () => `${API_URL_ROOT}/userAddress/saveAddress`;
 export const user_address_list = id => `${API_URL_ROOT}/userAddress?restaurantId=${id}`;
 export const user_update_address_post = () => `${API_URL_ROOT}/userAddress/updateAddress`;
+export const user_org_update_address_post = () => `${API_URL_ROOT}/UserOrganizationAddress/updateAddress`;
 export const user_delete_address_post = () => `${API_URL_ROOT}/userAddress/deleteAddress`;
 
 // comment

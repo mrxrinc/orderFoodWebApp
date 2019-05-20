@@ -11,6 +11,7 @@ import { addNeighborhood } from '../../actions/UserPosition';
 
 import { getCityList } from '../../api/application/region';
 import { getRegionByCity, getRegionBySlug } from '../../api/application/region';
+import {userAddressList} from '../../api/application/userAddress';
 
 const KEYS_TO_FILTERS = ['name'];
 const KEYS_TO_FILTERS_DIS = ['name'];
@@ -43,35 +44,8 @@ class UserPosition extends React.Component {
       cityList: this.props.data,
       mapCenter: {},
       map: true,
-
-      districtList: [
-        {
-          name: 'وزرا',
-          id: '1',
-          tag: 'خانه',
-        },
-        {
-          name: '22 بهمن',
-          id: '2',
-          tag: 'محل کار'
-        },
-        { name: 'آرژانتین', id: '3' },
-        { name: 'خیابان سوم', id: '4' },
-      ],
-      districtListOther: [
-        {
-          name: 'وزرا',
-          id: '11',
-          tag: 'خانه',
-        },
-        {
-          name: '22 بهمن',
-          id: '12',
-          tag: 'محل کار'
-        },
-        { name: 'آرژانتین', id: '13' },
-        { name: 'خیابان سوم', id: '14' },
-      ],
+      districtList: [],
+      districtListOther: [],
     };
   }
 
@@ -84,6 +58,12 @@ class UserPosition extends React.Component {
       }
     )
   }
+
+  UserPositionModal = () => {
+    this.props.showModal({
+      UserPositionModal: false,
+    });
+  };
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -196,6 +176,27 @@ class UserPosition extends React.Component {
       )
     });
   };
+  
+  handleChangeMyAddress = (event) => {
+    let filterAddress = [...this.state.fullAddress];
+    filterAddress = filterAddress.filter( address => address.id == event.target.value );
+    const obj = {
+      neighborhood:{
+        cityName: filterAddress[0].cityName,
+        id: filterAddress[0].id,
+        name: filterAddress[0].neighborhoodName,
+        cityId:filterAddress[0].cityId,
+        slug:filterAddress[0].citySlug,
+        mapCenter:{
+          lat:filterAddress[0].mapCenter.lat,
+          lon:filterAddress[0].mapCenter.lon
+        },
+      }
+    }
+    this.props.addNeighborhood(obj);
+    this.UserPositionModal();
+    history.push(`/restaurants/${filterAddress[0].citySlug}/${filterAddress[0].neighborhoodSlug}`)
+  };
 
   fetchRegionByCity = ()=>{
     getRegionByCity(this.state.cityId).then(
@@ -207,6 +208,10 @@ class UserPosition extends React.Component {
     )
   }
 
+  allRestaurans = (slug) => {
+    this.UserPositionModal();
+    history.push('/restaurants/'+slug)
+  }
 
 
   componentDidMount(){
@@ -217,6 +222,23 @@ class UserPosition extends React.Component {
     },()=> {
       this.getRegionByCityId(this.state.cityId)
     })
+
+    if (typeof this.props.user.id !== "undefined") {
+      userAddressList("").then(
+        response => {
+          this.setState({
+            userAddressList:response.result,
+          },()=>{
+            if(typeof this.state.userAddressList !== 'undefined'){
+              this.setState({
+                fullAddress: this.state.userAddressList.userOrganizationAddress.concat(this.state.userAddressList.addresses),
+                AddressShow:true,
+              })
+            }
+          })
+        }
+      )
+    }
   }
 
 
@@ -319,56 +341,68 @@ class UserPosition extends React.Component {
                 placeholder="جستجو ..."
               />
             </div>
-            {/* <div className="location__user-position-mydis">
-              <div className="location__user-position-wrapper flex rightP15 leftP15 topP10 bottomP10">
-                <span className="location__user-position-title flex center">
-                  <i className="icon chilivery-my-address text22" />
-                  <span className="text16 rightM5">آدرس های من</span>
-                </span>
-              </div>
+            
+            { this.state.AddressShow && this.props.type === "home" ?
+              <div className="location__user-position-mydis">
+                <div className="location__user-position-wrapper flex rightP15 leftP15 topP10 bottomP10">
+                  <span className="location__user-position-title flex center">
+                    <i className="icon chilivery-my-address text22" />
+                    <span className="text16 rightM5">آدرس های من</span>
+                  </span>
+                </div>
 
-              <div className="location__user-position-wrapper">
-                {districtList.map(city => {
-                  return (
-                    <div key={city.id} className="center">
-                      <label className="radio-wrapper bottomM center">
-                        <div className="label-parent">
-                          <input
-                            type="radio"
-                            className="radio-input"
-                            // name="cityId"
-                            checked={this.state.disSlug == city.slug}
-                            onChange={this.handleChangeDis}
-                            value={city.id}
-                          />
-                          <div className="radio-face" />
-                        </div>
-                        <span className="location__user-position-search-wrapper">
-                          {!!city.tag &&
-                            <span className="location__user-position-search-tag btn leftM10 white">
-                              {city.tag}
+                <div className="location__user-position-wrapper">
+                  {this.state.fullAddress.map(address => {
+                    return (
+                      <div key={address.id} className="center">
+                        <label className="radio-wrapper bottomM center">
+                          <div className="label-parent">
+                            <input
+                              type="radio"
+                              className="radio-input"
+                              // name="addressId"
+                              checked={this.state.disSlug == address.slug}
+                              onChange={this.handleChangeMyAddress}
+                              value={address.id}
+                            />
+                            <div className="radio-face" />
+                          </div>
+                          <span className="location__user-position-search-wrapper">
+                            {!!address.name &&
+                              <span className="location__user-position-search-tag btn leftM10 white">
+                                {address.name}
+                              </span>
+                            }
+                            <span className="location__user-position-search-name">
+                              {address.neighborhoodName}
                             </span>
-                          }
-                          <span className="location__user-position-search-name">
-                            {city.name}
                           </span>
-                        </span>
-                      </label>
-                    </div>
-                  )
-                })
-                }
-              </div>
+                        </label>
+                      </div>
+                    )
+                  })
+                  }
+                </div>
 
-            </div> */}
-
+              </div>:null
+            }
             <div className="location__user-position-otherdis">
               <div className="location__user-position-wrapper flex rightP15 leftP15 topP40 bottomP10">
                 <span className="location__user-position-title flex center">
                   <i className="icon chilivery-group-pins text22" />
                   <span className="text16 rightM5">سایر محله‌ها</span>
                 </span>
-                {/* <Link to="" color="success" className="btn btn-success rightMauto flex">همه رستوران‌های شهر تهران</Link> */}
+
+                {this.props.type === "home" ?
+                  <span 
+                    onClick={(x)=>this.allRestaurans(
+                      this.props.mapPosition['neighborhood'].citySlug?this.props.mapPosition['neighborhood'].citySlug:this.props.mapPosition['neighborhood'].slug
+                    )}
+                    color="success"
+                    className="btn btn-success rightMauto flex">تمام رستوران‌ها
+                  </span>:null
+                }
+
               </div>
               <div className="location__user-position-wrapper">
                 {filteredDistrict.length == 0 ?
@@ -425,7 +459,8 @@ const mapStateToProps = state => ({
   mapPosition:{
     neighborhood: state.UserPosition.neighborhood,
     neighborhoodProfile: state.UserPosition.neighborhoodProfile,
-  }
+  },
+  user: state.auth
 });
 const mapDispatchToProps = dispatch => ({
   showModal: (showStatus) => {

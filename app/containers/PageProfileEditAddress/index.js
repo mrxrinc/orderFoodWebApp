@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {userUpdateAddressPost} from '../../api/application/userAddress';
+import {userUpdateAddressPost,userOrgUpdateAddressPost} from '../../api/application/userAddress';
 import { AnimateField } from '../../components/ChiliForm';
 import { connect } from 'react-redux';
 import { showModal } from '../../actions/Modals';
@@ -36,6 +36,7 @@ class ProfileEditAddress extends React.Component {
 			id: this.props.match.params.id,
 			userAddressList:[],
 			organizationAddress:[],
+			organizationAddressId:'',
 			description:'',
 			organization: false
 		}
@@ -74,41 +75,72 @@ class ProfileEditAddress extends React.Component {
 
 	onSubmit = () => {
 		let addressData = this.props.UserPosition;
-		userUpdateAddressPost({
-			"id":								this.state.id,
-			"cityId":						addressData.cityId,
-			"neighborhoodId":		addressData.id,
-			"name":  						this.state.addressLabel,
-			"complete":		   		this.state.regionComplete,
-			"description":	this.state.description,
-			"point":{
-				"latitude":				addressData.mapCenter.lat,
-				"longitude":			addressData.mapCenter.lon
-			},
-		}).then(
-			response => {
-				if(response.status){
+		if(this.state.organizationAddressId){
+			userOrgUpdateAddressPost({
+				"id":								this.state.id,
+				"organ_address_id": this.state.organizationAddressId,
+				"description":			this.state.description,
+			}).then(
+				response => {
+					if(response.status){
+						this.props.showAlert({
+							text: response.message_fa,
+							color: "success",
+						});
+						window.history.back();
+					}else{
+						this.props.showAlert({
+							text: response.message_fa,
+							color: "danger",
+						});
+					}
+				}
+			).catch(
+				error => {
 					this.props.showAlert({
-						text: response.message_fa,
+						text: error.message_fa,
 						color: "success",
 					});
-					window.history.back();
-				}else{
-					this.props.showAlert({
-						text: response.message_fa,
-						color: "danger",
-					});
+				
 				}
-			}
-		).catch(
-			error => {
-				this.props.showAlert({
-					text: error.message_fa,
-					color: "success",
-				});
-			
-			}
-		)
+			)
+		}else{
+			userUpdateAddressPost({
+				"id":								this.state.id,
+				"cityId":						addressData.cityId,
+				"neighborhoodId":		addressData.id,
+				"name":  						this.state.addressLabel,
+				"complete":		   		this.state.regionComplete,
+				"point":{
+					"latitude":				addressData.mapCenter.lat,
+					"longitude":			addressData.mapCenter.lon
+				},
+			}).then(
+				response => {
+					if(response.status){
+						this.props.showAlert({
+							text: response.message_fa,
+							color: "success",
+						});
+						window.history.back();
+					}else{
+						this.props.showAlert({
+							text: response.message_fa,
+							color: "danger",
+						});
+					}
+				}
+			).catch(
+				error => {
+					this.props.showAlert({
+						text: error.message_fa,
+						color: "success",
+					});
+				
+				}
+			)
+		}
+
 	}
 
 	componentDidMount() {
@@ -129,8 +161,9 @@ class ProfileEditAddress extends React.Component {
 					this.setState({
 						regionComplete: filterAddress[0].complete || filterAddress[0].organAddressComplete,
 						organization: filterAddress[0].organAddressComplete ? true : false,
-						description: filterAddress[0].description || filterAddress[0].complete,
+						description: filterAddress[0].description || filterAddress[0].userDescription,
 						addressLabel: filterAddress[0].name,
+						organizationAddressId:filterAddress[0].organizationAddressId,
 						userLocation: {
 								lat: filterAddress[0].mapCenter.lat,
 								lng: filterAddress[0].mapCenter.lon,

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { closeModal } from '../../actions/Modals';
-// import PanigaleNotification from 'components/PanigaleNotification';
 
 class ChiliModal extends Component {
   constructor(props) {
