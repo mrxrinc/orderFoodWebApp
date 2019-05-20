@@ -7,7 +7,9 @@ import {
     UserVerifyPass,
     UserUpdate,
     UserIsVerifyUser,
-    updateUserBalance
+    updateUserBalance,
+    watchUserLogin,
+    watchUserSignup
 } from './Auth';
 
 import {
@@ -20,8 +22,8 @@ export default function* rootSaga(getState) {
         //authSagas(),
         // checkExistTokenInfo(),
         UserIsVerifyUser(),
-        UserLogin(),
-        UserSignUP(),
+        watchUserLogin(),
+        watchUserSignup(),
         UserForGot(),
         UserVerify(),
         UserVerifyPass(),

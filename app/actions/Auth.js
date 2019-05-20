@@ -1,8 +1,4 @@
-// import {
-//     loginPost,signUpPost
-// } from "../api/account";
 import {
-  // USER_AUTH_CHECK,
   SIGNIN_USER,
   SIGNUP_USER,
   SIGNOUT_USER,
@@ -18,7 +14,8 @@ import {
   USER_GIFT_BALANCE,
   FORGOT_USER,
   UPDATE_USER_BALANCE,
-  SIGNUP_USER_RESPONSE
+  MAKE_USER_VERIFY,
+  SIGNUP_USER_RESPONSE,
 } from '../constants/actionAuthTypes';
 
 export const getUser = user => ({
@@ -80,6 +77,11 @@ export const forGotUser = user => ({
 export const getUserInfo = user => ({
   type: SIGNIN_USER_INFO,
   payload: user,
+});
+
+export const makeUserVerify = () => ({
+  type: MAKE_USER_VERIFY,
+  payload: {},
 });
 
 export const getUserUpdateInfo = user => ({
