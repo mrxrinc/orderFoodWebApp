@@ -33,7 +33,7 @@
     border-left: 1px solid #EEEEEE;
     display: table-cell;
     vertical-align: middle;
-    padding: 0 10px 0 8px;
+    padding: 10px 10px 0 8px;
     text-align: center;
   }
   &__details {
@@ -111,7 +111,7 @@
       top: 2px;
       &:after{
         content:"خارج از محدوده"
-  
+
       }
     }
   }

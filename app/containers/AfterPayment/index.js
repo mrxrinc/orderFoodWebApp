@@ -30,13 +30,27 @@ export class AfterPayment extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data:{}
+      data:{},
+      userPaid:0
     };
   }
 
 
   componentDidMount() {
     this.dataAfterPayment();
+  }
+
+  calcTotalFunction = () => {
+    const {data} = this.state;
+    if (data.campaign.amount) {
+       this.setState({
+         userPaid: data.amount.total - data.campaign.amount
+       })
+    } else {
+      this.setState({
+        userPaid: data.amount.total
+      })
+    }
   }
 
   dataAfterPayment = () => {
@@ -46,11 +60,11 @@ export class AfterPayment extends React.PureComponent {
       this.props.resetBasket();
       this.setState({
         data:response.result
-      })
+      }, () => this.calcTotalFunction())
     });
   };
   render() {
-    const {data} = this.state;
+    const {data,userPaid} = this.state;
     const {basket} = this.props;
     // Renderer callback with condition
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -104,7 +118,7 @@ export class AfterPayment extends React.PureComponent {
                 isMarkerShown
                 restaurantPoint={data.restaurant.point}
                 userPoint={data.user.point}
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG04u0uupV9fgz0kQhfrQM8BUx1NWMf0&v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
@@ -174,23 +188,30 @@ export class AfterPayment extends React.PureComponent {
               <span>هزینه ارسال</span>
               <span className="pull-left">{data.amount && data.amount.carry} تومان</span>
             </li>
+            {/*<li className="gift">*/}
+              {/*<span>کد تخفیف</span>*/}
+              {/*<span className="pull-left">{data.campaign && data.campaign.amount} تومان</span>*/}
+            {/*</li>*/}
           </ul>
-          {/*<ul>*/}
-            {/*<li>*/}
-              {/*<span className="total">مجموعه سفارش</span>*/}
-              {/*<span className="pull-left total">۱۲۷/۰۰۰ تومان</span>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-              {/*<span className="discount-code">کد تخفیف*/}
-                {/*<span className="discount-code"> (chilivery100)</span>*/}
-              {/*</span>*/}
-              {/*<span className="pull-left discount-code">۵/۰۰۰ تومان-</span>*/}
-            {/*</li>*/}
-          {/*</ul>*/}
+          {data.campaign && data.campaign.amount > 0 &&
+            <ul>
+              <li>
+                <span className="total">مجموعه سفارش</span>
+                <span className="pull-left total">{data.amount && data.amount.total} تومان</span>
+              </li>
+              <li>
+                <span className="discount-code">کد تخفیف
+                  <span className="discount-code"> ({data.campaign && data.campaign.code})</span>
+                </span>
+                <span className="pull-left discount-code"> {data.campaign && data.campaign.amount} تومان </span>
+              </li>
+            </ul>
+          }
+
           <ul>
             <li>
               <span className="bold total">قابل پرداخت</span>
-              <span className="pull-left bold total">{data.amount && data.amount.total} تومان</span>
+              <span className="pull-left bold total">{userPaid} تومان</span>
             </li>
           </ul>
         </div>

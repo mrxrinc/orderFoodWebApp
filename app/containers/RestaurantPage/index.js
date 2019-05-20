@@ -32,9 +32,8 @@ import TabTwo from './components/TabTwo';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
 import $ from 'jquery';
-import { object } from 'prop-types';
 import icon from '../../images/icons/no_address.png'
-
+import { Link} from 'react-scroll'
 
 class RestaurantPage extends React.Component {
   constructor(props) {
@@ -192,11 +191,6 @@ class RestaurantPage extends React.Component {
     });
   };
 
-  scrollPointer = cat => {
-    console.log('CAT', `cat-${cat.id}`);
-    this.setState({ activeSticky: `cat-${cat.id}` });
-  }
-
   render() {
     const data = this.state.restaurant;
     $(document).ready(function () {
@@ -245,16 +239,14 @@ class RestaurantPage extends React.Component {
                         <div id="owl" className="owl-carousel owl-theme zIndex0 hInherit">
                           {Object.values(data.menuSections).map(cat => (
                             <div key={cat.id} className="hInherit">
-                              <div
-                                className={`stickyMenu-item center hP20 text14
-                                  ${this.state.activeSticky === `cat-${cat.id}` && ' stickyMenu-item_active'}`
-                                }
-                                onClick={() => this.scrollPointer(cat)}
-                              >
-                                <a href={`#cat-${cat.id}`}>
-                                  {cat.name}
-                                </a>
-                              </div>
+                                <Link activeClass="active" className={`cat-${cat.id}`} to={`cat-${cat.id}`} spy={true} smooth={true} duration={500} offset={-110}>
+                                  <div
+                                    className="stickyMenu-item center hP20 text14"
+                                  >
+                                    {cat.name}
+                                  </div>
+                                </Link>
+
                             </div>
                           ))}
                         </div>
