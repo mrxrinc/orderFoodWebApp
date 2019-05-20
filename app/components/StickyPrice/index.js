@@ -6,7 +6,7 @@ import toggleUp from "../../images/closed.png"
 import toggleDown from "../../images/opened.png"
 import { connect } from 'react-redux';
 import { payOrderPost } from '../../api/account';
-import { putChangeBasket } from '../../actions/Basket';
+import { descriptionChanged, putChangeBasket } from '../../actions/Basket';
 import { addToast } from '../../actions/Notifications';
 
 class StickyPrice extends React.PureComponent {
@@ -151,7 +151,7 @@ class StickyPrice extends React.PureComponent {
       "deliveryZoneId":  basket.deliveryZoneId ? basket.deliveryZoneId:null,
       "gateway":  this.totalPrice().amountToPay == 0 ? false : true,
       "orderDeliveryType":  basket.deliveryType,
-      "orderDescription":'',
+      "orderDescription":basket.orderDescription ? basket.orderDescription:null,
       "orderId":  basket.id,
       "payAmount":  this.totalPrice().amountToPay,
       "addressId":  basket.addressId,
@@ -183,6 +183,7 @@ class StickyPrice extends React.PureComponent {
     }
     if (links === "checkout") {
       this.changeBasket();
+      this.props.descriptionChanged({orderDescription:this.props.description})
       // history.push("/checkout");
     }
     if (links === "bank") {
@@ -290,6 +291,9 @@ const mapDispatchToProps = dispatch => {
   return {
     changeBasketData: data => {
       dispatch(putChangeBasket(data));
+    },
+    descriptionChanged: value => {
+      dispatch(descriptionChanged(value));
     },
     showAlert: (showStatus) => {
       dispatch(addToast(showStatus));
