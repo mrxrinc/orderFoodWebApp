@@ -6,7 +6,7 @@ import './style.scss';
 const scrollValue = 200;
 
 const goBack = () => {
-  history.goBack()
+  window.history.back()
 }
 const hasBackground = props => {
   if(props.background) return 'hasBackground';

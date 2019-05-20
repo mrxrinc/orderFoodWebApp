@@ -5,6 +5,10 @@ export const restaurantSearch = (cityId, point, tag) => {
   return deRequest(app.restaurant_search(cityId, point, tag), 'GET');
 }
 
+export const restaurantSearchChain = (slug,tag) => {
+  return deRequest(app.restaurant_search_chian(slug,tag), 'GET');
+}
+
 export const restaurantDetail = id => deRequest(app.restaurant_detail(id), 'GET');
 
 export const restaurantDetailBySlug = (citySlug,restaurantSlug) => deRequest(app.restaurant_detail_by_slug(citySlug,restaurantSlug), 'GET');
